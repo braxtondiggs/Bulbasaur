@@ -1,0 +1,25 @@
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - javascript
+      - scss
+  eslint:
+    enabled: true
+  fixme:
+    enabled: true
+  scss-lint:
+    enabled: true
+ratings:
+  paths:
+  - "**.js"
+  - "**.scss"
+exclude_paths:
+- dist/
+- "README.md"
+- "Procfile"
+- "Gruntfile.js"
+- "app/robots.txt"
+- "app/images/"
+- "app/styles/fonts/"

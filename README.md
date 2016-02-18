@@ -1,5 +1,7 @@
 # Bulbasaur ![Bulbasaur](http://sprites.pokecheck.org/i/001.gif)
 
+[![Code Climate](https://codeclimate.com/github/braxtondiggs/Bulbasaur/badges/gpa.svg)](https://codeclimate.com/github/braxtondiggs/Bulbasaur)
+
 This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
 version 0.12.0.
 
