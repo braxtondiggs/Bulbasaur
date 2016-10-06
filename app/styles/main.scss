@@ -4,6 +4,7 @@ $icon-font-path: '../bower_components/bootstrap-sass-official/assets/fonts/boots
 // endbower
 
 @charset 'utf-8';
+@import 'linearicons.scss';
 @font-face {
     font-family:'BandaRegular';
     src:url('fonts/regular.eot?') format('eot'),
@@ -20,6 +21,16 @@ $icon-font-path: '../bower_components/bootstrap-sass-official/assets/fonts/boots
     url('fonts/elephnt-webfont.woff') format('woff'),
     url('fonts/elephnt-webfont.ttf') format('truetype'),
     url('fonts/elephnt-webfont.svg#elephantregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Linearicons';
+    src: url('fonts/Linearicons.eot');
+    src: url('fonts/Linearicons.eot?#iefix') format('embedded-opentype'),
+    url('fonts/Linearicons.woff') format('woff'),
+    url('fonts/Linearicons.ttf') format('truetype'),
+    url('fonts/Linearicons.svg#Linearicons') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -125,7 +136,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     background-position: center;
     background-size: cover;
     width: 100%;
-    height: 100%
+    height: 100%;
     display: inline-block;
     padding-bottom: 10%;
 }

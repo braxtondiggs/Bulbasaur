@@ -1,0 +1,109 @@
+{
+  "employment": [{
+    "company": "Mobomo",
+    "position": "Front-End Developer",
+    "location": "Washington, D.C.",
+    "image": {
+      "icon": "mobomo.png",
+      "margin": "8px 0 0 9px"
+    },
+    "date": {
+      "start": "2015-11-1"
+    }
+  }, {
+    "company": "Tahzoo",
+    "position": "Front-End Developer",
+    "location": "Washington, D.C.",
+    "image": {
+      "icon": "tahzoo.png",
+      "margin": "31px 0 0 9px"
+    },
+    "date": {
+      "start": "2014-09-01",
+      "end": "2015-11-01"
+    }
+  }, {
+    "company": "Tahzoo",
+    "position": "Senior Web Developer",
+    "location": "Washington, D.C.",
+    "image": {
+      "icon": "tahzoo.png",
+      "margin": "31px 0 0 9px"
+    },
+    "date": {
+      "start": "2014-09-01",
+      "end": "2015-11-01"
+    }
+  }, {
+    "company": "PasteGroup LLC",
+    "position": "Senior Web Developer",
+    "location": "Washington, D.C.",
+    "image": {
+      "icon": "paste_group.png",
+      "margin": "31px 0 0 9px"
+    },
+    "date": {
+      "start": "2013-06-01",
+      "end": "2014-09-01"
+    }
+  }, {
+    "company": "Navigation Arts",
+    "position": "CQ5 Developer",
+    "location": "McLean, VA",
+    "image": {
+      "icon": "navigation_arts.png",
+      "margin": "37px 0 0 15px"
+    },
+    "date": {
+      "start": "2010-07-01",
+      "end": "2013-07-01"
+    }
+  }, {
+    "company": "GDI",
+    "position": "PHP Developer",
+    "location": "Baltimore, MD",
+    "image": {
+      "icon": "GDI.png",
+      "margin": "40px 0 0 11px"
+    },
+    "date": {
+      "start": "2009-02-01",
+      "end": "2010-02-01"
+    }
+  }, {
+    "company": "Liberty Tax Service",
+    "position": ".NET Developer",
+    "location": "Virginia Beach, VA",
+    "image": {
+      "icon": "liberty_tax_service.png",
+      "margin": "33px 0 0 14px"
+    },
+    "date": {
+      "start": "2008-05-01",
+      "end": "2010-05-01"
+    }
+  }],
+  "projects": [{
+    "title": "Alma: Music Video Jukebox",
+    "image": {
+      "icon": "alma.png",
+      "style": ""
+    },
+    "description": ["With the Alma app you can watch music videos, search for music based on your unique taste, and discover new emerging artists on your iOS/Android device for free. Access a vast catalogue of new undiscovered artists from around the world in a beautiful video app."],
+    "url": {
+      "web": "http://www.alma.life/",
+      "android": "https://play.google.com/store/apps/details?id=com.cymbit.Almaapp"
+    }
+  }, {
+    "title": "RedditTV (Native Android)",
+    "image": {
+      "icon": "reddittv.png",
+      "style": ""
+    },
+    "description": [">RedditTV puts the videos of Reddit at your fingertips - turn any subreddit into your personal channel and watch new content submitted as it gets upvoted. RedditTV is your source of original, stress-free videos from any subreddit. User-curated videos streamed back-to-back in an app that puts /r/videos to shame.", "Everyone hates endlessly clicking on links to get to the videos they want to watch. That’s why we created RedditTV - turning any subreddit into a back-to-back TV channel, streamed directly to your mobile device.", "Turn a subreddit into a TV channel with a tap - then, any video hosted on Vimeo or YouTube can be played from your fingertips. Swipe left or right to skip a video, and say goodbye to repeated trash TV with the power of Reddit."],
+    "url": {
+      "web": "http://www.watchreddit.tv/",
+      "android": "https://play.google.com/store/apps/details?id=com.cymbit.RedditTV"
+    }
+  }]
+}

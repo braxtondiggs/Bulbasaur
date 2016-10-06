@@ -26,47 +26,17 @@
             <ul class="timeline">
                 <li>
                     <ul>
-                    <li class="timeline-item highlight">
-                            <span class="exp-logo-holder"><img alt="" class="timeline-item-photo img-bg-primary" src="images/logos/mobomo.png" style="margin:8px 0 0 9px"></span>
-                            <h4 class="timeline-item-date">Front-End Developer</h4>
-                            <h5 class="timeline-item-role">Mobomo (Washington, D.C.)</h5>
-                            <h6>November 2015 <span class="grey"> &#8211; Present</span></h6>
-                        </li>
-                        <li class="timeline-item right">
-                            <span class="exp-logo-holder"><img alt="" class="timeline-item-photo img-bg-primary" src="images/logos/tahzoo.png" style="margin:31px 0 0 9px"></span>
-                            <h4 class="timeline-item-date">Front-End Developer</h4>
-                            <h5 class="timeline-item-role">Tahzoo (Washington, D.C.)</h5>
-                            <h6>September 2014 <span class="grey"> &#8211; November 2015 (1 Year)</span></h6>
-                        </li>
-                        <li class="timeline-item">
-                            <span class="exp-logo-holder"><img alt="" class="timeline-item-photo img-bg-primary" src="images/logos/paste_group.png" style="margin:31px 0 0 9px"></span>
-                            <h4 class="timeline-item-date">Senior Web Developer</h4>
-                            <h5 class="timeline-item-role">PasteGroup LLC (Washington, D.C.)</h5>
-                            <h6>June 2013 <span class="grey"> &#8211; September 2014 (1 Year)</span></h6>
-                        </li>
-                        <li class="timeline-item right">
-                            <span class="exp-logo-holder float-right"><img src="images/logos/navigation_arts.png" style="margin:37px 0 0 15px" alt=""></span>
-                            <h4 class="timeline-item-date">CQ5 Developer</h4>
-                            <h5 class="timeline-item-role">Navigation Arts (McLean, VA)</h5>
-                            <h6>July 2010 <span class="grey"> &#8211; July 2013 (3 Years)</span></h6>
-                        </li>
-                        <li class="timeline-item">
-                            <span class="exp-logo-holder"><img style="margin:40px 0 0 11px" alt="timeline photo" src="images/logos/GDI.png"></span>
-                            <h4 class="timeline-item-date">PHP Developer</h4>
-                            <h5 class="timeline-item-role">GDI (Baltimore, MD)</h5>
-                            <h6>February 2009<span class="grey"> &#8211; February 2010 (1 Year)</span></h6>
-                        </li>
-                        <li class="timeline-item right">
-                            <span class="exp-logo-holder float-right"><img style="margin:33px 0 0 14px" alt="timeline photo" class="timeline-item-photo" src="images/logos/liberty_tax_service.png"></span>
-                            <h4 class="timeline-item-date">.NET Developer</h4>
-                            <h5 class="timeline-item-role">Liberty Tax Service (Virginia Beach, VA)</h5>
-                            <h6>May 2008<span class="grey"> &#8211; May 2010 (2 Years)</span></h6>
-                        </li>
+                      <li class="timeline-item highlight" ng-class-even="'right'" ng-repeat="experience in experiences">
+                        <span class="exp-logo-holder"><img alt="{{experience.company}}" class="timeline-item-photo img-bg-primary" ng-src="images/logos/{{experience.image.icon}}" ng-style="{'margin': experience.image.margin}"></span>
+                        <h4 class="timeline-item-date">{{experience.position}}</h4>
+                        <h5 class="timeline-item-role">{{experience.company}} ({{experience.location}})</h5>
+                        <h6>{{experience.date.start | amUtc| amDateFormat:'MMMM YYYY'}} <span class="grey"> &#8211; <span ng-if="!experience.date.end">Present</span><span ng-if="experience.date.end">{{experience.date.end | amUtc| amDateFormat:'MMMM YYYY'}} ({{experience.date.end | amDifference : experience.date.start : 'years'}} Years)</span></h6>
+                      </li>
                     </ul>
                 </li>
             </ul>
             <div align="center" class="download-cv">
-                <a class="btn btn-large btn-primary btn-square" href="/#/resume" target="_blank"><i class="icon-download-alt"></i> View Resume</a>
+                <a class="btn btn-large btn-primary btn-square" href="resume/braxton-diggs.pdf" target="_blank"><i class="icon-download-alt"></i>Download Resume</a>
             </div>
         </div>
     </section>
@@ -76,7 +46,21 @@
         <h1 class="works">Working Projects</h1>
         <!--Featured item-->
         <ul id="work-list">
-            <li id="list-item8" class="">
+          <li id="list-item8" ng-class-even="'right'" ng-repeat="project in projects">
+              <div class="col-md-5-custom">
+                  <a ng-href="{{project.url.web}}">
+                      <img src="images/projects/{{project.image.icon}}" alt="{{project.title}}" />
+                      <span class="click">Click To View</span>
+                  </a>
+              </div>
+              <div class="list-content col-md-7-custom">
+                  <h4>{{project.title}}</h4>
+                  <p ng-text-truncate="project.description" ng-tt-chars-threshold="40"></p>
+                  <a ng-href="{{project.url.android}}"><img style="width:200px;box-shadow: none;" src="images/appstore_button_google.png" /></a>
+                  <a ng-href="{{project.url.ios}}"><img style="width:200px;box-shadow: none;" src="images/Apple-Store-Button.png" /></a>
+              </div>
+          </li>
+            <!--<li id="list-item8" class="">
                 <div class="col-md-5-custom">
                     <a href="http://alma.life/">
                         <img src="images/projects/alma.png" alt="" />
@@ -116,8 +100,13 @@
                     <h4>My Maryland &#8211; <span class="red">(Retired)</span></h4>
                     <p>MyMaryland connects Maryland residents with their elected officials in democracy's first ongoing open forum. The site is built around Drupal. I developed the landing/coming soon page using HTML5, CSS3, jQuery and AJAX. The site isn't entirely complete yet, check back later for more updates.</p> <span class="work-date">Last Update: Sep 11, 2013</span>
                 </div>
-            </li>
+            </li>-->
         </ul>
+    </div>
+</section>
+<section class="scroll-section love" id="love">
+    <div class="container padding0">
+        <h1 class="works">Things I <span class="icon-heart"></span></h1>
     </div>
 </section>
 <section class="slide scroll-section work block" id="slide4" data-slide="4" data-stellar-background-ratio="0.5">
