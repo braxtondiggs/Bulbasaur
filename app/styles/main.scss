@@ -1,15 +1,15 @@
-$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
+$icon-font-path: '../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/';
 // bower:scss
-@import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+@import 'bootstrap-sass-official/assets/stylesheets/_bootstrap.scss';
 // endbower
 
-@charset "utf-8";
+@charset 'utf-8';
 @font-face {
-    font-family:"BandaRegular";
-    src:url("fonts/regular.eot?") format("eot"),
-  url("fonts/regular.woff") format("woff"),
-  url("fonts/regular.ttf") format("truetype"),
-  url("fonts/regular.svg#BandaRegular") format("svg");
+    font-family:'BandaRegular';
+    src:url('fonts/regular.eot?') format('eot'),
+    url('fonts/regular.woff') format('woff'),
+    url('fonts/regular.ttf') format('truetype'),
+    url('fonts/regular.svg#BandaRegular') format('svg');
     font-weight:normal;
     font-style:normal;
 }
@@ -17,9 +17,9 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     font-family: 'elephantregular';
     src: url('fonts/elephnt-webfont.eot');
     src: url('fonts/elephnt-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/elephnt-webfont.woff') format('woff'),
-         url('fonts/elephnt-webfont.ttf') format('truetype'),
-         url('fonts/elephnt-webfont.svg#elephantregular') format('svg');
+    url('fonts/elephnt-webfont.woff') format('woff'),
+    url('fonts/elephnt-webfont.ttf') format('truetype'),
+    url('fonts/elephnt-webfont.svg#elephantregular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -42,15 +42,14 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .navbar-inverse .navbar-toggle {
   &:hover,
   &:focus {
-    background-color: #1caedd;
+    background-color: rgba(#FFF, 0.8);
   }
   .icon-bar {
     background-color:#000;
   }
 }
 .braxton .navbar-inverse {
-    background-color: #FFF;
-    border-color: #FFF;
+    background-color: rgba(#FFF, 0.6);
     z-index: 105;
 }
 .braxton .navbar-nav {
@@ -93,6 +92,30 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-weight: normal;
     font-style: normal;
 }
+@media only screen and (max-width: 768px) {
+  .braxton  {
+    h2 {
+      font-size: 12px;
+    }
+    h3 {
+      margin: 0 auto;
+      width: 75%;
+    }
+  }
+  .timeline .timeline-item,
+  .timeline .timeline-item.right {
+    float: none;
+    width: auto;
+    position: initial;
+    right: initial;
+    left: initial;
+    margin: 10px 0;
+    &:before,
+    &:after {
+      display: none;
+    }
+  }
+}
 .margin0 {
     margin: 0 !important;
 }
@@ -102,7 +125,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     background-position: center;
     background-size: cover;
     width: 100%;
-    height: 100%;
+    height: 100%
     display: inline-block;
     padding-bottom: 10%;
 }
@@ -170,7 +193,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     -ms-transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
-    
+
 }
 h1.second {
     margin-top: 50px;
@@ -206,7 +229,7 @@ h1.second {
 }
 .timeline:before, .timeline:after {
     display: table;
-    content: "";
+    content: '';
     line-height: 0;
 }
 .timeline:after {
@@ -221,7 +244,7 @@ h1.second {
 }
 .timeline ul:before, .timeline ul:after {
     display: table;
-    content: "";
+    content: '';
     line-height: 0;
 }
 .timeline-item-photo {
@@ -258,7 +281,7 @@ h1.second {
 }
 .timeline-item:before, .timeline-item:after {
     display: table;
-    content: "";
+    content: '';
     line-height: 0;
 }
 .timeline-item:after, .timeline-item:before {
@@ -343,7 +366,7 @@ h1.second {
     padding-bottom: 10px;
     min-height: 210px;
     margin: 0px;
-    background: transparent url("../images/case_studies_0032.jpg") no-repeat left center;
+    background: transparent url('../images/case_studies_0032.jpg') no-repeat left center;
 }*/
 #work-list {
     list-style: none;

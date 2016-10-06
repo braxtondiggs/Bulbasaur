@@ -1,4 +1,4 @@
-# Bulbasaur ![Bulbasaur](http://sprites.pokecheck.org/i/001.gif)
+# Bulbasaur ![Bulbasaur](cryptonym.png)
 
 [![Code Climate](https://codeclimate.com/github/braxtondiggs/Bulbasaur/badges/gpa.svg)](https://codeclimate.com/github/braxtondiggs/Bulbasaur)
 

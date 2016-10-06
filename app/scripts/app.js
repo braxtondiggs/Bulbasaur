@@ -16,6 +16,11 @@ angular
                 controller: 'MainCtrl',
                 controllerAs: 'main'
             })
+            .when('/resume', {
+                templateUrl: 'views/resume.html',
+                controller: 'ResumeCtrl',
+                controllerAs: 'resume'
+            })
             .otherwise({
                 redirectTo: '/'
             });
