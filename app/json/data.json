@@ -23,18 +23,6 @@
       "end": "2015-11-01"
     }
   }, {
-    "company": "Tahzoo",
-    "position": "Senior Web Developer",
-    "location": "Washington, D.C.",
-    "image": {
-      "icon": "tahzoo.png",
-      "margin": "31px 0 0 9px"
-    },
-    "date": {
-      "start": "2014-09-01",
-      "end": "2015-11-01"
-    }
-  }, {
     "company": "PasteGroup LLC",
     "position": "Senior Web Developer",
     "location": "Washington, D.C.",
@@ -156,5 +144,42 @@
       "web": "http://www.watchreddit.tv/",
       "android": "https://play.google.com/store/apps/details?id=com.cymbit.RedditTV"
     }
+  }],
+  "likes": [{
+    "icon": "coffee-cup",
+    "title": "Caffine"
+  }, {
+    "icon": "game",
+    "title": "Video Games"
+  }, {
+    "icon": "chef",
+    "title": "Cooking"
+  }, {
+    "icon": "rick",
+    "title": "Rick & Morty"
+  }, {
+    "icon": "headphones",
+    "title": "Music"
+  }, {
+    "icon": "glass-cocktail",
+    "title": "Prohibition-era Cocktails"
+  }, {
+    "icon": "camera",
+    "title": "Movies"
+  }, {
+    "icon": "pokemon",
+    "title": "Pokemon"
+  }, {
+    "icon": "football",
+    "title": "Football"
+  }, {
+    "icon": "bicycle2",
+    "title": "Retro Bikes"
+  }, {
+    "icon": "lamp",
+    "title": "Inspiring People"
+  }, {
+    "icon": "car",
+    "title": "Road Trips"
   }]
 }

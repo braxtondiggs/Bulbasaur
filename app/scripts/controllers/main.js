@@ -71,8 +71,87 @@ angular.module('bulbasaur').controller('MainCtrl', ['$scope', '$http', '$timeout
   $http.get('json/data.json').then(function(data) {
     $scope.experiences = data.data.employment;
     $scope.projects = data.data.projects;
+    $scope.likes = _.chunk(data.data.likes, 3);
     _.forEach($scope.projects, function(project, key) {
       $scope.projects[key].description_modified = _.join(project.description, '<br /><br />');
     });
   });
+  $scope.chart = {
+    xLabel: {
+      backend: ['', [
+          ['Yes,'],
+          ['I know']
+        ],
+        [
+          ['Promising'],
+          ['Maniac']
+        ],
+        [
+          ['Powerful'],
+          ['Insider']
+        ],
+        [
+          ['Inspiring'],
+          ['Teacher']
+        ],
+        [
+          ['Breath-taking'],
+          ['Visionary']
+        ]
+      ]
+    },
+    frontend: {
+
+    },
+    labels: {
+      backend: ['Android SDK', 'PHP', 'Java', 'Swift', '.NET', 'Rails'],
+      frontend: []
+    },
+    options: {
+      tooltips: {
+        enabled: false
+      },
+      responsive: true,
+      scales: {
+        xAxes: [{
+          position: 'top',
+          stacked: false,
+          gridLines: {
+            display: false
+          },
+          ticks: {
+            callback: function(value, index) {
+              return $scope.chart.xLabel[index];
+            },
+            max: 100,
+            min: 0,
+            stepSize: 20,
+            beginAtZero: false,
+            padding: -20,
+            fontFamily: 'BandaRegular',
+            fontColor: '#1caedd'
+          }
+        }],
+        yAxes: [{
+          gridLines: {
+            display: false
+          },
+          /*ticks: {
+            mirror: true
+          },*/
+          stacked: true,
+          categoryPercentage: 1.0,
+          barPercentage: 1.0,
+          fontFamily: 'BandaRegular'
+        }]
+      }
+    },
+    data: {
+      backend: [80, 60, 80, 20, 40, 20],
+      frontend: []
+    },
+    override: {
+      borderWidth: 0
+    }
+  };
 }]);

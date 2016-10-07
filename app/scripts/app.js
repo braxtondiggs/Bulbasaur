@@ -5,6 +5,7 @@ angular
     'ngAnimate',
     'ngMessages',
     'ngRoute',
+    'chart.js',
     'angularMoment',
     'ngTextTruncate'
   ])
