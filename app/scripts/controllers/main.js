@@ -71,5 +71,8 @@ angular.module('bulbasaur').controller('MainCtrl', ['$scope', '$http', '$timeout
   $http.get('json/data.json').then(function(data) {
     $scope.experiences = data.data.employment;
     $scope.projects = data.data.projects;
+    _.forEach($scope.projects, function(project, key) {
+      $scope.projects[key].description_modified = _.join(project.description, '<br /><br />');
+    });
   });
 }]);
