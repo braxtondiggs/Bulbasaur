@@ -4,7 +4,7 @@
     "position": "Front-End Developer",
     "location": "Washington, D.C.",
     "image": {
-      "icon": "mobomo.png",
+      "icon": "images/logos/mobomo.ed5c3af6.png",
       "margin": "8px 0 0 9px"
     },
     "date": {
@@ -15,7 +15,7 @@
     "position": "Front-End Developer",
     "location": "Washington, D.C.",
     "image": {
-      "icon": "tahzoo.png",
+      "icon": "images/logos/tahzoo.0939f3fa.png",
       "margin": "31px 0 0 9px"
     },
     "date": {
@@ -27,7 +27,7 @@
     "position": "Senior Web Developer",
     "location": "Washington, D.C.",
     "image": {
-      "icon": "paste_group.png",
+      "icon": "images/logos/paste_group.005dc7da.png",
       "margin": "31px 0 0 9px"
     },
     "date": {
@@ -39,7 +39,7 @@
     "position": "CQ5 Developer",
     "location": "McLean, VA",
     "image": {
-      "icon": "navigation_arts.png",
+      "icon": "images/logos/navigation_arts.d2b99e8f.png",
       "margin": "37px 0 0 15px"
     },
     "date": {
@@ -51,7 +51,7 @@
     "position": "PHP Developer",
     "location": "Baltimore, MD",
     "image": {
-      "icon": "GDI.png",
+      "icon": "images/logos/GDI.57986226.png",
       "margin": "40px 0 0 11px"
     },
     "date": {
@@ -63,7 +63,7 @@
     "position": ".NET Developer",
     "location": "Virginia Beach, VA",
     "image": {
-      "icon": "liberty_tax_service.png",
+      "icon": "limages/logos/iberty_tax_service.png",
       "margin": "33px 0 0 14px"
     },
     "date": {
@@ -75,7 +75,7 @@
     "status": true,
     "title": "Any SubReddit as an Atom Background",
     "image": {
-      "icon": "atom.png"
+      "icon": "images/projects/atom.732e6efc.png"
     },
     "description": ["Change your <a href='https://atom.io/'>Atom</a> background to display any picture from multiple subreddits from <a href='https://reddit.com/'>Reddit</a>.", "<h4>Features</h4>- Show popular images from a combination of different subreddits<br />- Background image automatically changes with a customizable refresh rate<br />- Customizable filter can be applied to the background image (Blur, Contrast, Greyscale)"],
     "url": {
@@ -85,7 +85,7 @@
     "status": true,
     "title": "Rap Magnets",
     "image": {
-      "icon": "rapmagnets.png"
+      "icon": "images/projects/rapmagnets.de1359a2.png"
     },
     "description": ["Interchangeable Rap-Inspired Refrigerator Magnets"],
     "url": {
@@ -95,7 +95,7 @@
     "status": true,
     "title": "Doppelbänger",
     "image": {
-      "icon": "doppelbanger.png"
+      "icon": "images/projects/doppelbanger.8380f404.png"
     },
     "description": ["Find your pornstar doppelganger! Doppelbänger has access to a wide range of pornstar faces to find one that matches yours.", "To start, choose a photo from your smartphone gallery or snap a new one using the app’s built-in camera feature.  From the photo, Doppelbänger will analyze your facial features, skin color, hair color & volume, etc., using a unique algorithm.  Each result will contain a photo of your adult entertainment look-a-like as well as the match percentage. Prepare to be amazed!", "Love the result? Share it with friends! Doppelbänger makes it easy to share on social media."],
     "url": {
@@ -106,7 +106,7 @@
     "status": true,
     "title": "Rapper Ad-Lib Game",
     "image": {
-      "icon": "rapadlibs.png"
+      "icon": "images/projects/rapadlibs.48cf6de0.png"
     },
     "description": ["A fantastic way to pass your time while having some fun, Rapper Ad-Lib Quiz is a definite must have for the rap-loving bunch. As every dedicated rap fan knows, each rapper, no matter how big or small, has a signature ad-lib. This is their trademark noise, phrase, word or sound. Anyone who is a major rap fan can easily identify these and guess the rapper. In this quiz app, you’ll will hear a short ad-lib from a famous rapper for just 1-3 seconds. After that you’ll get the options to identify the rapper. Do it fast though because you’ll have a deadline!", "Note: For rap fans, Rapper Ad-Lib Quiz might be addictive due of its fun filled experience. Caution is advised during use."],
     "url": {
@@ -116,7 +116,7 @@
     "status": true,
     "title": "Lazer Pong",
     "image": {
-      "icon": "lazerpong.png"
+      "icon": "images/projects/lazerpong.9bdfb3d9.png"
     },
     "description": ["Classic pong clone featuring lasers and power ups. Made in Construct 2.", "<h4>Instructions</h4>- Each player is armed with a laser, which may be used to slice apart their opponent's paddle.<br />- Multiple balls may be on-screen at any one time.The last ball to pass by a paddle is the one that counts.<br />- Powerups may be acquired that either enhance a player's paddle or alter a ball's characteristics.<br />- Buttons: Player 1 / Blue: up / down keysto move and right arrow keys to shoot laser<br />- Player 2 / Red: A / Z keys to move and X key to shoot laser<br />- For a list of all power ups click the settings button in the game"],
     "url": {
@@ -126,7 +126,7 @@
     "status": true,
     "title": "Alma: Music Video Jukebox",
     "image": {
-      "icon": "alma.png"
+      "icon": "images/projects/alma.8e0775db.png"
     },
     "description": ["With the Alma app you can watch music videos, search for music based on your unique taste, and discover new emerging artists on your iOS/Android device for free. Access a vast catalogue of new undiscovered artists from around the world in a beautiful video app."],
     "url": {
@@ -137,7 +137,7 @@
     "status": true,
     "title": "RedditTV (Native Android)",
     "image": {
-      "icon": "reddittv.png"
+      "icon": "images/projects/reddittv.fa452e8c.png"
     },
     "description": ["RedditTV puts the videos of Reddit at your fingertips - turn any subreddit into your personal channel and watch new content submitted as it gets upvoted. RedditTV is your source of original, stress-free videos from any subreddit. User-curated videos streamed back-to-back in an app that puts /r/videos to shame.", "Everyone hates endlessly clicking on links to get to the videos they want to watch. That’s why we created RedditTV - turning any subreddit into a back-to-back TV channel, streamed directly to your mobile device.", "Turn a subreddit into a TV channel with a tap - then, any video hosted on Vimeo or YouTube can be played from your fingertips. Swipe left or right to skip a video, and say goodbye to repeated trash TV with the power of Reddit."],
     "url": {

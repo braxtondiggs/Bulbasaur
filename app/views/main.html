@@ -27,7 +27,7 @@
                 <li>
                     <ul>
                       <li class="timeline-item highlight" ng-class-even="'right'" ng-repeat="experience in experiences">
-                        <span class="exp-logo-holder"><img alt="{{experience.company}}" class="timeline-item-photo img-bg-primary" ng-src="images/logos/{{experience.image.icon}}" ng-style="{'margin': experience.image.margin}"></span>
+                        <span class="exp-logo-holder"><img alt="{{experience.company}}" class="timeline-item-photo img-bg-primary" ng-src="{{experience.image.icon}}" ng-style="{'margin': experience.image.margin}"></span>
                         <h4 class="timeline-item-date">{{experience.position}}</h4>
                         <h5 class="timeline-item-role">{{experience.company}} ({{experience.location}})</h5>
                         <h6>{{experience.date.start | amUtc| amDateFormat:'MMMM YYYY'}} <span class="grey"> &#8211; <span ng-if="!experience.date.end">Present</span><span ng-if="experience.date.end">{{experience.date.end | amUtc| amDateFormat:'MMMM YYYY'}} ({{experience.date.end | amDifference : experience.date.start : 'years'}} Years)</span></h6>
@@ -41,7 +41,7 @@
         </div>
     </section>
 </section>
-<section class="scroll-section slide skills" id="skills">
+<!--<section class="scroll-section slide skills" id="skills">
   <div class="container">
     <div class="row">
       <div class="col-md-6">
@@ -52,7 +52,7 @@
       </div>
     </div>
   </div>
-</section>
+</section>-->
 <section class="scroll-section slide work" id="work">
     <div class="container padding0">
         <h1 class="works">Working Projects</h1>
@@ -62,7 +62,7 @@
               <div class="row">
                   <div class="col-md-3" ng-class="{'col-md-push-9': $odd}">
                       <a class="work-link" ng-href="{{project.url.web}}" target="_blank">
-                        <img ng-src="images/projects/{{project.image.icon}}" alt="{{project.title}}" />
+                        <img ng-src="{{project.image.icon}}" alt="{{project.title}}" />
                         <span class="click">Click To View</span>
                       </a>
                   </div>
