@@ -1,5 +1,5 @@
 'use strict';
-/*global $:false*/
+
 function onLoad() {
   $(window).scroll(function() {
     if ($(this).scrollTop() > 100) {
@@ -29,7 +29,6 @@ function onLoad() {
   $(window).scroll(function() {
     if ($(this).scrollTop() > 50) {
       $('.menu').fadeIn();
-
     } else {
       $('.menu').fadeOut();
     }
@@ -43,18 +42,6 @@ function onLoad() {
       $('.works').addClass('left-new2');
     }
   });
-  /*$('#contact-container button').on('click', function() {
-      $.ajax({
-          type: "POST",
-          url: "index.php/email",
-          data: $('#contact-form').serialize()
-      }).done(function() {
-          $('#contact-form').fadeOut('slow', function() {
-              $('#confirmation').fadeIn('slow');
-          });
-      });
-      return false;
-  });*/
 }
 angular.module('bulbasaur').controller('MainCtrl', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
   $timeout(function() {
@@ -64,14 +51,23 @@ angular.module('bulbasaur').controller('MainCtrl', ['$scope', '$http', '$timeout
   $scope.myForm = {};
   $scope.age = parseInt(time.getFullYear() - 1988, 10);
   $scope.submit = function() {
-    $('#contact-form').fadeOut('slow', function() {
-      $('#confirmation').fadeIn('slow');
-    });
+    if ($scope.contactForm.$valid) {
+      $http.post('http://meowth1.herokuapp.com/mail', {
+        name: $scope.contactForm.name.$viewValue,
+        email: $scope.contactForm.email.$viewValue,
+        message: $scope.contactForm.message.$viewValue
+      }).then(function(data) {
+        if (data.status) {
+          $scope.submitted = true;
+        }
+      });
+    }
   };
   $http.get('json/data.json').then(function(data) {
     $scope.experiences = data.data.employment;
     $scope.projects = data.data.projects;
-    $scope.likes = _.chunk(data.data.likes, 3);
+    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    $scope.likes = _.chunk(data.data.likes, ((isMobile) ? 2 : 3));
     _.forEach($scope.projects, function(project, key) {
       $scope.projects[key].description_modified = _.join(project.description, '<br /><br />');
     });
@@ -98,14 +94,32 @@ angular.module('bulbasaur').controller('MainCtrl', ['$scope', '$http', '$timeout
           ['Breath-taking'],
           ['Visionary']
         ]
+      ],
+      frontend: ['', [
+          ['I heard,'],
+          ['about it']
+        ],
+        [
+          ['Fast-learning'],
+          ['Talent']
+        ],
+        [
+          ['Skilled'],
+          ['Craftsman']
+        ],
+        [
+          ['Impressive'],
+          ['Virtuoso']
+        ],
+        [
+          ['Mind-blowing'],
+          ['Superhero']
+        ]
       ]
-    },
-    frontend: {
-
     },
     labels: {
       backend: ['Android SDK', 'PHP', 'Java', 'Swift', '.NET', 'Rails'],
-      frontend: []
+      frontend: ['Angular JS', 'ReactJS', 'TypeScript', 'SCSS', 'Task Runners', 'CSS3']
     },
     options: {
       tooltips: {
@@ -121,7 +135,7 @@ angular.module('bulbasaur').controller('MainCtrl', ['$scope', '$http', '$timeout
           },
           ticks: {
             callback: function(value, index) {
-              return $scope.chart.xLabel[index];
+              return $scope.chart.xLabel.frontend[index];
             },
             max: 100,
             min: 0,
@@ -129,7 +143,8 @@ angular.module('bulbasaur').controller('MainCtrl', ['$scope', '$http', '$timeout
             beginAtZero: false,
             padding: -20,
             fontFamily: 'BandaRegular',
-            fontColor: '#1caedd'
+            fontColor: '#1caedd',
+            fontStyle: 'bold'
           }
         }],
         yAxes: [{
@@ -142,13 +157,14 @@ angular.module('bulbasaur').controller('MainCtrl', ['$scope', '$http', '$timeout
           stacked: true,
           categoryPercentage: 1.0,
           barPercentage: 1.0,
-          fontFamily: 'BandaRegular'
+          fontFamily: 'BandaRegular',
+          fontStyle: 'bold'
         }]
       }
     },
     data: {
       backend: [80, 60, 80, 20, 40, 20],
-      frontend: []
+      frontend: [60, 20, 40, 80, 60, 80]
     },
     override: {
       borderWidth: 0

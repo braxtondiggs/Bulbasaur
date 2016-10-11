@@ -18,6 +18,7 @@
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/normalize-css/normalize.css" />
+    <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -48,9 +49,15 @@
                         <a href="#about" class="scroll">ABOUT</a>
                     </li>
                     <li class="scroll_animated_item" data-slide="3">
-                        <a href="#work" class="scroll">THE WORK</a>
+                        <a href="#experience" class="scroll">EXPERIENCE</a>
                     </li>
-                    <li class="scroll_animated_item" data-slide="4">
+                    <li id="skillMenu" class="scroll_animated_item" data-slide="4">
+                        <a href="#skills" class="scroll">SKILLS</a>
+                    </li>
+                    <li class="scroll_animated_item" data-slide="5">
+                        <a href="#work" class="scroll">WORK</a>
+                    </li>
+                    <li class="scroll_animated_item" data-slide="6">
                         <a href="#contact" class="scroll">CONTACT</a>
                     </li>
                 </ul>
@@ -84,6 +91,7 @@
     <script src="bower_components/angular-moment/angular-moment.js"></script>
     <script src="bower_components/ng-text-truncate/ng-text-truncate.js"></script>
     <script src="bower_components/lodash/lodash.js"></script>
+    <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:js({.tmp,app}) scripts/scripts.js -->

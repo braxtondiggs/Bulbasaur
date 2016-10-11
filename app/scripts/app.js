@@ -7,9 +7,10 @@ angular
     'ngRoute',
     'chart.js',
     'angularMoment',
-    'ngTextTruncate'
+    'ngTextTruncate',
+    'angular-loading-bar'
   ])
-  .config(function($routeProvider, $locationProvider) {
+  .config(function($routeProvider, $locationProvider, cfpLoadingBarProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -20,4 +21,5 @@ angular
         redirectTo: '/'
       });
     $locationProvider.html5Mode(true);
+    cfpLoadingBarProvider.spinnerTemplate = '<div class="loader"><span>{</span><span>}</span></div>';
   });

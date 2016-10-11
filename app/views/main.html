@@ -41,8 +41,9 @@
         </div>
     </section>
 </section>
-<!--<section class="scroll-section slide skills" id="skills">
+<section class="scroll-section slide skills" id="skills">
   <div class="container">
+    <h1 class="skills">My Skills</h1>
     <div class="row">
       <div class="col-md-6">
         <canvas id="base-front" class="chart-horizontal-bar" chart-data="chart.data.frontend" chart-labels="chart.labels.frontend" chart-options="chart.options" chart-dataset-override="chart.override"></canvas>
@@ -52,7 +53,7 @@
       </div>
     </div>
   </div>
-</section>-->
+</section>
 <section class="scroll-section slide work" id="work">
     <div class="container padding0">
         <h1 class="works">Working Projects</h1>
@@ -81,7 +82,7 @@
     <div class="container padding0">
         <h1>Things I <span class="icon-heart"></span></h1>
         <div class="row" ng-repeat="rows in likes">
-          <ul class="col-md-4" ng-repeat="like in rows">
+          <ul class="col-md-4 col-xs-6" ng-repeat="like in rows">
             <li> <span class="icon-{{like.icon}}"></span><span>{{like.title}}</span></li>
           </ul>
         </div>
@@ -89,35 +90,41 @@
 </section>
 <section class="slide scroll-section contact block" id="contact" data-slide="4" data-stellar-background-ratio="0.5">
     <div id="map-container">
-        <img src="images/braxton-contact.jpg" alt="" />
+        <div class="container">
+          <img src="images/braxton-contact.jpg" alt="" />
+        </div>
     </div>
     <div class="container">
       <div id="contact-container" class="row">
           <div class="col-md-4">
               <h1 class="thanks">Contact Me</h1>
-              <form id="contact-form" role="form" name="myForm" ng-submit="submit()" novalidate>
+              <form id="contact-form" name="contactForm" ng-submit="submit()" ng-int="submitted = false;" ng-show="!submitted" novalidate>
                   <div class="form-group">
                       <label for="name">Name:</label>
                       <input type="text" class="form-control" id="name" name="name" tabindex="1" placeholder="Your Name" ng-model="name" required>
-                      <span style="color:red" ng-show="myForm.name.$dirty && myForm.name.$invalid">
-                        <span ng-show="myForm.name.$error.required">Your name is required.</span>
+                      <span style="color:red" ng-show="(contactForm.name.$dirty && contactForm.name.$invalid) || contactForm.$submitted">
+                        <span ng-show="contactForm.name.$error.required">Your name is required.</span>
                       </span>
                   </div>
                   <div class="form-group">
                       <label for="email">Email:</label>
                       <input type="email" class="form-control" id="email" name="email" tabindex="2" placeholder="name@email.com" ng-model="email" required>
-                      <span style="color:red" ng-show="myForm.email.$dirty && myForm.email.$invalid">
-                        <span ng-show="myForm.email.$error.required">Your email is required.</span>
-                      <span ng-show="myForm.email.$error.email">Invalid email address.</span>
+                      <span style="color:red" ng-show="(contactForm.email.$dirty && contactForm.email.$invalid) || contactForm.$submitted">
+                        <span ng-show="contactForm.email.$error.required">Your email is required.</span>
+                        <span ng-show="contactForm.email.$error.email">Invalid email address.</span>
                       </span>
                   </div>
                   <div class="form-group">
                       <label for="message">Message:</label>
-                      <textarea class="form-control" id="message" name="message" rows="6" tabindex="3" placeholder="Add a brief message..."></textarea>
+                      <textarea class="form-control" id="message" name="message" rows="6" tabindex="3" placeholder="Add a brief message..." ng-model="message" minlength="15" required></textarea>
+                      <span style="color:red" ng-show="(contactForm.message.$dirty && contactForm.message.$invalid) || contactForm.$submitted">
+                        <span ng-show="contactForm.message.$error.required">A message is required.</span>
+                        <span ng-show="contactForm.message.$error.minlength">Must be atleast 15 characters long.</span>
+                      </span>
                   </div>
-                  <button type="submit" class="btn btn-default pull-right" ng-disabled="myForm.name.$dirty && myForm.name.$invalid || myForm.email.$dirty && myForm.email.$invalid">Submit</button>
+                  <button type="submit" class="btn btn-default pull-right" ng-disabled="contactForm.$vaild">Submit</button>
               </form>
-              <div id="confirmation">
+              <div id="confirmation" ng-show="submitted">
                   <h4>Message successfully sent.</h4>
                   <p>I will responded to your email as soon as possible.</p>
               </div>
