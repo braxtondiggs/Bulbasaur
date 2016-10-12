@@ -17,12 +17,12 @@
         <div class="square">
             <div class="pic"></div>
         </div>
-        <h1 class="second hello">Hello!<br> I'm Braxton Diggs.</h1>
+        <h1 class="second hello wow slideInLeft">Hello!<br> I'm Braxton Diggs.</h1>
         <h3>I'm a {{age}} year old Web/Graphic Designer based in Silver Spring, Maryland, specializing in User Interface/Experience and Development. I build clean, appealing, and functional interfaces which comply with the latest and greatest web standards.</h3>
     </div>
     <section id="experience" class="scroll-section experience block">
         <div class="container" style="overflow: hidden;">
-            <h1 class="exp">Experience</h1>
+            <h1 class="exp wow slideInDown">Experience</h1>
             <ul class="timeline">
                 <li>
                     <ul>
@@ -43,7 +43,7 @@
 </section>
 <section class="scroll-section slide skills" id="skills">
   <div class="container">
-    <h1 class="skills">My Skills</h1>
+    <h1 class="skills wow zoomInRight">My Skills</h1>
     <div class="row">
       <div class="col-md-6">
         <canvas id="base-front" class="chart-horizontal-bar" chart-data="chart.data.frontend" chart-labels="chart.labels.frontend" chart-options="chart.options" chart-dataset-override="chart.override"></canvas>
@@ -56,7 +56,7 @@
 </section>
 <section class="scroll-section slide work" id="work">
     <div class="container padding0">
-        <h1 class="works">Working Projects</h1>
+        <h1 class="works wow zoomInUp">Working Projects</h1>
         <!--Featured item-->
         <ul id="work-list">
           <li ng-class-even="'right'" ng-repeat="project in projects">
@@ -80,7 +80,7 @@
 </section>
 <section class="scroll-section slide love" id="love">
     <div class="container padding0">
-        <h1>Things I <span class="icon-heart"></span></h1>
+        <h1 class="wow rollIn">Things I <span class="icon-heart"></span></h1>
         <div class="row" ng-repeat="rows in likes">
           <ul class="col-md-4 col-xs-6" ng-repeat="like in rows">
             <li> <span class="icon-{{like.icon}}"></span><span>{{like.title}}</span></li>

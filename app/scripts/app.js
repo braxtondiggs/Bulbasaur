@@ -8,7 +8,8 @@ angular
     'chart.js',
     'angularMoment',
     'ngTextTruncate',
-    'angular-loading-bar'
+    'angular-loading-bar',
+    'duScroll'
   ])
   .config(function($routeProvider, $locationProvider, cfpLoadingBarProvider) {
     $routeProvider
@@ -22,4 +23,5 @@ angular
       });
     $locationProvider.html5Mode(true);
     cfpLoadingBarProvider.spinnerTemplate = '<div class="loader"><span>{</span><span>}</span></div>';
+    new WOW().init();
   });

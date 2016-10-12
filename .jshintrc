@@ -13,6 +13,6 @@
   "globals": {
     "angular": false,
     "_": false,
-    "$": false
+    "WOW": false
   }
 }
