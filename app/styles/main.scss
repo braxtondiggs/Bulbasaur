@@ -39,7 +39,7 @@ body {
 }
 
 .navbar-inverse {
-  background-color: rgba(#fff, .6);
+  background-color: rgba(#fff, .9);
   z-index: 105;
 
   .navbar-nav {
@@ -81,6 +81,10 @@ body {
   &.ng-hide-remove {
     opacity: 0;
   }
+}
+
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important;
 }
 
 h1 {

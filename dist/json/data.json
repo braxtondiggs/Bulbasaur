@@ -131,7 +131,7 @@
     "description": ["With the Alma app you can watch music videos, search for music based on your unique taste, and discover new emerging artists on your iOS/Android device for free. Access a vast catalogue of new undiscovered artists from around the world in a beautiful video app."],
     "url": {
       "web": "http://www.alma.life/",
-      "android": "https://play.google.com/store/apps/details?id=com.cymbit.Almaapp"
+      "android": "https://play.google.com/store/apps/details?id=com.cymbit.Alma"
     }
   }, {
     "status": true,
