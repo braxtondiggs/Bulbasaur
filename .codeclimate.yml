@@ -1,6 +1,8 @@
 engines:
   duplication:
     enabled: true
+    exclude_fingerprints:
+    - cc15a902aea0efbec6e904db75b64d60
     config:
       languages:
       - javascript
@@ -11,6 +13,19 @@ engines:
     enabled: true
   scss-lint:
     enabled: true
+    exclude_fingerprints:
+    - 07951f222c5ac83fbb466b9ecf857841
+    checks:
+      VendorPrefix:
+        enabled: false
+      NestingDepth:
+        enabled: false
+      IdSelector:
+        enabled: false
+      QualifyingElement:
+        enabled: false
+      PlaceholderInExtend:
+        enabled: false
 ratings:
   paths:
   - "**.js"
