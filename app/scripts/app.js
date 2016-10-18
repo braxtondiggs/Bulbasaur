@@ -10,7 +10,7 @@ angular
     'ngTextTruncate',
     'angular-loading-bar',
     'duScroll',
-    'angulartics'
+    'angulartics', 'angulartics.google.analytics'
   ])
   .config(function($routeProvider, $locationProvider, cfpLoadingBarProvider) {
     $routeProvider
