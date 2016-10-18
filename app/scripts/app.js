@@ -9,7 +9,8 @@ angular
     'angularMoment',
     'ngTextTruncate',
     'angular-loading-bar',
-    'duScroll'
+    'duScroll',
+    'angulartics'
   ])
   .config(function($routeProvider, $locationProvider, cfpLoadingBarProvider) {
     $routeProvider

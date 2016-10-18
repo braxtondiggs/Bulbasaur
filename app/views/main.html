@@ -36,7 +36,7 @@
                 </li>
             </ul>
             <div align="center" class="download-cv">
-                <a class="btn btn-large btn-primary btn-square" href="resume/braxton-diggs.pdf" target="_blank"><i class="icon-download-alt"></i>Download Resume</a>
+                <a class="btn btn-large btn-primary btn-square" href="resume/braxton-diggs.pdf" target="_blank" analytics-on="click" analytics-event="Resume"><i class="icon-download-alt"></i>Download Resume</a>
             </div>
         </div>
     </section>
@@ -62,7 +62,7 @@
           <li ng-class-even="'right'" ng-repeat="project in projects">
               <div class="row">
                   <div class="col-md-3" ng-class="{'col-md-push-9': $odd}">
-                      <a class="work-link" ng-href="{{project.url.web}}" target="_blank">
+                      <a class="work-link" ng-href="{{project.url.web}}" target="_blank" analytics-on="click" analytics-category="Projects" analytics-event="{{project.title}}">
                         <img ng-src="{{project.image.icon}}" alt="{{project.title}}" />
                         <span class="click">Click To View</span>
                       </a>
@@ -70,8 +70,8 @@
                   <div class="list-content col-md-9" ng-class="{'col-md-pull-3': $odd}">
                       <h4>{{project.title}}</h4>
                       <p ng-text-truncate="project.description_modified" ng-tt-words-threshold="60" ng-tt-more-label="Read More" ng-tt-less-label="Read Less"></p>
-                      <a ng-href="{{project.url.android}}" target="_blank" ng-if="project.url.android"><img style="width:150px;box-shadow: none;" src="images/appstore_button_google.png" /></a>
-                      <a ng-href="{{project.url.ios}}" target="_blank" ng-if="project.url.ios"><img style="width:150px;box-shadow: none;" src="images/Apple-Store-Button.png" /></a>
+                      <a ng-href="{{project.url.android}}" target="_blank" ng-if="project.url.android"  analytics-on="click" analytics-category="Mobile" analytics-event="Android" analytics-label="{{project.title}}"><img style="width:150px;box-shadow: none;" src="images/appstore_button_google.png" /></a>
+                      <a ng-href="{{project.url.ios}}" target="_blank" ng-if="project.url.ios"  analytics-on="click" analytics-category="Mobile" analytics-event="iOS" analytics-label="{{project.title}}"><img style="width:150px;box-shadow: none;" src="images/Apple-Store-Button.png" /></a>
                   </div>
               </div>
           </li>
@@ -145,21 +145,21 @@
 </section>
 <footer>
     <div id="social">
-        <a href="https://www.facebook.com/BiggDiggz" target="_blank" title="Facebook">
+        <a href="https://www.facebook.com/BiggDiggz" target="_blank" analytics-on="click" analytics-category="Social" analytics-event="Facebook" title="Facebook">
             <img src="images/socialmedia/Facebook.png" alt="" />
         </a>
-        <a href="https://github.com/braxtondiggs" target="_blank" title="Github">
+        <a href="https://github.com/braxtondiggs" target="_blank" title="Github" analytics-on="click" analytics-category="Social" analytics-event="GitHub">
             <img src="images/socialmedia/Github.png" alt="" style="width: 53px;margin: 0 15px;" />
         </a>
-        <a href="http://instagram.com/biggdiggz" target="_blank" title="Instagram">
+        <a href="http://instagram.com/biggdiggz" target="_blank" title="Instagram" analytics-on="click" analytics-category="Social" analytics-event="Instagram">
             <img src="images/socialmedia/Instagram.png" alt="" />
         </a>
-        <a href="mailto:braxtondiggs@gmail.com" target="_blank" title="Email">
+        <a href="mailto:braxtondiggs@gmail.com" target="_blank" title="Email" analytics-on="click" analytics-category="Social" analytics-event="Email">
             <img src="images/socialmedia/Email.png" alt="" />
         </a>
-        <a href="http://google.com/+BraxtonDiggs" target="_blank" title="Google+">
+        <a href="http://google.com/+BraxtonDiggs" target="_blank" title="Google+" analytics-on="click" analytics-category="Social" analytics-event="Google">
             <img src="images/socialmedia/Google.png" alt="" />
         </a>
     </div>
-    <p style="margin-bottom:15px;"><a href="https://hackernoon.com/how-it-feels-to-learn-javascript-in-2016-d3a717dd577f" target="_blank">How it feels to learn JavaScript in 2016&nbsp;<span class="icon-smile"></span></a></p>
+    <p style="margin-bottom:15px;"><a href="https://hackernoon.com/how-it-feels-to-learn-javascript-in-2016-d3a717dd577f" target="_blank" analytics-on="click" analytics-event="Footer">How it feels to learn JavaScript in 2016&nbsp;<span class="icon-smile"></span></a></p>
 </footer>

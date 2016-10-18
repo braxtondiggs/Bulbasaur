@@ -44,22 +44,22 @@
             <div class="menu-holder" align="center">
                 <ul class="nav navbar-nav navigation">
                     <li class="scroll_animated_item" data-slide="1">
-                        <a href="#home" du-smooth-scroll>HOME</a>
+                        <a href="#home" analytics-on="click" analytics-category="Header" analytics-event="Home" du-smooth-scroll>HOME</a>
                     </li>
                     <li class="scroll_animated_item" data-slide="2">
-                        <a href="#about" du-smooth-scroll>ABOUT</a>
+                        <a href="#about" analytics-on="click" analytics-category="Header" analytics-event="About" du-smooth-scroll>ABOUT</a>
                     </li>
                     <li class="scroll_animated_item" data-slide="3">
-                        <a href="#experience" du-smooth-scroll>EXPERIENCE</a>
+                        <a href="#experience" analytics-on="click" analytics-category="Header" analytics-event="Experience" du-smooth-scroll>EXPERIENCE</a>
                     </li>
                     <li id="skillMenu" class="scroll_animated_item" data-slide="4">
-                        <a href="#skills" du-smooth-scroll>SKILLS</a>
+                        <a href="#skills" analytics-on="click" analytics-category="Header" analytics-event="Skills" du-smooth-scroll>SKILLS</a>
                     </li>
                     <li class="scroll_animated_item" data-slide="5">
-                        <a href="#work" du-smooth-scroll>WORK</a>
+                        <a href="#work" analytics-on="click" analytics-category="Header" analytics-event="Work" du-smooth-scroll>WORK</a>
                     </li>
                     <li class="scroll_animated_item" data-slide="6">
-                        <a href="#contact" du-smooth-scroll>CONTACT</a>
+                        <a href="#contact" nalytics-on="click" analytics-category="Header" analytics-event="Contact" du-smooth-scroll>CONTACT</a>
                     </li>
                 </ul>
             </div>
@@ -74,7 +74,7 @@
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
       ga('create', 'UA-27550048-1', 'braxtondiggs.com');
-      ga('send', 'pageview');
+      //ga('send', 'pageview');
 
     </script>
     <!-- build:js(.) scripts/vendor.js -->
@@ -94,6 +94,8 @@
     <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
     <script src="bower_components/angular-scroll/angular-scroll.js"></script>
     <script src="bower_components/wow/dist/wow.js"></script>
+    <script src="bower_components/SHA-1/sha1.js"></script>
+    <script src="bower_components/angulartics/src/angulartics.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
