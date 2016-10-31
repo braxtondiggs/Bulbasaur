@@ -72,6 +72,7 @@
                       <p ng-text-truncate="project.description_modified" ng-tt-words-threshold="60" ng-tt-more-label="Read More" ng-tt-less-label="Read Less"></p>
                       <a ng-href="{{project.url.android}}" target="_blank" ng-if="project.url.android"  analytics-on="click" analytics-category="Mobile" analytics-event="Android" analytics-label="{{project.title}}"><img style="width:150px;box-shadow: none;" src="images/appstore_button_google.png" /></a>
                       <a ng-href="{{project.url.ios}}" target="_blank" ng-if="project.url.ios"  analytics-on="click" analytics-category="Mobile" analytics-event="iOS" analytics-label="{{project.title}}"><img style="width:150px;box-shadow: none;" src="images/Apple-Store-Button.png" /></a>
+                      <a ng-href="{{project.url.other}}" target="_blank" ng-if="project.url.other"><img style="width:150px;box-shadow: none;" ng-src="{{project.image.other}}" /></a>
                   </div>
               </div>
           </li>
