@@ -43,15 +43,43 @@
 </section>
 <section class="scroll-section slide skills" id="skills">
   <div class="container">
-    <h1 class="skills wow zoomInRight">My Skills</h1>
+      <div class="zoomInRight wow">
+        <h1 class="skills">My "Real-Time" Skills</h1>
+        <p class="center">See exactly when &amp; what my coding activity is using <a href="https://wakatime.com/">WakaTime</a>.</p>
+        <div class="select" tabindex="1">
+          <input type="radio" class="selectopt" ng-model="skillSelect" ng-change="skillChange()" id="opt1" value="yesterday">
+          <label for="opt1" class="option">Yesterday</label>
+          <input type="radio" ng-model="skillSelect" ng-change="skillChange()" id="opt2" value="last7days">
+          <label for="opt2" class="option">Last 7 Days</label>
+          <input type="radio" ng-model="skillSelect" ng-change="skillChange()" id="opt3" value="last14days">
+          <label for="opt3" class="option">Last 14 Days</label>
+          <input type="radio" ng-model="skillSelect" ng-change="skillChange()" id="opt4" value="last30days">
+          <label for="opt4" class="option">Last 30 Days</label>
+          <input type="radio" ng-model="skillSelect" ng-change="skillChange()" id="opt5" value="thisweek">
+          <label for="opt5" class="option">This Week</label>
+          <input type="radio" ng-model="skillSelect" ng-change="skillChange()" id="opt6" value="lastweek">
+          <label for="opt6" class="option">Last Week</label>
+          <input type="radio" ng-model="skillSelect" ng-change="skillChange()" id="opt7" value="thismonth">
+          <label for="opt7" class="option">This Month</label>
+          <input type="radio" ng-model="skillSelect" ng-change="skillChange()" id="opt8" value="lastmonth">
+          <label for="opt8" class="option">Last Month</label>
+          <input type="radio" ng-model="skillSelect" ng-change="skillChange($event)" id="opt9" value="customrange">
+          <label for="opt9" class="option">Custom Range</label>
+        </div>
+    </div>
     <div class="row">
       <div class="col-md-6">
-        <canvas id="base-front" class="chart-horizontal-bar" chart-data="chart.data.frontend" chart-labels="chart.labels.frontend" chart-options="chart.options" chart-dataset-override="chart.override"></canvas>
+          <highchart id="chart1" config="chartLanguageConfig"></highchart>
       </div>
       <div class="col-md-6">
-        <canvas id="base-back" class="chart-horizontal-bar" chart-data="chart.data.backend" chart-labels="chart.labels.backend" chart-options="chart.options" chart-dataset-override="chart.override"></canvas>
+          <highchart id="chart2" config="chartEditorConfig"></highchart>
       </div>
     </div>
+    <div class="row">
+      <div class="col-md-12">
+          <highchart id="chart3" config="chartDateConfig"></highchart>
+      </div>
+  </div>
   </div>
 </section>
 <section class="scroll-section slide work" id="work">

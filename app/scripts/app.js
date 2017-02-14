@@ -1,20 +1,18 @@
 'use strict';
-
-angular
-  .module('bulbasaur', [
+angular.module('bulbasaur', [
     'ngAnimate',
     'ngMessages',
     'ngRoute',
-    'chart.js',
     'angularMoment',
     'ngTextTruncate',
     'angular-loading-bar',
     'duScroll',
-    'angulartics', 'angulartics.google.analytics'
+    'angulartics',
+    'angulartics.google.analytics',
+    'highcharts-ng'
   ])
   .config(function($routeProvider, $locationProvider, cfpLoadingBarProvider) {
-    $routeProvider
-      .when('/', {
+    $routeProvider.when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
         controllerAs: 'main'
@@ -24,5 +22,6 @@ angular
       });
     $locationProvider.html5Mode(true);
     cfpLoadingBarProvider.spinnerTemplate = '<div class="loader"><span>{</span><span>}</span></div>';
-    new WOW().init();
+    new WOW()
+      .init();
   });

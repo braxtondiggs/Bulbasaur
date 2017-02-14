@@ -28,8 +28,6 @@ module.exports = function(config) {
       'bower_components/angular-animate/angular-animate.js',
       'bower_components/angular-messages/angular-messages.js',
       'bower_components/angular-route/angular-route.js',
-      'bower_components/chart.js/dist/Chart.js',
-      'bower_components/angular-chart.js/dist/angular-chart.js',
       'bower_components/moment/moment.js',
       'bower_components/angular-moment/angular-moment.js',
       'bower_components/ng-text-truncate/ng-text-truncate.js',
@@ -40,6 +38,7 @@ module.exports = function(config) {
       'bower_components/SHA-1/sha1.js',
       'bower_components/angulartics/src/angulartics.js',
       'bower_components/angulartics-google-analytics/lib/angulartics-ga.js',
+      'bower_components/highcharts-ng/dist/highcharts-ng.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",
