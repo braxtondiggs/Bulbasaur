@@ -442,6 +442,92 @@ h3 {
   h1.skills {
     color: $black;
     margin: 20px 0;
+
+    + p.center {
+      font-size: 18px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    + .select {
+      text-align: center;
+    }
+  }
+}
+
+#chart3 .highcharts-container {
+  margin: 60px auto 0;
+}
+
+.select {
+  border: 3px solid $black;
+  display: flex;
+  flex-direction: column;
+  height: 46px;
+  margin: 0 auto 20px;
+  outline: none;
+  position: relative;
+  width: 250px;
+
+  .option {
+    align-items: center;
+    background: $white;
+    border-top: #222 solid 1px;
+    box-sizing: border-box;
+    display: flex;
+    font-size: 20px;
+    margin: 0;
+    min-height: 40px;
+    order: 2;
+    overflow: hidden;
+    padding: 0 30px 0 10px;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    transition: background .4s ease-in-out;
+    white-space: nowrap;
+    width: 100%;
+    z-index: 1;
+
+    &:hover {
+      background: #999;
+      color: #F5F5F5;
+      cursor: pointer;
+    }
+
+  }
+
+  &:focus .option {
+    pointer-events: all;
+    position: relative;
+  }
+
+  input {
+    left: -99999px;
+    opacity: 0;
+    position: absolute;
+
+    &:checked + label {
+      background: $white;
+      border-top: none;
+      order: 1;
+      position: relative;
+      z-index: 2;
+
+      &:after {
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 5px solid $black;
+        content: '';
+        height: 0;
+        pointer-events: none;
+        position: absolute;
+        right: 10px;
+        top: calc(50% - 2.5px);
+        width: 0;
+        z-index: 3;
+      }
+    }
   }
 }
 
