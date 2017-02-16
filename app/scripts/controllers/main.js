@@ -1,9 +1,11 @@
 'use strict';
 angular.module('bulbasaur')
-  .controller('MainCtrl', ['$scope', '$http', function($scope, $http) {
-    var time = new Date();
-    $scope.age = parseInt(time.getFullYear() - 1988, 10);
-    $scope.skillSelect = 'last7days';
+  .controller('MainCtrl', ['$scope', '$http', 'moment', function($scope, $http, moment) {
+    $scope.age = _.floor(moment.duration(moment()
+        .diff(moment('07-18-1988', 'MM-DD-YYYY')))
+      .asYears());
+    $scope.empty = true;
+    $scope.skillSelect = 'thismonth';
     $scope.submit = function() {
       if ($scope.contactForm.$valid) {
         $http.post('http://meowth1.herokuapp.com/mail', {
@@ -29,8 +31,12 @@ angular.module('bulbasaur')
         });
       });
 
-    function getSkills(range) {
-      $http.get('https://wartortle.herokuapp.com?range=' + range)
+    function getCustomDate(range) {
+      return (range === 'customrange' && $scope.date.startdate && $scope.date.enddate) ? '&start=' + $scope.date.startdate + '&end=' + $scope.date.enddate : '';
+    }
+    $scope.getSkills = function(range) {
+      $scope.empty = false;
+      $http.get('https://wartortle.herokuapp.com?range=' + range + getCustomDate(range))
         .then(function(data) {
           if (data.status === 200) {
             var languages = data.data.Languages;
@@ -65,18 +71,67 @@ angular.module('bulbasaur')
                     .format('MMM Do');
                 })
             };
+            if (_.isEmpty(languages) || _.isEmpty(editors) || _.isEmpty(timeline)) {
+              $scope.empty = true;
+            }
           }
         });
-    }
-    getSkills('last7days');
-    $scope.skillChange = function(ev) {
+      if (range === 'customrange') {
+        $('#customRangeModal')
+          .modal('hide');
+      }
+    };
+    $scope.datePicker = {
+      date: {
+        startDate: null,
+        endDate: null
+      }
+    };
+    $scope.getSkills($scope.skillSelect);
+    $scope.date = {};
+    $scope.skillChange = function() {
       if ($scope.skillSelect !== 'customrange') {
-        getSkills($scope.skillSelect);
-      } else {}
+        $scope.getSkills($scope.skillSelect);
+      } else {
+        $('#customRangeModal')
+          .modal('show');
+        $('#customRangeModal')
+          .on('shown.bs.modal', function() {
+            $('.nav-tabs .active + li a')
+              .removeProp('data-toggle');
+            $('#datetimepicker1, #datetimepicker2')
+              .datetimepicker({
+                inline: true,
+                useCurrent: false,
+                format: 'L',
+                maxDate: moment(),
+                minDate: moment()
+                  .subtract(1, 'years')
+              })
+              .end()
+              .on('dp.change', function(e) {
+                if (e.target.id === 'datetimepicker1') {
+                  $scope.date.startdate = moment(e.date)
+                    .format('MMM Do YYYY');
+                  $('.nav-tabs > .active + li a')
+                    .trigger('click');
+                  $('#datetimepicker2')
+                    .data('DateTimePicker')
+                    .minDate(moment(e.date));
+                } else {
+                  $scope.date.enddate = moment(e.date)
+                    .format('MMM Do YYYY');
+                }
+                $scope.$apply();
+              });
+          });
+      }
     };
     $scope.chartLanguageConfig = {
       chart: {
-        type: 'pie'
+        type: 'pie',
+        width: $('.skills .col-md-6')
+          .width()
       },
       series: [{
         name: 'Percentage',
@@ -96,7 +151,9 @@ angular.module('bulbasaur')
     };
     $scope.chartEditorConfig = {
       chart: {
-        type: 'pie'
+        type: 'pie',
+        width: $('.skills .col-md-6')
+          .width()
       },
       series: [{
         name: 'Percentage',
@@ -117,6 +174,8 @@ angular.module('bulbasaur')
     $scope.chartDateConfig = {
       chart: {
         type: 'line',
+        width: $('.skills .col-md-12')
+          .width()
       },
       title: {
         text: 'Coding Activity'

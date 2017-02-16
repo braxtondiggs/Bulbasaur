@@ -9,7 +9,8 @@ angular.module('bulbasaur', [
     'duScroll',
     'angulartics',
     'angulartics.google.analytics',
-    'highcharts-ng'
+    'highcharts-ng',
+    'angularMoment'
   ])
   .config(function($routeProvider, $locationProvider, cfpLoadingBarProvider) {
     $routeProvider.when('/', {
