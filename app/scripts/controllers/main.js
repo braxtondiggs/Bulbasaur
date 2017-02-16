@@ -104,9 +104,9 @@ angular.module('bulbasaur')
                 inline: true,
                 useCurrent: false,
                 format: 'L',
-                maxDate: moment(),
-                minDate: moment()
-                  .subtract(1, 'years')
+                maxDate: moment()
+                  .add(1, 'days'),
+                minDate: moment('2016-06-22', 'YYYY-MM-DD')
               })
               .end()
               .on('dp.change', function(e) {
