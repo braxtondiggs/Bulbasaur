@@ -30,7 +30,7 @@
                         <span class="exp-logo-holder"><img alt="{{experience.company}}" class="timeline-item-photo img-bg-primary" ng-src="{{experience.image.icon}}" ng-style="{'margin': experience.image.margin}"></span>
                         <h4 class="timeline-item-date">{{experience.position}}</h4>
                         <h5 class="timeline-item-role">{{experience.company}} ({{experience.location}})</h5>
-                        <h6>{{experience.date.start | amUtc| amDateFormat:'MMMM YYYY'}} <span class="grey"> &#8211; <span ng-if="!experience.date.end">Present</span><span ng-if="experience.date.end">{{experience.date.end | amUtc| amDateFormat:'MMMM YYYY'}} ({{experience.date.end | amDifference : experience.date.start : 'years'}} Years)</span></h6>
+                        <h6>{{experience.date.start | amParse:'MMMM YYYY' | amDateFormat:'MMMM YYYY'}} <span class="grey"> &#8211; <span ng-if="!experience.date.end">Present</span><span ng-if="experience.date.end">{{experience.date.end | amParse:'MMMM YYYY' | amDateFormat:'MMMM YYYY'}} ({{experience.date.end | amDifference : experience.date.start : 'years'}} Years)</span></h6>
                       </li>
                     </ul>
                 </li>
@@ -44,7 +44,7 @@
 <section class="scroll-section slide skills" id="skills">
   <div class="container">
       <div class="zoomInRight wow">
-        <h1 class="skills">My "Real-Time" Skills</h1>
+        <h1 class="skills">My "Real-Time" Activity</h1>
         <p class="center">See exactly when &amp; what my coding activity is using <a href="https://wakatime.com/">WakaTime</a>.</p>
         <div class="select" tabindex="1">
           <input type="radio" class="selectopt" ng-model="skillSelect" ng-change="skillChange()" id="opt1" value="yesterday">
@@ -63,11 +63,11 @@
           <label for="opt7" class="option">This Month</label>
           <input type="radio" ng-model="skillSelect" ng-change="skillChange()" id="opt8" value="lastmonth">
           <label for="opt8" class="option">Last Month</label>
-          <input type="radio" ng-model="skillSelect" ng-change="skillChange($event)" id="opt9" value="customrange">
+          <input type="radio" ng-model="skillSelect" ng-change="skillChange()" id="opt9" value="customrange">
           <label for="opt9" class="option">Custom Range</label>
         </div>
     </div>
-    <div class="row">
+    <div class="row" ng-hide="empty">
       <div class="col-md-6">
           <highchart id="chart1" config="chartLanguageConfig"></highchart>
       </div>
@@ -75,11 +75,40 @@
           <highchart id="chart2" config="chartEditorConfig"></highchart>
       </div>
     </div>
-    <div class="row">
+    <div class="row" ng-hide="empty">
       <div class="col-md-12">
           <highchart id="chart3" config="chartDateConfig"></highchart>
       </div>
+    </div>
+    <p ng-hide="!empty" class="empty">Looks I do not have any data for these dates. Use they dropdown above to try another date.</p>
   </div>
+  <div id="customRangeModal" class="modal fade" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{date.startdate}}</h4>
+          <h4 class="modal-title">{{date.enddate}}</h4>
+        </div>
+        <div class="modal-body">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a data-target="#start" aria-controls="start" role="tab" data-toggle="tab">Start Date</a></li>
+                <li role="presentation"><a data-target="#end" aria-controls="end" role="tab" data-toggle="tab">End Date</a></li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="start">
+                    <div id="datetimepicker1"></div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="end">
+                    <div id="datetimepicker2"></div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" ng-click="getSkills('customrange')">Save</button>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 <section class="scroll-section slide work" id="work">

@@ -1,4 +1,4 @@
-$icon-font-path: '../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/'; // bower:scss
+$icon-font-path: '../styles/fonts/'; // bower:scss
  @import "bootstrap-sass/assets/stylesheets/_bootstrap.scss";
  // endbower
 @import 'linearicons';
@@ -472,7 +472,8 @@ h3 {
   .option {
     align-items: center;
     background: $white;
-    border-top: #222 solid 1px;
+    border: #222 solid 1px;
+    border-top: 0;
     box-sizing: border-box;
     display: flex;
     font-size: 20px;
@@ -526,6 +527,50 @@ h3 {
         top: calc(50% - 2.5px);
         width: 0;
         z-index: 3;
+      }
+    }
+  }
+}
+
+.empty {
+  font-size: 20px;
+  margin-top: 70px;
+  text-align: center;
+}
+
+#customRangeModal {
+  .modal-header {
+    .modal-title {
+      display: inline-block;
+      float: left;
+      font-size: 22px;
+      text-align: center;
+      width: 50%;
+    }
+  }
+
+  .bootstrap-datetimepicker-widget {
+    font-size: 18px;
+    margin-top: 10px;
+  }
+
+  .nav-tabs {
+    border: 0;
+
+    li {
+      display: inline-block;
+      text-align: center;
+      width: 50%;
+
+      a {
+        border: 0;
+        color: #ccc1c1;
+        font-size: 20px;
+      }
+
+      &.active a {
+        color: $black;
+        border-bottom: 2px solid $blue;
       }
     }
   }
@@ -817,11 +862,6 @@ footer {
     &::before {
       display: none;
     }
-  }
-
-  #skillMenu,
-  #skills {
-    display: none;
   }
 
   #work #work-list {
