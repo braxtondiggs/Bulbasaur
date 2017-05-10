@@ -30,7 +30,7 @@
                         <span class="exp-logo-holder"><img alt="{{experience.company}}" class="timeline-item-photo img-bg-primary" ng-src="{{experience.image.icon}}" ng-style="{'margin': experience.image.margin}"></span>
                         <h4 class="timeline-item-date">{{experience.position}}</h4>
                         <h5 class="timeline-item-role">{{experience.company}} ({{experience.location}})</h5>
-                        <h6>{{experience.date.start | amParse:'MMMM YYYY' | amDateFormat:'MMMM YYYY'}} <span class="grey"> &#8211; <span ng-if="!experience.date.end">Present</span><span ng-if="experience.date.end">{{experience.date.end | amParse:'MMMM YYYY' | amDateFormat:'MMMM YYYY'}} ({{experience.date.end | amDifference : experience.date.start : 'years'}} Years)</span></h6>
+                        <h6>{{experience.date.start | amParse:'YYYY-MM-DD' | amDateFormat:'MMMM YYYY'}} <span class="grey"> &#8211; <span ng-if="!experience.date.end">Present</span><span ng-if="experience.date.end">{{experience.date.end | amParse:'YYYY-MM-DD' | amDateFormat:'MMMM YYYY'}} ({{experience.date.end | amDifference : experience.date.start : 'years' | amDurationFormat: 'year'}})</span></h6>
                       </li>
                     </ul>
                 </li>

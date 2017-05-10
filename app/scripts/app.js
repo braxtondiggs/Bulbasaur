@@ -25,4 +25,10 @@ angular.module('bulbasaur', [
     cfpLoadingBarProvider.spinnerTemplate = '<div class="loader"><span>{</span><span>}</span></div>';
     new WOW()
       .init();
+
+    moment.updateLocale('en', {
+      relativeTime: {
+        y: '1 year'
+      }
+    });
   });

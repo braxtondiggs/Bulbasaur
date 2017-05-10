@@ -1,5 +1,16 @@
 {
   "employment": [{
+    "company": "ByteCubed",
+    "position": "Angular Developer",
+    "location": "Arlington, VA",
+    "image": {
+      "icon": "images/logos/bytecubed.png",
+      "margin": "8px 0 0 9px"
+    },
+    "date": {
+      "start": "2017-02-01"
+    }
+  }, {
     "company": "Mobomo",
     "position": "Front-End Developer",
     "location": "Washington, D.C.",
@@ -8,7 +19,8 @@
       "margin": "8px 0 0 9px"
     },
     "date": {
-      "start": "2015-11-1"
+      "start": "2015-11-1",
+      "end": "2017-02-01"
     }
   }, {
     "company": "Tahzoo",
@@ -92,7 +104,7 @@
       "web": "https://www.rapmagnets.com/"
     }
   }, {
-    "status": true,
+    "status": false,
     "title": "Doppelbänger",
     "image": {
       "icon": "images/projects/doppelbanger.png"

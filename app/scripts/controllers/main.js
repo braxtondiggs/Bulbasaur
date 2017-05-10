@@ -18,7 +18,7 @@ angular.module('bulbasaur').controller('MainCtrl', ['$scope', '$http', 'moment',
   };
   $http.get('json/data.json').then(function(data) {
     $scope.experiences = data.data.employment;
-    $scope.projects = data.data.projects;
+    $scope.projects = _.reject(data.data.projects, ['status', false]);
     var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     $scope.likes = _.chunk(data.data.likes, ((isMobile) ? 2 : 3));
     _.forEach($scope.projects, function(project, key) {
@@ -40,23 +40,23 @@ angular.module('bulbasaur').controller('MainCtrl', ['$scope', '$http', 'moment',
           return sum + n.total_seconds;
         }, 0);
         _.forEach(languages, function(value, index) {
-          languages[index].y = _.round((value.total_seconds / total_count) * 100, 2);
+          languages[index].y = _.ceil((value.total_seconds / total_count) * 100, 2);
         });
         _.forEach(editors, function(value, index) {
-          editors[index].y = _.round((value.total_seconds / total_count) * 100, 2);
+          editors[index].y = _.ceil((value.total_seconds / total_count) * 100, 2);
         });
         $scope.chartLanguageConfig.series = [{
           data: languages
-          }];
+        }];
         $scope.chartEditorConfig.series = [{
           data: editors
-          }];
+        }];
         $scope.chartDateConfig.series = [{
           showInLegend: false,
           data: _.map(timeline, 'total_seconds').map(function(v) {
-            return _.round(v / 3600, 2);
+            return v / 3600;
           })
-          }];
+        }];
         $scope.chartDateConfig.xAxis = {
           categories: _.map(timeline, 'date').map(function(v) {
             return moment(v).format('MMM Do');
@@ -135,7 +135,7 @@ angular.module('bulbasaur').controller('MainCtrl', ['$scope', '$http', 'moment',
       name: 'Percentage',
       colorByPoint: true,
       data: null
-        }],
+    }],
     tooltip: {
       headerFormat: '{point.key}: <b>{point.percentage:.1f}%</b>',
       pointFormat: ''
@@ -159,7 +159,12 @@ angular.module('bulbasaur').controller('MainCtrl', ['$scope', '$http', 'moment',
       enabled: false
     },
     tooltip: {
-      pointFormat: '<b>{point.y} Hours</b>'
+      pointFormatter: function() {
+        var time = this.y * 3600,
+          hrs = _.floor(time / 3600),
+          mins = _.floor((time % 3600) / 60);
+        return ((hrs > 0) ? hrs + ' Hours ' : '') + ((mins > 0) ? mins + ' Mins' : '');
+      }
     },
     yAxis: {
       title: {
@@ -169,7 +174,7 @@ angular.module('bulbasaur').controller('MainCtrl', ['$scope', '$http', 'moment',
         value: 0,
         width: 1,
         color: '#808080'
-        }]
+      }]
     }
   };
 }]).controller('NavCtrl', ['$scope', '$document', function($scope, $document) {
