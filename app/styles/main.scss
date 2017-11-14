@@ -258,7 +258,6 @@ h3 {
         padding: 2%;
         position: relative;
         right: 30px;
-
         width: 46%;
 
         &::after,
@@ -277,7 +276,6 @@ h3 {
           text-align: center;
           top: 50%;
           width: 30px;
-
         }
 
         &::before {
@@ -453,6 +451,11 @@ h3 {
       text-align: center;
     }
   }
+
+  .zoomInRight.wow > div.p {
+    position: relative;
+    z-index: -1;
+  }
 }
 
 #chart3 .highcharts-container {
@@ -495,7 +498,6 @@ h3 {
       color: #F5F5F5;
       cursor: pointer;
     }
-
   }
 
   &:focus .option {
@@ -510,12 +512,12 @@ h3 {
 
     &:checked + label {
       background: $white;
-      border-top: none;
+      border-top: 0;
       order: 1;
       position: relative;
       z-index: 2;
 
-      &:after {
+      &::after {
         border-left: 5px solid transparent;
         border-right: 5px solid transparent;
         border-top: 5px solid $black;
@@ -569,8 +571,8 @@ h3 {
       }
 
       &.active a {
-        color: $black;
         border-bottom: 2px solid $blue;
+        color: $black;
       }
     }
   }
@@ -766,7 +768,6 @@ footer {
   25% {
     opacity: 0;
     top: -150px;
-
   }
 
   50% {

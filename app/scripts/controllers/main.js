@@ -108,7 +108,8 @@ angular.module('bulbasaur').controller('MainCtrl', ['$scope', '$http', 'moment',
   $scope.chartLanguageConfig = {
     chart: {
       type: 'pie',
-      width: $('.skills .col-md-6').width()
+      width: $('.skills .col-md-6').width(),
+      height: 450
     },
     series: [{
       name: 'Percentage',
@@ -129,7 +130,8 @@ angular.module('bulbasaur').controller('MainCtrl', ['$scope', '$http', 'moment',
   $scope.chartEditorConfig = {
     chart: {
       type: 'pie',
-      width: $('.skills .col-md-6').width()
+      width: $('.skills .col-md-6').width(),
+      height: 450
     },
     series: [{
       name: 'Percentage',
@@ -150,7 +152,8 @@ angular.module('bulbasaur').controller('MainCtrl', ['$scope', '$http', 'moment',
   $scope.chartDateConfig = {
     chart: {
       type: 'line',
-      width: $('.skills .col-md-12').width()
+      width: $('.skills .col-md-12').width(),
+      height: 400
     },
     title: {
       text: 'Coding Activity'
