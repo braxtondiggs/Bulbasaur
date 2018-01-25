@@ -1,17 +1,26 @@
 .avatar {
-  margin: 0 auto;
-  width: 195px;
-  height: 195px;
-  border-radius: 50%;
   border: 0;
+  border-radius: 50%;
   display: block;
+  height: 195px;
+  margin: 0 auto;
   vertical-align: middle;
+  width: 195px;
+}
+
+.mat-card {
+  padding: 0;
+}
+
+.mat-card-content {
+  padding: 24px;
+  margin: 0;
 }
 
 .card-info {
+  color: #010101;
   margin-top: 33px;
   text-align: center;
-  color: #010101;
 
   h2 {
     font-size: 23px;
@@ -20,11 +29,17 @@
   }
 
   p {
-    opacity: .65;
     font-size: 16px;
+    opacity: .65;
   }
 }
 
 .mat-card-footer {
   margin: 0;
+  padding: 34px 20px;
+  text-align: center;
+
+  .download-resume {
+    margin: 0 auto;
+  }
 }

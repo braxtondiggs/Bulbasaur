@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { MatButtonModule, MatIconRegistry, MatIconModule, MatCardModule } from '@angular/material';
+import { MatButtonModule, MatIconRegistry, MatIconModule, MatCardModule, MatTooltipModule } from '@angular/material';
 @NgModule({
-  imports: [MatButtonModule, MatIconModule, MatCardModule],
-  exports: [MatButtonModule, MatIconModule, MatCardModule],
+  imports: [MatButtonModule, MatIconModule, MatCardModule, MatTooltipModule],
+  exports: [MatButtonModule, MatIconModule, MatCardModule, MatTooltipModule],
 })
 export class MaterialModule {
   constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {

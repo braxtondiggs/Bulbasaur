@@ -16,4 +16,8 @@ export class AppComponent implements OnInit {
     console.log('scrolling');
   }
 
+  scrollToTop() {
+    console.log('hi');
+  }
+
 }
