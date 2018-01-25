@@ -11,4 +11,7 @@ export class SideNavComponent implements OnInit {
 
   ngOnInit() { }
 
+  scrollTo(content: string) {
+    console.log(content);
+  }
 }

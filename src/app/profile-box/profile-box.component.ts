@@ -11,4 +11,7 @@ export class ProfileBoxComponent implements OnInit {
 
   ngOnInit() { }
 
+  showPDF() {
+    window.open('assets/resume/braxton-diggs.pdf', '_blank');
+  }
 }

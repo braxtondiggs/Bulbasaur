@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MomentModule } from 'angular2-moment';
 import { NgModule } from '@angular/core';
 
 import { MaterialModule } from './material/material.module';
@@ -23,6 +24,7 @@ import { ContentComponent } from './content/content.component';
   imports: [
     FlexLayoutModule,
     MaterialModule,
+    MomentModule,
     BrowserModule,
     BrowserAnimationsModule,
     LoadingBarHttpClientModule

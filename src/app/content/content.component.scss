@@ -1,3 +1,144 @@
 .mat-card {
-  margin: 0 10px 0 30px;
+  margin: 15px 10px 0 30px;
+  padding: 40px 35px;
+
+  .mat-card-content {
+    font-size: 16px;
+    line-height: 1.875em;
+
+    .mat-divider {
+      margin: 20px 0;
+      position: initial;
+    }
+  }
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.title-lg {
+  font-size: 30px;
+  margin-bottom: 50px;
+  text-transform: uppercase;
+}
+
+.mat-list .mat-list-item {
+  height: 40px;
+}
+
+.timeline {
+  left: 50%;
+  list-style: none;
+  padding: 20px 0 0;
+  position: relative;
+
+  &::before {
+    background-color: #0c0c0c;
+    bottom: 0;
+    content: ' ';
+    left: 0;
+    margin-left: -2px;
+    opacity: .15;
+    position: absolute;
+    top: 0;
+    width: 4px;
+  }
+
+  li {
+    box-sizing: border-box;
+    display: block;
+    left: -50%;
+    min-height: 30px;
+    position: relative;
+    white-space: nowrap;
+    width: 50%;
+
+    .timeline-circ {
+      background: #969c9c;
+      border-color: #fff !important;
+      border-radius: 50%;
+      border-style: solid;
+      border-width: 3px;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
+      color: #fff;
+      height: 20px;
+      left: 100%;
+      line-height: 20px;
+      margin-left: -13px;
+      position: absolute;
+      text-align: center;
+      top: 15px;
+      width: 20px;
+    }
+
+    .timeline-entry {
+      display: inline-block;
+      margin: 0 -3px 0 0;
+      padding: 0;
+      position: relative;
+      vertical-align: top;
+      white-space: normal;
+      width: 100%;
+
+      .card {
+        background-color: #f2f3f3;
+        border-color: #f2f3f3;
+        border-radius: 2px;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
+        color: #313534;
+        margin-right: 30px;
+        position: relative;
+
+        &::after,
+        &::before {
+          content: ' ';
+          display: table;
+        }
+
+        .card-body {
+          border-radius: 0 0 2px 2px;
+          line-height: normal;
+          padding: 12px;
+          position: relative;
+
+          img.avatar {
+            border-radius: 50%;
+            height: 70px;
+            width: 70px;
+          }
+
+          h3 {
+            color: #4684ee;
+            font-size: 16px;
+            margin: 2% 0 1%;
+            text-transform: uppercase;
+          }
+
+          h4 {
+            font-family: Arial,Helvetica,sans-serif;
+            font-size: 14px;
+            margin: 0 0 5px;
+          }
+
+          h5 {
+            font-family: Arial,Helvetica,sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            margin: 0 0 5px;
+          }
+        }
+      }
+    }
+
+    &.timeline-inverted .timeline-entry {
+      left: 100%;
+
+      .card {
+        margin-bottom: 15px;
+        margin-left: 30px;
+        margin-right: 0;
+      }
+    }
+  }
 }

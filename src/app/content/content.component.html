@@ -1,11 +1,46 @@
 <mat-card>
 	<mat-card-content>
-		<h2>Hello, I'm Braxton</h2>
+		<h2 class="title-lg">Hello, I'm Braxton</h2>
 		<p>I am a talanted Freelance Web & Mobile App Developer based in Silver Spring, Maryland, specializing in User Interface/Experience and Application Development. I build clean, appealing, and functional interfaces which comply with the latest and greatest
 			web standards.</p>
 		<button mat-raised-button color="accent">
       <mat-icon aria-label="Share" svgIcon="share-variant"></mat-icon>&nbsp;Share
     </button>
 		<mat-divider></mat-divider>
+		<h2 class="title-lg">Things I&nbsp;<mat-icon aria-label="Heart" fontSet="linearicons" fontIcon="icon-heart"></mat-icon></h2>
+		<div fxLayout="row">
+			<mat-list *ngFor="let items of likes" fxFlex>
+				<mat-list-item *ngFor="let item of items">
+					<mat-icon fontSet="linearicons" fontIcon="{{item.icon}}" mat-list-icon></mat-icon>
+					<h4 mat-line>{{item.title}}</h4>
+				</mat-list-item>
+			</mat-list>
+		</div>
+	</mat-card-content>
+</mat-card>
+<mat-card>
+	<mat-card-content>
+		<mat-card-content>
+			<h2 class="title-lg">Work Experience</h2>
+			<ul class="timeline">
+				<li *ngFor="let company of employment; let isOdd=odd;" [class.timeline-inverted]="isOdd">
+					<div class="timeline-circ"></div>
+					<div class="timeline-entry">
+						<div class="card">
+							<div class="card-body" fxLayout="row">
+								<div fxFlex="75px"><img src="http://via.placeholder.com/100x100" class="avatar" alt="{{company.name}}" /></div>
+								<div fxFlex>
+									<h3>{{company.position}}</h3>
+									<h4>{{company.name}} ({{company.location}})</h4>
+									<h5>
+										<span class="start-date">{{company.date.start | amParse:'YYYY-MM-DD' | amDateFormat:'MMM YYYY'}}</span> &#8211; <span class="end-date" *ngIf="company.date.end">{{company.date.end | amParse:'YYYY-MM-DD' | amDateFormat:'MMM YYYY'}}</span> <span class="difference-date" *ngIf="company.date.end">({{company.date.end | amDifference: company.date.start: 'years'}} years)</span><span *ngIf="!company.date.end">Present</span>
+									</h5>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</mat-card-content>
 	</mat-card-content>
 </mat-card>

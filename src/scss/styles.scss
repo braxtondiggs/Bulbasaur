@@ -7,8 +7,9 @@
 
 body {
   color: #010101;
-  font-size: 16px;
-  letter-spacing: .08em;
+  font-family: BandaRegular;
+  font-size: 100%;
+  letter-spacing: .04em;
   line-height: 1.4em;
 }
 
@@ -18,9 +19,11 @@ p {
 
 mat-card.mat-card {
   color: #010101;
+  font-family: BandaRegular;
 }
 
 button.mat-raised-button {
+  font-family: BandaRegular;
   font-size: 16px;
   letter-spacing: .05em;
   text-transform: uppercase;
