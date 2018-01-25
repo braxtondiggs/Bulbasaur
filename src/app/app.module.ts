@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { ProfileBoxComponent } from './profile-box/profile-box.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
+import { ContentComponent } from './content/content.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { SideNavComponent } from './side-nav/side-nav.component';
     AppComponent,
     HeaderComponent,
     ProfileBoxComponent,
-    SideNavComponent
+    SideNavComponent,
+    ContentComponent
   ],
   imports: [
     FlexLayoutModule,
