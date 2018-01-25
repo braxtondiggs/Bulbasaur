@@ -1,12 +1,28 @@
 @import './variables';
 @import './mixins';
 @import './fonts';
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,900');
+@import './linearicon';
 @import '~normalize.css/normalize.css';
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 body {
+  color: #010101;
   font-size: 16px;
-  line-height: 1.4em;
   letter-spacing: .08em;
+  line-height: 1.4em;
+}
+
+p {
+  margin: 0 0 22px;
+}
+
+mat-card.mat-card {
+  color: #010101;
+}
+
+button.mat-raised-button {
+  font-size: 16px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  vertical-align: middle;
 }
