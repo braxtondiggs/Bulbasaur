@@ -1,4 +1,12 @@
 @import './variables';
 @import './mixins';
+@import './fonts';
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,900');
+@import '~normalize.css/normalize.css';
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+body {
+  font-size: 16px;
+  line-height: 1.4em;
+  letter-spacing: .08em;
+}

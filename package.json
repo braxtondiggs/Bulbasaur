@@ -36,6 +36,7 @@
     "express": "^4.16.2",
     "helmet": "^3.10.0",
     "highcharts": "^6.0.4",
+    "normalize.css": "^7.0.0",
     "rxjs": "^5.5.2",
     "zone.js": "^0.8.20"
   },
@@ -52,6 +53,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-register": "^6.26.0",
     "codelyzer": "^4.1.0",
+    "eslint": "^4.16.0",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",
     "karma": "~1.7.0",
