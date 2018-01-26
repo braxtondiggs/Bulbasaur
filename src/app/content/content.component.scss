@@ -1,5 +1,5 @@
 .mat-card {
-  margin: 15px 10px 0 30px;
+  margin: 15px 10px 10px 30px;
   padding: 40px 35px;
 
   .mat-card-content {
@@ -141,4 +141,8 @@
       }
     }
   }
+}
+
+#experience {
+  overflow: hidden;
 }

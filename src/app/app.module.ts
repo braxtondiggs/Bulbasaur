@@ -3,6 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MomentModule } from 'angular2-moment';
+import { NgxPageScrollModule, PageScrollConfig } from 'ngx-page-scroll';
 import { NgModule } from '@angular/core';
 
 import { MaterialModule } from './material/material.module';
@@ -22,6 +23,7 @@ import { ContentComponent } from './content/content.component';
     ContentComponent
   ],
   imports: [
+    NgxPageScrollModule,
     FlexLayoutModule,
     MaterialModule,
     MomentModule,
@@ -32,4 +34,9 @@ import { ContentComponent } from './content/content.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor() {
+    PageScrollConfig.defaultScrollOffset = 25;
+    PageScrollConfig.defaultDuration = 500;
+  }
+}

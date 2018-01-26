@@ -3,3 +3,14 @@
   height: 40px;
   width: 40px;
 }
+
+side-nav {
+  margin-top: 5px;
+}
+
+.side-scroll {
+  > div {
+    position: fixed;
+    top: 5px;
+  }
+}

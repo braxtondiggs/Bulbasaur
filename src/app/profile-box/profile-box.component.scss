@@ -9,12 +9,36 @@
 }
 
 .mat-card {
+  margin: 15px 10px 0 30px;
   padding: 0;
 }
 
+#instagram {
+  padding: 20px;
+
+  .title {
+    text-align: center;
+
+    .mat-icon {
+      vertical-align: middle;
+    }
+  }
+
+  .mat-spinner {
+    margin: 60px auto 20px;
+  }
+
+  #instacontent {
+    height: 223px;
+  }
+}
+
 .mat-card-content {
-  padding: 24px;
   margin: 0;
+
+  &:first-child {
+    margin-top: 0;
+  }
 }
 
 .card-info {

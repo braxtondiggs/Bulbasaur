@@ -6,11 +6,14 @@
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 body {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
   color: #010101;
   font-family: BandaRegular;
   font-size: 100%;
   letter-spacing: .04em;
   line-height: 1.4em;
+  text-rendering: optimizeLegibility;
 }
 
 p {

@@ -5,13 +5,16 @@
 
 .top-fab {
   bottom: 20px;
-  display: none;
   position: fixed;
   right: 20px;
 }
 
 header {
   margin-bottom: 20px;
+}
+
+[hidden] {
+  visibility: hidden;
 }
 
 @media (min-width: 992px) {

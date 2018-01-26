@@ -3,8 +3,8 @@
 <div class="container" fxLayout="row">
 	<profile-box fxFlex="290px"></profile-box>
 	<content></content>
-	<side-nav fxFlex="56px"></side-nav>
+	<side-nav [ngClass]="{'side-scroll': isScroll()}" fxFlex="56px"></side-nav>
 </div>
-<button class="top-fab" matTooltip="Back to Top" matTooltipPosition="before" (click)="scrollToTop()" mat-fab>
+<button class="top-fab" matTooltip="Back to Top" matTooltipPosition="before" pageScrollTarget="body" defaultScrollOffset="0" [hidden]="!isScroll()" pageScroll mat-fab>
 	<mat-icon aria-label="Back to Top" svgIcon="chevron-double-up"></mat-icon>
 </button>
