@@ -17,6 +17,30 @@ header {
   visibility: hidden;
 }
 
+#crtBgShape1,
+#crtBgShape2 {
+  top: 0;
+  position: fixed;
+  z-index: -1;
+}
+
+#crtBgShape1 {
+  left: 0;
+
+  polygon {
+    fill: #e1e1e1;
+  }
+}
+
+#crtBgShape2 {
+  top: -100px;
+  right: -100px;
+
+  polygon {
+    fill: #c0e3e7;
+  }
+}
+
 @media (min-width: 992px) {
   .container {
     max-width: 1196px;

@@ -1,6 +1,6 @@
 {
   "employment": [{
-    "company": "ByteCubed",
+    "name": "ByteCubed",
     "position": "Angular Developer",
     "location": "Arlington, VA",
     "image": {
@@ -10,7 +10,7 @@
       "start": "2017-02-01"
     }
   }, {
-    "company": "Mobomo",
+    "name": "Mobomo",
     "position": "Front-End Developer",
     "location": "Washington, D.C.",
     "image": {
@@ -21,7 +21,7 @@
       "end": "2017-02-01"
     }
   }, {
-    "company": "Tahzoo",
+    "name": "Tahzoo",
     "position": "Front-End Developer",
     "location": "Washington, D.C.",
     "image": {
@@ -32,7 +32,7 @@
       "end": "2015-11-01"
     }
   }, {
-    "company": "PasteGroup LLC",
+    "name": "PasteGroup LLC",
     "position": "Senior Web Developer",
     "location": "Washington, D.C.",
     "image": {
@@ -44,7 +44,7 @@
       "end": "2014-09-01"
     }
   }, {
-    "company": "Navigation Arts",
+    "name": "Navigation Arts",
     "position": "CQ5 Developer",
     "location": "McLean, VA",
     "image": {
@@ -55,7 +55,7 @@
       "end": "2013-07-01"
     }
   }, {
-    "company": "GDI",
+    "name": "GDI",
     "position": "PHP Developer",
     "location": "Baltimore, MD",
     "image": {
@@ -66,7 +66,7 @@
       "end": "2010-02-01"
     }
   }, {
-    "company": "Liberty Tax Service",
+    "name": "Liberty Tax Service",
     "position": ".NET Developer",
     "location": "Virginia Beach, VA",
     "image": {

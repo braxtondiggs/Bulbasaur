@@ -13,9 +13,7 @@ side-nav {
   box-shadow: initial;
 }
 
-.side-scroll {
-  > div {
-    position: fixed;
-    top: 5px;
-  }
+.side-scroll > div {
+  position: fixed;
+  top: 5px;
 }
