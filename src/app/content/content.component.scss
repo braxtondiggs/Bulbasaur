@@ -1,3 +1,5 @@
+@import '../../scss/variables';
+
 .mat-card {
   margin: 15px 10px 10px 30px;
   padding: 40px 35px;
@@ -29,13 +31,21 @@
 }
 
 .skills-container-1 {
-  padding-right: 10px;
   height: 200px;
+  padding-right: 10px;
+
+  .mat-spinner {
+    margin: 40px auto 0;
+  }
 }
 
 .skills-container-2 {
-  padding-left: 10px;
   height: 200px;
+  padding-left: 10px;
+
+  .mat-spinner {
+    margin: 40px auto 0;
+  }
 }
 
 .skills {
@@ -47,14 +57,14 @@
 }
 
 .skill-spinner {
-  position: relative;
   margin-bottom: 10px;
+  position: relative;
 
   > div {
-    position: absolute;
     left: 50%;
+    position: absolute;
     top: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
   }
 
   ~ .name {
@@ -63,11 +73,11 @@
 }
 
 .my-likes {
-  overflow-y: hidden;
   max-height: 225px;
-  transition-property: all;
+  overflow-y: hidden;
   transition-duration: .5s;
-  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0, 1, .5, 1);
 
   &.closed {
     max-height: 90px;
@@ -107,12 +117,12 @@
 
     .timeline-circ {
       background: #969c9c;
-      border-color: #fff !important;
+      border-color: $white !important;
       border-radius: 50%;
       border-style: solid;
       border-width: 3px;
-      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
-      color: #fff;
+      box-shadow: 0 1px 3px 0 rgba($black, .33);
+      color: $white;
       height: 20px;
       left: 100%;
       line-height: 20px;
@@ -136,7 +146,7 @@
         background-color: #f2f3f3;
         border-color: #f2f3f3;
         border-radius: 2px;
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
+        box-shadow: 0 1px 3px 0 rgba($black, .33);
         color: #313534;
         margin-right: 30px;
         position: relative;
@@ -208,7 +218,7 @@
   padding-bottom: 0;
 
   .mat-card-footer {
-    text-align: center;
     margin: 30px 0;
+    text-align: center;
   }
 }

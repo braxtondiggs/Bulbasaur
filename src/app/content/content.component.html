@@ -10,24 +10,30 @@
 		<div fxLayout="row">
 			<div class="skills-container-1" fxFlex>
 				<h2 class="title">professional skills</h2>
-				<div *ngFor="let skill of skills[0]" class="skills">
-					<div fxLayout="row">
-						<div class="name" fxFlex>{{skill.name}}</div>
-						<div>{{skill.value}}%</div>
+				<div *ngIf="!loadingSkills">
+					<div *ngFor="let skill of skills[0]" class="skills">
+						<div fxLayout="row">
+							<div class="name" fxFlex>{{skill.name}}</div>
+							<div>{{skill.value}}%</div>
+						</div>
+						<mat-progress-bar mode="determinate" [value]="skill.value"></mat-progress-bar>
 					</div>
-					<mat-progress-bar mode="determinate" [value]="skill.value"></mat-progress-bar>
 				</div>
+				<mat-spinner *ngIf="loadingSkills"></mat-spinner>
 			</div>
 			<div class="skills-container-2" fxFlex>
 				<h2 class="title">additional skills</h2>
 				<div fxLayout="row">
-					<div *ngFor="let skill of skills[1]" class="skills" fxLayout="column" fxFlex>
-						<div class="skill-spinner">
-							<mat-progress-spinner mode="determinate" [value]="skill.value"></mat-progress-spinner>
-							<div>{{skill.value}}%</div>
+					<div *ngIf="!loadingSkills">
+						<div *ngFor="let skill of skills[1]" class="skills" fxLayout="column" fxFlex>
+							<div class="skill-spinner">
+								<mat-progress-spinner mode="determinate" [value]="skill.value"></mat-progress-spinner>
+								<div>{{skill.value}}%</div>
+							</div>
+							<div class="name" fxFlex>{{skill.name}}</div>
 						</div>
-						<div class="name" fxFlex>{{skill.name}}</div>
 					</div>
+					<mat-spinner *ngIf="loadingSkills"></mat-spinner>
 				</div>
 			</div>
 		</div>
