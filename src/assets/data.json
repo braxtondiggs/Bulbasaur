@@ -4,7 +4,7 @@
     "position": "Angular Developer",
     "location": "Arlington, VA",
     "image": {
-      "icon": "images/logos/bytecubed.png"
+      "icon": "./assets/logos/bytecubed.png"
     },
     "date": {
       "start": "2017-02-01"
@@ -14,7 +14,7 @@
     "position": "Front-End Developer",
     "location": "Washington, D.C.",
     "image": {
-      "icon": "images/logos/mobomo.png"
+      "icon": "./assets/logos/mobomo.png"
     },
     "date": {
       "start": "2015-11-1",
@@ -25,7 +25,7 @@
     "position": "Front-End Developer",
     "location": "Washington, D.C.",
     "image": {
-      "icon": "images/logos/tahzoo.png"
+      "icon": "./assets/logos/tahzoo.png"
     },
     "date": {
       "start": "2014-09-01",
@@ -36,7 +36,7 @@
     "position": "Senior Web Developer",
     "location": "Washington, D.C.",
     "image": {
-      "icon": "images/logos/paste_group.png",
+      "icon": "./assets/logos/paste_group.png",
       "margin": "31px 0 0 9px"
     },
     "date": {
@@ -48,7 +48,7 @@
     "position": "CQ5 Developer",
     "location": "McLean, VA",
     "image": {
-      "icon": "images/logos/navigation_arts.png"
+      "icon": "./assets/logos/navigation_arts.png"
     },
     "date": {
       "start": "2010-07-01",
@@ -59,7 +59,7 @@
     "position": "PHP Developer",
     "location": "Baltimore, MD",
     "image": {
-      "icon": "images/logos/GDI.png"
+      "icon": "./assets/logos/GDI.png"
     },
     "date": {
       "start": "2009-02-01",
@@ -70,7 +70,7 @@
     "position": ".NET Developer",
     "location": "Virginia Beach, VA",
     "image": {
-      "icon": "images/logos/liberty_tax_service.png"
+      "icon": "./assets/logos/liberty_tax_service.png"
     },
     "date": {
       "start": "2008-05-01",

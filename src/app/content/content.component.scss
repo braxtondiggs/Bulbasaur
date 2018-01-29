@@ -23,6 +23,57 @@
   text-transform: uppercase;
 }
 
+.title {
+  font-weight: normal;
+  margin-top: 0;
+}
+
+.skills-container-1 {
+  padding-right: 10px;
+  height: 200px;
+}
+
+.skills-container-2 {
+  padding-left: 10px;
+  height: 200px;
+}
+
+.skills {
+  margin-bottom: 10px;
+
+  .name {
+    font-weight: bold;
+  }
+}
+
+.skill-spinner {
+  position: relative;
+  margin-bottom: 10px;
+
+  > div {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+  }
+
+  ~ .name {
+    text-align: center;
+  }
+}
+
+.my-likes {
+  overflow-y: hidden;
+  max-height: 225px;
+  transition-property: all;
+  transition-duration: .5s;
+  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+
+  &.closed {
+    max-height: 90px;
+  }
+}
+
 .mat-list .mat-list-item {
   height: 40px;
 }
@@ -143,6 +194,21 @@
   }
 }
 
+.view-more {
+  margin: 30px 0 -20px !important;
+  text-align: center;
+
+  .mat-button {
+    font-weight: normal;
+  }
+}
+
 #experience {
   overflow: hidden;
+  padding-bottom: 0;
+
+  .mat-card-footer {
+    text-align: center;
+    margin: 30px 0;
+  }
 }

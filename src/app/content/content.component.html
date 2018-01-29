@@ -7,8 +7,33 @@
 			<mat-icon aria-label="Share" svgIcon="share-variant"></mat-icon>&nbsp;Share
 		</button>
 		<mat-divider></mat-divider>
-		<h2 class="title-lg">Things I&nbsp;<mat-icon aria-label="Heart" fontSet="linearicons" fontIcon="icon-heart"></mat-icon></h2>
 		<div fxLayout="row">
+			<div class="skills-container-1" fxFlex>
+				<h2 class="title">professional skills</h2>
+				<div *ngFor="let skill of skills[0]" class="skills">
+					<div fxLayout="row">
+						<div class="name" fxFlex>{{skill.name}}</div>
+						<div>{{skill.value}}%</div>
+					</div>
+					<mat-progress-bar mode="determinate" [value]="skill.value"></mat-progress-bar>
+				</div>
+			</div>
+			<div class="skills-container-2" fxFlex>
+				<h2 class="title">additional skills</h2>
+				<div fxLayout="row">
+					<div *ngFor="let skill of skills[1]" class="skills" fxLayout="column" fxFlex>
+						<div class="skill-spinner">
+							<mat-progress-spinner mode="determinate" [value]="skill.value"></mat-progress-spinner>
+							<div>{{skill.value}}%</div>
+						</div>
+						<div class="name" fxFlex>{{skill.name}}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<mat-divider></mat-divider>
+		<h2 class="title-lg" style="margin-bottom: 20px;">Things I&nbsp;<mat-icon aria-label="Heart" fontSet="linearicons" fontIcon="icon-heart"></mat-icon></h2>
+		<div fxLayout="row" class="my-likes" [ngClass]="{'closed': !toggleLikes}">
 			<mat-list *ngFor="let items of likes" fxFlex>
 				<mat-list-item *ngFor="let item of items">
 					<mat-icon fontSet="linearicons" fontIcon="{{item.icon}}" mat-list-icon></mat-icon>
@@ -16,31 +41,35 @@
 				</mat-list-item>
 			</mat-list>
 		</div>
+		<div class="view-more">
+			<button (click)="toggleLikes = !toggleLikes" mat-button>View {{toggleLikes? 'Less' : 'More'}}</button>
+		</div>
 	</mat-card-content>
 </mat-card>
 <mat-card id="experience">
 	<mat-card-content>
-		<mat-card-content>
-			<h2 class="title-lg">Work Experience</h2>
-			<ul class="timeline">
-				<li *ngFor="let company of employment; let isOdd=odd;" [class.timeline-inverted]="isOdd">
-					<div class="timeline-circ"></div>
-					<div class="timeline-entry">
-						<div class="card">
-							<div class="card-body" fxLayout="row">
-								<div fxFlex="75px"><img src="http://via.placeholder.com/100x100" class="avatar" alt="{{company.name}}" /></div>
-								<div fxFlex>
-									<h3>{{company.position}}</h3>
-									<h4>{{company.name}} ({{company.location}})</h4>
-									<h5>
-										<span class="start-date">{{company.date.start | amParse:'YYYY-MM-DD' | amDateFormat:'MMM YYYY'}}</span> &#8211; <span class="end-date" *ngIf="company.date.end">{{company.date.end | amParse:'YYYY-MM-DD' | amDateFormat:'MMM YYYY'}}</span> <span class="difference-date" *ngIf="company.date.end">({{company.date.end | amDifference: company.date.start: 'years'}} years)</span><span *ngIf="!company.date.end">Present</span>
-									</h5>
-								</div>
+		<h2 class="title-lg">Work Experience</h2>
+		<ul class="timeline">
+			<li *ngFor="let company of employment; let isOdd=odd;" [class.timeline-inverted]="isOdd">
+				<div class="timeline-circ"></div>
+				<div class="timeline-entry">
+					<div class="card">
+						<div class="card-body" fxLayout="row">
+							<div fxFlex="75px"><img [src]="company.image.icon" class="avatar" alt="{{company.name}}" /></div>
+							<div fxFlex>
+								<h3>{{company.position}}</h3>
+								<h4>{{company.name}} ({{company.location}})</h4>
+								<h5>
+									<span class="start-date">{{company.date.start | amParse:'YYYY-MM-DD' | amDateFormat:'MMM YYYY'}}</span> &#8211; <span class="end-date" *ngIf="company.date.end">{{company.date.end | amParse:'YYYY-MM-DD' | amDateFormat:'MMM YYYY'}}</span> <span class="difference-date" *ngIf="company.date.end">({{company.date.end | amDifference: company.date.start: 'years'}} years)</span><span *ngIf="!company.date.end">Present</span>
+								</h5>
 							</div>
 						</div>
 					</div>
-				</li>
-			</ul>
-		</mat-card-content>
+				</div>
+			</li>
+		</ul>
 	</mat-card-content>
+	<mat-card-footer>
+		<a color="primary" class="download-resume" href="assets/resume/braxton-diggs.pdf" target="_blank" mat-raised-button>Download Resume</a>
+	</mat-card-footer>
 </mat-card>

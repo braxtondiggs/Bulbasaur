@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { MatDialog } from '@angular/material';
+import { SnapchatQRComponent } from './snapchatQR/snapchat-qr.component';
 import * as Instafeed from 'instafeed.js';
 import * as _ from 'lodash';
 
@@ -11,7 +13,7 @@ import * as _ from 'lodash';
 export class ProfileBoxComponent implements OnInit {
   public instagram;
   public insta_loading = true;
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
     this.instagram = new Promise<any>(resolve => {
@@ -24,7 +26,11 @@ export class ProfileBoxComponent implements OnInit {
     });
   }
 
-  showPDF() {
-    window.open('assets/resume/braxton-diggs.pdf', '_blank');
+  openSnapQR() {
+    this.dialog.open(SnapchatQRComponent, {
+      width: '250px',
+      height: '250px',
+      panelClass: 'snapchat-qr'
+    });
   }
 }

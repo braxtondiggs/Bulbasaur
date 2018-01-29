@@ -4,12 +4,13 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MomentModule } from 'angular2-moment';
 import { NgxPageScrollModule, PageScrollConfig } from 'ngx-page-scroll';
+import { ChartModule } from 'angular-highcharts';
 import { NgModule } from '@angular/core';
 
 import { MaterialModule } from './material/material.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { ProfileBoxComponent } from './profile-box/profile-box.component';
+import { ProfileBoxComponent, SnapchatQRComponent } from './profile-box/index';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { ContentComponent } from './content/content.component';
 
@@ -19,10 +20,12 @@ import { ContentComponent } from './content/content.component';
     AppComponent,
     HeaderComponent,
     ProfileBoxComponent,
+    SnapchatQRComponent,
     SideNavComponent,
     ContentComponent
   ],
   imports: [
+    ChartModule,
     NgxPageScrollModule,
     FlexLayoutModule,
     MaterialModule,
@@ -31,6 +34,7 @@ import { ContentComponent } from './content/content.component';
     BrowserAnimationsModule,
     LoadingBarHttpClientModule
   ],
+  entryComponents: [SnapchatQRComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
