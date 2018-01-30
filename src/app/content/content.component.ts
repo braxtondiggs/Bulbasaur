@@ -24,7 +24,7 @@ export class ContentComponent implements OnInit {
     });
     this.http.get('https://wartortle.herokuapp.com?range=last30days').subscribe((data: any) => {
       const total_time = _.sumBy(data.Languages, 'total_seconds');
-      this.skills = _.chain(data.Languages).orderBy(['total_seconds'], ['desc']).slice(0, 6)
+      this.skills = _.chain(data.Languages).reject(['name', 'Other']).orderBy(['total_seconds'], ['desc']).slice(0, 6)
         .map(o => _.merge(o, { value: _.floor((o.total_seconds / total_time) * 200) })).chunk(3).value();
       this.loadingSkills = false;
     });

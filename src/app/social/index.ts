@@ -1,2 +1,2 @@
-export * from './profile-box.component';
+export * from './social.component';
 export * from './snapchatQR/snapchat-qr.component';

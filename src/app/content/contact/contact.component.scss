@@ -1,0 +1,15 @@
+.mat-card {
+  margin: 15px 10px 10px 30px;
+  padding: 40px 35px;
+}
+
+.contact-form {
+  > *:not(button) {
+    width: 100%;
+  }
+}
+
+social {
+  display: block;
+  margin: 0 0 20px -15px;
+}

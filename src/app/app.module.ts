@@ -10,9 +10,12 @@ import { NgModule } from '@angular/core';
 import { MaterialModule } from './material/material.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { ProfileBoxComponent, SnapchatQRComponent } from './profile-box/index';
+import { ProfileBoxComponent } from './profile-box/profile-box.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { ContentComponent } from './content/content.component';
+import { FooterComponent } from './footer/footer.component';
+import { ContactComponent } from './content/contact/contact.component';
+import { SocialComponent, SnapchatQRComponent } from './social';
 
 
 @NgModule({
@@ -22,7 +25,10 @@ import { ContentComponent } from './content/content.component';
     ProfileBoxComponent,
     SnapchatQRComponent,
     SideNavComponent,
-    ContentComponent
+    ContentComponent,
+    FooterComponent,
+    ContactComponent,
+    SocialComponent
   ],
   imports: [
     ChartModule,
