@@ -5,7 +5,4 @@ import { Component, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None,
   templateUrl: 'snapchat-qr.component.html',
 })
-export class SnapchatQRComponent {
-
-  constructor() { }
-}
+export class SnapchatQRComponent { }

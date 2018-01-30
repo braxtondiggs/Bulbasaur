@@ -4,20 +4,25 @@
 		<social></social>
 		<p>I would love to hear what you think. Drop me a line, whether it is praise or criticism, a question, a suggestion, or just a hello. I am currently available for new projects, so if you have a request go ahead and send it!</p>
 		<p>If you'd like to contact me directly, please email me at <a>braxtondiggs@gmail.com</a>. I can provide phone number and more information if the situation warrants.</p>
-		<form class="contact-form">
+		<form class="contact-form" [formGroup]="contactform" (ngSubmit)="onSubmit()" novalidate>
 			<mat-form-field>
-				<input placeholder="Your Name" type="text" matInput>
+				<input placeholder="Your Name" type="text" [formControl]="name" matInput required>
+				<mat-error *ngIf="name.invalid">{{getErrorMessage(name, 'Your name')}}</mat-error>
 			</mat-form-field>
 			<mat-form-field>
-				<input placeholder="Your Email" type="email" matInput>
+				<input placeholder="Your Email" type="email" [formControl]="email" matInput required>
+				<mat-error *ngIf="email.invalid">{{getErrorMessage(email, 'Your email')}}</mat-error>
 			</mat-form-field>
 			<mat-form-field>
-				<input placeholder="Subject" type="text" matInput>
+				<input placeholder="Subject" type="text" [formControl]="subject" matInput>
 			</mat-form-field>
 			<mat-form-field>
-				<textarea placeholder="Your Message" matAutosizeMinRows="8" matInput matTextareaAutosize></textarea>
+				<textarea placeholder="Your Message" [formControl]="message" matAutosizeMinRows="8" matInput matTextareaAutosize required></textarea>
+				<mat-error *ngIf="message.invalid">{{getErrorMessage(message, 'A message')}}</mat-error>
 			</mat-form-field>
-			<button color="primary" type="submit" mat-raised-button>Submit</button>
+			<div class="submit-container">
+				<button color="primary" type="submit" mat-raised-button>Send&nbsp;<mat-icon aria-label="Send" svgIcon="send"></mat-icon></button>
+			</div>
 		</form>
 	</mat-card-content>
 </mat-card>

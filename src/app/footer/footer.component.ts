@@ -7,5 +7,4 @@ import * as moment from 'moment';
 })
 export class FooterComponent {
   private year: string = moment().format('YYYY');
-  constructor() { }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { SnapchatQRComponent } from './snapchatQR/snapchat-qr.component';
 
@@ -6,10 +6,9 @@ import { SnapchatQRComponent } from './snapchatQR/snapchat-qr.component';
   selector: 'social',
   templateUrl: './social.component.html'
 })
-export class SocialComponent implements OnInit {
-  constructor(public dialog: MatDialog) { }
+export class SocialComponent {
 
-  ngOnInit() { }
+  constructor(private dialog: MatDialog) { }
 
   openSnapQR() {
     this.dialog.open(SnapchatQRComponent, {

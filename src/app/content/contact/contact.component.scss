@@ -7,6 +7,14 @@
   > *:not(button) {
     width: 100%;
   }
+
+  .mat-input-container {
+    margin-bottom: 16px;
+  }
+
+  .submit-container {
+    text-align: right;
+  }
 }
 
 social {
