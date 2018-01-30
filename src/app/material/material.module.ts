@@ -3,15 +3,15 @@ import { DomSanitizer } from '@angular/platform-browser';
 import {
   MatButtonModule, MatIconRegistry, MatIconModule, MatCardModule, MatTooltipModule, MatDividerModule,
   MatListModule, MatProgressSpinnerModule, MatDialogModule, MatProgressBarModule, MatFormFieldModule,
-  MatInputModule
+  MatInputModule, MatSnackBarModule
 } from '@angular/material';
 @NgModule({
   imports: [MatButtonModule, MatIconModule, MatCardModule, MatTooltipModule, MatDividerModule,
     MatListModule, MatProgressSpinnerModule, MatDialogModule, MatProgressBarModule, MatFormFieldModule,
-    MatInputModule],
+    MatInputModule, MatSnackBarModule],
   exports: [MatButtonModule, MatIconModule, MatCardModule, MatTooltipModule, MatDividerModule,
     MatListModule, MatProgressSpinnerModule, MatDialogModule, MatProgressBarModule, MatFormFieldModule,
-    MatInputModule],
+    MatInputModule, MatSnackBarModule],
 })
 export class MaterialModule {
   constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {

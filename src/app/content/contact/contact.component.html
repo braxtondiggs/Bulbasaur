@@ -18,10 +18,12 @@
 			</mat-form-field>
 			<mat-form-field>
 				<textarea placeholder="Your Message" [formControl]="message" matAutosizeMinRows="8" matInput matTextareaAutosize required></textarea>
-				<mat-error *ngIf="message.invalid">{{getErrorMessage(message, 'A message')}}</mat-error>
+				<mat-error *ngIf="message.invalid">{{getErrorMessage(message, 'Your message')}}</mat-error>
 			</mat-form-field>
 			<div class="submit-container">
-				<button color="primary" type="submit" mat-raised-button>Send&nbsp;<mat-icon aria-label="Send" svgIcon="send"></mat-icon></button>
+				<button color="primary" type="submit" [disabled]="submit" mat-raised-button>
+					Send&nbsp;<mat-icon aria-label="Send" svgIcon="send"></mat-icon>
+				</button>
 			</div>
 		</form>
 	</mat-card-content>
