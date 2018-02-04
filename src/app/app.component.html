@@ -1,7 +1,7 @@
 <ngx-loading-bar></ngx-loading-bar>
 <header></header>
 <div class="container" fxLayout="row">
-	<profile-box fxFlex="290px"></profile-box>
+	<profile-box [ngClass]="{'side-scroll': isScroll()}" fxFlex="290px"></profile-box>
 	<content></content>
 	<side-nav [ngClass]="{'side-scroll': isScroll()}" fxFlex="56px"></side-nav>
 </div>

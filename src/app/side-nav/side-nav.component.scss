@@ -17,3 +17,8 @@ side-nav {
   position: fixed;
   top: 5px;
 }
+
+profile-box.side-scroll > div {
+  top: 0;
+  width: 290px;
+}

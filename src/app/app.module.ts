@@ -13,8 +13,9 @@ import { HeaderComponent } from './header/header.component';
 import { ProfileBoxComponent } from './profile-box/profile-box.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { FooterComponent } from './footer/footer.component';
-import { ContentComponent, ContactComponent } from './content/';
+import { ContentComponent, ContactComponent, ProjectComponent } from './content/';
 import { SocialComponent, SnapchatQRComponent } from './social';
+import { SkillPipe } from './pipes/skill.pipe';
 
 
 @NgModule({
@@ -27,7 +28,9 @@ import { SocialComponent, SnapchatQRComponent } from './social';
     ContentComponent,
     FooterComponent,
     ContactComponent,
-    SocialComponent
+    SocialComponent,
+    ProjectComponent,
+    SkillPipe
   ],
   imports: [
     FormsModule,
@@ -41,7 +44,10 @@ import { SocialComponent, SnapchatQRComponent } from './social';
     BrowserAnimationsModule,
     LoadingBarHttpClientModule
   ],
-  entryComponents: [SnapchatQRComponent],
+  entryComponents: [
+    SnapchatQRComponent,
+    ProjectComponent
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

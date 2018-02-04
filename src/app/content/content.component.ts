@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { MatDialog } from '@angular/material';
+import { ProjectComponent } from './project/project.component';
 import * as _ from 'lodash';
 
 @Component({
@@ -14,7 +16,7 @@ export class ContentComponent implements OnInit {
   public employment;
   public projects;
   public skills;
-  constructor(protected http: HttpClient) { }
+  constructor(protected http: HttpClient, protected dialog: MatDialog) { }
 
   ngOnInit() {
     this.http.get('assets/data.json').subscribe((data: any) => {
@@ -25,8 +27,15 @@ export class ContentComponent implements OnInit {
     this.http.get('https://wartortle.herokuapp.com?range=last30days').subscribe((data: any) => {
       const total_time = _.sumBy(data.Languages, 'total_seconds');
       this.skills = _.chain(data.Languages).reject(['name', 'Other']).orderBy(['total_seconds'], ['desc']).slice(0, 6)
-        .map(o => _.merge(o, { value: _.floor((o.total_seconds / total_time) * 200) })).chunk(3).value();
+        .map(o => _.merge(o, { value: _.floor((o.total_seconds / total_time) * 100) })).chunk(3).value();
       this.loadingSkills = false;
+    });
+  }
+
+  openProject(project: any) {
+    this.dialog.open(ProjectComponent, {
+      data: project,
+      panelClass: 'project-component'
     });
   }
 }

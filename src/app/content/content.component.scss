@@ -223,6 +223,60 @@
   }
 }
 
+#portfolio {
+  .mat-grid-tile {
+    img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .caption {
+      text-align: center;
+      top: 0;
+      height: 100%;
+      visibility: hidden;
+      left: 0;
+      right: 0;
+      color: #fff;
+      z-index: 2;
+      opacity: 0;
+      position: absolute;
+      background: rgba(0,0,0,.8);
+      transition: opacity .3s ease-in-out,visibility .3s ease-in-out;
+      cursor: pointer;
+
+      .container {
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        width: 75%;
+        transform: translate(-50%, -50%);
+      }
+
+      h3 {
+        transform: translateY(-10px);
+        transition: transform .4s ease-in-out;
+      }
+
+      .mat-raised-button {
+        transform: translateY(10px);
+        transition: transform .4s ease-in-out;
+      }
+    }
+
+    &:hover .caption {
+      opacity: 1;
+      visibility: visible;
+
+      .mat-raised-button,
+      h3 {
+        transform: translateY(0);
+      }
+
+    }
+  }
+}
+
 footer {
   margin: 15px 10px 10px 30px;
   padding: 10px 0;

@@ -14,27 +14,25 @@
 					<div *ngFor="let skill of skills[0]" class="skills">
 						<div fxLayout="row">
 							<div class="name" fxFlex>{{skill.name}}</div>
-							<div>{{skill.value}}%</div>
+							<div>{{skill.value | skill}}%</div>
 						</div>
-						<mat-progress-bar mode="determinate" [value]="skill.value"></mat-progress-bar>
+						<mat-progress-bar mode="determinate" [value]="skill.value | skill"></mat-progress-bar>
 					</div>
 				</div>
 				<mat-spinner *ngIf="loadingSkills"></mat-spinner>
 			</div>
 			<div class="skills-container-2" fxFlex>
 				<h2 class="title">additional skills</h2>
-				<div fxLayout="row">
-					<div *ngIf="!loadingSkills">
-						<div *ngFor="let skill of skills[1]" class="skills" fxLayout="column" fxFlex>
-							<div class="skill-spinner">
-								<mat-progress-spinner mode="determinate" [value]="skill.value"></mat-progress-spinner>
-								<div>{{skill.value}}%</div>
-							</div>
-							<div class="name" fxFlex>{{skill.name}}</div>
+				<div fxLayout="row" *ngIf="!loadingSkills">
+					<div *ngFor="let skill of skills[1]" class="skills" fxLayout="column" fxFlex>
+						<div class="skill-spinner">
+							<mat-progress-spinner mode="determinate" [value]="skill.value | skill"></mat-progress-spinner>
+							<div>{{skill.value | skill}}%</div>
 						</div>
+						<div class="name" fxFlex>{{skill.name}}</div>
 					</div>
-					<mat-spinner *ngIf="loadingSkills"></mat-spinner>
 				</div>
+				<mat-spinner *ngIf="loadingSkills"></mat-spinner>
 			</div>
 		</div>
 		<mat-divider></mat-divider>
@@ -78,6 +76,23 @@
 	<mat-card-footer>
 		<a color="primary" class="download-resume" href="assets/resume/braxton-diggs.pdf" target="_blank" mat-raised-button>Download Resume</a>
 	</mat-card-footer>
+</mat-card>
+<mat-card id="portfolio">
+	<mat-card-content>
+		<h2 class="title-lg">Working Projects</h2>
+		<mat-grid-list cols="2">
+			<mat-grid-tile *ngFor="let project of projects" [class.hidden]="project.status" [rowspan]="project.mobile?2:1" (click)="openProject(project)">
+				<img [src]="project.image.screenshot" alt="{{project.title}}" />
+				<div class="caption">
+					<div class="container">
+						<h3>{{project.title}}</h3>
+						<p>{{project.summary}}</p>
+						<button color="accent" mat-raised-button>View More</button>
+					</div>
+				</div>
+			</mat-grid-tile>
+		</mat-grid-list>
+	</mat-card-content>
 </mat-card>
 <contact id="contact"></contact>
 <footer></footer>
