@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'project',
@@ -8,6 +9,7 @@ import { MAT_DIALOG_DATA } from '@angular/material';
 })
 export class ProjectComponent {
   constructor( @Inject(MAT_DIALOG_DATA) public project: any) {
+    project.description_modified = _.join(project.description, '<br /><br />');
     console.log(project);
   }
 }

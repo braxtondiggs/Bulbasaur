@@ -1,3 +1,21 @@
-<mat-dialog-content>
-	<p>project works</p>
+<mat-dialog-content fxLayout="row" fxLayoutGap="2%">
+	<div class="banner_img" fxFlex>
+		<img [src]="project.image.screenshot" alt="{{project.title}}" [ngClass]="{'mobile': project.mobile}" />
+	</div>
+	<div class="project_container" fxLayout="column" fxFlex>
+		<div fxFlex>
+			<h2>{{project.title}}</h2>
+			<p [innerHtml]="project.description_modified"></p>
+		</div>
+		<div fxLayout="row" fxLayoutAlign="start center">
+			<div fxFlex>
+				<a color="accent" [href]="project.url.web" target="_blank" *ngIf="project.url.web" mat-raised-button>View Project</a>
+			</div>
+			<div class="more_content">
+				<a [href]="project.url.android" target="_blank" *ngIf="project.url.android"><img src="assets/Google-Store.png" alt="{{project.title}} on Google Play" /></a>
+				<a [href]="project.url.ios" target="_blank" *ngIf="project.url.ios"><img src="assets/Apple-Store.png" alt="{{project.title}} on Apple Store"/></a>
+				<a [href]="project.url.other" target="_blank" *ngIf="project.url.other"><img [src]="project.image.other" alt="{{project.title}}" /></a>
+			</div>
+		</div>
+	</div>
 </mat-dialog-content>
