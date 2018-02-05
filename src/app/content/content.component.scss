@@ -226,31 +226,31 @@
 #portfolio {
   .mat-grid-tile {
     img {
-      width: 100%;
       height: 100%;
+      width: 100%;
     }
 
     .caption {
-      text-align: center;
-      top: 0;
+      background: rgba($black, .8);
+      color: $white;
+      cursor: pointer;
       height: 100%;
-      visibility: hidden;
       left: 0;
-      right: 0;
-      color: #fff;
-      z-index: 2;
       opacity: 0;
       position: absolute;
-      background: rgba(0,0,0,.8);
+      right: 0;
+      text-align: center;
+      top: 0;
       transition: opacity .3s ease-in-out,visibility .3s ease-in-out;
-      cursor: pointer;
+      visibility: hidden;
+      z-index: 2;
 
       .container {
         left: 50%;
         position: absolute;
         top: 50%;
-        width: 75%;
         transform: translate(-50%, -50%);
+        width: 75%;
       }
 
       h3 {

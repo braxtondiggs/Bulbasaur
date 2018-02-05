@@ -5,7 +5,6 @@
 			<p>See exactly when & what my coding activity is using <a href="https://wakatime.com/">WakaTime</a>.</p>
 			<mat-form-field>
 				<mat-select [(value)]="selected" (selectionChange)="selectionChange($event)">
-					<mat-option>None</mat-option>
 					<mat-option value="yesterday">Yesterday</mat-option>
 					<mat-option value="last7days">Last 7 Days</mat-option>
 					<mat-option value="thisweek">This Week</mat-option>
@@ -18,17 +17,15 @@
 				</mat-select>
 			</mat-form-field>
 		</div>
-		<mat-tab-group>
+		<mat-tab-group (selectedTabChange)="selectedTabChange($event)">
 			<mat-tab label="Languages">
 				<div [chart]="chart.languages"></div>
 			</mat-tab>
 			<mat-tab label="Activity">
-				<h1>Some more tab content</h1>
-				<p>...</p>
+				<div [chart]="chart.activity"></div>
 			</mat-tab>
 			<mat-tab label="Editors">
-				<h1>Some more tab content</h1>
-				<p>...</p>
+				<div [chart]="chart.editors"></div>
 			</mat-tab>
 		</mat-tab-group>
 	</mat-card-content>

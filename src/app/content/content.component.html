@@ -82,16 +82,18 @@
 	<mat-card-content>
 		<h2 class="title-lg">Working Projects</h2>
 		<mat-grid-list cols="2">
-			<mat-grid-tile *ngFor="let project of projects" [class.hidden]="project.status" [rowspan]="project.mobile?2:1" (click)="openProject(project)">
-				<img [src]="project.image.screenshot" alt="{{project.title}}" />
-				<div class="caption">
-					<div class="container">
-						<h3>{{project.title}}</h3>
-						<p>{{project.summary}}</p>
-						<button color="accent" mat-raised-button>View More</button>
+			<span *ngFor="let project of projects">
+				<mat-grid-tile *ngIf="project.status" [rowspan]="project.mobile?2:1" (click)="openProject(project)">
+					<img [src]="project.image.screenshot" alt="{{project.title}}" />
+					<div class="caption">
+						<div class="container">
+							<h3>{{project.title}}</h3>
+							<p>{{project.summary}}</p>
+							<button color="accent" mat-raised-button>View More</button>
+						</div>
 					</div>
-				</div>
-			</mat-grid-tile>
+				</mat-grid-tile>
+			</span>
 		</mat-grid-list>
 	</mat-card-content>
 </mat-card>
