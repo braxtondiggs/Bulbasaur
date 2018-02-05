@@ -4,7 +4,7 @@
 		<div class="center">
 			<p>See exactly when & what my coding activity is using <a href="https://wakatime.com/">WakaTime</a>.</p>
 			<mat-form-field>
-				<mat-select [(value)]="selected" (selectionChange)="selectionChange($event)">
+				<mat-select #selector [(value)]="selected" (selectionChange)="selectionChange($event)">
 					<mat-option value="yesterday">Yesterday</mat-option>
 					<mat-option value="last7days">Last 7 Days</mat-option>
 					<mat-option value="thisweek">This Week</mat-option>
@@ -13,9 +13,12 @@
 					<mat-option value="last30days">Last 30 Days</mat-option>
 					<mat-option value="thismonth">This Month</mat-option>
 					<mat-option value="lastmonth">Last Month</mat-option>
-					<mat-option value="customrange">Custom Range</mat-option>
+					<mat-option value="customrange" (focus)="setCustomRange(datepicker, selector)">Custom Range</mat-option>
 				</mat-select>
+				<input mdInput [min]="minDate" [max]="maxDate" [matDatepicker]="datepicker" (dateChange)="dateChange($event)" style="display: none;">
+				<mat-datepicker [rangeMode]="true" #datepicker></mat-datepicker>
 			</mat-form-field>
+			<h4 *ngIf="selected === 'customrange' && hasDateSelected">{{date.begin}} - {{date.end}}</h4>
 		</div>
 		<mat-tab-group (selectedTabChange)="selectedTabChange($event)">
 			<mat-tab label="Languages">

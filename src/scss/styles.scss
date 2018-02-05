@@ -33,3 +33,39 @@ button.mat-raised-button {
   text-transform: uppercase;
   vertical-align: middle;
 }
+
+.cdk-keyboard-focused .mat-calendar-body-active > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-semi-selected),
+.cdk-program-focused .mat-calendar-body-active > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-semi-selected),
+:not(.mat-calendar-body-disabled):hover > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-semi-selected) {
+  background-color: rgba($black, .04);
+}
+
+.cdk-keyboard-focused .mat-calendar-body-active > .mat-calendar-body-semi-selected,
+.cdk-program-focused .mat-calendar-body-active > .mat-calendar-body-semi-selected,
+:not(.mat-calendar-body-disabled):hover > .mat-calendar-body-semi-selected {
+  background-color: #3f51b5;
+  color: $white;
+}
+
+.mat-calendar-body-selected {
+  background-color: #3f51b5;
+  color: $white;
+}
+
+.mat-calendar-body-begin-range:not(.mat-calendar-body-end-range) {
+  background-color: #e8eaf6;
+  border-radius: 100% 0 0 100%;
+}
+
+.mat-calendar-body-end-range:not(.mat-calendar-body-begin-range) {
+  background-color: #e8eaf6;
+  border-radius: 0 100% 100% 0;
+}
+
+.mat-calendar-body > tr .mat-calendar-cell-semi-selected ~ .mat-calendar-cell-semi-selected {
+  border-radius: 0;
+}
+
+.mat-calendar-cell-semi-selected {
+  background-color: #e8eaf6;
+}

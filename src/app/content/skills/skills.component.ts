@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { MatSelectChange, MatTabChangeEvent } from '@angular/material';
+import { MatSelectChange, MatTabChangeEvent, MatSelect, MatDatepicker, MatDatepickerInputEvent } from '@angular/material';
 import { Chart } from 'angular-highcharts';
 import * as _ from 'lodash';
 import * as moment from 'moment';
@@ -12,11 +12,14 @@ import * as moment from 'moment';
   styleUrls: ['./skills.component.scss']
 })
 export class SkillsComponent implements OnInit {
-  private date: any = { start: Date, end: Date };
+  private date: any = { begin: Date, end: Date };
   private chart: any = { languages: Chart, activity: Chart, editors: Chart };
   private skills: any;
   private chartName = 'languages';
   private selected = 'last30days';
+  private hasDateSelected = false;
+  private minDate = moment('2016-06-22', 'YYYY-MM-DD').format();
+  private maxDate = moment().subtract(1, 'days').format();
   constructor(protected http: HttpClient) { }
 
   ngOnInit() {
@@ -27,8 +30,6 @@ export class SkillsComponent implements OnInit {
   selectionChange(selection: MatSelectChange): void {
     if (selection.value !== 'customrange') {
       this.getSkills(selection.value);
-    } else {
-      // TODO: Open date modal
     }
   }
 
@@ -74,17 +75,27 @@ export class SkillsComponent implements OnInit {
     }
   }
 
+  setCustomRange(datepicker: MatDatepicker<any>, selector: MatSelect): void {
+    this.selected = 'customrange';
+    datepicker.open();
+    selector.close();
+  }
+
+  dateChange(event: MatDatepickerInputEvent<any>): void {
+    this.hasDateSelected = true;
+    this.date = { begin: moment(event.value.begin).format('MMM Do YYYY'), end: moment(event.value.end).format('MMM Do YYYY') };
+    this.getSkills('customrange');
+  }
+
   getCustomDate(range: string): string {
-    return range === 'customrange' && this.date.start && this.date.end ? `&start=${this.date.start}&end=${this.date.end}` : '';
+    return range === 'customrange' && this.date.begin && this.date.end ? `&start=${this.date.begin}&end=${this.date.end}` : '';
   }
 
   setDefaultCharts(): void {
     this.chart = {
       languages: new Chart({
         chart: {
-          type: 'pie',
-          height: 450,
-          width: 722
+          type: 'pie'
         },
         tooltip: {
           headerFormat: '{point.key}: <b>{point.percentage:.1f}%</b>',
@@ -99,9 +110,7 @@ export class SkillsComponent implements OnInit {
       }),
       activity: new Chart({
         chart: {
-          type: 'line',
-          height: 400,
-          width: 722
+          type: 'line'
         },
         title: {
           text: null
@@ -130,9 +139,7 @@ export class SkillsComponent implements OnInit {
       }),
       editors: new Chart({
         chart: {
-          type: 'pie',
-          height: 450,
-          width: 722
+          type: 'pie'
         },
         tooltip: {
           headerFormat: '{point.key}: <b>{point.percentage:.1f}%</b>',

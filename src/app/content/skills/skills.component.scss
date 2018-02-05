@@ -3,6 +3,7 @@
 
   .title-lg {
     font-size: 30px;
+    line-height: normal;
     margin-bottom: 50px;
     text-transform: uppercase;
   }
@@ -16,6 +17,19 @@
   }
 
   .highcharts-container {
+    max-width: 720px;
     width: 100% !important;
+  }
+
+  a {
+    color: #010101;
+  }
+}
+@media (max-width: 959px) {
+  .mat-card {
+    border-radius: initial;
+    box-shadow: initial !important;
+    margin: 0;
+    padding: 20px;
   }
 }

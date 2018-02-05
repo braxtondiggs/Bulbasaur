@@ -1,9 +1,9 @@
 <ngx-loading-bar></ngx-loading-bar>
 <header></header>
-<div class="container" fxLayout="row">
-	<profile-box [ngClass]="{'side-scroll': isScroll()}" fxFlex="290px"></profile-box>
-	<content></content>
-	<side-nav [ngClass]="{'side-scroll': isScroll()}" fxFlex="56px"></side-nav>
+<div class="container" fxLayout="row" fxLayout.lt-md="column">
+	<profile-box [ngClass]="{'side-scroll': isScroll()}" fxFlex="290px" fxFlex.lt-md="100%" fxFlexOrder.lt-md="1"></profile-box>
+	<content fxFlex.lt-md="100%" fxFlexOrder.lt-md="2"></content>
+	<side-nav [ngClass]="{'side-scroll': isScroll()}" fxFlex="56px" fxFlex.lt-md="100%" fxFlexOrder.lt-md="0"></side-nav>
 </div>
 <svg id="crtBgShape1" height="519" width="758"><polygon class="pol" points="0,455,693,352,173,0,92,0,0,71"></polygon> </svg>
 <svg id="crtBgShape2" height="536" width="633"> <polygon points="0,0,633,0,633,536"></polygon> </svg>

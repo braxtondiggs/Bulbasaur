@@ -31,3 +31,11 @@ social {
 a {
   color: #010101;
 }
+@media (max-width: 959px) {
+  .mat-card {
+    border-radius: initial;
+    box-shadow: initial !important;
+    margin: 0;
+    padding: 20px;
+  }
+}

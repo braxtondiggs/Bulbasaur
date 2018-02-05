@@ -15,7 +15,7 @@ export class SkillPipe implements PipeTransform {
       return 80 + wildcard;
     } else if (value < 30) {
       return 90 + wildcard;
-    } else if (value > 40) {
+    } else {
       return 100;
     }
   }

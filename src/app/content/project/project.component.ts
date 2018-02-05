@@ -1,9 +1,10 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import * as _ from 'lodash';
 
 @Component({
   selector: 'project',
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.scss']
 })

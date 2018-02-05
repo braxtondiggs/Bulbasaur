@@ -30,6 +30,8 @@
 
   #instacontent {
     height: 223px;
+    margin: 0 auto;
+    max-width: 480px;
   }
 }
 
@@ -64,5 +66,23 @@
 
   .download-resume {
     margin: 0 auto;
+  }
+}
+
+social {
+  display: block;
+}
+
+@media (max-width: 959px) {
+  .mat-card {
+    border-radius: initial;
+    box-shadow: initial !important;
+    margin: 0;
+    padding: 20px;
+
+    #instacontent {
+      height: 100% !important;
+      padding: 20px;
+    }
   }
 }

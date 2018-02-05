@@ -22,3 +22,15 @@ profile-box.side-scroll > div {
   top: 0;
   width: 290px;
 }
+
+@media (max-width: 959px) {
+  .side-scroll > div {
+    position: initial !important;
+    width: initial !important;
+  }
+
+  side-nav {
+    background-color: #f3f3f3;
+    padding: 15px 0;
+  }
+}
