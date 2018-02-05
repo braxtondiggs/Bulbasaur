@@ -10,6 +10,5 @@ import * as _ from 'lodash';
 export class ProjectComponent {
   constructor( @Inject(MAT_DIALOG_DATA) public project: any) {
     project.description_modified = _.join(project.description, '<br /><br />');
-    console.log(project);
   }
 }

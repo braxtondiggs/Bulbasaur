@@ -13,7 +13,7 @@ import { HeaderComponent } from './header/header.component';
 import { ProfileBoxComponent } from './profile-box/profile-box.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { FooterComponent } from './footer/footer.component';
-import { ContentComponent, ContactComponent, ProjectComponent } from './content/';
+import { ContentComponent, ContactComponent, ProjectComponent, SkillsComponent } from './content/';
 import { SocialComponent, SnapchatQRComponent } from './social';
 import { SkillPipe } from './pipes/skill.pipe';
 
@@ -30,7 +30,8 @@ import { SkillPipe } from './pipes/skill.pipe';
     ContactComponent,
     SocialComponent,
     ProjectComponent,
-    SkillPipe
+    SkillPipe,
+    SkillsComponent
   ],
   imports: [
     FormsModule,

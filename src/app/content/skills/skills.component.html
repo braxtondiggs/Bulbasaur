@@ -1,0 +1,35 @@
+<mat-card id="skills">
+	<mat-card-content>
+		<h2 class="title-lg">My "Real-Time" Coding</h2>
+		<div class="center">
+			<p>See exactly when & what my coding activity is using <a href="https://wakatime.com/">WakaTime</a>.</p>
+			<mat-form-field>
+				<mat-select [(value)]="selected" (selectionChange)="selectionChange($event)">
+					<mat-option>None</mat-option>
+					<mat-option value="yesterday">Yesterday</mat-option>
+					<mat-option value="last7days">Last 7 Days</mat-option>
+					<mat-option value="thisweek">This Week</mat-option>
+					<mat-option value="lastweek">Last Week</mat-option>
+					<mat-option value="last14days">Last 14 Days</mat-option>
+					<mat-option value="last30days">Last 30 Days</mat-option>
+					<mat-option value="thismonth">This Month</mat-option>
+					<mat-option value="lastmonth">Last Month</mat-option>
+					<mat-option value="customrange">Custom Range</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+		<mat-tab-group>
+			<mat-tab label="Languages">
+				<div [chart]="chart.languages"></div>
+			</mat-tab>
+			<mat-tab label="Activity">
+				<h1>Some more tab content</h1>
+				<p>...</p>
+			</mat-tab>
+			<mat-tab label="Editors">
+				<h1>Some more tab content</h1>
+				<p>...</p>
+			</mat-tab>
+		</mat-tab-group>
+	</mat-card-content>
+</mat-card>
