@@ -9,8 +9,8 @@ import * as _ from 'lodash';
   styleUrls: ['./profile-box.component.scss']
 })
 export class ProfileBoxComponent implements OnInit {
-  private instagram: Promise<any>;
-  private insta_loading = true;
+  public instagram: Promise<any>;
+  public insta_loading = true;
 
   ngOnInit() {
     this.instagram = new Promise<any>(resolve => {

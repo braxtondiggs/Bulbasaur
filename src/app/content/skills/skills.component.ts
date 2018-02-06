@@ -12,14 +12,14 @@ import * as moment from 'moment';
   styleUrls: ['./skills.component.scss']
 })
 export class SkillsComponent implements OnInit {
-  private date: any = { begin: Date, end: Date };
-  private chart: any = { languages: Chart, activity: Chart, editors: Chart };
-  private skills: any;
-  private chartName = 'languages';
-  private selected = 'last30days';
-  private hasDateSelected = false;
-  private minDate = moment('2016-06-22', 'YYYY-MM-DD').format();
-  private maxDate = moment().subtract(1, 'days').format();
+  public date: any = { begin: Date, end: Date };
+  public chart: any = { languages: Chart, activity: Chart, editors: Chart };
+  public skills: any;
+  public chartName = 'languages';
+  public selected = 'last30days';
+  public hasDateSelected = false;
+  public minDate = moment('2016-06-22', 'YYYY-MM-DD').format();
+  public maxDate = moment().subtract(1, 'days').format();
   constructor(protected http: HttpClient) { }
 
   ngOnInit() {

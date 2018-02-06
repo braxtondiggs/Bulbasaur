@@ -9,17 +9,17 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./contact.component.scss']
 })
 export class ContactComponent {
-  private name: FormControl = new FormControl('', [Validators.required]);
-  private email: FormControl = new FormControl('', [Validators.required, Validators.email]);
-  private subject: FormControl = new FormControl();
-  private message: FormControl = new FormControl('', [Validators.required, Validators.minLength(15), Validators.maxLength(2056)]);
-  private contactform: FormGroup = new FormGroup({
+  public name: FormControl = new FormControl('', [Validators.required]);
+  public email: FormControl = new FormControl('', [Validators.required, Validators.email]);
+  public subject: FormControl = new FormControl();
+  public message: FormControl = new FormControl('', [Validators.required, Validators.minLength(15), Validators.maxLength(2056)]);
+  public contactform: FormGroup = new FormGroup({
     name: this.name,
     email: this.email,
     subject: this.subject,
     message: this.message
   });
-  private submit = false;
+  public submit = false;
 
   constructor(protected http: HttpClient, protected snackBar: MatSnackBar) { }
 

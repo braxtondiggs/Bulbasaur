@@ -25,7 +25,7 @@ var app = express(),
   server = http.createServer(app);
 app.use(compression());
 app.use(helmet());
-// require('./config/express').default(app);
+require('./config/express').default(app);
 require('./routes').default(app);
 
 // Start server

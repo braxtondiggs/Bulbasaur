@@ -8,13 +8,13 @@ var all = {
   // Root path of server
   root: path.normalize(`${__dirname}/../../..`),
 
-  // Browser-sync port
-  browserSyncPort: process.env.BROWSER_SYNC_PORT || 3000,
+  ip: process.env.OPENSHIFT_NODEJS_IP ||
+    process.env.ip ||
+    undefined,
 
   // Server port
-  port: process.env.PORT || 9000,
-
-  // Server IP
-  ip: process.env.IP || '0.0.0.0'
+  port: process.env.OPENSHIFT_NODEJS_PORT ||
+    process.env.PORT ||
+    8080
 };
 module.exports = all;

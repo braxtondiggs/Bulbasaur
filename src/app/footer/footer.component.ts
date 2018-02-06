@@ -6,5 +6,5 @@ import * as moment from 'moment';
   templateUrl: './footer.component.html'
 })
 export class FooterComponent {
-  private year: string = moment().format('YYYY');
+  public year: string = moment().format('YYYY');
 }

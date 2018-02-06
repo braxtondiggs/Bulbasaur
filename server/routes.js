@@ -1,12 +1,8 @@
 'use strict';
-
-import errors from './components/errors';
 import express from 'express';
 import path from 'path';
 
 export default function(app) {
-  app.route('/:url(api|compoents|app|assets)/*').get(errors[404]);
-
   app.use(express.static(path.join(__dirname, '../dist')));
 
   // All other routes should redirect to the index.html
