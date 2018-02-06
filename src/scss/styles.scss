@@ -42,12 +42,12 @@ button.mat-raised-button {
 .cdk-keyboard-focused .mat-calendar-body-active > .mat-calendar-body-semi-selected,
 .cdk-program-focused .mat-calendar-body-active > .mat-calendar-body-semi-selected,
 :not(.mat-calendar-body-disabled):hover > .mat-calendar-body-semi-selected {
-  background-color: $material-blue;
+  background-color: $accent-color;
   color: $white;
 }
 
 .mat-calendar-body-selected {
-  background-color: $material-blue;
+  background-color: $accent-color;
   color: $white;
 }
 

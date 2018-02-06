@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MomentModule } from 'angular2-moment';
-import { AnimateOnScrollModule } from 'ng2-animate-on-scroll';
 import { NgxPageScrollModule, PageScrollConfig } from 'ngx-page-scroll';
 import { ChartModule } from 'angular-highcharts';
 import { NgModule } from '@angular/core';
@@ -17,6 +16,8 @@ import { FooterComponent } from './footer/footer.component';
 import { ContentComponent, ContactComponent, ProjectComponent, SkillsComponent } from './content/';
 import { SocialComponent, SnapchatQRComponent } from './social';
 import { SkillPipe } from './pipes/skill.pipe';
+import { AnimateOnScrollDirective } from './directives/animate-on-scroll.directive';
+import { ScrollService } from './services/scroll.service';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { SkillPipe } from './pipes/skill.pipe';
     SocialComponent,
     ProjectComponent,
     SkillPipe,
-    SkillsComponent
+    SkillsComponent,
+    AnimateOnScrollDirective
   ],
   imports: [
     FormsModule,
@@ -44,14 +46,13 @@ import { SkillPipe } from './pipes/skill.pipe';
     MomentModule,
     BrowserModule,
     BrowserAnimationsModule,
-    LoadingBarHttpClientModule,
-    AnimateOnScrollModule.forRoot()
+    LoadingBarHttpClientModule
   ],
   entryComponents: [
     SnapchatQRComponent,
     ProjectComponent
   ],
-  providers: [],
+  providers: [ScrollService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

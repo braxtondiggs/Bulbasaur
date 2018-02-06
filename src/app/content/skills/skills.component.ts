@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, HostListener } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatSelectChange, MatTabChangeEvent, MatSelect, MatDatepicker, MatDatepickerInputEvent } from '@angular/material';
 import { Chart } from 'angular-highcharts';
@@ -25,6 +25,11 @@ export class SkillsComponent implements OnInit {
   ngOnInit() {
     this.setDefaultCharts();
     this.getSkills();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onScroll($event: Event): void {
+    console.log('watch resize');
   }
 
   selectionChange(selection: MatSelectChange): void {

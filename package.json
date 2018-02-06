@@ -42,7 +42,6 @@
     "helmet": "^3.10.0",
     "highcharts": "^6.0.6",
     "instafeed.js": "^1.4.1",
-    "ng2-animate-on-scroll": "^1.0.8",
     "ngx-page-scroll": "^4.0.2",
     "normalize.css": "^7.0.0",
     "rxjs": "^5.5.2",

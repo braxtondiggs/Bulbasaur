@@ -13,8 +13,12 @@
 }
 
 header {
-  margin-bottom: 20px;
   overflow: hidden;
+
+  .header-title {
+    margin-left: 340px;
+    visibility: hidden;
+  }
 }
 
 [hidden] {
