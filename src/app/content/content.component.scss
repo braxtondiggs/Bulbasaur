@@ -99,7 +99,7 @@
   position: relative;
 
   &::before {
-    background-color: #0c0c0c;
+    background-color: darken($timeline-background, 60%);
     bottom: 0;
     content: ' ';
     left: 0;
@@ -120,7 +120,7 @@
     width: 50%;
 
     .timeline-circ {
-      background: #969c9c;
+      background: $timeline-circle;
       border-color: $white !important;
       border-radius: 50%;
       border-style: solid;
@@ -147,11 +147,10 @@
       width: 100%;
 
       .card {
-        background-color: #f2f3f3;
-        border-color: #f2f3f3;
+        background-color: $timeline-background;
+        border-color: $timeline-background;
         border-radius: 2px;
         box-shadow: 0 1px 3px 0 rgba($black, .33);
-        color: #313534;
         margin-right: 30px;
         position: relative;
 
@@ -174,7 +173,7 @@
           }
 
           h3 {
-            color: #4684ee;
+            color: $material-blue;
             font-size: 16px;
             margin: 2% 0 1%;
             text-transform: uppercase;

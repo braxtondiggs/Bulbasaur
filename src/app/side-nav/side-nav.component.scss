@@ -1,3 +1,5 @@
+@import '../../scss/variables';
+
 .avatar {
   border-radius: 50%;
   height: 40px;
@@ -30,7 +32,7 @@ profile-box.side-scroll > div {
   }
 
   side-nav {
-    background-color: #f3f3f3;
+    background-color: $background;
     padding: 15px 0;
   }
 }

@@ -1,3 +1,5 @@
+@import '../../../scss/variables';
+
 .mat-card {
   margin: 15px 10px 10px 30px;
   padding: 40px 35px;
@@ -28,8 +30,27 @@ social {
   text-transform: uppercase;
 }
 
-a {
-  color: #010101;
+.contact-map {
+  height: 140px;
+
+  .background {
+    background: url('../../../assets/contactmap.png') no-repeat;
+    background-size: 100%;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    img {
+      border-radius: 50%;
+      height: 100px;
+      position: absolute;
+      right: 20px;
+      top: 10px;
+      width: 100px;
+    }
+  }
 }
 @media (max-width: 959px) {
   .mat-card {

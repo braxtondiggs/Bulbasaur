@@ -1,9 +1,11 @@
+@import '../scss/variables';
+
 .container {
   margin: 0 auto;
   padding: 0 20px;
 }
 
-.top-fab {
+.top-fab.mat-fab {
   bottom: 20px;
   position: fixed;
   right: 20px;
@@ -19,6 +21,10 @@ header {
   visibility: hidden;
 }
 
+a {
+  color: $text;
+}
+
 #crtBgShape1,
 #crtBgShape2 {
   position: fixed;
@@ -30,7 +36,7 @@ header {
   left: 0;
 
   polygon {
-    fill: #e1e1e1;
+    fill: $background-shape1;
   }
 }
 
@@ -39,8 +45,22 @@ header {
   top: -100px;
 
   polygon {
-    fill: #c0e3e7;
+    fill: $background-shape2;
   }
+}
+
+.animated {
+  opacity: 0;
+  transform: translate(0, 100px);
+  visibility: hidden;
+}
+
+.fadeInUp {
+  backface-visibility: hidden;
+  opacity: 1;
+  transform: translate(0, 0);
+  transition: transform .3s ease-out .1s,opacity .3s ease-out .1s, opacity .3s ease-out .1s,-webkit-transform .3s ease-out .1s !important;
+  visibility: visible;
 }
 
 @media (min-width: 992px) {

@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MomentModule } from 'angular2-moment';
+import { AnimateOnScrollModule } from 'ng2-animate-on-scroll';
 import { NgxPageScrollModule, PageScrollConfig } from 'ngx-page-scroll';
 import { ChartModule } from 'angular-highcharts';
 import { NgModule } from '@angular/core';
@@ -43,7 +44,8 @@ import { SkillPipe } from './pipes/skill.pipe';
     MomentModule,
     BrowserModule,
     BrowserAnimationsModule,
-    LoadingBarHttpClientModule
+    LoadingBarHttpClientModule,
+    AnimateOnScrollModule.forRoot()
   ],
   entryComponents: [
     SnapchatQRComponent,

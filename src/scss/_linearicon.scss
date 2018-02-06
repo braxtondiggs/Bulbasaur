@@ -1,20 +1,13 @@
 [class*=' icon-'],
 [class^='icon-'] {
   font-family: 'Linearicons';
-  // Enable Ligatures ================
-  -webkit-font-feature-settings: 'liga';
-  -moz-font-feature-settings: 'liga';
-  -ms-font-feature-settings: 'liga' 1;
   font-feature-settings: 'liga';
-  // Better Font Rendering ===========
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   font-style: normal;
   font-variant: normal;
   font-weight: normal;
   line-height: 1;
-  text-transform: none;
   speak: none;
+  text-transform: none;
 }
 
 .icon-heart::before {

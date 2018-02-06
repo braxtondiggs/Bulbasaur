@@ -7,8 +7,8 @@
 body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  background-color: #f3f3f3;
-  color: #010101;
+  background-color: $background;
+  color: $text;
   font-family: BandaRegular;
   font-size: 100%;
   letter-spacing: .04em;
@@ -21,7 +21,7 @@ p {
 }
 
 mat-card.mat-card {
-  color: #010101;
+  color: $text;
   font-family: BandaRegular;
 }
 
@@ -42,22 +42,22 @@ button.mat-raised-button {
 .cdk-keyboard-focused .mat-calendar-body-active > .mat-calendar-body-semi-selected,
 .cdk-program-focused .mat-calendar-body-active > .mat-calendar-body-semi-selected,
 :not(.mat-calendar-body-disabled):hover > .mat-calendar-body-semi-selected {
-  background-color: #3f51b5;
+  background-color: $material-blue;
   color: $white;
 }
 
 .mat-calendar-body-selected {
-  background-color: #3f51b5;
+  background-color: $material-blue;
   color: $white;
 }
 
 .mat-calendar-body-begin-range:not(.mat-calendar-body-end-range) {
-  background-color: #e8eaf6;
+  background-color: $calendar-background;
   border-radius: 100% 0 0 100%;
 }
 
 .mat-calendar-body-end-range:not(.mat-calendar-body-begin-range) {
-  background-color: #e8eaf6;
+  background-color: $calendar-background;
   border-radius: 0 100% 100% 0;
 }
 
@@ -66,5 +66,5 @@ button.mat-raised-button {
 }
 
 .mat-calendar-cell-semi-selected {
-  background-color: #e8eaf6;
+  background-color: $calendar-background;
 }

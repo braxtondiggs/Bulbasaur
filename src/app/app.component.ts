@@ -1,7 +1,8 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app',
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
