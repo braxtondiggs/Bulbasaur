@@ -9,7 +9,7 @@
 		</div>
 		<div fxLayout="row" fxLayoutAlign="start center">
 			<div fxFlex>
-				<a color="accent" [href]="project.url.web" target="_blank" *ngIf="project.url.web" mat-raised-button>View Project</a>
+				<a [href]="project.url.web" color="primary" target="_blank" *ngIf="project.url.web" mat-raised-button>View Project</a>
 			</div>
 			<div class="more_content">
 				<a [href]="project.url.android" target="_blank" *ngIf="project.url.android"><img src="assets/Google-Store.png" alt="{{project.title}} on Google Play" /></a>

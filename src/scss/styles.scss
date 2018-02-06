@@ -25,12 +25,31 @@ mat-card.mat-card {
   font-family: BandaRegular;
 }
 
-button.mat-raised-button {
+.mat-raised-button {
   font-family: BandaRegular;
   font-size: 16px;
   letter-spacing: .05em;
   text-transform: uppercase;
   vertical-align: middle;
+
+  &.mat-primary {
+    background-color: $accent-color;
+    color: $text;
+    font-weight: bold;
+  }
+}
+
+.mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: $accent-color;
+}
+
+.mat-progress-bar-buffer {
+  background-color: lighten($accent-color, 10%);
+}
+
+.mat-progress-bar-fill::after {
+  background-color: $accent-color;
 }
 
 .cdk-keyboard-focused .mat-calendar-body-active > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-semi-selected),

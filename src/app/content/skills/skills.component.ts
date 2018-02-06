@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, HostListener } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatSelectChange, MatTabChangeEvent, MatSelect, MatDatepicker, MatDatepickerInputEvent } from '@angular/material';
 import { Chart } from 'angular-highcharts';
@@ -25,11 +25,6 @@ export class SkillsComponent implements OnInit {
   ngOnInit() {
     this.setDefaultCharts();
     this.getSkills();
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onScroll($event: Event): void {
-    console.log('watch resize');
   }
 
   selectionChange(selection: MatSelectChange): void {
@@ -97,10 +92,12 @@ export class SkillsComponent implements OnInit {
   }
 
   setDefaultCharts(): void {
+    const width: number = document.getElementById('skills').clientWidth - 40;
     this.chart = {
       languages: new Chart({
         chart: {
-          type: 'pie'
+          type: 'pie',
+          width
         },
         tooltip: {
           headerFormat: '{point.key}: <b>{point.percentage:.1f}%</b>',
@@ -115,7 +112,8 @@ export class SkillsComponent implements OnInit {
       }),
       activity: new Chart({
         chart: {
-          type: 'line'
+          type: 'line',
+          width
         },
         title: {
           text: null
@@ -144,7 +142,8 @@ export class SkillsComponent implements OnInit {
       }),
       editors: new Chart({
         chart: {
-          type: 'pie'
+          type: 'pie',
+          width
         },
         tooltip: {
           headerFormat: '{point.key}: <b>{point.percentage:.1f}%</b>',
