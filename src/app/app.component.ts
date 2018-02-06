@@ -16,5 +16,4 @@ export class AppComponent {
   isScroll(): boolean {
     return this.scroll > 75;
   }
-
 }
