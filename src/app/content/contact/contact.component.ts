@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -37,12 +37,18 @@ export class ContactComponent {
   onSubmit() {
     if (this.contactform.valid) {
       this.submit = true;
-      this.http.post('https://meowth1.herokuapp.com/mail', {
-        name: this.name.value,
-        email: this.email.value,
-        message: this.message.value
+      this.http.post('https://meowth1.herokuapp.com/api/mail/inquire', {}, {
+        headers: new HttpHeaders({
+          name: this.name.value,
+          email: this.email.value,
+          message: this.message.value,
+          subject: this.subject.value
+        })
       }).subscribe((data: any) => {
-        if (data.status) { this.snackBar.open('Email successfully sent'); }
+        if (data.status) {
+          this.snackBar.open('Email successfully sent');
+          this.contactform.reset();
+        }
       }, () => {
         this.snackBar.open('Something went wrong', 'Close', { duration: 0 });
       });
