@@ -24,11 +24,15 @@ export class ContactComponent {
   constructor(protected http: HttpClient, protected snackBar: MatSnackBar) { }
 
   getErrorMessage(input: FormControl, label: string = 'This field') {
-    return input.hasError('required') ? `${label} is required.` :
-      input.hasError('email') ? 'Invalid email address' :
-        input.hasError('minlength') ? `${label} must be atleast ${input.errors.minlength.requiredLength} characters` :
-          input.hasError('maxlength') ? `${label} cannot be more than ${input.errors.maxlength.requiredLength} characters` :
-            '';
+    if (input.hasError('required')) {
+      return `${label} is required.`;
+    } else if (input.hasError('email')) {
+      return 'Invalid email address';
+    } else if (input.hasError('minlength')) {
+      return `${label} must be atleast ${input.errors.minlength.requiredLength} characters`;
+    } else if (input.hasError('maxlength')) {
+      return `${label} cannot be more than ${input.errors.maxlength.requiredLength} characters`;
+    }
   }
   onSubmit() {
     if (this.contactform.valid) {

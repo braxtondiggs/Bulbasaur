@@ -46,9 +46,7 @@ export class SkillsComponent implements OnInit {
   }
 
   updateSeries() {
-    const total_count: number = _.reduce(this.skills.Languages, function(sum, n) {
-      return sum + n.total_seconds;
-    }, 0);
+    const total_count: number = _.reduce(this.skills.Languages, (sum: number, n: any) => sum + n.total_seconds, 0);
     if (this.chartName === 'languages') {
       this.chart.languages.removeSerie(0);
       this.chart.languages.addSerie({
@@ -62,9 +60,7 @@ export class SkillsComponent implements OnInit {
         data: _.map(this.skills.Timeline, 'total_seconds').map((o: any) => o / 3600)
       });
       this.chart.activity.ref.xAxis[0].update({
-        categories: _.map(this.skills.Timeline, 'date').map(function(v) {
-          return moment(v).format('MMM Do');
-        })
+        categories: _.map(this.skills.Timeline, 'date').map((v: string) => moment(v).format('MMM Do'))
       });
     } else if (this.chartName === 'editors') {
       this.chart.editors.removeSerie(0);
