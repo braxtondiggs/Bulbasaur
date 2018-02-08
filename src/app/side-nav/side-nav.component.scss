@@ -6,11 +6,11 @@
   width: 40px;
 }
 
-side-nav {
+sidenav {
   margin-top: 5px;
 }
 
-.snapchat-qr .mat-dialog-container {
+.snapchatqr .mat-dialog-container {
   background: transparent;
   box-shadow: initial;
 }
@@ -20,7 +20,7 @@ side-nav {
   top: 5px;
 }
 
-profile-box.side-scroll > div {
+profilebox.side-scroll > div {
   top: 0;
   width: 290px;
 }
@@ -31,7 +31,7 @@ profile-box.side-scroll > div {
     width: initial !important;
   }
 
-  side-nav {
+  sidenav {
     background-color: $background;
     padding: 15px 0;
   }

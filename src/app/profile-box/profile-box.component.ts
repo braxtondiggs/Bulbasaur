@@ -4,7 +4,7 @@ import * as Instafeed from 'instafeed.js';
 import * as _ from 'lodash';
 
 @Component({
-  selector: 'profile-box',
+  selector: 'profilebox',
   templateUrl: './profile-box.component.html',
   styleUrls: ['./profile-box.component.scss']
 })

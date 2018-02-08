@@ -1,4 +1,4 @@
-import { Directive, Input, Renderer, ElementRef, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Directive, Input, Renderer2, ElementRef, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { ScrollService } from '../services/scroll.service';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
@@ -21,7 +21,7 @@ export class AnimateOnScrollDirective implements OnInit, OnDestroy, AfterViewIni
   // Pixel offset from screen bottom to the animated element to determine the start of the animation
   @Input() offset = 80;
 
-  constructor(private elementRef: ElementRef, private renderer: Renderer, private scroll: ScrollService) { }
+  constructor(private elementRef: ElementRef, private renderer: Renderer2, private scroll: ScrollService) { }
 
   ngOnInit(): void {
     if (!this.animationName) {
@@ -102,7 +102,7 @@ export class AnimateOnScrollDirective implements OnInit, OnDestroy, AfterViewIni
   private setClass(classes: string): void {
 
     for (const c of classes.split(' ')) {
-      this.renderer.setElementClass(this.elementRef.nativeElement, c, true);
+      this.renderer.addClass(this.elementRef.nativeElement, c);
     }
 
   }

@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'side-nav',
+  selector: 'sidenav',
   encapsulation: ViewEncapsulation.None,
   templateUrl: './side-nav.component.html',
   styleUrls: ['./side-nav.component.scss']

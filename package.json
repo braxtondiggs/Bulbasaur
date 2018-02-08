@@ -60,6 +60,7 @@
     "babel-eslint": "^8.2.1",
     "codelyzer": "^4.1.0",
     "eslint": "^4.17.0",
+    "husky": "^0.15.0-rc.6",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",
     "karma": "~1.7.0",
@@ -75,5 +76,11 @@
   "engines": {
     "node": "8.2.1",
     "npm": "5.3.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "ng lint",
+      "pre-push": "ng lint"
+    }
   }
 }
