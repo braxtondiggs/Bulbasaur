@@ -5,7 +5,7 @@ import * as _ from 'lodash';
   name: 'skill'
 })
 export class SkillPipe implements PipeTransform {
-  transform(value: any): number {
+  public transform(value: any): number {
     const wildcard: number = _.toNumber(_.toString(value).slice(-1));
     if (value <= 0) {
       return 60 + wildcard;

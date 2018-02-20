@@ -1,20 +1,20 @@
 import { Component, HostListener, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app',
   encapsulation: ViewEncapsulation.None,
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: 'app',
+  styleUrls: ['./app.component.scss'],
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
   private scroll: number;
 
   @HostListener('window:scroll', ['$event'])
-  onScroll($event: Event): void {
+  public onScroll($event: Event): void {
     this.scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
   }
 
-  isScroll(): boolean {
+  public isScroll(): boolean {
     return this.scroll > 75;
   }
 }

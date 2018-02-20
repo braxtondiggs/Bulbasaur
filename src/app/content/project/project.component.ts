@@ -3,10 +3,10 @@ import { MAT_DIALOG_DATA } from '@angular/material';
 import * as _ from 'lodash';
 
 @Component({
-  selector: 'project',
   encapsulation: ViewEncapsulation.None,
-  templateUrl: './project.component.html',
-  styleUrls: ['./project.component.scss']
+  selector: 'project',
+  styleUrls: ['./project.component.scss'],
+  templateUrl: './project.component.html'
 })
 export class ProjectComponent {
   constructor( @Inject(MAT_DIALOG_DATA) public project: any) {

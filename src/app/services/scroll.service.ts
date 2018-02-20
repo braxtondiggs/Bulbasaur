@@ -1,4 +1,4 @@
-
+'use strict';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -7,9 +7,9 @@ import 'rxjs/add/observable/fromEvent';
 
 @Injectable()
 export class ScrollService implements OnDestroy {
-  scrollObs: Observable<any>;
-  resizeObs: Observable<any>;
-  pos: number;
+  public scrollObs: Observable<any>;
+  public resizeObs: Observable<any>;
+  public pos: number;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor() {
@@ -32,13 +32,13 @@ export class ScrollService implements OnDestroy {
       .subscribe(() => this.manageScrollPos());
   }
 
+  public ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+
   private manageScrollPos(): void {
     // update service property
     this.pos = window.pageYOffset;
-  }
-
-  ngOnDestroy(): void {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
   }
 }

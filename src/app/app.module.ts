@@ -19,8 +19,8 @@ import { SkillPipe } from './pipes/skill.pipe';
 import { AnimateOnScrollDirective } from './directives/animate-on-scroll.directive';
 import { ScrollService } from './services/scroll.service';
 
-
 @NgModule({
+  bootstrap: [AppComponent],
   declarations: [
     AppComponent,
     HeaderComponent,
@@ -36,6 +36,10 @@ import { ScrollService } from './services/scroll.service';
     SkillsComponent,
     AnimateOnScrollDirective
   ],
+  entryComponents: [
+    SnapchatQRComponent,
+    ProjectComponent
+  ],
   imports: [
     FormsModule,
     ReactiveFormsModule,
@@ -48,12 +52,7 @@ import { ScrollService } from './services/scroll.service';
     BrowserAnimationsModule,
     LoadingBarHttpClientModule
   ],
-  entryComponents: [
-    SnapchatQRComponent,
-    ProjectComponent
-  ],
-  providers: [ScrollService],
-  bootstrap: [AppComponent]
+  providers: [ScrollService]
 })
 export class AppModule {
   constructor() {

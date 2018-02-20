@@ -5,25 +5,29 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'contact',
-  templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.scss']
+  styleUrls: ['./contact.component.scss'],
+  templateUrl: './contact.component.html'
 })
 export class ContactComponent {
   public name: FormControl = new FormControl('', [Validators.required]);
   public email: FormControl = new FormControl('', [Validators.required, Validators.email]);
   public subject: FormControl = new FormControl();
-  public message: FormControl = new FormControl('', [Validators.required, Validators.minLength(15), Validators.maxLength(2056)]);
+  public message: FormControl = new FormControl('', [
+    Validators.required,
+    Validators.minLength(15),
+    Validators.maxLength(2056)
+  ]);
   public contactform: FormGroup = new FormGroup({
-    name: this.name,
     email: this.email,
-    subject: this.subject,
-    message: this.message
+    message: this.message,
+    name: this.name,
+    subject: this.subject
   });
   public submit = false;
 
   constructor(protected http: HttpClient, protected snackBar: MatSnackBar) { }
 
-  getErrorMessage(input: FormControl, label: string = 'This field') {
+  public getErrorMessage(input: FormControl, label: string = 'This field') {
     if (input.hasError('required')) {
       return `${label} is required.`;
     } else if (input.hasError('email')) {
@@ -34,14 +38,14 @@ export class ContactComponent {
       return `${label} cannot be more than ${input.errors.maxlength.requiredLength} characters`;
     }
   }
-  onSubmit() {
+  public onSubmit() {
     if (this.contactform.valid) {
       this.submit = true;
       this.http.post('https://meowth1.herokuapp.com/api/mail/inquire', {}, {
         headers: new HttpHeaders({
-          name: this.name.value,
           email: this.email.value,
           message: this.message.value,
+          name: this.name.value,
           subject: this.subject.value
         })
       }).subscribe((data: any) => {

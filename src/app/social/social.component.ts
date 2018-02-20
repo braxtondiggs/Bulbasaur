@@ -10,11 +10,11 @@ export class SocialComponent {
 
   constructor(private dialog: MatDialog) { }
 
-  openSnapQR() {
+  public openSnapQR() {
     this.dialog.open(SnapchatQRComponent, {
-      width: '250px',
       height: '250px',
-      panelClass: 'snapchat-qr'
+      panelClass: 'snapchat-qr',
+      width: '250px'
     });
   }
 }

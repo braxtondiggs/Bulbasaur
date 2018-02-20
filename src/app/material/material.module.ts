@@ -7,14 +7,14 @@ import {
   MatInputModule, MatSnackBarModule, MatGridListModule, MatTabsModule, MatSelectModule, MatNativeDateModule
 } from '@angular/material';
 @NgModule({
-  imports: [MatButtonModule, MatIconModule, MatCardModule, MatTooltipModule, MatDividerModule,
-    MatListModule, MatProgressSpinnerModule, MatDialogModule, MatProgressBarModule, MatFormFieldModule,
-    MatInputModule, MatSnackBarModule, MatGridListModule, MatTabsModule, MatSelectModule, MatDatepickerModule,
-    MatNativeDateModule],
   exports: [MatButtonModule, MatIconModule, MatCardModule, MatTooltipModule, MatDividerModule,
     MatListModule, MatProgressSpinnerModule, MatDialogModule, MatProgressBarModule, MatFormFieldModule,
     MatInputModule, MatSnackBarModule, MatGridListModule, MatTabsModule, MatSelectModule, MatDatepickerModule,
     MatNativeDateModule],
+  imports: [MatButtonModule, MatIconModule, MatCardModule, MatTooltipModule, MatDividerModule,
+    MatListModule, MatProgressSpinnerModule, MatDialogModule, MatProgressBarModule, MatFormFieldModule,
+    MatInputModule, MatSnackBarModule, MatGridListModule, MatTabsModule, MatSelectModule, MatDatepickerModule,
+    MatNativeDateModule]
 })
 export class MaterialModule {
   constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {

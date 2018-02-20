@@ -5,20 +5,20 @@ import * as _ from 'lodash';
 
 @Component({
   selector: 'profilebox',
-  templateUrl: './profile-box.component.html',
-  styleUrls: ['./profile-box.component.scss']
+  styleUrls: ['./profile-box.component.scss'],
+  templateUrl: './profile-box.component.html'
 })
 export class ProfileBoxComponent implements OnInit {
   public instagram: Promise<any>;
   public insta_loading = true;
 
-  ngOnInit() {
-    this.instagram = new Promise<any>(resolve => {
+  public ngOnInit() {
+    this.instagram = new Promise<any>((resolve: any) => {
       new Instafeed({
-        get: 'user',
-        userId: '295204961',
         accessToken: '295204961.cccb769.ae311b21cd83437991b3e7753f8c1cfb',
-        success: response => { this.insta_loading = false; return resolve(_.slice(response.data, 0, 9)); }
+        get: 'user',
+        success: (response: any) => { this.insta_loading = false; return resolve(_.slice(response.data, 0, 9)); },
+        userId: '295204961'
       }).run();
     });
   }

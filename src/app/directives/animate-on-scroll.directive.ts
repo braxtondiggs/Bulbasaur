@@ -17,13 +17,13 @@ export class AnimateOnScrollDirective implements OnInit, OnDestroy, AfterViewIni
     return this.elementRef.nativeElement.id;
   }
 
-  @Input() animationName: string; // use fadeIn as default if not specified
+  @Input() private animationName: string; // use fadeIn as default if not specified
   // Pixel offset from screen bottom to the animated element to determine the start of the animation
-  @Input() offset = 80;
+  @Input() private offset = 80;
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2, private scroll: ScrollService) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     if (!this.animationName) {
       throw new Error('animationName required');
     }
@@ -40,12 +40,12 @@ export class AnimateOnScrollDirective implements OnInit, OnDestroy, AfterViewIni
 
   }
 
-  ngAfterViewInit(): void {
+  public ngAfterViewInit(): void {
     // run visibility check initially in case the element is already visible in viewport
     setTimeout(() => this.manageVisibility(), 1);
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
