@@ -4,8 +4,8 @@
   "license": "MIT",
   "main": "server/index.js",
   "scripts": {
-    "start": "ng serve -o",
-    "serve": "npm run build && node dist",
+    "start": "npm run build && ng serve -o",
+    "serve": "node --max-old-space-size=512 dist",
     "server": "tsc && node dist",
     "build": "ng build --aot --prod --build-optimizer && tsc",
     "heroku-postbuild": "npm run build",
