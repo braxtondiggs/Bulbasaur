@@ -24,9 +24,9 @@ function normalizePort(val: number | string): number | string | boolean {
 function onListening(): void {
   const addr = server.address();
   const bind = (typeof addr === 'string') ? `pipe ${addr}` : `port ${addr.port}`;
-  connnectSocketIO();
   debug(`Listening on ${bind}`);
   console.log(`Listening on ${bind}`);
+  connnectSocketIO();
 }
 
 function onError(error: NodeJS.ErrnoException): void {
@@ -47,8 +47,8 @@ function onError(error: NodeJS.ErrnoException): void {
 }
 
 function connnectSocketIO() {
-  io.on('connect', (socket: any) => {
-    console.log('Connected client on port %s.', port);
+  io.on('connection', (socket: any) => {
+    console.log('Socket client connect on port %s.', port);
 
     socket.on('disconnect', () => {
       console.log('Client disconnected');

@@ -6,11 +6,11 @@
   "scripts": {
     "start": "npm run build && ng serve -o",
     "serve": "node --max-old-space-size=512 dist",
-    "server": "tsc && node dist",
+    "server": "tsc && npm run serve",
     "build": "ng build --aot --prod --build-optimizer && tsc",
     "heroku-postbuild": "npm run build",
-    "test": "ng lint && tslint --project tslint.json 'server/**/*.{ts,tsx}'",
-    "watch": "nodemon -e ts -w ./server -x npm run server"
+    "test": "ng lint && tslint --project tslint.json 'server/**/*.{ts,tsx}' && tslint --project tslint.json 'index.ts'",
+    "watch": "nodemon -e ts -w ./server -w index.ts -x npm run server"
   },
   "private": true,
   "dependencies": {
@@ -37,6 +37,7 @@
     "@types/lodash": "^4.14.101",
     "@types/serve-favicon": "^2.2.30",
     "@types/socket.io": "^1.4.31",
+    "@types/socket.io-client": "^1.4.32",
     "angular-highcharts": "^5.2.8",
     "angular2-moment": "^1.8.0",
     "babel-preset-env": "^1.6.1",

@@ -15,9 +15,9 @@ import { SideNavComponent } from './side-nav/side-nav.component';
 import { FooterComponent } from './footer/footer.component';
 import { ContentComponent, ContactComponent, ProjectComponent, SkillsComponent } from './content/';
 import { SocialComponent, SnapchatQRComponent } from './social';
-import { SkillPipe } from './pipes/skill.pipe';
-import { AnimateOnScrollDirective } from './directives/animate-on-scroll.directive';
-import { ScrollService } from './services/scroll.service';
+import { SkillPipe } from './shared/pipes/skill.pipe';
+import { AnimateOnScrollDirective } from './shared/directives/animate-on-scroll.directive';
+import { ScrollService, SocketService } from './shared/services';
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -52,7 +52,10 @@ import { ScrollService } from './services/scroll.service';
     BrowserAnimationsModule,
     LoadingBarHttpClientModule
   ],
-  providers: [ScrollService]
+  providers: [
+    ScrollService,
+    SocketService
+  ]
 })
 export class AppModule {
   constructor() {
