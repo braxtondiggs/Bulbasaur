@@ -5,14 +5,14 @@ import { ITrack, Event } from '../model';
 
 import * as socketIo from 'socket.io-client';
 
-const SERVER_URL = 'http://localhost:3000';
+const SERVER_URL = 'https://braxtondiggs.com';
 
 @Injectable()
 export class SocketService {
   private socket: any;
 
   public initSocket(): void {
-    this.socket = socketIo(SERVER_URL);
+    this.socket = socketIo(SERVER_URL, { transports: ['websocket', 'polling'] });
   }
 
   public send(message: ITrack): void {
