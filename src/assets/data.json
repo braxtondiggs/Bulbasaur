@@ -28,20 +28,8 @@
       "icon": "./assets/logos/tahzoo.png"
     },
     "date": {
-      "start": "2014-09-01",
+      "start": "2013-11-01",
       "end": "2015-11-01"
-    }
-  }, {
-    "name": "PasteGroup LLC",
-    "position": "Senior Web Developer",
-    "location": "Washington, D.C.",
-    "image": {
-      "icon": "./assets/logos/paste_group.png",
-      "margin": "31px 0 0 9px"
-    },
-    "date": {
-      "start": "2013-06-01",
-      "end": "2014-09-01"
     }
   }, {
     "name": "Navigation Arts",
@@ -52,7 +40,7 @@
     },
     "date": {
       "start": "2010-07-01",
-      "end": "2013-07-01"
+      "end": "2013-11-01"
     }
   }, {
     "name": "GDI",
