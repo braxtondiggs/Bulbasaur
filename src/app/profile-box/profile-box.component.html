@@ -13,7 +13,7 @@
 		<mat-card-content>
 			<h2 class="title"><mat-icon aria-label="Instagram" svgIcon="instagram"></mat-icon>&nbsp;Instagram</h2>
 			<div id="instafeed" style="display: none"></div>
-			<div id="instacontent" fxLayout="row" fxLayoutGap="2px" *ngIf="!insta_loading" fxLayoutWrap>
+			<div id="instacontent" fxLayout="row wrap" fxLayoutGap="2px" *ngIf="!insta_loading">
 				<a [attr.href]="post.link" target="_blank" fxFlex="calc(33% - 2px)" *ngFor="let post of instagram | async">
 				<img [attr.src]="post.images.thumbnail.url" style="width:100%;height: calc(100% - 2px);" alt="" />
 			</a>
