@@ -15,8 +15,8 @@
 					<mat-option value="lastmonth">Last Month</mat-option>
 					<mat-option value="customrange" (focus)="setCustomRange(datepicker, selector)">Custom Range</mat-option>
 				</mat-select>
-				<input mdInput [min]="minDate" [max]="maxDate" [matDatepicker]="datepicker" (dateChange)="dateChange($event)" style="display: none;">
-				<mat-datepicker [rangeMode]="true" #datepicker></mat-datepicker>
+				<input matInput [min]="minDate" [max]="maxDate" [satDatepicker]="datepicker" (dateChange)="dateChange($event)" style="display: none;">
+				<sat-datepicker [rangeMode]="true" #datepicker></sat-datepicker>
 			</mat-form-field>
 			<h4 *ngIf="selected === 'customrange' && hasDateSelected">{{date.begin}} - {{date.end}}</h4>
 		</div>
