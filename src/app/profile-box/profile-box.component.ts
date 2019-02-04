@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import * as Instafeed from 'instafeed.js';
-import * as _ from 'lodash';
+import { slice } from 'lodash-es';
 
 @Component({
   selector: 'profilebox',
@@ -17,7 +16,7 @@ export class ProfileBoxComponent implements OnInit {
       new Instafeed({
         accessToken: '295204961.cccb769.ae311b21cd83437991b3e7753f8c1cfb',
         get: 'user',
-        success: (response: any) => { this.insta_loading = false; return resolve(_.slice(response.data, 0, 9)); },
+        success: (response: any) => { this.insta_loading = false; return resolve(slice(response.data, 0, 9)); },
         userId: '295204961'
       }).run();
     });

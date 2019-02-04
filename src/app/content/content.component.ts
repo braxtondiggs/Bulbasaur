@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material';
 import { ProjectComponent } from './project/project.component';
-import * as _ from 'lodash';
+import { chunk, floor, map, merge, orderBy, reject, slice, sumBy } from 'lodash-es';
 import * as moment from 'moment';
 
 @Component({
@@ -21,8 +21,8 @@ export class ContentComponent implements OnInit {
 
   public ngOnInit() {
     this.http.get('assets/data.json').subscribe((data: any) => {
-      this.likes = _.chunk(data.likes, 5);
-      this.employment = _.map(data.employment, (o: any) => _.merge(o, {
+      this.likes = chunk(data.likes, 5);
+      this.employment = map(data.employment, (o: any) => merge(o, {
         date: {
           end: o.date.end ? moment(o.date.end, 'YYYY-MM-DD').format() : null,
           start: moment(o.date.start, 'YYYY-MM-DD').format()
@@ -31,9 +31,9 @@ export class ContentComponent implements OnInit {
       this.projects = data.projects;
     });
     this.http.get('https://wartortle.herokuapp.com?range=last30days').subscribe((data: any) => {
-      const total_time = _.sumBy(data.Languages, 'total_seconds');
-      this.skills = _.chain(data.Languages).reject(['name', 'Other']).orderBy(['total_seconds'], ['desc']).slice(0, 6)
-        .map((o: any) => _.merge(o, { value: _.floor((o.total_seconds / total_time) * 100) })).chunk(3).value();
+      const total_time = sumBy(data.Languages, 'total_seconds');
+      this.skills = chunk(slice(orderBy(reject(data.Languages, ['name', 'Other']), ['total_seconds'], ['desc']), 0, 6)
+        .map((o: any) => merge(o, { value: floor((o.total_seconds / total_time) * 100) })), 3);
       this.loadingSkills = false;
     });
   }

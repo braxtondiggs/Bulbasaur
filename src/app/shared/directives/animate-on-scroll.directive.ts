@@ -1,7 +1,7 @@
+import { takeUntil } from 'rxjs/operators';
 import { Directive, Input, Renderer2, ElementRef, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { ScrollService } from '../services/scroll.service';
-import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/takeUntil';
+import { Subject } from 'rxjs';
 
 @Directive({
   selector: '[animateOnScroll]'
@@ -31,13 +31,12 @@ export class AnimateOnScrollDirective implements OnInit, OnDestroy, AfterViewIni
     this.isVisible = false;
 
     // subscribe to scroll event using service
-    this.scroll.scrollObs.takeUntil(this.ngUnsubscribe)
+    this.scroll.scrollObs.pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(() => this.manageVisibility());
 
     // subscribe to resize event using service so scrolling position is always accurate
-    this.scroll.resizeObs.takeUntil(this.ngUnsubscribe)
+    this.scroll.resizeObs.pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(() => this.manageVisibility());
-
   }
 
   public ngAfterViewInit(): void {

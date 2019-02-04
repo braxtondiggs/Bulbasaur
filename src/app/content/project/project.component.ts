@@ -1,6 +1,6 @@
 import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
-import * as _ from 'lodash';
+import { join } from 'lodash-es';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -9,7 +9,7 @@ import * as _ from 'lodash';
   templateUrl: './project.component.html'
 })
 export class ProjectComponent {
-  constructor( @Inject(MAT_DIALOG_DATA) public project: any) {
-    project.description_modified = _.join(project.description, '<br /><br />');
+  constructor(@Inject(MAT_DIALOG_DATA) public project: any) {
+    project.description_modified = join(project.description, '<br /><br />');
   }
 }

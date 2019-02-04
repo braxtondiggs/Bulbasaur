@@ -1,7 +1,6 @@
 import { Component, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
 import { SocketService } from './shared/services/socket.service';
 import { ITrack, Event } from './shared/model';
-import { floor } from 'lodash';
 
 @Component({
   encapsulation: ViewEncapsulation.None,

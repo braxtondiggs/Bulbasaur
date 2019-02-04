@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "importHelpers": true,
     "target": "es5",
     "outDir": "./dist",
     "module": "commonjs",
@@ -18,7 +19,8 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "baseUrl": "./"
   },
   "exclude": [
     "dist",

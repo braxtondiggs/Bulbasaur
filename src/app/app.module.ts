@@ -3,8 +3,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MomentModule } from 'angular2-moment';
-import { NgxPageScrollModule, PageScrollConfig } from 'ngx-page-scroll';
+import { MomentModule } from 'ngx-moment';
+import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
+import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { ChartModule } from 'angular-highcharts';
 import { NgModule } from '@angular/core';
 import { MaterialModule } from './material/material.module';
@@ -45,6 +46,7 @@ import { ScrollService, SocketService } from './shared/services';
     ReactiveFormsModule,
     ChartModule,
     NgxPageScrollModule,
+    NgxPageScrollCoreModule.forRoot({ duration: 500, scrollOffset: 25 }),
     FlexLayoutModule,
     MaterialModule,
     MomentModule,
@@ -57,9 +59,4 @@ import { ScrollService, SocketService } from './shared/services';
     SocketService
   ]
 })
-export class AppModule {
-  constructor() {
-    PageScrollConfig.defaultScrollOffset = 25;
-    PageScrollConfig.defaultDuration = 500;
-  }
-}
+export class AppModule { }

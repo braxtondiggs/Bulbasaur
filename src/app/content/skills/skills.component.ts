@@ -5,7 +5,7 @@ import {
   MatDatepicker, MatDatepickerInputEvent
 } from '@angular/material';
 import { Chart } from 'angular-highcharts';
-import * as _ from 'lodash';
+import { ceil, floor, isUndefined, map, reduce, reject, toLower } from 'lodash-es';
 import * as moment from 'moment';
 
 @Component({
@@ -37,7 +37,7 @@ export class SkillsComponent implements OnInit {
   }
 
   public selectedTabChange(selection: MatTabChangeEvent): void {
-    this.chartName = _.toLower(selection.tab.textLabel);
+    this.chartName = toLower(selection.tab.textLabel);
     this.updateSeries();
   }
 
@@ -50,26 +50,28 @@ export class SkillsComponent implements OnInit {
   }
 
   public updateSeries() {
-    const total_count: number = _.reduce(this.skills.Languages, (sum: number, n: any) => sum + n.total_seconds, 0);
+    this.skills.Editors = reject(this.skills.Editors, (o) => isUndefined(o.total_seconds));
+    this.skills.Languages = reject(this.skills.Languages, (o) => isUndefined(o.total_seconds));
+    const total_count: number = reduce(this.skills.Languages, (sum: number, n: any) => sum + n.total_seconds, 0);
     if (this.chartName === 'languages') {
-      this.chart.languages.removeSerie(0);
-      this.chart.languages.addSerie({
-        data: _.map(this.skills.Languages, (o: any) => [o.name, _.ceil((o.total_seconds / total_count) * 100, 2)]),
+      this.chart.languages.removeSeries(0);
+      this.chart.languages.addSeries({
+        data: map(this.skills.Languages, (o: any) => [o.name, ceil((o.total_seconds / total_count) * 100, 2)]),
         name: 'Percentage'
       });
     } else if (this.chartName === 'activity') {
-      this.chart.activity.removeSerie(0);
-      this.chart.activity.addSerie({
-        data: _.map(this.skills.Timeline, 'total_seconds').map((o: any) => o / 3600),
+      this.chart.activity.removeSeries(0);
+      this.chart.activity.addSeries({
+        data: map(this.skills.Timeline, 'total_seconds').map((o: any) => o / 3600),
         showInLegend: false
       });
       this.chart.activity.ref.xAxis[0].update({
-        categories: _.map(this.skills.Timeline, 'date').map((v: string) => moment(v).format('MMM Do'))
+        categories: map(this.skills.Timeline, 'date').map((v: string) => moment(v).format('MMM Do'))
       });
     } else if (this.chartName === 'editors') {
-      this.chart.editors.removeSerie(0);
-      this.chart.editors.addSerie({
-        data: _.map(this.skills.Editors, (o: any) => [o.name, _.ceil((o.total_seconds / total_count) * 100, 2)]),
+      this.chart.editors.removeSeries(0);
+      this.chart.editors.addSeries({
+        data: map(this.skills.Editors, (o: any) => [o.name, ceil((o.total_seconds / total_count) * 100, 2)]),
         name: 'Percentage'
       });
     }
@@ -112,8 +114,8 @@ export class SkillsComponent implements OnInit {
         tooltip: {
           pointFormatter: function() {// tslint:disable-line: object-literal-shorthand
             const time = this.y * 3600,
-              hrs = _.floor(time / 3600),
-              mins = _.floor((time % 3600) / 60);
+              hrs = floor(time / 3600),
+              mins = floor((time % 3600) / 60);
             return ((hrs > 0) ? `${hrs} Hours ` : '') + ((mins > 0) ? mins + ' Mins' : '');
           }
         },
