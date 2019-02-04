@@ -46,7 +46,6 @@
     "express": "^4.16.4",
     "helmet": "^3.15.0",
     "highcharts": "^7.0.2",
-    "instafeed.js": "^1.4.1",
     "lodash-es": "^4.17.11",
     "moment": "^2.24.0",
     "ngx-moment": "^3.3.0",

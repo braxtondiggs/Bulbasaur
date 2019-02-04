@@ -9,16 +9,4 @@
 			<social></social>
 		</mat-card-content>
 	</mat-card>
-	<mat-card id="instagram">
-		<mat-card-content>
-			<h2 class="title"><mat-icon aria-label="Instagram" svgIcon="instagram"></mat-icon>&nbsp;Instagram</h2>
-			<div id="instafeed" style="display: none"></div>
-			<div id="instacontent" fxLayout="row wrap" fxLayoutGap="2px" *ngIf="!insta_loading">
-				<a [attr.href]="post.link" target="_blank" fxFlex="calc(33% - 2px)" *ngFor="let post of instagram | async">
-				<img [attr.src]="post.images.thumbnail.url" style="width:100%;height: calc(100% - 2px);" alt="" />
-			</a>
-			</div>
-			<mat-spinner *ngIf="insta_loading"></mat-spinner>
-		</mat-card-content>
-	</mat-card>
 </div>
