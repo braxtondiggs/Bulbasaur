@@ -1,17 +1,17 @@
-<mat-dialog-content fxLayout="row" fxLayoutGap="2%">
-	<div class="banner_img" fxFlex>
+<mat-dialog-content fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%">
+	<div class="banner_img" fxFlex="40%" fxFlex.xs>
 		<img [src]="project.image.screenshot" alt="{{project.title}}" [ngClass]="{'mobile': project.mobile}" />
 	</div>
-	<div class="project_container" fxLayout="column" fxFlex>
+	<div class="project_container" fxLayout="column" fxFlex="60%" fxFlex.xs>
 		<div fxFlex>
 			<h2>{{project.title}}</h2>
 			<p [innerHtml]="project.description_modified"></p>
 		</div>
-		<div fxLayout="row" fxLayoutAlign="start center">
+		<div fxLayout="row" fxLayout.xs="column" fxLayoutGap.xs="16px" fxLayoutAlign="start center" *ngIf="project.url">
 			<div fxFlex>
 				<a [href]="project.url.web" color="primary" target="_blank" *ngIf="project.url.web" mat-raised-button>View Project</a>
 			</div>
-			<div class="more_content">
+			<div class="more_content" fxLayoutGap="8px">
 				<a [href]="project.url.android" target="_blank" *ngIf="project.url.android"><img src="assets/Google-Store.png" alt="{{project.title}} on Google Play" /></a>
 				<a [href]="project.url.ios" target="_blank" *ngIf="project.url.ios"><img src="assets/Apple-Store.png" alt="{{project.title}} on Apple Store"/></a>
 				<a [href]="project.url.other" target="_blank" *ngIf="project.url.other"><img [src]="project.image.other" alt="{{project.title}}" /></a>

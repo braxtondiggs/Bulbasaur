@@ -10,7 +10,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class ContactComponent {
   public name: FormControl = new FormControl('', [Validators.required]);
-  public email: FormControl = new FormControl('', [Validators.required, Validators.email]);
+  public email: FormControl = new FormControl('', [Validators.required,
+    Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+  ]);
   public subject: FormControl = new FormControl();
   public message: FormControl = new FormControl('', [
     Validators.required,
@@ -30,7 +32,7 @@ export class ContactComponent {
   public getErrorMessage(input: FormControl, label: string = 'This field') {
     if (input.hasError('required')) {
       return `${label} is required.`;
-    } else if (input.hasError('email')) {
+    } else if (input.hasError('pattern')) {
       return 'Invalid email address';
     } else if (input.hasError('minlength')) {
       return `${label} must be atleast ${input.errors.minlength.requiredLength} characters`;
@@ -52,6 +54,9 @@ export class ContactComponent {
         if (data.status) {
           this.snackBar.open('Email successfully sent');
           this.contactform.reset();
+          for (const i of Object.keys(this.contactform.controls)) {
+            this.contactform.controls[i].setErrors(null);
+          }
         }
       }, () => {
         this.snackBar.open('Something went wrong', 'Close', { duration: 0 });

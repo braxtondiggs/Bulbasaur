@@ -330,6 +330,13 @@ footer {
     }
   }
 
+  .my-likes {
+    max-height: 450px;
+    &.closed {
+      max-height: 180px;
+    }
+  }
+
   #portfolio .caption {
     h3 {
       font-size: 16px;

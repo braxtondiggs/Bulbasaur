@@ -67,6 +67,20 @@
   }],
   "projects": [{
     "status": true,
+    "title": "Washington DC: Rooms for Rent & Roommate Finder",
+    "mobile": true,
+    "image": {
+      "icon": "./assets/projects/homora/icon.png",
+      "screenshot": "./assets/projects/homora/screenshot.png"
+    },
+    "description": ["Homora is here to simplify and legitimize your search for both rental housing and roommates. Homora is built with dual functionality in mind: for those looking to move into a new home and for those who are trying to share their space. Our app gives you all the necessary resources to enable landlords and tenants to interact in one space, simplifying the process for all involved. With transparent housing rules and easy to use filters and amenities, you can find a perfect matching tenant or home in minutes.", "As cities are getting more expensive, more people are living together to share costs. The Homora app was born from the need to have a safe and secure platform to find your next shared space. We pride ourselves in presenting exclusive listings which has all the information vital to tenants. This vital information such as amenities, pictures, and general housing information is required when listing a space. No more wasting time scanning incomplete housing profiles."],
+    "url": {
+      "web": "https://homora.com",
+      "android": "https://play.google.com/store/apps/details?id=com.homora.app&hl=en_US",
+      "ios": "https://itunes.apple.com/us/app/homora/id1413448908?mt=8"
+    }
+  },{
+    "status": true,
     "title": "Any SubReddit as an Atom Background",
     "mobile": false,
     "image": {
@@ -87,8 +101,7 @@
     },
     "description": ["With the Alma app you can watch music videos, search for music based on your unique taste, and discover new emerging artists on your iOS/Android device for free. Access a vast catalogue of new undiscovered artists from around the world in a beautiful video app."],
     "url": {
-      "web": "http://arbok.heroku.com/",
-      "android": "https://play.google.com/store/apps/details?id=com.cymbit.Alma"
+      "web": "https://arbok.herokuapp.com/"
     }
   }, {
     "status": true,
@@ -100,7 +113,7 @@
     },
     "description": ["Interchangeable Rap-Inspired Refrigerator Magnets"],
     "url": {
-      "web": "http://www.rapmagnets.com/"
+      "web": "https://metapod.herokuapp.com/"
     }
   }, {
     "status": true,
@@ -110,11 +123,7 @@
       "icon": "./assets/projects/reddittv/icon.png",
       "screenshot": "./assets/projects/reddittv/screenshot.png"
     },
-    "description": ["RedditTV puts the videos of Reddit at your fingertips - turn any subreddit into your personal channel and watch new content submitted as it gets upvoted. RedditTV is your source of original, stress-free videos from any subreddit. User-curated videos streamed back-to-back in an app that puts /r/videos to shame.", "Everyone hates endlessly clicking on links to get to the videos they want to watch. That’s why we created RedditTV - turning any subreddit into a back-to-back TV channel, streamed directly to your mobile device.", "Turn a subreddit into a TV channel with a tap - then, any video hosted on Vimeo or YouTube can be played from your fingertips. Swipe left or right to skip a video, and say goodbye to repeated trash TV with the power of Reddit."],
-    "url": {
-      "web": "http://www.watchreddit.tv/",
-      "android": "https://play.google.com/store/apps/details?id=com.cymbit.RedditTV"
-    }
+    "description": ["RedditTV puts the videos of Reddit at your fingertips - turn any subreddit into your personal channel and watch new content submitted as it gets upvoted. RedditTV is your source of original, stress-free videos from any subreddit. User-curated videos streamed back-to-back in an app that puts /r/videos to shame.", "Everyone hates endlessly clicking on links to get to the videos they want to watch. That’s why we created RedditTV - turning any subreddit into a back-to-back TV channel, streamed directly to your mobile device.", "Turn a subreddit into a TV channel with a tap - then, any video hosted on Vimeo or YouTube can be played from your fingertips. Swipe left or right to skip a video, and say goodbye to repeated trash TV with the power of Reddit."]
   }, {
     "status": false,
     "title": "Doppelbänger",
@@ -123,11 +132,7 @@
       "icon": "./assets/projects/doppelbanger/icon.png",
       "screenshot": "./assets/projects/doppelbanger/screenshot.png"
     },
-    "description": ["Find your pornstar doppelganger! Doppelbänger has access to a wide range of pornstar faces to find one that matches yours.", "To start, choose a photo from your smartphone gallery or snap a new one using the app’s built-in camera feature.  From the photo, Doppelbänger will analyze your facial features, skin color, hair color & volume, etc., using a unique algorithm.  Each result will contain a photo of your adult entertainment look-a-like as well as the match percentage. Prepare to be amazed!", "Love the result? Share it with friends! Doppelbänger makes it easy to share on social media."],
-    "url": {
-      "web": "http://www.dodrio.herokuapp.com/",
-      "android": "https://play.google.com/store/apps/details?id=com.cymbit.Doppelbanger"
-    }
+    "description": ["Find your pornstar doppelganger! Doppelbänger has access to a wide range of pornstar faces to find one that matches yours.", "To start, choose a photo from your smartphone gallery or snap a new one using the app’s built-in camera feature.  From the photo, Doppelbänger will analyze your facial features, skin color, hair color & volume, etc., using a unique algorithm.  Each result will contain a photo of your adult entertainment look-a-like as well as the match percentage. Prepare to be amazed!", "Love the result? Share it with friends! Doppelbänger makes it easy to share on social media."]
   }, {
     "status": true,
     "title": "Rapper Ad-Lib Game",
@@ -139,8 +144,8 @@
     },
     "description": ["A fantastic way to pass your time while having some fun, Rapper Ad-Lib Quiz is a definite must have for the rap-loving bunch. As every dedicated rap fan knows, each rapper, no matter how big or small, has a signature ad-lib. This is their trademark noise, phrase, word or sound. Anyone who is a major rap fan can easily identify these and guess the rapper. In this quiz app, you’ll will hear a short ad-lib from a famous rapper for just 1-3 seconds. After that you’ll get the options to identify the rapper. Do it fast though because you’ll have a deadline!", "Note: For rap fans, Rapper Ad-Lib Quiz might be addictive due of its fun filled experience. Caution is advised during use."],
     "url": {
-      "web": "http://www.rapadlibs.com/",
-      "other": "https://dcwebfest.org/past-festivals/#dc-web-fest-2016"
+      "web": "https://alakazam1.herokuapp.com/",
+      "other": "https://dcwebfest.org/official-selections#2016-winners"
     }
   }, {
     "status": true,

@@ -40,6 +40,7 @@ export class ContentComponent implements OnInit {
 
   public openProject(project: any) {
     this.dialog.open(ProjectComponent, {
+      autoFocus: false,
       data: project,
       panelClass: 'project-component'
     });
