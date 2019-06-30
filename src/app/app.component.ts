@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
-import { SocketService } from './shared/services/socket.service';
-import { ITrack, Event } from './shared/model';
+import { GoogleAnalyticsService, SocketService } from './shared/services';
+import { ITrack } from './shared/model';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -12,10 +12,10 @@ export class AppComponent implements OnInit {
   public scroll: number;
   public track: ITrack;
   public duration: number = 0;
-  constructor(private socketService: SocketService) { }
+  constructor(public ga: GoogleAnalyticsService, private socketService: SocketService) { }
 
   @HostListener('window:scroll', ['$event'])
-  public onScroll($event: Event): void {
+  public onScroll(): void {
     this.scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
   }
 

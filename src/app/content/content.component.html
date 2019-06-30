@@ -46,7 +46,7 @@
 			</mat-list>
 		</div>
 		<div class="view-more">
-			<button (click)="toggleLikes = !toggleLikes" mat-button>View {{toggleLikes? 'Less' : 'More'}}</button>
+			<button (click)="toggleLikes = !toggleLikes; ga.eventEmitter('likes', toggleLikes ? 'less' : 'more')" mat-button>View {{toggleLikes? 'Less' : 'More'}}</button>
 		</div>
 	</mat-card-content>
 </mat-card>
@@ -74,7 +74,7 @@
 		</ul>
 	</mat-card-content>
 	<mat-card-footer>
-		<a color="primary" class="download-resume" href="assets/resume/braxton-diggs.pdf" target="_blank" mat-raised-button><mat-icon aria-label="Share" svgIcon="download"></mat-icon>&nbsp;Download Resume</a>
+		<a color="primary" class="download-resume" href="assets/resume/braxton-diggs.pdf" (click)="ga.eventEmitter('experience', 'resume')" target="_blank" mat-raised-button><mat-icon aria-label="Share" svgIcon="download"></mat-icon>&nbsp;Download Resume</a>
 	</mat-card-footer>
 </mat-card>
 <skills></skills>
@@ -83,7 +83,7 @@
 		<h2 class="title-lg">Working Projects</h2>
 		<mat-grid-list cols="2">
 			<span *ngFor="let project of projects">
-				<mat-grid-tile *ngIf="project.status" [rowspan]="project.mobile?2:1" (click)="openProject(project)">
+				<mat-grid-tile *ngIf="project.status" [rowspan]="project.mobile?2:1" (click)="openProject(project); ga.eventEmitter('projects', 'more', project.title)">
 					<img [src]="project.image.screenshot" alt="{{project.title}}" />
 					<div class="caption">
 						<div class="container">

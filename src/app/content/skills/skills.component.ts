@@ -5,6 +5,7 @@ import {
   MatDatepicker, MatDatepickerInputEvent
 } from '@angular/material';
 import { Chart } from 'angular-highcharts';
+import { GoogleAnalyticsService } from '../../shared/services';
 import { ceil, floor, isUndefined, map, reduce, reject, toLower } from 'lodash-es';
 import * as moment from 'moment';
 
@@ -23,7 +24,7 @@ export class SkillsComponent implements OnInit {
   public hasDateSelected = false;
   public minDate = moment('2016-06-22', 'YYYY-MM-DD').format();
   public maxDate = moment().subtract(1, 'days').format();
-  constructor(protected http: HttpClient) { }
+  constructor(protected http: HttpClient, private ga: GoogleAnalyticsService) { }
 
   public ngOnInit() {
     this.setDefaultCharts();
@@ -33,12 +34,14 @@ export class SkillsComponent implements OnInit {
   public selectionChange(selection: MatSelectChange): void {
     if (selection.value !== 'customrange') {
       this.getSkills(selection.value);
+      this.ga.eventEmitter('skills', 'select', selection.value);
     }
   }
 
   public selectedTabChange(selection: MatTabChangeEvent): void {
     this.chartName = toLower(selection.tab.textLabel);
     this.updateSeries();
+    this.ga.eventEmitter('skills', 'tab', selection.tab.textLabel);
   }
 
   public getSkills(range: string = 'last30days'): void {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material';
 import { ProjectComponent } from './project/project.component';
+import { GoogleAnalyticsService } from '../shared/services';
 import { chunk, floor, map, merge, orderBy, reject, slice, sumBy } from 'lodash-es';
 import * as moment from 'moment';
 
@@ -17,7 +18,7 @@ export class ContentComponent implements OnInit {
   public employment: any;
   public projects: any;
   public skills: any;
-  constructor(protected http: HttpClient, protected dialog: MatDialog) { }
+  constructor(protected http: HttpClient, protected dialog: MatDialog, public ga: GoogleAnalyticsService) { }
 
   public ngOnInit() {
     this.http.get('assets/data.json').subscribe((data: any) => {

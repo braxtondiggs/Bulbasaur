@@ -8,7 +8,7 @@ import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { ChartModule } from 'angular-highcharts';
 import { NgModule } from '@angular/core';
-import { MaterialModule } from './material/material.module';
+import { MaterialModule } from './material.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { ProfileBoxComponent } from './profile-box/profile-box.component';
