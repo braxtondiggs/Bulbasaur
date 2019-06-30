@@ -18,7 +18,7 @@ import { ContentComponent, ContactComponent, ProjectComponent, SkillsComponent }
 import { SocialComponent, SnapchatQRComponent } from './social';
 import { SkillPipe } from './shared/pipes/skill.pipe';
 import { AnimateOnScrollDirective } from './shared/directives/animate-on-scroll.directive';
-import { ScrollService, SocketService } from './shared/services';
+import { GoogleAnalyticsService, ScrollService, SocketService } from './shared/services';
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -55,6 +55,7 @@ import { ScrollService, SocketService } from './shared/services';
     LoadingBarHttpClientModule
   ],
   providers: [
+    GoogleAnalyticsService,
     ScrollService,
     SocketService
   ]
