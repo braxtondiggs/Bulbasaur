@@ -19,6 +19,7 @@ import { SocialComponent, SnapchatQRComponent } from './social';
 import { SkillPipe } from './shared/pipes/skill.pipe';
 import { AnimateOnScrollDirective } from './shared/directives/animate-on-scroll.directive';
 import { GoogleAnalyticsService, ScrollService, SocketService } from './shared/services';
+import { InstagramComponent } from './profile-box/instagram/instagram.component';
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -35,7 +36,8 @@ import { GoogleAnalyticsService, ScrollService, SocketService } from './shared/s
     ProjectComponent,
     SkillPipe,
     SkillsComponent,
-    AnimateOnScrollDirective
+    AnimateOnScrollDirective,
+    InstagramComponent
   ],
   entryComponents: [
     SnapchatQRComponent,

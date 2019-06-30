@@ -1,0 +1,13 @@
+<div class="instagram" *ngIf="(instagram$ | async) as instagram; else loading">
+	<h2 class="title">
+		<mat-icon aria-label="Instagram" svgIcon="instagram"></mat-icon>&nbsp;Instagram
+	</h2>
+	<div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutAlign.xs="start center">
+		<a [href]="item.link" *ngFor="let item of instagram.data" fxFlex="calc(50% - 4px)" target="_blank" rel="noopener" matRipple>
+			<img [src]="item.images.thumbnail.url" [alt]="item.caption.text" matTooltipPosition="before" [matTooltip]="item.caption.text" />
+		</a>
+	</div>
+</div>
+<ng-template #loading>
+	<mat-spinner class="loading"></mat-spinner>
+</ng-template>
