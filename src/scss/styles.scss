@@ -2,7 +2,6 @@
 @import './fonts';
 @import './linearicon';
 @import '~normalize.css/normalize.css';
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 body {
   -moz-osx-font-smoothing: grayscale;
@@ -86,4 +85,8 @@ mat-card.mat-card {
 
 .mat-calendar-cell-semi-selected {
   background-color: $calendar-background;
+}
+
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+  color: $text !important;
 }

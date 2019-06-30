@@ -1,3 +1,4 @@
+@import '~@angular/material/theming';
 $accent-color: #c0e3e7;
 $black: #000;
 $white: #fff;
@@ -8,3 +9,27 @@ $background-shape1: #e1e1e1;
 $background-shape2: $accent-color;
 $timeline-circle: #7f8c8d;
 $timeline-background: #f2f3f3;
+$md-primary: (
+  50: #f7fcfc,
+  100: #ecf7f8,
+  200: #e0f1f3,
+  300: #d3ebee,
+  400: #c9e7eb,
+  500: #c0e3e7,
+  600: #bae0e4,
+  700: #b2dce0,
+  800: #aad8dd,
+  900: #9cd0d7,
+  A100: #ffffff,
+  A200: #ffffff,
+  A400: #ffffff,
+  A700: #f9feff,
+  contrast: (50 : #000000, 100 : #000000, 200 : #000000, 300 : #000000, 400 : #000000, 500 : #000000, 600 : #000000, 700 : #000000, 800 : #000000, 900 : #000000, A100 : #000000, A200 : #000000, A400 : #000000, A700 : #000000,)
+);
+$general-typography: mat-typography-config($font-family: 'BandaRegular');
+@include mat-core($general-typography);
+$primary: mat-palette($md-primary);
+$accent: mat-palette($mat-pink, A200, A100, A400);
+$warn: mat-palette($mat-red, 600);
+$theme: mat-light-theme($primary, $accent, $warn);
+@include angular-material-theme($theme);
