@@ -47,11 +47,15 @@ function onError(error: NodeJS.ErrnoException): void {
 }
 
 function connnectSocketIO() {
-  io.on('connection', (socket: any) => {
+  io.on('connection', (socket: socketIo.Socket) => {
     console.log('Socket client connect on port %s.', port);
 
     socket.on('disconnect', () => {
       console.log('Client disconnected');
+    });
+
+    socket.on('track', (data: any) => {
+      console.log('Track:', data);
     });
   });
 }
