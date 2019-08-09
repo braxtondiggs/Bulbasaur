@@ -1,5 +1,15 @@
 {
   "employment": [{
+    "name": "Recycle Track Systems",
+    "position": "Full Stack Developer",
+    "location": "New York City, NY",
+    "image": {
+      "icon": "./assets/logos/rts.png"
+    },
+    "date": {
+      "start": "2019-07-01"
+    }
+  }, {
     "name": "ByteCubed",
     "position": "Angular Developer",
     "location": "Arlington, VA",
@@ -7,7 +17,8 @@
       "icon": "./assets/logos/bytecubed.png"
     },
     "date": {
-      "start": "2017-02-01"
+      "start": "2017-02-01",
+      "end": "2019-07-01"
     }
   }, {
     "name": "Mobomo",
