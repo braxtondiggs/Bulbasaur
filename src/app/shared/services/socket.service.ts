@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ITrack, Event } from '../model';
 
-import * as socketIo from 'socket.io-client';
+import socketIo from 'socket.io-client';
 
 const SERVER_URL = 'https://braxtondiggs.com';
 

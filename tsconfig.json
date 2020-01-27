@@ -2,9 +2,9 @@
   "compileOnSave": false,
   "compilerOptions": {
     "importHelpers": true,
-    "target": "es5",
+    "target": "es2015",
     "outDir": "./dist",
-    "module": "commonjs",
+    "module": "esnext",
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,
@@ -13,17 +13,10 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "esModuleInterop": true,
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "dom"],
     "baseUrl": "./"
   },
-  "exclude": [
-    "dist",
-    "node_modules"
-  ]
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }
