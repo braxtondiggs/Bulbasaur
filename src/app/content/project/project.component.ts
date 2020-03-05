@@ -5,7 +5,7 @@ import { join } from 'lodash-es';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
-  selector: 'project',
+  selector: 'app-project',
   styleUrls: ['./project.component.scss'],
   templateUrl: './project.component.html'
 })

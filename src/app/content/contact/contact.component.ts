@@ -4,14 +4,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'contact',
+  selector: 'app-contact',
   styleUrls: ['./contact.component.scss'],
   templateUrl: './contact.component.html'
 })
 export class ContactComponent {
   public name: FormControl = new FormControl('', [Validators.required]);
   public email: FormControl = new FormControl('', [Validators.required,
-    Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+  Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
   ]);
   public subject: FormControl = new FormControl();
   public message: FormControl = new FormControl('', [

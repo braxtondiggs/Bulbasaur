@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'instagram',
+  selector: 'app-instagram',
   styleUrls: ['./instagram.component.scss'],
   templateUrl: './instagram.component.html'
 })

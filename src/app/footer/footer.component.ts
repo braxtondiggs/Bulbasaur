@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'footer',
+  selector: 'app-footer',
   templateUrl: './footer.component.html'
 })
 export class FooterComponent {

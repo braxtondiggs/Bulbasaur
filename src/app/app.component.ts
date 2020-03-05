@@ -1,30 +1,22 @@
-import { Component, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
-import { GoogleAnalyticsService, SocketService } from './shared/services';
+import { Component, HostListener, ViewEncapsulation } from '@angular/core';
+import { GoogleAnalyticsService } from './shared/services';
 import { ITrack } from './shared/model';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
-  selector: 'app',
+  selector: 'app-root',
   styleUrls: ['./app.component.scss'],
   templateUrl: './app.component.html'
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   public scroll: number;
   public track: ITrack;
-  public duration: number = 0;
-  constructor(public ga: GoogleAnalyticsService, private socketService: SocketService) { }
+  public duration = 0;
+  constructor(public ga: GoogleAnalyticsService) { }
 
   @HostListener('window:scroll', ['$event'])
   public onScroll(): void {
     this.scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-  }
-
-  public ngOnInit() {
-    this.socketService.initSocket();
-    this.socketService.onMessage().subscribe((track: ITrack) => {
-      this.track = track;
-      this.initTrackFlow();
-    });
   }
 
   public initTrackFlow() {

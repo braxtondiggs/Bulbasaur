@@ -7,7 +7,7 @@ import { chunk, floor, map, merge, orderBy, reject, slice, sumBy } from 'lodash-
 import * as moment from 'moment';
 
 @Component({
-  selector: 'content',
+  selector: 'app-content',
   styleUrls: ['./content.component.scss'],
   templateUrl: './content.component.html'
 })
@@ -32,9 +32,9 @@ export class ContentComponent implements OnInit {
       this.projects = data.projects;
     });
     this.http.get('https://wartortle.herokuapp.com?range=last30days').subscribe((data: any) => {
-      const total_time = sumBy(data.Languages, 'total_seconds');
+      const totalTime = sumBy(data.Languages, 'total_seconds');
       this.skills = chunk(slice(orderBy(reject(data.Languages, ['name', 'Other']), ['total_seconds'], ['desc']), 0, 6)
-        .map((o: any) => merge(o, { value: floor((o.total_seconds / total_time) * 100) })), 3);
+        .map((o: any) => merge(o, { value: floor((o.total_seconds / totalTime) * 100) })), 3);
       this.loadingSkills = false;
     });
   }

@@ -3,7 +3,7 @@ import { GoogleAnalyticsService } from '../shared/services';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
-  selector: 'sidenav',
+  selector: 'app-side-nav',
   styleUrls: ['./side-nav.component.scss'],
   templateUrl: './side-nav.component.html'
 })

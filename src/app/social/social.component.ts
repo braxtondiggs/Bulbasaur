@@ -4,7 +4,7 @@ import { SnapchatQRComponent } from './snapchatQR/snapchat-qr.component';
 import { GoogleAnalyticsService } from '../shared/services';
 
 @Component({
-  selector: 'social',
+  selector: 'app-social',
   templateUrl: './social.component.html'
 })
 export class SocialComponent {

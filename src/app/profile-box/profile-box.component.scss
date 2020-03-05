@@ -1,12 +1,11 @@
-@import '../../scss/variables';
+@import "../../scss/variables";
 
 .avatar {
-  border: 0;
   border-radius: 50%;
+  border: 0;
   display: block;
   height: 195px;
   margin: 0 auto;
-  vertical-align: middle;
   width: 195px;
 }
 
@@ -59,9 +58,10 @@
   }
 }
 
-social {
+app-social {
   display: block;
 }
+
 @media (max-width: 959px) {
   .mat-card {
     border-radius: initial;

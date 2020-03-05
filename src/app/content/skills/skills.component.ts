@@ -7,10 +7,11 @@ import { Chart } from 'angular-highcharts';
 import { GoogleAnalyticsService } from '../../shared/services';
 import { ceil, floor, isUndefined, map, reduce, reject, toLower } from 'lodash-es';
 import * as moment from 'moment';
+import { SatDatepicker } from 'saturn-datepicker';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
-  selector: 'skills',
+  selector: 'app-skills',
   styleUrls: ['./skills.component.scss'],
   templateUrl: './skills.component.html'
 })
@@ -54,11 +55,11 @@ export class SkillsComponent implements OnInit {
   public updateSeries() {
     this.skills.Editors = reject(this.skills.Editors, (o) => isUndefined(o.total_seconds));
     this.skills.Languages = reject(this.skills.Languages, (o) => isUndefined(o.total_seconds));
-    const total_count: number = reduce(this.skills.Languages, (sum: number, n: any) => sum + n.total_seconds, 0);
+    const totalCount: number = reduce(this.skills.Languages, (sum: number, n: any) => sum + n.total_seconds, 0);
     if (this.chartName === 'languages') {
       this.chart.languages.removeSeries(0);
       this.chart.languages.addSeries({
-        data: map(this.skills.Languages, (o: any) => [o.name, ceil((o.total_seconds / total_count) * 100, 2)]),
+        data: map(this.skills.Languages, (o: any) => [o.name, ceil((o.total_seconds / totalCount) * 100, 2)]),
         name: 'Percentage'
       });
     } else if (this.chartName === 'activity') {
@@ -73,13 +74,13 @@ export class SkillsComponent implements OnInit {
     } else if (this.chartName === 'editors') {
       this.chart.editors.removeSeries(0);
       this.chart.editors.addSeries({
-        data: map(this.skills.Editors, (o: any) => [o.name, ceil((o.total_seconds / total_count) * 100, 2)]),
+        data: map(this.skills.Editors, (o: any) => [o.name, ceil((o.total_seconds / totalCount) * 100, 2)]),
         name: 'Percentage'
       });
     }
   }
 
-  public setCustomRange(datepicker: MatDatepicker<any>, selector: MatSelect): void {
+  public setCustomRange(datepicker: SatDatepicker<any>, selector: MatSelect): void {
     this.selected = 'customrange';
     datepicker.open();
     selector.close();
@@ -114,7 +115,8 @@ export class SkillsComponent implements OnInit {
           text: null
         },
         tooltip: {
-          pointFormatter: function() {// tslint:disable-line: object-literal-shorthand
+          pointFormatter() {
+            // tslint:disable-next-line: one-variable-per-declaration
             const time = this.y * 3600,
               hrs = floor(time / 3600),
               mins = floor((time % 3600) / 60);
