@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {
-  MatSelectChange, MatTabChangeEvent, MatSelect,
-  MatDatepicker, MatDatepickerInputEvent
-} from '@angular/material';
+import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { MatSelectChange, MatSelect } from '@angular/material/select';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Chart } from 'angular-highcharts';
 import { GoogleAnalyticsService } from '../../shared/services';
 import { ceil, floor, isUndefined, map, reduce, reject, toLower } from 'lodash-es';

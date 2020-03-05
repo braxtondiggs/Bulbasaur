@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ProjectComponent } from './project/project.component';
 import { GoogleAnalyticsService } from '../shared/services';
 import { chunk, floor, map, merge, orderBy, reject, slice, sumBy } from 'lodash-es';
