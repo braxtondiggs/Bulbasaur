@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "bulbasaur-bfb64"
+  },
+  "targets": {
+    "bulbasaur-bfb64": {
+      "hosting": {
+        "Bulbasaur": [
+          "bulbasaur-bfb64"
+        ]
+      }
+    }
   }
 }
