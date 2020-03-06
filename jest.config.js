@@ -11,7 +11,8 @@ const tsjestOverrides = {
 };
 const globalOverrides = {
   ...globals,
-  "ts-jest": { ...tsjestOverrides }
+  "ts-jest": { ...tsjestOverrides },
+  gtag: {}
 };
 // make sure to add in the required preset and
 // and setup file entries
@@ -19,5 +20,9 @@ module.exports = {
   ...jestPreset,
   globals: { ...globalOverrides },
   preset: "jest-preset-angular",
-  setupFilesAfterEnv: ["<rootDir>/src/setupJest.ts"]
+  setupFilesAfterEnv: ["<rootDir>/src/setupJest.ts"],
+  testPathIgnorePatterns: ["<rootDir>/cypress/"],
+  moduleNameMapper: {
+    "^lodash-es$": "lodash"
+  }
 };

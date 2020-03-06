@@ -30,6 +30,7 @@
     "angular-highcharts": "^9.0.2",
     "highcharts": "^8.0.2",
     "lodash-es": "^4.17.15",
+    "moment": "^2.24.0",
     "ngx-moment": "^3.5.0",
     "ngx-page-scroll": "^7.0.0",
     "ngx-page-scroll-core": "^7.0.0",
