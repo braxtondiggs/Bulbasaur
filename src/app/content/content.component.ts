@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ProjectComponent } from './project/project.component';
 import { GoogleAnalyticsService } from '../shared/services';
 import { chunk, floor, map, merge, orderBy, reject, slice, sumBy } from 'lodash-es';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
   selector: 'app-content',
@@ -12,12 +12,12 @@ import * as moment from 'moment';
   templateUrl: './content.component.html'
 })
 export class ContentComponent implements OnInit {
-  public toggleLikes = false;
-  public loadingSkills = true;
-  public likes: any;
-  public employment: any;
-  public projects: any;
-  public skills: any;
+  toggleLikes = false;
+  loadingSkills = true;
+  likes: any;
+  employment: any;
+  projects: any;
+  skills: any;
   constructor(protected http: HttpClient, protected dialog: MatDialog, public ga: GoogleAnalyticsService) { }
 
   public ngOnInit() {

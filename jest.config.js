@@ -21,8 +21,13 @@ module.exports = {
   globals: { ...globalOverrides },
   preset: "jest-preset-angular",
   setupFilesAfterEnv: ["<rootDir>/src/setupJest.ts"],
+  coverageReporters: ["text", "lcov", "cobertura"],
   testPathIgnorePatterns: ["<rootDir>/cypress/"],
   moduleNameMapper: {
     "^lodash-es$": "lodash"
-  }
+  },
+  watchPlugins: [
+    "jest-watch-typeahead/filename",
+    "jest-watch-typeahead/testname"
+  ]
 };

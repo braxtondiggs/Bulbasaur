@@ -4,22 +4,24 @@ import { ProfileBoxComponent } from './profile-box.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire';
 
 describe('ProfileBoxComponent', () => {
   let spectator: Spectator<ProfileBoxComponent>;
   const createComponent = createComponentFactory({
     component: ProfileBoxComponent,
     declarations: [SocialComponent],
-    imports: [MatCardModule, MatIconModule, MatDialogModule]
+    imports: [AngularFireModule.initializeApp(environment.firebase), MatCardModule, MatIconModule, MatDialogModule]
   });
 
   beforeEach(() => spectator = createComponent());
 
-  it('should create', async () => {
+  it('should create', () => {
     expect(spectator.component).toBeTruthy();
   });
 
-  it('should have avatar element', async () => {
+  it('should have avatar element', () => {
     expect('.avatar').toExist();
   });
 });

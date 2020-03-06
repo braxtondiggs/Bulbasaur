@@ -6,6 +6,7 @@ describe('ScrollService', () => {
   const createService = createServiceFactory(ScrollService);
 
   beforeEach(() => spectator = createService());
+
   it('should create', async () => {
     expect(spectator.service).toBeTruthy();
   });

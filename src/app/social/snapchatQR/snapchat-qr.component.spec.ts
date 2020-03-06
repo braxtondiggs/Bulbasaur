@@ -11,7 +11,7 @@ describe('SnapchatQRComponent', () => {
 
   beforeEach(() => spectator = createComponent());
 
-  it('should create', async () => {
+  it('should create', () => {
     expect(spectator.component).toBeTruthy();
   });
 });

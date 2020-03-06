@@ -6,7 +6,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Chart } from 'angular-highcharts';
 import { GoogleAnalyticsService } from '../../shared/services';
 import { ceil, floor, isUndefined, map, reduce, reject, toLower } from 'lodash-es';
-import * as moment from 'moment';
+import moment from 'moment';
 import { SatDatepicker } from 'saturn-datepicker';
 
 @Component({

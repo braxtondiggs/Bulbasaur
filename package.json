@@ -5,8 +5,9 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod",
-    "test": "jest",
-    "test:watch": "npm run test --watch",
+    "test": "jest --runInBand",
+    "test:coverage": "jest --runInBand --coverage",
+    "test:watch": "jest --runInBand --watchAll --coverage",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
@@ -42,6 +43,7 @@
     "firebase": "^7.8.0"
   },
   "devDependencies": {
+    "@angular-devkit/architect": "^0.900.0-0 || ^0.900.0",
     "@angular-devkit/build-angular": "~0.900.5",
     "@angular/cli": "~9.0.5",
     "@angular/compiler-cli": "~9.0.5",
@@ -54,18 +56,18 @@
     "@types/node": "^12.11.1",
     "codelyzer": "^5.1.2",
     "cypress": "^4.1.0",
+    "firebase-tools": "^7.12.1",
+    "fuzzy": "^0.1.3",
+    "inquirer": "^6.2.2",
+    "inquirer-autocomplete-prompt": "^1.0.1",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
     "jest": "^24.1.0",
     "jest-preset-angular": "^8.0.0",
+    "jest-watch-typeahead": "^0.4.2",
     "ts-loader": "6.2.1",
     "ts-node": "~8.3.0",
     "tslint": "~5.18.0",
-    "typescript": "~3.7.5",
-    "@angular-devkit/architect": "^0.900.0-0 || ^0.900.0",
-    "firebase-tools": "^7.12.1",
-    "fuzzy": "^0.1.3",
-    "inquirer": "^6.2.2",
-    "inquirer-autocomplete-prompt": "^1.0.1"
+    "typescript": "~3.7.5"
   }
 }
