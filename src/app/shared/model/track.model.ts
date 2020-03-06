@@ -1,12 +1,11 @@
-import { IArtist } from './artist.model';
-
 export interface ITrack {
-  id?: string;
-  name?: string;
-  genres?: [string];
+  artist?: string[];
   created?: string;
-  externalURL?: string;
   duration?: number;
-  artist?: IArtist[];
+  externalURL?: string;
+  genres?: string[];
+  id?: string;
   image?: string;
+  name?: string;
+  query: string;
 }

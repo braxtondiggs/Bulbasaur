@@ -12,17 +12,7 @@
 </button>
 <div class="music-footer animated" [ngClass]="{'fadeInUp': track}">
 	<div class="container" fxLayout="row" *ngIf="track">
-		<div class="image-container">
-			<img [src]="track.image" alt="{{track.name}} by {{track.artist[0].name}}" />
-			<span>
-				<mat-icon svgIcon="play-circle-outline"></mat-icon>
-			</span>
-		</div>
-		<div class="footer-container">
-			<h2>{{track.name}}</h2>
-			<p><span *ngFor="let artist of track.artist; let last = last">{{artist.name}}&nbsp;<span *ngIf="!last">,</span></span>
-			</p>
-		</div>
+    <iframe [src]="trackLink" allow="encrypted-media" fxFlexFill></iframe>
 	</div>
 	<div class="container">
 		<mat-progress-bar color="accent" mode="determinate" [value]="duration"></mat-progress-bar>

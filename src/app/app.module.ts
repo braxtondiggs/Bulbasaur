@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -19,42 +21,45 @@ import { SocialComponent, SnapchatQRComponent } from './social';
 import { SkillPipe } from './shared/pipes/skill.pipe';
 import { AnimateOnScrollDirective } from './shared/directives/animate-on-scroll.directive';
 import { GoogleAnalyticsService, ScrollService } from './shared/services';
-import { InstagramComponent } from './profile-box/instagram/instagram.component';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   bootstrap: [AppComponent],
   declarations: [
+    AnimateOnScrollDirective,
     AppComponent,
-    HeaderComponent,
-    ProfileBoxComponent,
-    SnapchatQRComponent,
-    SideNavComponent,
+    ContactComponent,
     ContentComponent,
     FooterComponent,
-    ContactComponent,
-    SocialComponent,
+    HeaderComponent,
+    ProfileBoxComponent,
     ProjectComponent,
+    SideNavComponent,
     SkillPipe,
     SkillsComponent,
-    AnimateOnScrollDirective,
-    InstagramComponent
+    SnapchatQRComponent,
+    SocialComponent
   ],
   entryComponents: [
-    SnapchatQRComponent,
-    ProjectComponent
+    ProjectComponent,
+    SnapchatQRComponent
   ],
   imports: [
-    FormsModule,
-    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAnalyticsModule,
+    AngularFirestoreModule,
+    BrowserAnimationsModule,
+    BrowserModule,
     ChartModule,
-    NgxPageScrollModule,
-    NgxPageScrollCoreModule.forRoot({ duration: 500, scrollOffset: 25 }),
     FlexLayoutModule,
+    FormsModule,
+    LoadingBarHttpClientModule,
     MaterialModule,
     MomentModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    LoadingBarHttpClientModule
+    NgxPageScrollCoreModule.forRoot({ duration: 500, scrollOffset: 25 }),
+    NgxPageScrollModule,
+    ReactiveFormsModule
   ],
   providers: [
     GoogleAnalyticsService,

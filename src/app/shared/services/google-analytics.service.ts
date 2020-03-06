@@ -1,20 +1,19 @@
 import { Injectable } from '@angular/core';
-// tslint:disable-next-line: ban-types
-declare let gtag: Function;
-
+import { AngularFireAnalytics } from '@angular/fire/analytics';
 @Injectable({
   providedIn: 'root'
 })
 export class GoogleAnalyticsService {
-  public gtag = gtag;
+  constructor(private analytics: AngularFireAnalytics) { }
+
   public eventEmitter(
-    event_category: string,
-    event_action: string,
-    event_label: string = null,
+    category: string,
+    action: string,
+    label: string = null,
     value: number = null) {
-    this.gtag('event', event_action, {
-      event_category,
-      event_label,
+    this.analytics.logEvent(action, {
+      category,
+      label,
       value
     });
   }
