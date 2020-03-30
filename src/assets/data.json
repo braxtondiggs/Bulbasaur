@@ -88,6 +88,39 @@
   "projects": [
     {
       "status": true,
+      "title": "ASP NYC – Alternate Side Parking Rules",
+      "mobile": true,
+      "image": {
+        "icon": "./assets/projects/aspnyc/icon.png",
+        "screenshot": "./assets/projects/aspnyc/screenshot.png"
+      },
+      "description": [
+        "Are you tired of paying parking tickets due to alternating New York City street parking schedules? If that’s the case, we are here to help you with this amazing parking NYC app. Get updates on New York City alternate side parking rules and changes. Stay informed by the changing street cleaning schedules and parking schedules/suspensions going around NYC.",
+        "Our car parking app lets you stay informed about holiday and special occasion parking suspensions as well as shows parking meter status. Keep a track of alternate parking schedules from the parking calendar and make your plans accordingly.",
+        "• Hassle-free app layout featuring smooth street parking status controls<br/>• Single tap parking app notifications from within the app<br/>• Avail hassle-free street parking with the parking calendar<br />• Make your plans according to the car parking schedule from parking calendar<br />• Daily updates on parking schedule, suspensions and metering status<br />• Get the details of parking suspension and alternate parking schedules"
+      ],
+      "url": {
+        "android": "https://play.google.com/store/apps/details?id=com.cymbit.paras&hl=en_US"
+      }
+    },
+    {
+      "status": true,
+      "title": "Plastr - Wallpapers from Reddit",
+      "mobile": true,
+      "image": {
+        "icon": "./assets/projects/plastr/icon.png",
+        "screenshot": "./assets/projects/plastr/screenshot.png"
+      },
+      "description": [
+        "Browse through a stunning collection of Android wallpapers and save your favorite images to uplift the aesthetics of your phone. Enter a world of appealing HD wallpapers and choose any combination of subreddits as image sources so you can be sure of getting the best wallpaper for your home & lockscreen. Not sure about what subreddits to use? Plastr comes with a preselected list of the best subreddits with all the high-quality wallpapers you need.",
+        "Supports any image-based Reddit subreddit, and image hosts such as Imgur, DeviantArt, Flickr, Tumblr, and many more. Not an official app of or affiliated with Reddit."
+      ],
+      "url": {
+        "android": "https://play.google.com/store/apps/details?id=com.cymbit.plastr&hl=en_US"
+      }
+    },
+    {
+      "status": true,
       "title": "Washington DC: Rooms for Rent & Roommate Finder",
       "mobile": true,
       "image": {
