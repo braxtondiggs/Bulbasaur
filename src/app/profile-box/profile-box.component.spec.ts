@@ -2,7 +2,6 @@ import { createComponentFactory, Spectator } from '@ngneat/spectator/jest';
 import { SocialComponent } from '../social';
 import { ProfileBoxComponent } from './profile-box.component';
 import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
@@ -12,7 +11,8 @@ describe('ProfileBoxComponent', () => {
   const createComponent = createComponentFactory({
     component: ProfileBoxComponent,
     declarations: [SocialComponent],
-    imports: [AngularFireModule.initializeApp(environment.firebase), MatCardModule, MatIconModule, MatDialogModule]
+    imports: [AngularFireModule.initializeApp(environment.firebase), MatCardModule, MatDialogModule],
+    shallow: true
   });
 
   beforeEach(() => spectator = createComponent());

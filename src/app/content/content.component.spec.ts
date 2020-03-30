@@ -4,7 +4,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import { SkillPipe } from '../shared/pipes/skill.pipe';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MomentModule } from 'ngx-moment';
@@ -39,7 +38,6 @@ describe('ContentComponent', () => {
       MatDividerModule,
       MatFormFieldModule,
       MatGridListModule,
-      MatIconModule,
       MatInputModule,
       MatListModule,
       MatProgressBarModule,
@@ -54,6 +52,7 @@ describe('ContentComponent', () => {
     providers: [
       { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
       { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }],
+    shallow: true
   });
 
   beforeEach(() => spectator = createComponent());

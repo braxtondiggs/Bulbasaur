@@ -5,7 +5,6 @@ import { HeaderComponent } from './header/header.component';
 import { ProfileBoxComponent } from './profile-box/profile-box.component';
 import { SocialComponent } from './social';
 import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
 import { ContentComponent, SkillsComponent, ContactComponent } from './content';
 import { MatDividerModule } from '@angular/material/divider';
 import { SkillPipe } from './shared/pipes/skill.pipe';
@@ -53,7 +52,6 @@ describe('AppComponent', () => {
       MatDividerModule,
       MatFormFieldModule,
       MatGridListModule,
-      MatIconModule,
       MatInputModule,
       MatListModule,
       MatProgressBarModule,
@@ -67,7 +65,8 @@ describe('AppComponent', () => {
     ],
     providers: [
       { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
-      { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }]
+      { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }],
+    shallow: true
   });
 
   beforeEach(() => spectator = createComponent());
