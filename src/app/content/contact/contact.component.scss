@@ -1,4 +1,4 @@
-@import '../../../scss/variables';
+@import "../../../scss/variables";
 
 .mat-card {
   margin: 15px 10px 10px 30px;
@@ -19,7 +19,7 @@
   }
 }
 
-social {
+app-social {
   display: block;
   margin: 0 0 20px -15px;
 }
@@ -34,7 +34,7 @@ social {
   height: 140px;
 
   .background {
-    background: url('../../../assets/contactmap.png') no-repeat;
+    background: url("../../../assets/contactmap.png") no-repeat;
     background-size: 100%;
     height: 100%;
     left: 0;

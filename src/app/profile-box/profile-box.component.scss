@@ -28,7 +28,7 @@
   margin: 0;
 
   &:first-child {
-    margin-top: 0;
+    margin-top: 0 !important;
   }
 }
 
@@ -44,7 +44,7 @@
 
   p {
     font-size: 16px;
-    opacity: .75;
+    opacity: 0.75;
   }
 }
 

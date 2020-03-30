@@ -1,6 +1,7 @@
-@import './variables';
-@import './fonts';
-@import './linearicon';
+@import "./variables";
+@import "./fonts";
+@import "./linearicon";
+@import "./material";
 
 body {
   -moz-osx-font-smoothing: grayscale;
@@ -9,13 +10,22 @@ body {
   color: $text;
   font-family: BandaRegular;
   font-size: 100%;
-  letter-spacing: .04em;
+  letter-spacing: 0.04em;
   line-height: 1.4em;
   text-rendering: optimizeLegibility;
 }
 
+h1,
+h2,
 p {
-  margin: 0 0 22px;
+  letter-spacing: 0.04em !important;
+}
+
+.mat-typography h2 {
+  margin-top: 25px !important;
+}
+.mat-typography p {
+  margin: 0 0 22px !important;
 }
 
 mat-card.mat-card {

@@ -5,9 +5,11 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod",
+    "build:stats": "ng build --prod --stats-json",
     "test": "jest --runInBand ----detectOpenHandles",
     "test:coverage": "jest --runInBand --coverage",
     "test:watch": "jest --runInBand --watchAll --coverage",
+    "analyze": "webpack-bundle-analyzer dist/stats-es2015.json",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
@@ -68,6 +70,7 @@
     "ts-loader": "6.2.1",
     "ts-node": "~8.3.0",
     "tslint": "~5.18.0",
-    "typescript": "~3.7.5"
+    "typescript": "~3.7.5",
+    "webpack-bundle-analyzer": "^3.6.1"
   }
 }

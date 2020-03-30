@@ -1,4 +1,4 @@
-@import '../../scss/variables';
+@import "../../scss/variables";
 
 .mat-card {
   margin: 15px 10px 10px 30px;
@@ -7,6 +7,10 @@
   .mat-card-content {
     font-size: 16px;
     line-height: 1.875em;
+
+    h2:first-child {
+      margin-top: 0 !important;
+    }
 
     .mat-divider {
       margin: 20px 0;
@@ -79,9 +83,9 @@
 .my-likes {
   max-height: 225px;
   overflow-y: hidden;
-  transition-duration: .5s;
+  transition-duration: 0.5s;
   transition-property: all;
-  transition-timing-function: cubic-bezier(0, 1, .5, 1);
+  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
 
   &.closed {
     max-height: 90px;
@@ -101,10 +105,10 @@
   &::before {
     background-color: darken($timeline-background, 60%);
     bottom: 0;
-    content: ' ';
+    content: " ";
     left: 0;
     margin-left: -2px;
-    opacity: .15;
+    opacity: 0.15;
     position: absolute;
     top: 0;
     width: 4px;
@@ -125,7 +129,7 @@
       border-radius: 50%;
       border-style: solid;
       border-width: 3px;
-      box-shadow: 0 1px 3px 0 rgba($black, .33);
+      box-shadow: 0 1px 3px 0 rgba($black, 0.33);
       color: $white;
       height: 20px;
       left: 100%;
@@ -150,13 +154,13 @@
         background-color: $timeline-background;
         border-color: $timeline-background;
         border-radius: 2px;
-        box-shadow: 0 1px 3px 0 rgba($black, .33);
+        box-shadow: 0 1px 3px 0 rgba($black, 0.33);
         margin-right: 30px;
         position: relative;
 
         &::after,
         &::before {
-          content: ' ';
+          content: " ";
           display: table;
         }
 
@@ -234,7 +238,7 @@
     }
 
     .caption {
-      background: rgba($black, .8);
+      background: rgba($black, 0.8);
       color: $white;
       cursor: pointer;
       height: 100%;
@@ -244,7 +248,7 @@
       right: 0;
       text-align: center;
       top: 0;
-      transition: opacity .3s ease-in-out,visibility .3s ease-in-out;
+      transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
       visibility: hidden;
       z-index: 2;
 
@@ -258,12 +262,12 @@
 
       h3 {
         transform: translateY(-10px);
-        transition: transform .4s ease-in-out;
+        transition: transform 0.4s ease-in-out;
       }
 
       .mat-raised-button {
         transform: translateY(10px);
-        transition: transform .4s ease-in-out;
+        transition: transform 0.4s ease-in-out;
       }
     }
 
@@ -302,6 +306,7 @@ app-footer {
     }
   }
 }
+
 @media (max-width: 599px) {
   .timeline {
     left: initial;
@@ -332,6 +337,7 @@ app-footer {
 
   .my-likes {
     max-height: 450px;
+
     &.closed {
       max-height: 180px;
     }

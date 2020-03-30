@@ -46,4 +46,14 @@ export class ContentComponent implements OnInit {
       panelClass: 'project-component'
     });
   }
+
+  public getYears(time: number): string {
+    if (time === 1) {
+      return `${time} year`;
+    } else if (time <= 0) {
+      return '<1 year';
+    } else {
+      return `${time} years`;
+    }
+  }
 }

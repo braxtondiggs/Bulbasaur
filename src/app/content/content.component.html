@@ -61,7 +61,7 @@
 								<h3>{{company.position}}</h3>
 								<h4>{{company.name}} ({{company.location}})</h4>
 								<h5>
-									<span class="start-date">{{company.date.start | amParse:'YYYY-MM-DD' | amDateFormat:'MMM YYYY'}}</span> &#8211; <span class="end-date" *ngIf="company.date.end">{{company.date.end | amParse:'YYYY-MM-DD' | amDateFormat:'MMM YYYY'}}</span> <span class="difference-date" *ngIf="company.date.end">({{company.date.end | amDifference: company.date.start: 'years'}} years)</span><span *ngIf="!company.date.end">Present</span>
+									<span class="start-date">{{company.date.start | amParse:'YYYY-MM-DD' | amDateFormat:'MMM YYYY'}}</span> &#8211; <span class="end-date" *ngIf="company.date.end">{{company.date.end | amParse:'YYYY-MM-DD' | amDateFormat:'MMM YYYY'}}</span> <span class="difference-date" *ngIf="company.date.end"> ({{getYears(company.date.end | amDifference: company.date.start: 'years')}})</span><span *ngIf="!company.date.end">Present</span>
 								</h5>
 							</div>
 						</div>
