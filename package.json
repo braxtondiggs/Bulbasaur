@@ -33,7 +33,7 @@
     "@ngx-loading-bar/http-client": "^4.2.0",
     "angular-highcharts": "^9.0.2",
     "firebase": "^7.13.1",
-    "highcharts": "^8.0.4",
+    "highcharts": "^8.1.1",
     "lodash-es": "^4.17.15",
     "moment": "^2.24.0",
     "ngx-moment": "^3.5.0",
