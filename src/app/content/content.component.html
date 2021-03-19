@@ -56,7 +56,7 @@
 				<div class="timeline-entry">
 					<div class="card">
 						<div class="card-body" fxLayout="row">
-							<div fxFlex="75px"><img [src]="company.image.icon" class="avatar" alt="{{company.name}}" /></div>
+							<div fxFlex="75px"><img [lazyLoad]="company.image.icon" class="avatar" alt="{{company.name}}" /></div>
 							<div fxFlex>
 								<h3>{{company.position}}</h3>
 								<h4>{{company.name}} ({{company.location}})</h4>
@@ -81,7 +81,7 @@
 		<mat-grid-list cols="2">
 			<span *ngFor="let project of projects">
 				<mat-grid-tile *ngIf="project.status" [rowspan]="project.mobile?2:1" (click)="openProject(project); ga.eventEmitter('projects', 'more', project.title)">
-					<img [src]="project.image.screenshot" alt="{{project.title}}" />
+					<img [lazyLoad]="project.image.screenshot" alt="{{project.title}}" />
 					<div class="caption">
 						<div class="container">
 							<h3>{{project.title}}</h3>

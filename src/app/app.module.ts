@@ -23,6 +23,7 @@ import { AnimateOnScrollDirective } from './shared/directives/animate-on-scroll.
 import { GoogleAnalyticsService, ScrollService } from './shared/services';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -54,6 +55,7 @@ import { environment } from 'src/environments/environment';
     ChartModule,
     FlexLayoutModule,
     FormsModule,
+    LazyLoadImageModule,
     LoadingBarHttpClientModule,
     MaterialModule,
     MomentModule,

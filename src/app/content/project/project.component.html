@@ -1,6 +1,6 @@
 <mat-dialog-content fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%">
 	<div class="banner_img" fxFlex="40%" fxFlex.xs>
-		<img [src]="project.image.screenshot" alt="{{project.title}}" [ngClass]="{'mobile': project.mobile}" />
+		<img [lazyLoad]="project.image.screenshot" alt="{{project.title}}" [ngClass]="{'mobile': project.mobile}" />
 	</div>
 	<div class="project_container" fxLayout="column" fxFlex="60%" fxFlex.xs>
 		<div fxFlex>
@@ -12,9 +12,9 @@
 				<a [href]="project.url.web" color="primary" target="_blank" (click)="ga.eventEmitter('projects', 'web', project.title)" *ngIf="project.url.web" mat-raised-button>View Project</a>
 			</div>
 			<div class="more_content" fxLayoutGap="8px">
-				<a [href]="project.url.android" target="_blank" *ngIf="project.url.android" (click)="ga.eventEmitter('projects', 'android', project.title)" ><img src="assets/Google-Store.png" alt="{{project.title}} on Google Play" /></a>
-				<a [href]="project.url.ios" target="_blank" *ngIf="project.url.ios" (click)="ga.eventEmitter('projects', 'ios', project.title)" ><img src="assets/Apple-Store.png" alt="{{project.title}} on Apple Store"/></a>
-				<a [href]="project.url.other" target="_blank" *ngIf="project.url.other" (click)="ga.eventEmitter('projects', 'other', project.title)" ><img [src]="project.image.other" alt="{{project.title}}" /></a>
+				<a [href]="project.url.android" target="_blank" *ngIf="project.url.android" (click)="ga.eventEmitter('projects', 'android', project.title)" ><img lazyLoad="assets/Google-Store.png" alt="{{project.title}} on Google Play" /></a>
+				<a [href]="project.url.ios" target="_blank" *ngIf="project.url.ios" (click)="ga.eventEmitter('projects', 'ios', project.title)" ><img lazyLoad="assets/Apple-Store.png" alt="{{project.title}} on Apple Store"/></a>
+				<a [href]="project.url.other" target="_blank" *ngIf="project.url.other" (click)="ga.eventEmitter('projects', 'other', project.title)" ><img [lazyLoad]="project.image.other" alt="{{project.title}}" /></a>
 			</div>
 		</div>
 	</div>
