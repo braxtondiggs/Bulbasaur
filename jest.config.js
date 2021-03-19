@@ -7,7 +7,7 @@ const tsjest = globals["ts-jest"];
 // <rootDir/src/tsconfig.spec.js
 const tsjestOverrides = {
   ...tsjest,
-  tsConfig: "<rootDir>/tsconfig.spec.json"
+  tsconfig: "<rootDir>/tsconfig.spec.json"
 };
 const globalOverrides = {
   ...globals,

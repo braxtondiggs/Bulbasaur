@@ -15,7 +15,6 @@ import { MomentModule } from 'ngx-moment';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { FooterComponent } from './footer/footer.component';
 import { MatSelectModule } from '@angular/material/select';
-import { SatDatepickerModule, DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from 'saturn-datepicker';
 import { ChartModule } from 'angular-highcharts';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -24,9 +23,10 @@ import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MomentDateAdapter, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 describe('AppComponent', () => {
   let spectator: Spectator<AppComponent>;
@@ -49,23 +49,21 @@ describe('AppComponent', () => {
       HttpClientModule,
       LoadingBarModule,
       MatCardModule,
+      MatDatepickerModule,
       MatDividerModule,
       MatFormFieldModule,
       MatGridListModule,
       MatInputModule,
       MatListModule,
+      MatNativeDateModule,
       MatProgressBarModule,
       MatProgressSpinnerModule,
       MatSelectModule,
       MatSnackBarModule,
       MatTabsModule,
       MomentModule,
-      ReactiveFormsModule,
-      SatDatepickerModule
+      ReactiveFormsModule
     ],
-    providers: [
-      { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
-      { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }],
     shallow: true
   });
 
