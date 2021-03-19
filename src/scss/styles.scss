@@ -21,6 +21,15 @@ p {
   letter-spacing: 0.04em !important;
 }
 
+img,
+.contact-map .background {
+  transition: opacity 1s;
+  opacity: 0;
+  &.ng-lazyloaded {
+    opacity: 1;
+  }
+}
+
 .mat-typography h2 {
   margin-top: 25px !important;
 }
