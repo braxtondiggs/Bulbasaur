@@ -1,13 +1,13 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { MatDatepicker } from '@angular/material/datepicker';
 import { MatSelectChange, MatSelect } from '@angular/material/select';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Chart } from 'angular-highcharts';
 import { GoogleAnalyticsService } from '../../shared/services';
 import { ceil, floor, isUndefined, map, reduce, reject, toLower } from 'lodash-es';
 import moment from 'moment';
-import { SatDatepicker } from 'saturn-datepicker';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -20,10 +20,15 @@ export class SkillsComponent implements OnInit {
   public chart: any = { languages: Chart, activity: Chart, editors: Chart };
   public skills: any;
   public chartName = 'languages';
-  public selected = 'last30days';
-  public hasDateSelected = false;
   public minDate = moment('2016-06-22', 'YYYY-MM-DD').format();
   public maxDate = moment().subtract(1, 'days').format();
+  public form = new FormGroup({
+    range: new FormControl('last30days', [Validators.required]),
+    start: new FormControl(null, [Validators.required]),
+    end: new FormControl(null, [Validators.required])
+  });
+  @ViewChild('selector') selector: MatSelect;
+  @ViewChild('picker') datePicker: MatDatepicker<Date>;
   constructor(protected http: HttpClient, private ga: GoogleAnalyticsService) { }
 
   public ngOnInit() {
@@ -44,15 +49,23 @@ export class SkillsComponent implements OnInit {
     this.ga.eventEmitter('skills', 'tab', selection.tab.textLabel);
   }
 
-  public getSkills(range: string = 'last30days'): void {
-    this.http.get(`https://wartortle.herokuapp.com?range=${range}${this.getCustomDate(range)}`)
-      .subscribe((data: any) => {
-        this.skills = data;
-        this.updateSeries();
-      });
+  public dateRangeChange(): void {
+    console.log('hi');
+    if (this.form.valid) {
+      this.date = {
+        begin: moment(this.form.value.start).format('MMM Do YYYY'),
+        end: moment(this.form.value.end).format('MMM Do YYYY')
+      };
+      this.getSkills('customrange');
+    }
   }
 
-  public updateSeries() {
+  public openCustomRange() {
+    this.datePicker.open();
+    this.selector.close();
+  }
+
+  private updateSeries() {
     this.skills.Editors = reject(this.skills.Editors, (o) => isUndefined(o.total_seconds));
     this.skills.Languages = reject(this.skills.Languages, (o) => isUndefined(o.total_seconds));
     const totalCount: number = reduce(this.skills.Languages, (sum: number, n: any) => sum + n.total_seconds, 0);
@@ -80,27 +93,20 @@ export class SkillsComponent implements OnInit {
     }
   }
 
-  public setCustomRange(datepicker: SatDatepicker<any>, selector: MatSelect): void {
-    this.selected = 'customrange';
-    datepicker.open();
-    selector.close();
-  }
-
-  public dateChange(event: MatDatepickerInputEvent<any>): void {
-    this.hasDateSelected = true;
-    this.date = {
-      begin: moment(event.value.begin).format('MMM Do YYYY'),
-      end: moment(event.value.end).format('MMM Do YYYY')
-    };
-    this.getSkills('customrange');
-  }
-
-  public getCustomDate(range: string): string {
+  private getCustomDate(range: string): string {
     return range === 'customrange' && this.date.begin && this.date.end ?
       `&start=${this.date.begin}&end=${this.date.end}` : '';
   }
 
-  public setDefaultCharts(): void {
+  private getSkills(range: string = 'last30days'): void {
+    this.http.get(`https://wartortle.herokuapp.com?range=${range}${this.getCustomDate(range)}`)
+      .subscribe((data: any) => {
+        this.skills = data;
+        this.updateSeries();
+      });
+  }
+
+  private setDefaultCharts(): void {
     const width: number = document.getElementById('skills').clientWidth - 40;
     this.chart = {
       activity: new Chart({

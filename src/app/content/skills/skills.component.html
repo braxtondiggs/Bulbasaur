@@ -1,10 +1,10 @@
 <mat-card id="skills" animateOnScroll class="animated" animationName="fadeInUp">
 	<mat-card-content>
 		<h2 class="title-lg">My "Real-Time" Coding</h2>
-		<div class="center">
+		<form [formGroup]="form" class="center">
 			<p>See exactly when & what my coding activity is using <a href="https://wakatime.com/">WakaTime</a>.</p>
 			<mat-form-field>
-				<mat-select #selector [(value)]="selected" (selectionChange)="selectionChange($event)">
+				<mat-select #selector formControlName="range" (selectionChange)="selectionChange($event)">
 					<mat-option value="yesterday">Yesterday</mat-option>
 					<mat-option value="last7days">Last 7 Days</mat-option>
 					<mat-option value="thisweek">This Week</mat-option>
@@ -13,13 +13,16 @@
 					<mat-option value="last30days">Last 30 Days</mat-option>
 					<mat-option value="thismonth">This Month</mat-option>
 					<mat-option value="lastmonth">Last Month</mat-option>
-					<mat-option value="customrange" (focus)="setCustomRange(datepicker, selector)">Custom Range</mat-option>
+					<mat-option value="customrange" (click)="openCustomRange()">Custom Range</mat-option>
 				</mat-select>
-				<input matInput [min]="minDate" [max]="maxDate" [satDatepicker]="datepicker" (dateChange)="dateChange($event)" style="display: none;">
-				<sat-datepicker [rangeMode]="true" #datepicker></sat-datepicker>
+        <mat-date-range-input [rangePicker]="picker" [min]="minDate" [max]="maxDate" style="display: none">
+          <input matStartDate formControlName="start" (dateChange)="dateRangeChange()" />
+          <input matEndDate formControlName="end" (dateChange)="dateRangeChange()" />
+        </mat-date-range-input>
+        <mat-date-range-picker #picker></mat-date-range-picker>
 			</mat-form-field>
-			<h4 *ngIf="selected === 'customrange' && hasDateSelected">{{date.begin}} - {{date.end}}</h4>
-		</div>
+			<h4 *ngIf="form.valid && form.value.range == 'customrange'">{{form.value.start | amDateFormat:'MMM Do YYYY' }} - {{form.value.end | amDateFormat:'MMM Do YYYY' }}</h4>
+		</form>
 		<mat-tab-group (selectedTabChange)="selectedTabChange($event)">
 			<mat-tab label="Languages">
 				<div [chart]="chart.languages"></div>
