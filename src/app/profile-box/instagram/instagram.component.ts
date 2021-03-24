@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -9,14 +9,9 @@ import { Observable } from 'rxjs';
 })
 export class InstagramComponent implements OnInit {
   public instagram$: Observable<any>;
-  constructor(private http: HttpClient) { }
+  constructor(private db: AngularFirestore) { }
 
-  public ngOnInit() {
-    this.instagram$ = this.http.get('https://api.instagram.com/v1/users/self/media/recent', {
-      params: {
-        access_token: '295204961.cccb769.ae3119271dc44bfdac9f8f4c3334a810',
-        count: '6'
-      }
-    });
+  ngOnInit() {
+    this.instagram$ = this.db.collection('instagram', ref => ref.orderBy('CreatedAt', 'desc').limit(6)).valueChanges();
   }
 }

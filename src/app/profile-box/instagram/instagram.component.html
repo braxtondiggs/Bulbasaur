@@ -3,8 +3,8 @@
 		<mat-icon aria-label="Instagram" svgIcon="instagram"></mat-icon>&nbsp;Instagram
 	</h2>
 	<div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutAlign.xs="start center">
-		<a [href]="item.link" *ngFor="let item of instagram.data" fxFlex="calc(50% - 4px)" target="_blank" rel="noopener" matRipple>
-			<img [src]="item.images.thumbnail.url" [alt]="item.caption.text" matTooltipPosition="before" [matTooltip]="item.caption.text" />
+		<a [href]="item.Url" *ngFor="let item of instagram" fxFlex="calc(50% - 4px)" target="_blank" rel="noopener" matRipple>
+			<img [lazyLoad]="item.SourceUrl" [alt]="item.Caption" matTooltipPosition="before" [matTooltip]="item.Caption" />
 		</a>
 	</div>
 </div>

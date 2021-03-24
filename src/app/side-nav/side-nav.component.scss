@@ -16,8 +16,12 @@ sidenav {
 }
 
 .side-scroll > div {
-  position: fixed;
-  top: 5px;
+  position: sticky;
+  top: 15px;
+}
+
+app-side-nav.side-scroll > div {
+  top: 0;
 }
 
 profilebox.side-scroll > div {

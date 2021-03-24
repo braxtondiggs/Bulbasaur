@@ -22,7 +22,7 @@ module.exports = {
   preset: "jest-preset-angular",
   setupFilesAfterEnv: ["<rootDir>/src/setupJest.ts"],
   coverageReporters: ["text", "lcov", "cobertura"],
-  testPathIgnorePatterns: ["<rootDir>/cypress/"],
+  testPathIgnorePatterns: ["<rootDir>/cypress/", "<rootDir>/functions/"],
   moduleNameMapper: {
     "^lodash-es$": "lodash"
   },

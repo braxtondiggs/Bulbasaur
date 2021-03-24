@@ -24,6 +24,7 @@ import { GoogleAnalyticsService, ScrollService } from './shared/services';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { InstagramComponent } from './profile-box/instagram/instagram.component';
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -34,6 +35,7 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     ContentComponent,
     FooterComponent,
     HeaderComponent,
+    InstagramComponent,
     ProfileBoxComponent,
     ProjectComponent,
     SideNavComponent,
