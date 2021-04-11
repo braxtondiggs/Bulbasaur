@@ -2,6 +2,7 @@ import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import * as cors from 'cors';
 import * as express from 'express';
+import { convert2YT } from './articuno';
 
 admin.initializeApp();
 const db = admin.firestore();
@@ -25,3 +26,4 @@ app.post('/instagram', (request: functions.Request, response: functions.Response
 });
 
 exports.endpoints = functions.https.onRequest(app);
+export const Articuno = functions.runWith({ memory: '2GB' }).pubsub.schedule('0 13 * * 2-6').timeZone('America/New_York').onRun(() => convert2YT());
