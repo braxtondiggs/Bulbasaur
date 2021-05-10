@@ -28,7 +28,6 @@ module.exports = {
     "@typescript-eslint/prefer-for-of": "warn",
     "@typescript-eslint/triple-slash-reference": "error",
     "@typescript-eslint/unified-signatures": "warn",
-    "comma-dangle": ["error", "always-multiline"],
     "constructor-super": "error",
     "import/no-deprecated": "warn",
     "import/no-extraneous-dependencies": "error",
