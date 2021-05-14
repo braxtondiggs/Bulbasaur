@@ -17,31 +17,32 @@ app.post('/instagram', async (request: functions.Request, response: functions.Re
   if (request.body['Url'] && request.body['SourceUrl']) {
     const id = request.body['Url'].split('/').filter(Boolean).pop();
     if (id) {
-      const image = await axios.get(request.body['SourceUrl'], { responseType: 'arraybuffer' });
+      const image = await axios.get(request.body['SourceUrl'], { responseType: 'stream' });
       const contentType = image.headers['content-type'];
-      const buffer = Buffer.from(image.data).toString('base64');
-      const imageB64 = `data:${contentType};base64,${buffer}`;
       const type = contentType.split('/').splice(-1).join();
       const file = admin.storage().bucket().file(`instagram/${id}.${type}`);
-      await file.save(imageB64, {
+
+      image.data.pipe(file.createWriteStream({
+        resumable: false,
+        validation: false,
+        contentType: 'auto',
+        public: true,
         metadata: {
-          contentType,
+          'Cache-Control': 'public, max-age=31536000',
           metadata: {
             firebaseStorageDownloadTokens: uuidv4()
           }
-        },
-        public: true,
-        validation: 'md5',
-        predefinedAcl: 'publicRead'
+        }
+      })).on('finish', async () => {
+        const [metaData] = await file.getMetadata();
+
+        db.doc(`instagram/${id}`).set({ ...request.body, SourceUrl: metaData.mediaLink, CreatedAt: new Date() }).then(() => {
+          response.send(request.body);
+        }).catch((error) => {
+          response.status(500).send(`Error: ${error.toString()}`);
+        });
       });
 
-      const [metaData] = await file.getMetadata();
-
-      db.doc(`instagram/${id}`).set({ ...request.body, SourceUrl: metaData.mediaLink, CreatedAt: new Date() }).then(() => {
-        response.send(request.body);
-      }).catch((error) => {
-        response.status(500).send(`Error: ${error.toString()}`);
-      });
     }
   }
 });
