@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore/';
+import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -21,7 +21,7 @@ import { SocialComponent, SnapchatQRComponent } from './social';
 import { SkillPipe } from './shared/pipes/skill.pipe';
 import { AnimateOnScrollDirective } from './shared/directives/animate-on-scroll.directive';
 import { GoogleAnalyticsService, ScrollService } from './shared/services';
-import { AngularFireModule } from '@angular/fire';
+import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { InstagramComponent } from './profile-box/instagram/instagram.component';
