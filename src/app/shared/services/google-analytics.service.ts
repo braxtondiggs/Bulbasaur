@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAnalytics } from '@angular/fire/analytics';
+import { AngularFireAnalytics } from '@angular/fire/compat/analytics';
 @Injectable({
   providedIn: 'root'
 })
