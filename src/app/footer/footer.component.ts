@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import moment from 'moment';
+import * as dayjs from 'dayjs';
 
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html'
 })
 export class FooterComponent {
-  public year: string = moment().format('YYYY');
+  public year: string = dayjs().format('YYYY');
 }

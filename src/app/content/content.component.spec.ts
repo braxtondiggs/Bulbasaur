@@ -1,5 +1,5 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { AngularFireModule } from '@angular/fire';
+import { AngularFireModule } from '@angular/fire/compat';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -16,7 +16,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { Spectator, createComponentFactory } from '@ngneat/spectator';
 import { ChartModule } from 'angular-highcharts';
-import { MomentModule } from 'ngx-moment';
 import { environment } from 'src/environments/environment';
 import { FooterComponent } from '../footer/footer.component';
 import { SkillPipe } from '../shared/pipes/skill.pipe';
@@ -47,7 +46,6 @@ describe('ContentComponent', () => {
       MatSelectModule,
       MatSnackBarModule,
       MatTabsModule,
-      MomentModule,
       ReactiveFormsModule
     ],
     shallow: true

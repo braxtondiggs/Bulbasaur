@@ -11,7 +11,6 @@ import { SkillPipe } from './shared/pipes/skill.pipe';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatListModule } from '@angular/material/list';
-import { MomentModule } from 'ngx-moment';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { FooterComponent } from './footer/footer.component';
 import { MatSelectModule } from '@angular/material/select';
@@ -20,7 +19,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { environment } from 'src/environments/environment';
-import { AngularFireModule } from '@angular/fire';
+import { AngularFireModule } from '@angular/fire/compat';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -61,7 +60,6 @@ describe('AppComponent', () => {
       MatSelectModule,
       MatSnackBarModule,
       MatTabsModule,
-      MomentModule,
       ReactiveFormsModule
     ],
     shallow: true

@@ -7,7 +7,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Chart } from 'angular-highcharts';
 import { GoogleAnalyticsService } from '../../shared/services';
 import { ceil, floor, isUndefined, map, reduce, reject, toLower } from 'lodash-es';
-import moment from 'moment';
+import * as dayjs from 'dayjs';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -20,8 +20,8 @@ export class SkillsComponent implements OnInit {
   public chart: any = { languages: Chart, activity: Chart, editors: Chart };
   public skills: any;
   public chartName = 'languages';
-  public minDate = moment('2016-06-22', 'YYYY-MM-DD').format();
-  public maxDate = moment().subtract(1, 'days').format();
+  public minDate = dayjs('2016-06-22', 'YYYY-MM-DD').format();
+  public maxDate = dayjs().subtract(1, 'days').format();
   public form = new FormGroup({
     range: new FormControl('last30days', [Validators.required]),
     start: new FormControl(null, [Validators.required]),
@@ -53,8 +53,8 @@ export class SkillsComponent implements OnInit {
     console.log('hi');
     if (this.form.valid) {
       this.date = {
-        begin: moment(this.form.value.start).format('MMM Do YYYY'),
-        end: moment(this.form.value.end).format('MMM Do YYYY')
+        begin: dayjs(this.form.value.start).format('MMM Do YYYY'),
+        end: dayjs(this.form.value.end).format('MMM Do YYYY')
       };
       this.getSkills('customrange');
     }
@@ -82,7 +82,7 @@ export class SkillsComponent implements OnInit {
         showInLegend: false
       });
       this.chart.activity.ref.xAxis[0].update({
-        categories: map(this.skills.Timeline, 'date').map((v: string) => moment(v).format('MMM Do'))
+        categories: map(this.skills.Timeline, 'date').map((v: string) => dayjs(v).format('MMM Do'))
       });
     } else if (this.chartName === 'editors') {
       this.chart.editors.removeSeries(0);

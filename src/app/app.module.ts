@@ -5,7 +5,6 @@ import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MomentModule } from 'ngx-moment';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { ChartModule } from 'angular-highcharts';
@@ -18,7 +17,7 @@ import { SideNavComponent } from './side-nav/side-nav.component';
 import { FooterComponent } from './footer/footer.component';
 import { ContentComponent, ContactComponent, ProjectComponent, SkillsComponent } from './content/';
 import { SocialComponent, SnapchatQRComponent } from './social';
-import { SkillPipe } from './shared/pipes/skill.pipe';
+import { DateFormatPipe, DifferencePipe, ParsePipe, SkillPipe } from './shared/pipes';
 import { AnimateOnScrollDirective } from './shared/directives/animate-on-scroll.directive';
 import { GoogleAnalyticsService, ScrollService } from './shared/services';
 import { AngularFireModule } from '@angular/fire/compat';
@@ -33,9 +32,12 @@ import { InstagramComponent } from './profile-box/instagram/instagram.component'
     AppComponent,
     ContactComponent,
     ContentComponent,
+    DateFormatPipe,
+    DifferencePipe,
     FooterComponent,
     HeaderComponent,
     InstagramComponent,
+    ParsePipe,
     ProfileBoxComponent,
     ProjectComponent,
     SideNavComponent,
@@ -60,7 +62,6 @@ import { InstagramComponent } from './profile-box/instagram/instagram.component'
     LazyLoadImageModule,
     LoadingBarHttpClientModule,
     MaterialModule,
-    MomentModule,
     NgxPageScrollCoreModule.forRoot({ duration: 500, scrollOffset: 25 }),
     NgxPageScrollModule,
     ReactiveFormsModule

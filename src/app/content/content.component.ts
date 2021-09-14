@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ProjectComponent } from './project/project.component';
 import { GoogleAnalyticsService } from '../shared/services';
 import { chunk, floor, map, merge, orderBy, reject, slice, sumBy } from 'lodash-es';
-import moment from 'moment';
+import * as dayjs from 'dayjs';
 
 @Component({
   selector: 'app-content',
@@ -25,8 +25,8 @@ export class ContentComponent implements OnInit {
       this.likes = chunk(data.likes, 5);
       this.employment = map(data.employment, (o: any) => merge(o, {
         date: {
-          end: o.date.end ? moment(o.date.end, 'YYYY-MM-DD').format() : null,
-          start: moment(o.date.start, 'YYYY-MM-DD').format()
+          end: o.date.end ? dayjs(o.date.end, 'YYYY-MM-DD').format() : null,
+          start: dayjs(o.date.start, 'YYYY-MM-DD').format()
         }
       }));
       this.projects = data.projects;

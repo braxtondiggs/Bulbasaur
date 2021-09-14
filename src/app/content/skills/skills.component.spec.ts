@@ -5,12 +5,11 @@ import { ChartModule } from 'angular-highcharts';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { AngularFireModule } from '@angular/fire';
+import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
 import { GoogleAnalyticsService } from 'src/app/shared/services';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MomentModule } from 'ngx-moment';
 import { MatNativeDateModule } from '@angular/material/core';
 
 describe('SkillsComponent', () => {
@@ -27,7 +26,6 @@ describe('SkillsComponent', () => {
       MatNativeDateModule,
       MatSelectModule,
       MatTabsModule,
-      MomentModule,
       ReactiveFormsModule
     ],
     mocks: [GoogleAnalyticsService]
