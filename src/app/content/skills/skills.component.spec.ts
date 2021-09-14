@@ -1,7 +1,7 @@
 import { Spectator, createComponentFactory, SpyObject } from '@ngneat/spectator/jest';
 import { SkillsComponent } from './skills.component';
 import { MatSelectModule } from '@angular/material/select';
-import { ChartModule } from 'angular-highcharts';
+import { HighchartsChartModule } from 'highcharts-angular';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
@@ -19,7 +19,7 @@ describe('SkillsComponent', () => {
     component: SkillsComponent,
     imports: [
       AngularFireModule.initializeApp(environment.firebase),
-      ChartModule,
+      HighchartsChartModule,
       HttpClientTestingModule,
       MatCardModule,
       MatDatepickerModule,

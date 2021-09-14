@@ -25,13 +25,13 @@
 		</form>
 		<mat-tab-group (selectedTabChange)="selectedTabChange($event)">
 			<mat-tab label="Languages">
-				<div [chart]="chart.languages"></div>
+				<highcharts-chart *ngIf="chart.languages && chart.languages.series && chart.languages.series[0] && chart.languages.series[0]" [options]="chart.languages" [Highcharts]="Highcharts" [(update)]="updateFlag" [callbackFunction]="chartCallbackLang.bind(this)"></highcharts-chart>
 			</mat-tab>
 			<mat-tab label="Activity">
-				<div [chart]="chart.activity"></div>
+				<highcharts-chart [options]="chart.activity" [Highcharts]="Highcharts" [(update)]="updateFlag" [callbackFunction]="chartCallbackAct.bind(this)"></highcharts-chart>
 			</mat-tab>
 			<mat-tab label="Editors">
-				<div [chart]="chart.editors"></div>
+				<highcharts-chart [options]="chart.editors" [Highcharts]="Highcharts" [(update)]="updateFlag" [callbackFunction]="chartCallbackEditor.bind(this)"></highcharts-chart>
 			</mat-tab>
 		</mat-tab-group>
 	</mat-card-content>

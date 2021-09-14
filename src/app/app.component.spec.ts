@@ -14,7 +14,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { FooterComponent } from './footer/footer.component';
 import { MatSelectModule } from '@angular/material/select';
-import { ChartModule } from 'angular-highcharts';
+import { HighchartsChartModule } from 'highcharts-angular';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SideNavComponent } from './side-nav/side-nav.component';
@@ -44,7 +44,7 @@ describe('AppComponent', () => {
     ],
     imports: [
       AngularFireModule.initializeApp(environment.firebase),
-      ChartModule,
+      HighchartsChartModule,
       HttpClientModule,
       LoadingBarModule,
       MatCardModule,

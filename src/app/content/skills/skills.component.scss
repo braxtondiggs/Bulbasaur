@@ -17,8 +17,10 @@
   }
 
   .highcharts-container {
-    max-width: 720px;
     width: 100% !important;
+    svg {
+      width: 100%;
+    }
   }
 }
 @media (max-width: 959px) {

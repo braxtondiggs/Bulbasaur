@@ -4,9 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { MatSelectChange, MatSelect } from '@angular/material/select';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-import { Chart } from 'angular-highcharts';
 import { GoogleAnalyticsService } from '../../shared/services';
 import { ceil, floor, isUndefined, map, reduce, reject, toLower } from 'lodash-es';
+import * as Highcharts from 'highcharts';
 import * as dayjs from 'dayjs';
 
 @Component({
@@ -16,8 +16,10 @@ import * as dayjs from 'dayjs';
   templateUrl: './skills.component.html'
 })
 export class SkillsComponent implements OnInit {
+  public updateFlag: boolean = false;
+  public Highcharts: typeof Highcharts = Highcharts;
   public date: any = { begin: Date, end: Date };
-  public chart: any = { languages: Chart, activity: Chart, editors: Chart };
+  public chart: { languages: Highcharts.Options, activity: Highcharts.Options, editors: Highcharts.Options } = { languages: {}, activity: {}, editors: {} };
   public skills: any;
   public chartName = 'languages';
   public minDate = dayjs('2016-06-22', 'YYYY-MM-DD').format();
@@ -27,6 +29,7 @@ export class SkillsComponent implements OnInit {
     start: new FormControl(null, [Validators.required]),
     end: new FormControl(null, [Validators.required])
   });
+  private chartRef: any = { languages: {}, editors: {}, activity: {} };
   @ViewChild('selector') selector: MatSelect;
   @ViewChild('picker') datePicker: MatDatepicker<Date>;
   constructor(protected http: HttpClient, private ga: GoogleAnalyticsService) { }
@@ -50,7 +53,6 @@ export class SkillsComponent implements OnInit {
   }
 
   public dateRangeChange(): void {
-    console.log('hi');
     if (this.form.valid) {
       this.date = {
         begin: dayjs(this.form.value.start).format('MMM Do YYYY'),
@@ -70,27 +72,40 @@ export class SkillsComponent implements OnInit {
     this.skills.Languages = reject(this.skills.Languages, (o) => isUndefined(o.total_seconds));
     const totalCount: number = reduce(this.skills.Languages, (sum: number, n: any) => sum + n.total_seconds, 0);
     if (this.chartName === 'languages') {
-      this.chart.languages.removeSeries(0);
-      this.chart.languages.addSeries({
+      this.chartRef.languages.series[0].remove();
+      this.chartRef.languages.addSeries({
         data: map(this.skills.Languages, (o: any) => [o.name, ceil((o.total_seconds / totalCount) * 100, 2)]),
         name: 'Percentage'
       });
     } else if (this.chartName === 'activity') {
-      this.chart.activity.removeSeries(0);
-      this.chart.activity.addSeries({
+      this.chartRef.activity.series[0].remove();
+      this.chartRef.activity.addSeries({
         data: map(this.skills.Timeline, 'total_seconds').map((o: any) => o / 3600),
         showInLegend: false
       });
-      this.chart.activity.ref.xAxis[0].update({
+      this.chart.activity.xAxis = {
         categories: map(this.skills.Timeline, 'date').map((v: string) => dayjs(v).format('MMM Do'))
-      });
+      };
     } else if (this.chartName === 'editors') {
-      this.chart.editors.removeSeries(0);
-      this.chart.editors.addSeries({
+      this.chartRef.editors.series[0].remove();
+      this.chartRef.editors.addSeries({
         data: map(this.skills.Editors, (o: any) => [o.name, ceil((o.total_seconds / totalCount) * 100, 2)]),
         name: 'Percentage'
       });
     }
+    this.updateFlag = true;
+  }
+
+  public chartCallbackLang(ev) {
+    this.chartRef.languages = ev;
+  }
+
+  public chartCallbackAct(ev) {
+    this.chartRef.activity = ev;
+  }
+
+  public chartCallbackEditor(ev) {
+    this.chartRef.editors = ev;
   }
 
   private getCustomDate(range: string): string {
@@ -109,7 +124,7 @@ export class SkillsComponent implements OnInit {
   private setDefaultCharts(): void {
     const width: number = document.getElementById('skills').clientWidth - 40;
     this.chart = {
-      activity: new Chart({
+      activity: {
         chart: {
           type: 'line',
           width
@@ -138,9 +153,10 @@ export class SkillsComponent implements OnInit {
           title: {
             text: 'Hours'
           }
-        }
-      }),
-      editors: new Chart({
+        },
+        series: [{}] as any
+      },
+      editors: {
         chart: {
           type: 'pie',
           width
@@ -154,9 +170,10 @@ export class SkillsComponent implements OnInit {
         tooltip: {
           headerFormat: '{point.key}: <b>{point.percentage:.1f}%</b>',
           pointFormat: ''
-        }
-      }),
-      languages: new Chart({
+        },
+        series: [{}] as any
+      },
+      languages: {
         chart: {
           type: 'pie',
           width
@@ -170,8 +187,9 @@ export class SkillsComponent implements OnInit {
         tooltip: {
           headerFormat: '{point.key}: <b>{point.percentage:.1f}%</b>',
           pointFormat: ''
-        }
-      })
+        },
+        series: [{}] as any
+      }
     };
   }
 }

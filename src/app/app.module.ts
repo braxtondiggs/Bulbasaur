@@ -7,7 +7,7 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { NgxPageScrollModule } from 'ngx-page-scroll';
-import { ChartModule } from 'angular-highcharts';
+import { HighchartsChartModule } from 'highcharts-angular';
 import { NgModule } from '@angular/core';
 import { MaterialModule } from './material.module';
 import { AppComponent } from './app.component';
@@ -56,7 +56,7 @@ import { InstagramComponent } from './profile-box/instagram/instagram.component'
     AngularFirestoreModule,
     BrowserAnimationsModule,
     BrowserModule,
-    ChartModule,
+    HighchartsChartModule,
     FlexLayoutModule,
     FormsModule,
     LazyLoadImageModule,

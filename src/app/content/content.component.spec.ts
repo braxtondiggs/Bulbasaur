@@ -15,7 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { Spectator, createComponentFactory } from '@ngneat/spectator';
-import { ChartModule } from 'angular-highcharts';
+import { HighchartsChartModule } from 'highcharts-angular';
 import { environment } from 'src/environments/environment';
 import { FooterComponent } from '../footer/footer.component';
 import { SkillPipe } from '../shared/pipes/skill.pipe';
@@ -31,7 +31,7 @@ describe('ContentComponent', () => {
     declarations: [SkillPipe, SkillsComponent, ContactComponent, SocialComponent, FooterComponent],
     imports: [
       AngularFireModule.initializeApp(environment.firebase),
-      ChartModule,
+      HighchartsChartModule,
       HttpClientTestingModule,
       MatCardModule,
       MatDatepickerModule,
