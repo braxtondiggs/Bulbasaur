@@ -1,11 +1,12 @@
 {
-  "name": "Bulbasaur",
-  "short_name": "Bulbasaur",
-  "theme_color": "#1976d2",
+  "short_name": "Braxton Diggs",
+  "name": "Online Portfolio &raquo; Braxton Diggs",
+  "start_url": "/",
+  "theme_color": "#c0e3e7",
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "./",
-  "start_url": "./",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "assets/icons/icon-72x72.png",

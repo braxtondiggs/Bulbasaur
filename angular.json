@@ -23,12 +23,15 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
+              "src/apple-touch-icon.png",
+              "src/assets",
+              "src/browserconfig.xml",
               "src/favicon-16x16.png",
               "src/favicon-32x32.png",
-              "src/assets",
-              "src/manifest.json",
+              "src/manifest.webmanifest",
+              "src/mstile-150x150.png",
               "src/robots.txt",
-              "src/manifest.webmanifest"
+              "src/safari-pinned-tab.svg"
             ],
             "allowedCommonJsDependencies": [
               "highcharts"
