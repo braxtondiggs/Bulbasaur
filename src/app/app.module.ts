@@ -24,6 +24,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { InstagramComponent } from './profile-box/instagram/instagram.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -64,7 +65,13 @@ import { InstagramComponent } from './profile-box/instagram/instagram.component'
     MaterialModule,
     NgxPageScrollCoreModule.forRoot({ duration: 500, scrollOffset: 25 }),
     NgxPageScrollModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [
     GoogleAnalyticsService,
