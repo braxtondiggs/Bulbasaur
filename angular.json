@@ -28,6 +28,7 @@
               "src/browserconfig.xml",
               "src/favicon-16x16.png",
               "src/favicon-32x32.png",
+              "src/favicon.ico",
               "src/manifest.webmanifest",
               "src/mstile-150x150.png",
               "src/robots.txt",
