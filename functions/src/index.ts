@@ -9,7 +9,7 @@ admin.initializeApp();
 const db = admin.firestore();
 
 const app = express();
-
+const config = admin.remoteConfig();
 // Automatically allow cross-origin requests
 app.use(cors({ origin: true }));
 
@@ -44,6 +44,19 @@ app.post('/instagram', async (request: functions.Request, response: functions.Re
       });
 
     }
+  }
+});
+
+app.post('/recipe', async (request: functions.Request, response: functions.Response) => {
+  if (request.body['query']) {
+    const template = await config.getTemplate()
+    const SERPAPI = (template.parameters.SERPAPI.defaultValue as any).value;
+    if (!SERPAPI) return response.json({ success: false, msg: 'invalid API token' });
+    const { data } = await axios.get(`https://serpapi.com/search.json?q=${request.body['query']}%2Crecipe&hl=en&gl=us&api_key=${SERPAPI}`);
+
+    return response.send(data);
+  } else {
+    return response.status(500).send('Error');
   }
 });
 
