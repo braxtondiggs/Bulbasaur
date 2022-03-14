@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { SnapchatQRComponent } from './snapchatQR/snapchat-qr.component';
 import { GoogleAnalyticsService } from '../shared/services';
 
@@ -9,13 +8,5 @@ import { GoogleAnalyticsService } from '../shared/services';
 })
 export class SocialComponent {
 
-  constructor(private dialog: MatDialog, public ga: GoogleAnalyticsService) { }
-
-  public openSnapQR() {
-    this.dialog.open(SnapchatQRComponent, {
-      height: '250px',
-      panelClass: 'snapchat-qr',
-      width: '250px'
-    });
-  }
+  constructor(public ga: GoogleAnalyticsService) { }
 }
