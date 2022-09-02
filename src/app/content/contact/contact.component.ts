@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-contact',
@@ -9,17 +9,17 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   templateUrl: './contact.component.html'
 })
 export class ContactComponent {
-  public name: FormControl = new FormControl('', [Validators.required]);
-  public email: FormControl = new FormControl('', [Validators.required,
+  public name: UntypedFormControl = new UntypedFormControl('', [Validators.required]);
+  public email: UntypedFormControl = new UntypedFormControl('', [Validators.required,
   Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
   ]);
-  public subject: FormControl = new FormControl();
-  public message: FormControl = new FormControl('', [
+  public subject: UntypedFormControl = new UntypedFormControl();
+  public message: UntypedFormControl = new UntypedFormControl('', [
     Validators.required,
     Validators.minLength(15),
     Validators.maxLength(2056)
   ]);
-  public contactform: FormGroup = new FormGroup({
+  public contactform: UntypedFormGroup = new UntypedFormGroup({
     email: this.email,
     message: this.message,
     name: this.name,
@@ -29,7 +29,7 @@ export class ContactComponent {
 
   constructor(protected http: HttpClient, protected snackBar: MatSnackBar) { }
 
-  public getErrorMessage(input: FormControl, label: string = 'This field') {
+  public getErrorMessage(input: UntypedFormControl, label: string = 'This field') {
     if (input.hasError('required')) {
       return `${label} is required.`;
     } else if (input.hasError('pattern')) {

@@ -35,7 +35,8 @@
               "src/safari-pinned-tab.svg"
             ],
             "allowedCommonJsDependencies": [
-              "highcharts"
+              "highcharts",
+              "dayjs"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
@@ -94,19 +95,6 @@
             "browserTarget": "Bulbasaur:build"
           }
         },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        },
         "e2e": {
           "builder": "@briebug/cypress-schematic:cypress",
           "options": {
@@ -151,7 +139,6 @@
       }
     }
   },
-  "defaultProject": "Bulbasaur",
   "cli": {
     "analytics": "21e7ee5f-eaaa-4e23-b67d-c153a37dc8ff"
   }

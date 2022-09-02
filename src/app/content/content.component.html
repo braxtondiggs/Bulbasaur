@@ -33,7 +33,9 @@
 			</div>
 		</div>
 		<mat-divider></mat-divider>
-		<h2 class="title-lg" style="margin-bottom: 20px;">Things I&nbsp;<mat-icon aria-label="Heart" fontSet="linearicons" fontIcon="icon-heart"></mat-icon></h2>
+		<h2 class="title-lg" style="margin-bottom: 20px;">
+      Things I&nbsp;<mat-icon aria-hidden="false" aria-label="Heart" fontSet="linearicons" fontIcon="icon-heart" class="icon-heart"></mat-icon>
+    </h2>
 		<div fxLayout="row" fxLayout.xs="column" class="my-likes" [ngClass]="{'closed': !toggleLikes}">
 			<mat-list *ngFor="let items of likes" fxFlex>
 				<mat-list-item *ngFor="let item of items">
