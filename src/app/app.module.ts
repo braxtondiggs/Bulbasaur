@@ -27,55 +27,51 @@ import { InstagramComponent } from './profile-box/instagram/instagram.component'
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
-  bootstrap: [AppComponent],
-  declarations: [
-    AnimateOnScrollDirective,
-    AppComponent,
-    ContactComponent,
-    ContentComponent,
-    DateFormatPipe,
-    DifferencePipe,
-    FooterComponent,
-    HeaderComponent,
-    InstagramComponent,
-    ParsePipe,
-    ProfileBoxComponent,
-    ProjectComponent,
-    SideNavComponent,
-    SkillPipe,
-    SkillsComponent,
-    SnapchatQRComponent,
-    SocialComponent
-  ],
-  entryComponents: [
-    ProjectComponent,
-    SnapchatQRComponent
-  ],
-  imports: [
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAnalyticsModule,
-    AngularFirestoreModule,
-    BrowserAnimationsModule,
-    BrowserModule,
-    HighchartsChartModule,
-    FlexLayoutModule,
-    FormsModule,
-    LazyLoadImageModule,
-    LoadingBarHttpClientModule,
-    MaterialModule,
-    NgxPageScrollCoreModule.forRoot({ duration: 500, scrollOffset: 25 }),
-    NgxPageScrollModule,
-    ReactiveFormsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production,
-      // Register the ServiceWorker as soon as the app is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    })
-  ],
-  providers: [
-    GoogleAnalyticsService,
-    ScrollService
-  ]
+    bootstrap: [AppComponent],
+    declarations: [
+        AnimateOnScrollDirective,
+        AppComponent,
+        ContactComponent,
+        ContentComponent,
+        DateFormatPipe,
+        DifferencePipe,
+        FooterComponent,
+        HeaderComponent,
+        InstagramComponent,
+        ParsePipe,
+        ProfileBoxComponent,
+        ProjectComponent,
+        SideNavComponent,
+        SkillPipe,
+        SkillsComponent,
+        SnapchatQRComponent,
+        SocialComponent
+    ],
+    imports: [
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireAnalyticsModule,
+        AngularFirestoreModule,
+        BrowserAnimationsModule,
+        BrowserModule,
+        HighchartsChartModule,
+        FlexLayoutModule,
+        FormsModule,
+        LazyLoadImageModule,
+        LoadingBarHttpClientModule,
+        MaterialModule,
+        NgxPageScrollCoreModule.forRoot({ duration: 500, scrollOffset: 25 }),
+        NgxPageScrollModule,
+        ReactiveFormsModule,
+        ServiceWorkerModule.register('ngsw-worker.js', {
+            enabled: environment.production,
+            // Register the ServiceWorker as soon as the app is stable
+            // or after 30 seconds (whichever comes first).
+            registrationStrategy: 'registerWhenStable:30000'
+        })
+    ],
+    providers: [
+        GoogleAnalyticsService,
+        ScrollService
+    ]
 })
 export class AppModule { }
