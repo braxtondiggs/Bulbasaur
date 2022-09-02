@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { MatSelectChange, MatSelect } from '@angular/material/select';
@@ -24,10 +24,10 @@ export class SkillsComponent implements OnInit {
   public chartName = 'languages';
   public minDate = dayjs('2016-06-22', 'YYYY-MM-DD').format();
   public maxDate = dayjs().subtract(1, 'days').format();
-  public form = new FormGroup({
-    range: new FormControl('last30days', [Validators.required]),
-    start: new FormControl(null, [Validators.required]),
-    end: new FormControl(null, [Validators.required])
+  public form = new UntypedFormGroup({
+    range: new UntypedFormControl('last30days', [Validators.required]),
+    start: new UntypedFormControl(null, [Validators.required]),
+    end: new UntypedFormControl(null, [Validators.required])
   });
   private chartRef: any = { languages: {}, editors: {}, activity: {} };
   @ViewChild('selector') selector: MatSelect;
