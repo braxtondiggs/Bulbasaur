@@ -2,8 +2,10 @@ import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import * as cors from 'cors';
 import * as express from 'express';
+import * as sgMail from '@sendgrid/mail';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
+import { body, matchedData, validationResult } from 'express-validator';
 
 admin.initializeApp();
 const db = admin.firestore();
@@ -57,6 +59,44 @@ app.post('/recipe', async (request: functions.Request, response: functions.Respo
     return response.send(data);
   } else {
     return response.status(500).send('Error');
+  }
+});
+
+const mailValidation = [
+  body('email').exists().withMessage('email is required').isEmail().trim().normalizeEmail().withMessage('valid email required'),
+  body('name').notEmpty().withMessage('name is required').trim(),
+  body('message').isLength({ min: 15, max: 2056 }).withMessage('15 to 2056 characters required').trim(),
+  body('subject').trim()
+];
+
+app.post('/mail', mailValidation, async (request: functions.Request, response: functions.Response) => {
+  const errors = validationResult(request);
+  if (!errors.isEmpty()) {
+    return response.status(400).json({ errors: errors.mapped() });
+  }
+
+  const template = await config.getTemplate();
+  const SENDGRID_API_KEY = (template.parameters.SENDGRID_API_KEY.defaultValue as any).value;
+  const data = matchedData(request);
+  const sender = `Name: ${data.name}\nEmail: ${data.email}`;
+
+  try {
+    sgMail.setApiKey(SENDGRID_API_KEY);
+    await sgMail.send({
+      from: {
+        email: 'no-reply@braxtondiggs.com',
+        name: 'No-Reply'
+      },
+      subject: data.subject ? data.subject : 'Message from BraxtonDiggs.com',
+      text: `${data.message}\n\n\n${sender}`,
+      to: {
+        email: 'hello@braxtondiggs.com',
+        name: 'Braxton Diggs'
+      }
+    });
+    return response.json({ status: true, msg: 'Message sent successfully' });
+  } catch (error: any) {
+    return response.status(500).json({ error: error.toString() });
   }
 });
 
