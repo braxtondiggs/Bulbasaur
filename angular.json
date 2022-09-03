@@ -35,7 +35,8 @@
               "src/safari-pinned-tab.svg"
             ],
             "allowedCommonJsDependencies": [
-              "highcharts"
+              "highcharts",
+              "dayjs"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
