@@ -70,7 +70,7 @@ describe('SkillsComponent', () => {
 
   it('should update series', () => {
     const spy = spyOn<any>(spectator.component, 'updateSeries').and.callThrough();
-    const req = httpMock.expectOne({ method: 'GET', url: 'https://wartortle.herokuapp.com?range=last30days' });
+    const req = httpMock.expectOne({ method: 'GET', url: 'https://code.braxtondiggs.com/api/?range=last30days' });
     req.flush({});
     expect(spy).toHaveBeenCalled();
   })

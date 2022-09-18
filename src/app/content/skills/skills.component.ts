@@ -114,7 +114,7 @@ export class SkillsComponent implements OnInit {
   }
 
   private getSkills(range: string = 'last30days'): void {
-    this.http.get(`https://wartortle.herokuapp.com?range=${range}${this.getCustomDate(range)}`)
+    this.http.get(`https://code.braxtondiggs.com/api/?range=${range}${this.getCustomDate(range)}`)
       .subscribe((data: any) => {
         this.skills = data;
         this.updateSeries();
