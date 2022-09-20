@@ -31,7 +31,7 @@ export class ContentComponent implements OnInit {
       }));
       this.projects = data.projects;
     });
-    this.http.get('https://code.braxtondiggs.com/api/?range=last30days').subscribe((data: any) => {
+    this.http.get('https://code.braxtondiggs.com/api?range=last30days').subscribe((data: any) => {
       const totalTime = sumBy(data.Languages, 'total_seconds');
       this.skills = chunk(slice(orderBy(reject(data.Languages, ['name', 'Other']), ['total_seconds'], ['desc']), 0, 6)
         .map((o: any) => merge(o, { value: floor((o.total_seconds / totalTime) * 100) })), 3);

@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/directive-selector */
 import { takeUntil } from 'rxjs/operators';
 import { Directive, Input, Renderer2, ElementRef, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { ScrollService } from '../services/scroll.service';

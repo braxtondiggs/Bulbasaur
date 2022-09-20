@@ -9,7 +9,7 @@
 		<app-social></app-social>
 		<p>I would love to hear what you think. Drop me a line, whether it is praise or criticism, a question, a suggestion, or just a hello. I am currently available for new projects, so if you have a request go ahead and send it!</p>
 		<p>If you'd like to contact me directly, please email me at <a href="mailto:hello@braxtondiggs.com">hello@braxtondiggs.com</a>. I can provide phone number and more information if the situation warrants.</p>
-		<form class="contact-form" [formGroup]="contactform" (ngSubmit)="onSubmit()" novalidate>
+		<form class="contact-form" [formGroup]="contactForm" (ngSubmit)="onSubmit()" novalidate>
 			<mat-form-field>
 				<input placeholder="Your Name" type="text" [formControl]="name" matInput required>
 				<mat-error *ngIf="name.invalid">{{getErrorMessage(name, 'Your name')}}</mat-error>

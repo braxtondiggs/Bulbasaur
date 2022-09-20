@@ -19,7 +19,7 @@ export class ContactComponent {
     Validators.minLength(15),
     Validators.maxLength(2056)
   ]);
-  public contactform: UntypedFormGroup = new UntypedFormGroup({
+  public contactForm: UntypedFormGroup = new UntypedFormGroup({
     email: this.email,
     message: this.message,
     name: this.name,
@@ -41,25 +41,27 @@ export class ContactComponent {
     }
   }
   public onSubmit() {
-    if (this.contactform.valid) {
+    if (this.contactForm.valid) {
       this.submit = true;
-      this.http.post('https://meowth1.herokuapp.com/api/mail/inquire', {}, {
-        headers: new HttpHeaders({
-          email: this.email.value,
-          message: this.message.value,
-          name: this.name.value,
-          subject: this.subject.value
-        })
-      }).subscribe((data: any) => {
-        if (data.status) {
-          this.snackBar.open('Email successfully sent');
-          this.contactform.reset();
-          for (const i of Object.keys(this.contactform.controls)) {
-            this.contactform.controls[i].setErrors(null);
+      this.http.post('https://us-central1-bulbasaur-bfb64.cloudfunctions.net/endpoints/mail', {
+        email: this.email.value,
+        message: this.message.value,
+        name: this.name.value,
+        subject: this.subject.value
+      }).subscribe({
+        next: (data: { status: boolean }) => {
+          if (data.status) {
+            this.snackBar.open('Email successfully sent', null, { duration: 10000 });
+            this.contactForm.reset();
+            for (const i of Object.keys(this.contactForm.controls)) {
+              this.contactForm.controls[i].setErrors(null);
+            }
           }
+        },
+        error: ({ error }) => {
+          console.log(error.errors);
+          this.snackBar.open('Something went wrong', 'Close', { duration: 0 });
         }
-      }, () => {
-        this.snackBar.open('Something went wrong', 'Close', { duration: 0 });
       });
     }
   }

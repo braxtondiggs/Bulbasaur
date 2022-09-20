@@ -1,0 +1,16 @@
+{
+  "recommendations": [
+    "aaron-bond.better-comments",
+    "angular.ng-template",
+    "christian-kohler.npm-intellisense",
+    "christian-kohler.path-intellisense",
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "esbenp.prettier-vscode",
+    "johnpapa.angular2",
+    "michelemelluso.code-beautifier",
+    "streetsidesoftware.code-spell-checker",
+    "wix.vscode-import-cost",
+    "xabikos.JavaScriptSnippets"
+  ]
+}

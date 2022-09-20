@@ -21,7 +21,7 @@
         </mat-date-range-input>
         <mat-date-range-picker #picker></mat-date-range-picker>
 			</mat-form-field>
-			<h4 *ngIf="form.valid && form.value.range == 'customrange'">{{form.value.start | amDateFormat:'MMM Do YYYY' }} - {{form.value.end | amDateFormat:'MMM Do YYYY' }}</h4>
+			<h4 *ngIf="form.valid && form.value.range === 'customrange'">{{form.value.start | amDateFormat:'MMM Do YYYY' }} - {{form.value.end | amDateFormat:'MMM Do YYYY' }}</h4>
 		</form>
 		<mat-tab-group (selectedTabChange)="selectedTabChange($event)">
 			<mat-tab label="Languages">

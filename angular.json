@@ -135,11 +135,23 @@
         "deploy": {
           "builder": "@angular/fire:deploy",
           "options": {}
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
   "cli": {
-    "analytics": "21e7ee5f-eaaa-4e23-b67d-c153a37dc8ff"
+    "analytics": "21e7ee5f-eaaa-4e23-b67d-c153a37dc8ff",
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }

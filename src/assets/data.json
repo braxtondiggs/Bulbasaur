@@ -143,7 +143,7 @@
         "As cities are getting more expensive, more people are living together to share costs. The Homora app was born from the need to have a safe and secure platform to find your next shared space. We pride ourselves in presenting exclusive listings which has all the information vital to tenants. This vital information such as amenities, pictures, and general housing information is required when listing a space. No more wasting time scanning incomplete housing profiles."
       ],
       "url": {
-        "web": "https://homora.com",
+        "web": "https://homora-483ba.firebaseapp.com/",
         "android": "https://play.google.com/store/apps/details?id=com.homora.app&hl=en_US",
         "ios": "https://itunes.apple.com/us/app/homora/id1413448908?mt=8"
       }
@@ -165,7 +165,7 @@
       }
     },
     {
-      "status": true,
+      "status": false,
       "title": "Alma: Music Video Jukebox",
       "mobile": true,
       "image": {
@@ -187,9 +187,11 @@
         "icon": "./assets/projects/rapmagnets/icon/.png",
         "screenshot": "./assets/projects/rapmagnets/screenshot.png"
       },
-      "description": ["Interchangeable Rap-Inspired Refrigerator Magnets"],
+      "description": [
+        "Interchangeable Rap-Inspired Refrigerator Magnets"
+      ],
       "url": {
-        "web": "https://metapod.herokuapp.com/"
+        "web": "https://braxtondiggs.github.io/Metapod/"
       }
     },
     {
@@ -234,7 +236,7 @@
         "Note: For rap fans, Rapper Ad-Lib Quiz might be addictive due of its fun filled experience. Caution is advised during use."
       ],
       "url": {
-        "web": "https://alakazam1.herokuapp.com/",
+        "web": "https://braxtondiggs.github.io/Alakazam/",
         "other": "https://dcwebfest.org/official-selections#2016-winners"
       }
     },
@@ -251,7 +253,7 @@
         "<h4>Instructions</h4>- Each player is armed with a laser, which may be used to slice apart their opponent's paddle.<br />- Multiple balls may be on-screen at any one time.The last ball to pass by a paddle is the one that counts.<br />- Powerups may be acquired that either enhance a player's paddle or alter a ball's characteristics.<br />- Buttons: Player 1 / Blue: up / down keysto move and right arrow keys to shoot laser<br />- Player 2 / Red: A / Z keys to move and X key to shoot laser<br />- For a list of all power ups click the settings button in the game"
       ],
       "url": {
-        "web": "http://www.lazerpong.com/game/"
+        "web": "https://braxtondiggs.github.io/Lapras/"
       }
     }
   ],

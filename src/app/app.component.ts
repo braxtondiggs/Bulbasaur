@@ -1,8 +1,7 @@
-import { Component, HostListener, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, HostListener, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { GoogleAnalyticsService } from './shared/services';
 import { ITrack } from './shared/model';
-import 'firebase/firestore';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -10,7 +9,7 @@ import 'firebase/firestore';
   styleUrls: ['./app.component.scss'],
   templateUrl: './app.component.html'
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   public scroll: number;
   public track: ITrack;
   public trackLink: SafeResourceUrl;
@@ -22,14 +21,14 @@ export class AppComponent implements OnInit {
     this.scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
   }
 
-  ngOnInit() {
-    /*this.afs.collection('tracks', ref => ref.limit(1)).snapshotChanges(['added']).pipe(skip(1)).subscribe((snapshot) => {
-      this.track = snapshot[0].payload.doc.data() as any;
-      this.trackLink =
-        this.sanitizer.bypassSecurityTrustResourceUrl(`https://open.spotify.com/embed/track/${this.track.id}`);
-      this.initTrackFlow();
-    });*/
-  }
+  /*ngOnInit() {
+   this.afs.collection('tracks', ref => ref.limit(1)).snapshotChanges(['added']).pipe(skip(1)).subscribe((snapshot) => {
+     this.track = snapshot[0].payload.doc.data() as any;
+     this.trackLink =
+       this.sanitizer.bypassSecurityTrustResourceUrl(`https://open.spotify.com/embed/track/${this.track.id}`);
+     this.initTrackFlow();
+   });
+ }*/
 
   public isScroll(): boolean {
     return this.scroll > 55;
