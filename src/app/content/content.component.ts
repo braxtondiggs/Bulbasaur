@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ProjectComponent } from './project/project.component';
 import { GoogleAnalyticsService } from '../shared/services';
 import { chunk, floor, map, merge, orderBy, reject, slice, sumBy } from 'lodash-es';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 
 @Component({
   selector: 'app-content',

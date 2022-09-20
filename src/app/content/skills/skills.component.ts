@@ -7,7 +7,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { GoogleAnalyticsService } from '../../shared/services';
 import { ceil, floor, isUndefined, map, reduce, reject, toLower } from 'lodash-es';
 import * as Highcharts from 'highcharts';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -125,6 +125,9 @@ export class SkillsComponent implements OnInit {
     const width: number = document.getElementById('skills').clientWidth - 40;
     this.chart = {
       activity: {
+        accessibility: {
+          enabled: false
+        },
         chart: {
           type: 'line',
           width
@@ -157,6 +160,9 @@ export class SkillsComponent implements OnInit {
         series: [{}] as any
       },
       editors: {
+        accessibility: {
+          enabled: false
+        },
         chart: {
           type: 'pie',
           width
@@ -174,6 +180,9 @@ export class SkillsComponent implements OnInit {
         series: [{}] as any
       },
       languages: {
+        accessibility: {
+          enabled: false
+        },
         chart: {
           type: 'pie',
           width

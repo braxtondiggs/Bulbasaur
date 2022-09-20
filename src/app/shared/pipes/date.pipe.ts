@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import * as customParseFormat from 'dayjs/plugin/advancedFormat';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 dayjs.extend(customParseFormat);
 
 const dayjsConstructor = dayjs;
