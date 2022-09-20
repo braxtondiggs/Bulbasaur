@@ -1,6 +1,17 @@
 {
   "employment": [
     {
+      "name": "Function of Beauty",
+      "position": "Full Stack Developer",
+      "location": "New York City, NY",
+      "image": {
+        "icon": "./assets/logos/fob.png"
+      },
+      "date": {
+        "start": "2021-01-01"
+      }
+    },
+    {
       "name": "Recycle Track Systems",
       "position": "Full Stack Developer",
       "location": "New York City, NY",
