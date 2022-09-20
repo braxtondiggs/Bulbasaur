@@ -55,8 +55,8 @@ export class SkillsComponent implements OnInit {
   public dateRangeChange(): void {
     if (this.form.valid) {
       this.date = {
-        begin: dayjs(this.form.value.start).format('MMM Do YYYY'),
-        end: dayjs(this.form.value.end).format('MMM Do YYYY')
+        begin: dayjs(this.form.value.start).format('YYYY-MM-DD'),
+        end: dayjs(this.form.value.end).format('YYYY-MM-DD')
       };
       this.getSkills('customrange');
     }
