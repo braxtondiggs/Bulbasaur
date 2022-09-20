@@ -20,9 +20,11 @@ module.exports = {
   ...jestPreset,
   globals: { ...globalOverrides },
   preset: "jest-preset-angular",
+  modulePaths: ['<rootDir>'],
   setupFilesAfterEnv: ["<rootDir>/src/setupJest.ts"],
   coverageReporters: ["text", "lcov", "cobertura"],
   testPathIgnorePatterns: ["<rootDir>/cypress/", "<rootDir>/functions/"],
+  resolver: '<rootDir>/src/jest.resolver.js',
   moduleNameMapper: {
     "^lodash-es$": "lodash"
   },

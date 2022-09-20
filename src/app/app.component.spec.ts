@@ -1,4 +1,4 @@
-import { Spectator, createComponentFactory } from '@ngneat/spectator';
+import { Spectator, createComponentFactory } from '@ngneat/spectator/jest';
 import { AppComponent } from './app.component';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { HeaderComponent } from './header/header.component';
@@ -26,6 +26,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
 
 describe('AppComponent', () => {
   let spectator: Spectator<AppComponent>;
@@ -49,6 +50,7 @@ describe('AppComponent', () => {
       LoadingBarModule,
       MatCardModule,
       MatDatepickerModule,
+      MatDialogModule,
       MatDividerModule,
       MatFormFieldModule,
       MatGridListModule,

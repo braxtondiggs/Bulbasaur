@@ -38,8 +38,8 @@ describe('SkillsComponent', () => {
   });
 
   it('should create', () => {
-    const chartSpy = spyOn<any>(spectator.component, 'setDefaultCharts').and.callThrough();
-    const skillSpy = spyOn<any>(spectator.component, 'getSkills').and.callThrough();
+    const chartSpy = jest.spyOn(spectator.component as any, 'setDefaultCharts');
+    const skillSpy = jest.spyOn(spectator.component as any, 'getSkills');
     expect(spectator.component).toBeTruthy();
     spectator.component.ngOnInit();
     expect(chartSpy).toHaveBeenCalled();
@@ -47,14 +47,14 @@ describe('SkillsComponent', () => {
   });
 
   it('should not call anything if custom range', () => {
-    const spy = spyOn<any>(spectator.component, 'getSkills');
+    const spy = jest.spyOn(spectator.component as any, 'getSkills');
     spectator.component.selectionChange({ value: 'customrange' } as any);
     expect(spy).not.toHaveBeenCalled();
   });
 
   it('should call skills on change', () => {
     const ga = spectator.inject(GoogleAnalyticsService);
-    const spy = spyOn<any>(spectator.component, 'getSkills');
+    const spy = jest.spyOn(spectator.component as any, 'getSkills');
     spectator.component.selectionChange({ value: 'yesterday' } as any);
     expect(spy).toHaveBeenCalledWith('yesterday');
     expect(ga.eventEmitter).toHaveBeenCalled();
@@ -62,14 +62,14 @@ describe('SkillsComponent', () => {
 
   it('should switch tabs', () => {
     const ga = spectator.inject(GoogleAnalyticsService);
-    const spy = spyOn<any>(spectator.component, 'updateSeries').and.callThrough();
+    const spy = jest.spyOn(spectator.component as any, 'updateSeries');
     spectator.component.selectedTabChange({ tab: { textLabel: 'Activity' } } as any);
     expect(spy).toHaveBeenCalled();
     expect(ga.eventEmitter).toHaveBeenCalled();
   });
 
   it('should update series', () => {
-    const spy = spyOn<any>(spectator.component, 'updateSeries').and.callThrough();
+    const spy = jest.spyOn(spectator.component as any, 'updateSeries');
     const req = httpMock.expectOne({ method: 'GET', url: 'https://code.braxtondiggs.com/api?range=last30days' });
     req.flush({});
     expect(spy).toHaveBeenCalled();

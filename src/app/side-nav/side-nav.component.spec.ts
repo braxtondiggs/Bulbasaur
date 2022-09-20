@@ -1,7 +1,7 @@
-import { Spectator, createComponentFactory } from '@ngneat/spectator';
+import { Spectator, createComponentFactory } from '@ngneat/spectator/jest';
 import { SideNavComponent } from './side-nav.component';
 import { environment } from 'src/environments/environment';
-import { AngularFireModule } from '@angular/fire';
+import { AngularFireModule } from '@angular/fire/compat';
 
 describe('SideNavComponent', () => {
   let spectator: Spectator<SideNavComponent>;

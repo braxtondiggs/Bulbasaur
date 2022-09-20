@@ -4,7 +4,7 @@ import { ProfileBoxComponent } from './profile-box.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
-import { AngularFireModule } from '@angular/fire';
+import { AngularFireModule } from '@angular/fire/compat';
 
 describe('ProfileBoxComponent', () => {
   let spectator: Spectator<ProfileBoxComponent>;

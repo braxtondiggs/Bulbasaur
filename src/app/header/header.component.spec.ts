@@ -1,4 +1,4 @@
-import { Spectator, createComponentFactory } from '@ngneat/spectator';
+import { Spectator, createComponentFactory } from '@ngneat/spectator/jest';
 import { HeaderComponent } from './header.component';
 
 describe('HeaderComponent', () => {
@@ -12,6 +12,6 @@ describe('HeaderComponent', () => {
   });
 
   it('should have name in title', () => {
-    expect('.header-title').toHaveText('Braxton Diggs');
+    expect(spectator.query('.header-title')).toHaveText('Braxton Diggs');
   });
 });

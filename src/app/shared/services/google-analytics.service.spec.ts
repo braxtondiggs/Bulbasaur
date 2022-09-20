@@ -1,8 +1,8 @@
 import { createServiceFactory, SpectatorService, mockProvider } from '@ngneat/spectator/jest';
 import { GoogleAnalyticsService } from './google-analytics.service';
 import { environment } from 'src/environments/environment';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireAnalytics, AngularFireAnalyticsModule } from '@angular/fire/analytics';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAnalytics } from '@angular/fire/compat/analytics';
 
 describe('GoogleAnalyticsService', () => {
   let spectator: SpectatorService<GoogleAnalyticsService>;
@@ -24,7 +24,7 @@ describe('GoogleAnalyticsService', () => {
 
   it('should send a gtag event', () => {
     const analytics = spectator.inject(AngularFireAnalytics);
-    const spy = spyOn(analytics, 'logEvent');
+    const spy = jest.spyOn(analytics, 'logEvent');
     spectator.service.eventEmitter('event_category', 'event_action');
     expect(spy).toHaveBeenCalledWith('event_action', {
       category: 'event_category', label: null, value: null

@@ -2,7 +2,7 @@ import { Spectator, createComponentFactory, mockProvider } from '@ngneat/spectat
 import { SocialComponent } from './social.component';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
-import { AngularFireModule } from '@angular/fire';
+import { AngularFireModule } from '@angular/fire/compat';
 
 describe('SocialComponent', () => {
   let spectator: Spectator<SocialComponent>;
@@ -21,11 +21,5 @@ describe('SocialComponent', () => {
 
   it('should create', () => {
     expect(spectator.component).toBeTruthy();
-  });
-
-  it('should open a dialog', () => {
-    const spy = spyOn(spectator.inject(MatDialog), 'open').and.callThrough();
-    spectator.component.openSnapQR();
-    expect(spy).toHaveBeenCalled();
   });
 });
