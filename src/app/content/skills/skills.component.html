@@ -27,9 +27,9 @@
 			<mat-tab label="Languages">
 				<highcharts-chart *ngIf="chart.languages && chart.languages.series && chart.languages.series[0] && chart.languages.series[0]" [options]="chart.languages" [Highcharts]="Highcharts" [(update)]="updateFlag" [callbackFunction]="chartCallbackLang.bind(this)"></highcharts-chart>
 			</mat-tab>
-			<mat-tab label="Activity">
+			<!--<mat-tab label="Activity">
 				<highcharts-chart [options]="chart.activity" [Highcharts]="Highcharts" [(update)]="updateFlag" [callbackFunction]="chartCallbackAct.bind(this)"></highcharts-chart>
-			</mat-tab>
+			</mat-tab>-->
 			<mat-tab label="Editors">
 				<highcharts-chart [options]="chart.editors" [Highcharts]="Highcharts" [(update)]="updateFlag" [callbackFunction]="chartCallbackEditor.bind(this)"></highcharts-chart>
 			</mat-tab>
