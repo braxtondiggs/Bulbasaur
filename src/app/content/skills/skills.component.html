@@ -1,38 +1,124 @@
-<mat-card id="skills" animateOnScroll class="animated" animationName="fadeInUp">
-	<mat-card-content>
-		<h2 class="title-lg">My "Real-Time" Coding</h2>
-		<form [formGroup]="form" class="center">
-			<p>See exactly when & what my coding activity is using <a href="https://wakatime.com/">WakaTime</a>.</p>
-			<mat-form-field>
-				<mat-select #selector formControlName="range" (selectionChange)="selectionChange($event)">
-					<mat-option value="yesterday">Yesterday</mat-option>
-					<mat-option value="last7days">Last 7 Days</mat-option>
-					<mat-option value="thisweek">This Week</mat-option>
-					<mat-option value="lastweek">Last Week</mat-option>
-					<mat-option value="last14days">Last 14 Days</mat-option>
-					<mat-option value="last30days">Last 30 Days</mat-option>
-					<mat-option value="thismonth">This Month</mat-option>
-					<mat-option value="lastmonth">Last Month</mat-option>
-					<mat-option value="customrange" (click)="openCustomRange()">Custom Range</mat-option>
-				</mat-select>
-        <mat-date-range-input [rangePicker]="picker" [min]="minDate" [max]="maxDate" style="display: none">
-          <input matStartDate formControlName="start" (dateChange)="dateRangeChange()" />
-          <input matEndDate formControlName="end" (dateChange)="dateRangeChange()" />
-        </mat-date-range-input>
-        <mat-date-range-picker #picker></mat-date-range-picker>
-			</mat-form-field>
-			<h4 *ngIf="form.valid && form.value.range === 'customrange'">{{form.value.start | amDateFormat:'MMM Do YYYY' }} - {{form.value.end | amDateFormat:'MMM Do YYYY' }}</h4>
-		</form>
-		<mat-tab-group (selectedTabChange)="selectedTabChange($event)">
-			<mat-tab label="Languages">
-				<highcharts-chart *ngIf="chart.languages && chart.languages.series && chart.languages.series[0] && chart.languages.series[0]" [options]="chart.languages" [Highcharts]="Highcharts" [(update)]="updateFlag" [callbackFunction]="chartCallbackLang.bind(this)"></highcharts-chart>
-			</mat-tab>
-			<mat-tab label="Activity">
-				<highcharts-chart [options]="chart.activity" [Highcharts]="Highcharts" [(update)]="updateFlag" [callbackFunction]="chartCallbackAct.bind(this)"></highcharts-chart>
-			</mat-tab>
-			<mat-tab label="Editors">
-				<highcharts-chart [options]="chart.editors" [Highcharts]="Highcharts" [(update)]="updateFlag" [callbackFunction]="chartCallbackEditor.bind(this)"></highcharts-chart>
-			</mat-tab>
-		</mat-tab-group>
-	</mat-card-content>
-</mat-card>
+<div
+  id="skills"
+  animateOnScroll
+  class="card bg-base-100 shadow-xl mb-6 animated"
+  animationName="fadeInUp"
+>
+  <div class="card-body">
+    <h2 class="card-title text-3xl font-bold mb-6">My "Real-Time" Coding</h2>
+    <form [formGroup]="form" class="mb-6 text-center">
+      <p class="text-base-content/80 mb-4">
+        See exactly when & what my coding activity is using
+        <a href="https://wakatime.com/" class="link link-primary">WakaTime</a>.
+      </p>
+      <div class="form-control w-full max-w-xs mx-auto">
+        <select
+          #selector
+          formControlName="range"
+          (change)="selectionChange($event)"
+          class="select select-bordered"
+        >
+          <option value="yesterday">Yesterday</option>
+          <option value="last7days">Last 7 Days</option>
+          <option value="thisweek">This Week</option>
+          <option value="lastweek">Last Week</option>
+          <option value="last14days">Last 14 Days</option>
+          <option value="last30days">Last 30 Days</option>
+          <option value="thismonth">This Month</option>
+          <option value="lastmonth">Last Month</option>
+          <option value="customrange" (click)="openCustomRange()">
+            Custom Range
+          </option>
+        </select>
+      </div>
+      <div class="hidden">
+        <input
+          type="date"
+          formControlName="start"
+          (change)="dateRangeChange()"
+        />
+        <input type="date" formControlName="end" (change)="dateRangeChange()" />
+      </div>
+      <h4
+        *ngIf="form.valid && form.value.range === 'customrange'"
+        class="mt-4 text-lg font-medium"
+      >
+        {{ form.value.start | amDateFormat : "MMM Do YYYY" }} -
+        {{ form.value.end | amDateFormat : "MMM Do YYYY" }}
+      </h4>
+    </form>
+    <div class="tabs tabs-border">
+      <input
+        type="radio"
+        name="skills_tabs"
+        role="tab"
+        class="tab"
+        aria-label="Languages"
+        [checked]="selectedTabIndex === 0"
+        (change)="selectedTabChange({ index: 0 })"
+      />
+      <div role="tabpanel" class="tab-content p-6">
+        <div class="w-full max-w-full overflow-hidden">
+          <highcharts-chart
+            *ngIf="
+              chart.languages &&
+              chart.languages.series &&
+              chart.languages.series[0] &&
+              chart.languages.series[0]
+            "
+            [options]="chart.languages"
+            [Highcharts]="Highcharts"
+            [(update)]="updateFlag"
+            [callbackFunction]="chartCallbackLang.bind(this)"
+            class="w-full max-w-full"
+          >
+          </highcharts-chart>
+        </div>
+      </div>
+
+      <input
+        type="radio"
+        name="skills_tabs"
+        role="tab"
+        class="tab"
+        aria-label="Activity"
+        [checked]="selectedTabIndex === 1"
+        (change)="selectedTabChange({ index: 1 })"
+      />
+      <div role="tabpanel" class="tab-content p-6">
+        <div class="w-full max-w-full overflow-hidden">
+          <highcharts-chart
+            [options]="chart.activity"
+            [Highcharts]="Highcharts"
+            [(update)]="updateFlag"
+            [callbackFunction]="chartCallbackAct.bind(this)"
+            class="w-full max-w-full"
+          >
+          </highcharts-chart>
+        </div>
+      </div>
+
+      <input
+        type="radio"
+        name="skills_tabs"
+        role="tab"
+        class="tab"
+        aria-label="Editors"
+        [checked]="selectedTabIndex === 2"
+        (change)="selectedTabChange({ index: 2 })"
+      />
+      <div role="tabpanel" class="tab-content p-6">
+        <div class="w-full max-w-full overflow-hidden">
+          <highcharts-chart
+            [options]="chart.editors"
+            [Highcharts]="Highcharts"
+            [(update)]="updateFlag"
+            [callbackFunction]="chartCallbackEditor.bind(this)"
+            class="w-full max-w-full"
+          >
+          </highcharts-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

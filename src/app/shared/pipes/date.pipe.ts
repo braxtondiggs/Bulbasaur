@@ -26,7 +26,7 @@ export class DifferencePipe implements PipeTransform {
     value: dayjs.Dayjs,
     otherValue: dayjs.Dayjs,
     unit?: dayjs.QUnitType,
-    precision?: boolean,
+    precision?: boolean
   ): number {
     const date = dayjsConstructor(value);
     const date2 = otherValue !== null ? dayjsConstructor(otherValue) : dayjsConstructor();

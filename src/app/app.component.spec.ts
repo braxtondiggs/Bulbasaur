@@ -1,35 +1,30 @@
-import { Spectator, createComponentFactory } from '@ngneat/spectator/jest';
+import { Spectator, createComponentFactory, createSpyObject } from '@ngneat/spectator/jest';
 import { AppComponent } from './app.component';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { HeaderComponent } from './header/header.component';
 import { ProfileBoxComponent } from './profile-box/profile-box.component';
 import { SocialComponent } from './social';
-import { MatCardModule } from '@angular/material/card';
 import { ContentComponent, SkillsComponent, ContactComponent } from './content';
-import { MatDividerModule } from '@angular/material/divider';
 import { SkillPipe } from './shared/pipes/skill.pipe';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatListModule } from '@angular/material/list';
-import { MatGridListModule } from '@angular/material/grid-list';
 import { FooterComponent } from './footer/footer.component';
-import { MatSelectModule } from '@angular/material/select';
 import { HighchartsChartModule } from 'highcharts-angular';
-import { MatTabsModule } from '@angular/material/tabs';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { HttpClientModule } from '@angular/common/http';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatDialogModule } from '@angular/material/dialog';
+import { testNgIconsModule } from './shared/testing/test-utils';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { of } from 'rxjs';
 
 describe('AppComponent', () => {
   let spectator: Spectator<AppComponent>;
+
+  // Mock Firestore for Instagram component
+  const mockFireStore = createSpyObject(AngularFirestore);
+  mockFireStore.collection.andReturn({ valueChanges: jest.fn(() => of([])) });
+
   const createComponent = createComponentFactory({
     component: AppComponent,
     declarations: [
@@ -47,22 +42,13 @@ describe('AppComponent', () => {
       AngularFireModule.initializeApp(environment.firebase),
       HighchartsChartModule,
       HttpClientModule,
+      LazyLoadImageModule,
       LoadingBarModule,
-      MatCardModule,
-      MatDatepickerModule,
-      MatDialogModule,
-      MatDividerModule,
-      MatFormFieldModule,
-      MatGridListModule,
-      MatInputModule,
-      MatListModule,
-      MatNativeDateModule,
-      MatProgressBarModule,
-      MatProgressSpinnerModule,
-      MatSelectModule,
-      MatSnackBarModule,
-      MatTabsModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      testNgIconsModule
+    ],
+    providers: [
+      { provide: AngularFirestore, useValue: mockFireStore }
     ],
     shallow: true
   });
@@ -71,5 +57,27 @@ describe('AppComponent', () => {
 
   it('should create', () => {
     expect(spectator.component).toBeTruthy();
+  });
+
+  it('should have main layout structure', () => {
+    expect(spectator.query('.container')).toBeTruthy();
+    expect(spectator.query('app-header')).toBeTruthy();
+    expect(spectator.query('app-profile-box')).toBeTruthy();
+    expect(spectator.query('app-content')).toBeTruthy();
+    expect(spectator.query('app-side-nav')).toBeTruthy();
+  });
+
+  it('should contain all main components', () => {
+    // These components should be present in the app template
+    const expectedComponents = [
+      'app-header',
+      'app-side-nav',
+      'app-profile-box',
+      'app-content'
+    ];
+
+    expectedComponents.forEach(selector => {
+      expect(spectator.query(selector)).toBeTruthy();
+    });
   });
 });

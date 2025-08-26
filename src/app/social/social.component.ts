@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { SnapchatQRComponent } from './snapchatQR/snapchat-qr.component';
 import { GoogleAnalyticsService } from '../shared/services';
 
 @Component({

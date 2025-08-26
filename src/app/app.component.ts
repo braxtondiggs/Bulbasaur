@@ -1,7 +1,6 @@
-import { Component, HostListener, ViewEncapsulation } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Component, HostListener, ViewEncapsulation, OnInit } from '@angular/core';
 import { GoogleAnalyticsService } from './shared/services';
-import { ITrack } from './shared/model';
+import { themeChange } from 'theme-change';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -9,42 +8,56 @@ import { ITrack } from './shared/model';
   styleUrls: ['./app.component.scss'],
   templateUrl: './app.component.html'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   public scroll: number;
-  public track: ITrack;
-  public trackLink: SafeResourceUrl;
-  public duration: number;
-  constructor(public ga: GoogleAnalyticsService, private sanitizer: DomSanitizer) { }
+  constructor(public ga: GoogleAnalyticsService) { }
+
+  ngOnInit(): void {
+    this.initializeTheme();
+  }
 
   @HostListener('window:scroll', ['$event'])
   public onScroll(): void {
     this.scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
   }
 
-  /*ngOnInit() {
-   this.afs.collection('tracks', ref => ref.limit(1)).snapshotChanges(['added']).pipe(skip(1)).subscribe((snapshot) => {
-     this.track = snapshot[0].payload.doc.data() as any;
-     this.trackLink =
-       this.sanitizer.bypassSecurityTrustResourceUrl(`https://open.spotify.com/embed/track/${this.track.id}`);
-     this.initTrackFlow();
-   });
- }*/
-
   public isScroll(): boolean {
     return this.scroll > 55;
   }
 
-  /*private initTrackFlow() {
-    let x = 0;
-    setTimeout(() => {
-      this.track = null;
-      clearInterval(trackDuration);
-      this.duration = 0;
-      x = 0;
-    }, this.track.duration);
-    const trackDuration = setInterval(() => {
-      x++;
-      this.duration = (x / (this.track.duration / 250)) * 100;
-    }, 250);
-  }*/
+  public scrollToTop(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  private initializeTheme(): void {
+    // Initialize theme-change
+    themeChange(false);
+
+    // Check for saved theme preference or default to system preference
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    let initialTheme = 'light';
+    if (savedTheme) {
+      initialTheme = savedTheme;
+    } else if (systemPrefersDark) {
+      initialTheme = 'dark';
+    }
+
+    // Apply the initial theme to both html and body for better DaisyUI support
+    document.documentElement.setAttribute('data-theme', initialTheme);
+    document.body.setAttribute('data-theme', initialTheme);
+    localStorage.setItem('theme', initialTheme);
+
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      // Only auto-switch if user hasn't manually set a theme
+      if (!localStorage.getItem('theme-manual')) {
+        const newTheme = e.matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        document.body.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+      }
+    });
+  }
 }

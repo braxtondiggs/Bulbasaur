@@ -1,20 +1,37 @@
-<ngx-loading-bar></ngx-loading-bar>
-<app-header fxHide.lt-md></app-header>
-<div class="container" fxLayout="row" fxLayout.lt-md="column" [ngClass]="{'show-track': track}">
-	<app-profile-box [ngClass]="{'side-scroll': isScroll()}" fxFlex="290px" fxFlex.lt-md="100%" fxFlexOrder.lt-md="1"></app-profile-box>
-	<app-content fxFlex.lt-md="100%" fxFlexOrder.lt-md="2"></app-content>
-	<app-side-nav [ngClass]="{'side-scroll': isScroll()}" fxFlex="56px" fxFlex.lt-md="100%" fxFlexOrder.lt-md="0"></app-side-nav>
+<ngx-loading-bar />
+<app-header />
+<div
+  class="container flex flex-col lg:flex-row mx-auto px-5 lg:max-w-[1196px] md:px-0 gap-8 md:mt-10"
+  [class.mb-[75px]]="isScroll()"
+  [ngClass]="{ 'side-scroll': isScroll() }"
+>
+  <app-profile-box />
+  <app-content />
+  <app-side-nav />
 </div>
-<svg id="crtBgShape1" height="519" width="758"><polygon class="pol" points="0,455,693,352,173,0,92,0,0,71"></polygon> </svg>
-<svg id="crtBgShape2" height="536" width="633"> <polygon points="0,0,633,0,633,536"></polygon> </svg>
-<button class="top-fab" (click)="ga.eventEmitter('nav', 'top')" [ngClass]="{'show-track': track}" matTooltip="Back to Top" matTooltipPosition="before" pageScrollTarget="body" defaultScrollOffset="0" [hidden]="!isScroll()" pageScroll mat-fab>
-	<mat-icon aria-label="Back to Top" svgIcon="chevron-double-up"></mat-icon>
+<svg
+  id="crtBgShape1"
+  height="519"
+  width="758"
+  class="fixed top-0 left-0 z-[-1]"
+>
+  <polygon class="pol fill-[#e1e1e1]" points="0,455,693,352,173,0,92,0,0,71" />
+</svg>
+<svg
+  id="crtBgShape2"
+  height="536"
+  width="633"
+  class="fixed top-[-100px] right-[-100px] z-[-1]"
+>
+  <polygon class="fill-[#c0e3e7]" points="0,0,633,0,633,536" />
+</svg>
+<button
+  type="button"
+  class="btn btn-primary btn-circle btn-lg fixed bottom-6 right-6 z-10 transition-all duration-300"
+  [class.opacity-0]="!isScroll()"
+  [class.pointer-events-none]="!isScroll()"
+  (click)="ga.eventEmitter('nav', 'top'); scrollToTop()"
+  title="Back to Top"
+>
+  <ng-icon name="featherChevronsUp" size="1.5rem"></ng-icon>
 </button>
-<div class="music-footer animated" [ngClass]="{'fadeInUp': track}">
-	<div class="container" fxLayout="row" *ngIf="track">
-    <iframe [src]="trackLink" allow="encrypted-media" fxFlexFill></iframe>
-	</div>
-	<div class="container">
-		<mat-progress-bar color="accent" mode="determinate" [value]="duration"></mat-progress-bar>
-	</div>
-</div>

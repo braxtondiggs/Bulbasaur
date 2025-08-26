@@ -1,3 +1,28 @@
 <div class="container">
-	<h1 class="header-title"><span class="logo"></span>Braxton Diggs</h1>
+  <div class="dropdown dropdown-end absolute right-3 top-3">
+    <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+        <path
+          d="M12 18c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM7.5 12c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM12 9c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM16.5 12c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"
+        />
+      </svg>
+    </div>
+    <ul
+      tabindex="0"
+      class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-32"
+    >
+      <li>
+        <button (click)="setTheme('light')">Light</button>
+      </li>
+      <li>
+        <button (click)="setTheme('dark')">Dark</button>
+      </li>
+      <li>
+        <button (click)="setTheme('cyberpunk')">Cyberpunk</button>
+      </li>
+      <li>
+        <button (click)="setTheme('synthwave')">Synthwave</button>
+      </li>
+    </ul>
+  </div>
 </div>

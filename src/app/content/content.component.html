@@ -1,100 +1,259 @@
-<mat-card id="about" animateOnScroll class="animated" animationName="fadeInUp">
-	<mat-card-content>
-		<h2 class="title-lg">Hello, I'm Braxton</h2>
-		<p>I am a talented Freelance Web & Mobile App Developer based in Brooklyn, New York, specializing in User Interface/Experience and Application Development. I build clean, appealing, and functional interfaces which comply with the latest and greatest
-			web standards.</p>
-		<mat-divider></mat-divider>
-		<div fxLayout="row" fxLayout.lt-sm="column">
-			<div class="skills-container-1" fxFlex>
-				<h2 class="title">professional skills</h2>
-				<div *ngIf="!loadingSkills">
-					<div *ngFor="let skill of skills[0]" class="skills">
-						<div fxLayout="row">
-							<div class="name" fxFlex>{{skill.name}}</div>
-							<div>{{skill.value | skill}}%</div>
-						</div>
-						<mat-progress-bar mode="determinate" [value]="skill.value | skill"></mat-progress-bar>
-					</div>
-				</div>
-				<mat-spinner *ngIf="loadingSkills"></mat-spinner>
-			</div>
-			<div class="skills-container-2" fxFlex>
-				<h2 class="title">additional skills</h2>
-				<div fxLayout="row" *ngIf="!loadingSkills">
-					<div *ngFor="let skill of skills[1]" class="skills" fxLayout="column" fxFlex>
-						<div class="skill-spinner">
-							<mat-progress-spinner mode="determinate" [value]="skill.value | skill"></mat-progress-spinner>
-							<div>{{skill.value | skill}}%</div>
-						</div>
-						<div class="name" fxFlex>{{skill.name}}</div>
-					</div>
-				</div>
-				<mat-spinner *ngIf="loadingSkills"></mat-spinner>
-			</div>
-		</div>
-		<mat-divider></mat-divider>
-		<h2 class="title-lg" style="margin-bottom: 20px;">
-      Things I&nbsp;<mat-icon aria-hidden="false" aria-label="Heart" fontSet="linearicons" fontIcon="icon-heart" class="icon-heart"></mat-icon>
+<div
+  id="about"
+  animateOnScroll
+  class="card bg-base-100 shadow-xl mb-6 animated"
+  animationName="fadeInUp"
+>
+  <div class="card-body">
+    <h2 class="card-title text-4xl font-bold mb-4">Hello, I'm Braxton</h2>
+    <p class="text-base-content/80 mb-6 text-lg">
+      I am a talented Freelance Web & Mobile App Developer based in Brooklyn,
+      New York, specializing in User Interface/Experience and Application
+      Development. I build clean, appealing, and functional interfaces which
+      comply with the latest and greatest web standards.
+    </p>
+    <div class="divider"></div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="skills-container-1">
+        <h2 class="text-xl font-semibold mb-8 uppercase">
+          professional skills
+        </h2>
+        <div *ngIf="!loadingSkills" class="space-y-4">
+          <div *ngFor="let skill of skills[0]" class="skills">
+            <div class="flex justify-between mb-1">
+              <div class="name font-semibold">{{ skill.name }}</div>
+              <div class="text-sm">{{ skill.value | skill }}%</div>
+            </div>
+            <progress
+              class="progress progress-secondary"
+              [value]="skill.value | skill"
+              max="100"
+            ></progress>
+          </div>
+        </div>
+        <div *ngIf="loadingSkills" class="flex justify-center">
+          <span
+            class="loading loading-spinner loading-xl text-secondary"
+          ></span>
+        </div>
+      </div>
+      <div class="skills-container-2">
+        <h2 class="text-xl font-semibold mb-8 uppercase">additional skills</h2>
+        <div class="grid grid-cols-3" *ngIf="!loadingSkills">
+          <div *ngFor="let skill of skills[1]" class="skills text-center">
+            <div
+              class="radial-progress text-secondary"
+              style="--value:{{ skill.value | skill }}; --size:6rem;"
+              role="progressbar"
+            >
+              <span class="text-base-content">{{ skill.value | skill }}%</span>
+            </div>
+            <div class="name text-sm font-semibold mt-2">{{ skill.name }}</div>
+          </div>
+        </div>
+        <div *ngIf="loadingSkills" class="flex justify-center">
+          <span
+            class="loading loading-spinner loading-xl text-secondary"
+          ></span>
+        </div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <h2 class="text-3xl font-bold mb-5 flex items-center gap-2">
+      Things I&nbsp;<ng-icon name="featherHeart" class="text-red-500" />
     </h2>
-		<div fxLayout="row" fxLayout.xs="column" class="my-likes" [ngClass]="{'closed': !toggleLikes}">
-			<mat-list *ngFor="let items of likes" fxFlex>
-				<mat-list-item *ngFor="let item of items">
-					<mat-icon fontSet="linearicons" fontIcon="{{item.icon}}" mat-list-icon></mat-icon>
-					<h4 mat-line>{{item.title}}</h4>
-				</mat-list-item>
-			</mat-list>
-		</div>
-		<div class="view-more">
-			<button (click)="toggleLikes = !toggleLikes; ga.eventEmitter('likes', toggleLikes ? 'less' : 'more')" mat-button>View {{toggleLikes? 'Less' : 'More'}}</button>
-		</div>
-	</mat-card-content>
-</mat-card>
-<mat-card id="experience" animateOnScroll class="animated" animationName="fadeInUp">
-	<mat-card-content>
-		<h2 class="title-lg">Work Experience</h2>
-		<ul class="timeline">
-			<li *ngFor="let company of employment; let isOdd=odd;" [class.timeline-inverted]="isOdd">
-				<div class="timeline-circ"></div>
-				<div class="timeline-entry">
-					<div class="card">
-						<div class="card-body" fxLayout="row">
-							<div fxFlex="75px"><img [lazyLoad]="company.image.icon" class="avatar" alt="{{company.name}}" /></div>
-							<div fxFlex>
-								<h3>{{company.position}}</h3>
-								<h4>{{company.name}} ({{company.location}})</h4>
-								<h5>
-									<span class="start-date">{{company.date.start | amParse:'YYYY-MM-DD' | amDateFormat:'MMM YYYY'}}</span> &#8211; <span class="end-date" *ngIf="company.date.end">{{company.date.end | amParse:'YYYY-MM-DD' | amDateFormat:'MMM YYYY'}}</span> <span class="difference-date" *ngIf="company.date.end"> ({{getYears(company.date.end | amDifference: company.date.start: 'years')}})</span><span *ngIf="!company.date.end">Present</span>
-								</h5>
-							</div>
-						</div>
-					</div>
-				</div>
-			</li>
-		</ul>
-	</mat-card-content>
-	<mat-card-footer>
-		<a color="primary" class="download-resume" href="assets/resume/braxton-diggs.pdf" (click)="ga.eventEmitter('experience', 'resume')" target="_blank" mat-raised-button><mat-icon aria-label="Share" svgIcon="download"></mat-icon>&nbsp;Download Resume</a>
-	</mat-card-footer>
-</mat-card>
-<app-skills></app-skills>
-<mat-card id="portfolio" animateOnScroll class="animated" animationName="fadeInUp">
-	<mat-card-content>
-		<h2 class="title-lg">Working Projects</h2>
-		<mat-grid-list cols="2">
-			<span *ngFor="let project of projects">
-				<mat-grid-tile *ngIf="project.status" [rowspan]="project.mobile?2:1" (click)="openProject(project); ga.eventEmitter('projects', 'more', project.title)">
-					<img [lazyLoad]="project.image.screenshot" alt="{{project.title}}" />
-					<div class="caption">
-						<div class="container">
-							<h3>{{project.title}}</h3>
-							<p>{{project.summary}}</p>
-							<button color="primary" mat-raised-button>View More</button>
-						</div>
-					</div>
-				</mat-grid-tile>
-			</span>
-		</mat-grid-list>
-	</mat-card-content>
-</mat-card>
-<app-contact id="contact"></app-contact>
-<app-footer></app-footer>
+    <div class="grid grid-cols-1 sm:grid-cols-2 mb-4">
+      <div
+        *ngFor="let like of likes"
+        class="flex flex-row mb-4 gap-3 items-center"
+      >
+        <ng-icon [name]="like.icon"></ng-icon>
+        <h4 class="text-md sm:text-lg font-medium whitespace-nowrap">
+          {{ like.title }}
+        </h4>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  id="experience"
+  animateOnScroll
+  class="card bg-base-100 shadow-xl mb-6 animated"
+  animationName="fadeInUp"
+>
+  <div class="card-body">
+    <h2 class="card-title text-3xl font-bold mb-6">Work Experience</h2>
+    
+    <!-- Mobile Layout: Full width cards without timeline -->
+    <div class="block md:hidden space-y-4">
+      <div *ngFor="let company of employment" class="card bg-base-200 shadow-md">
+        <div class="card-body">
+          <div class="flex flex-row gap-2 justify-center">
+            <div class="avatar w-20">
+              <div class="rounded-full my-auto">
+                <img
+                  [lazyLoad]="company.image.icon"
+                  alt="{{ company.name }}"
+                  class="!h-auto"
+                />
+              </div>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold text-secondary">
+                {{ company.position }}
+              </h3>
+              <h4 class="text-base font-medium">
+                {{ company.name }} ({{ company.location }})
+              </h4>
+              <h5 class="text-sm text-base-content/70">
+                <span class="start-date">{{
+                  company.date.start
+                    | amParse : "YYYY-MM-DD"
+                    | amDateFormat : "MMM YYYY"
+                }}</span>
+                &#8211;
+                <span class="end-date" *ngIf="company.date.end">{{
+                  company.date.end
+                    | amParse : "YYYY-MM-DD"
+                    | amDateFormat : "MMM YYYY"
+                }}</span>
+                <span class="difference-date" *ngIf="company.date.end">
+                  ({{
+                    getYears(
+                      company.date.end
+                        | amDifference : company.date.start : "years"
+                    )
+                  }})</span
+                >
+                <span *ngIf="!company.date.end">Present</span>
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Desktop Layout: Timeline -->
+    <ul class="timeline timeline-vertical hidden md:block">
+      <li *ngFor="let company of employment; let isOdd = odd">
+        <hr />
+        <div class="timeline-start" [class.md:timeline-end]="isOdd"></div>
+        <div class="timeline-middle">
+          <div
+            class="w-5 h-5 bg-neutral border-white border-4 rounded-full shadow-md text-white text-center leading-5"
+          ></div>
+        </div>
+        <div
+          class="timeline-end timeline-box"
+          [class.md:timeline-start]="isOdd"
+        >
+          <div class="flex flex-row gap-2 justify-center">
+            <div class="avatar w-20">
+              <div class="rounded-full my-auto">
+                <img
+                  [lazyLoad]="company.image.icon"
+                  alt="{{ company.name }}"
+                  class="!h-auto"
+                />
+              </div>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold text-secondary">
+                {{ company.position }}
+              </h3>
+              <h4 class="text-base font-medium">
+                {{ company.name }} ({{ company.location }})
+              </h4>
+              <h5 class="text-sm text-base-content/70">
+                <span class="start-date">{{
+                  company.date.start
+                    | amParse : "YYYY-MM-DD"
+                    | amDateFormat : "MMM YYYY"
+                }}</span>
+                &#8211;
+                <span class="end-date" *ngIf="company.date.end">{{
+                  company.date.end
+                    | amParse : "YYYY-MM-DD"
+                    | amDateFormat : "MMM YYYY"
+                }}</span>
+                <span class="difference-date" *ngIf="company.date.end">
+                  ({{
+                    getYears(
+                      company.date.end
+                        | amDifference : company.date.start : "years"
+                    )
+                  }})</span
+                >
+                <span *ngIf="!company.date.end">Present</span>
+              </h5>
+            </div>
+          </div>
+        </div>
+        <hr />
+      </li>
+    </ul>
+  </div>
+  <div class="card-actions justify-center p-6 pt-0">
+    <a
+      class="btn btn-lg btn-primary"
+      href="assets/resume/braxton-diggs.pdf"
+      (click)="ga.eventEmitter('experience', 'resume')"
+      target="_blank"
+    >
+      <ng-icon name="featherDownload" class="mr-2" size="1.5rem"></ng-icon>
+      Download Resume
+    </a>
+  </div>
+</div>
+<app-skills />
+<div
+  id="portfolio"
+  animateOnScroll
+  class="card bg-base-100 shadow-xl mb-6 animated"
+  animationName="fadeInUp"
+>
+  <div class="card-body">
+    <h2 class="card-title text-3xl font-bold mb-6">Working Projects</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 auto-rows-fr">
+      <div
+        *ngFor="let project of projects"
+        class="flex"
+        [class.hidden]="!project.status"
+      >
+        <div
+          class="card bg-base-200 shadow-md hover:shadow-lg transition-shadow cursor-pointer group overflow-hidden flex-1"
+          (click)="
+            openProject(project);
+            ga.eventEmitter('projects', 'more', project.title)
+          "
+        >
+          <figure class="relative overflow-hidden">
+            <img
+              [lazyLoad]="project.image.screenshot"
+              alt="{{ project.title }}"
+              class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+            <div
+              class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-300 flex items-center justify-center"
+            >
+              <div
+                class="text-white text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              >
+                <h3 class="text-xl font-bold mb-2">{{ project.title }}</h3>
+                <p class="text-sm mb-4 px-4">{{ project.summary }}</p>
+                <button type="button" class="btn btn-primary">View More</button>
+              </div>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-contact />
+<app-footer />
+<app-project
+  [project]="selectedProject"
+  [isVisible]="showProjectModal"
+  (closeModal)="closeProject()"
+/>

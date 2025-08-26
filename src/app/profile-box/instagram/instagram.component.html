@@ -1,13 +1,30 @@
-<div class="instagram" *ngIf="(instagram$ | async) as instagram; else loading">
-	<h2 class="title">
-		<mat-icon aria-label="Instagram" svgIcon="instagram"></mat-icon>&nbsp;Instagram
-	</h2>
-	<div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutAlign.xs="start center">
-		<a [href]="item.Url" *ngFor="let item of instagram" fxFlex="calc(50% - 4px)" target="_blank" rel="noopener" matRipple>
-			<img [lazyLoad]="item.SourceUrl" [alt]="item.Caption" matTooltipPosition="before" [matTooltip]="item.Caption" />
-		</a>
-	</div>
+<div
+  class="instagram p-4"
+  *ngIf="instagram$ | async as instagram; else loading"
+>
+  <h2 class="title flex items-center text-xl font-semibold mb-4">
+    <ng-icon name="featherInstagram" size="1.5rem" class="mr-2" />
+    Instagram
+  </h2>
+  <div class="grid grid-cols-2 gap-1 sm:gap-2">
+    <a
+      [href]="item.Url"
+      *ngFor="let item of instagram"
+      target="_blank"
+      rel="noopener"
+      class="block aspect-square overflow-hidden rounded-lg hover:opacity-80 transition-opacity"
+      [title]="item.Caption"
+    >
+      <img
+        [lazyLoad]="item.SourceUrl"
+        [alt]="item.Caption"
+        class="w-full h-full object-cover"
+      />
+    </a>
+  </div>
 </div>
 <ng-template #loading>
-	<mat-spinner class="loading"></mat-spinner>
+  <div class="p-4 flex justify-center">
+    <span class="loading loading-spinner loading-md"></span>
+  </div>
 </ng-template>

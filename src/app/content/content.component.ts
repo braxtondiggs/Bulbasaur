@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { MatDialog } from '@angular/material/dialog';
-import { ProjectComponent } from './project/project.component';
 import { GoogleAnalyticsService } from '../shared/services';
 import { chunk, floor, map, merge, orderBy, reject, slice, sumBy } from 'lodash-es';
 import dayjs from 'dayjs';
@@ -18,11 +16,13 @@ export class ContentComponent implements OnInit {
   employment: any;
   projects: any;
   skills: any;
-  constructor(protected http: HttpClient, protected dialog: MatDialog, public ga: GoogleAnalyticsService) { }
+  selectedProject: any = null;
+  showProjectModal = false;
+  constructor(protected http: HttpClient, public ga: GoogleAnalyticsService) { }
 
   public ngOnInit() {
     this.http.get('assets/data.json').subscribe((data: any) => {
-      this.likes = chunk(data.likes, 5);
+      this.likes = data.likes;
       this.employment = map(data.employment, (o: any) => merge(o, {
         date: {
           end: o.date.end ? dayjs(o.date.end, 'YYYY-MM-DD').format() : null,
@@ -40,11 +40,13 @@ export class ContentComponent implements OnInit {
   }
 
   public openProject(project: any) {
-    this.dialog.open(ProjectComponent, {
-      autoFocus: false,
-      data: project,
-      panelClass: 'project-component'
-    });
+    this.selectedProject = project;
+    this.showProjectModal = true;
+  }
+
+  public closeProject() {
+    this.showProjectModal = false;
+    this.selectedProject = null;
   }
 
   public getYears(time: number): string {

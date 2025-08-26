@@ -39,10 +39,10 @@
             ],
             "allowedCommonJsDependencies": [
               "highcharts",
-              "dayjs"
+              "dayjs",
+              "theme-change"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/scss/styles.scss"
             ],
             "scripts": [],

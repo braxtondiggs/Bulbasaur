@@ -1,18 +1,14 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { MatDatepicker } from '@angular/material/datepicker';
-import { MatSelectChange, MatSelect } from '@angular/material/select';
-import { MatTabChangeEvent } from '@angular/material/tabs';
 import { GoogleAnalyticsService } from '../../shared/services';
-import { ceil, floor, isUndefined, map, reduce, reject, toLower } from 'lodash-es';
+import { ceil, floor, isUndefined, map, reduce, reject } from 'lodash-es';
 import * as Highcharts from 'highcharts';
 import dayjs from 'dayjs';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
   selector: 'app-skills',
-  styleUrls: ['./skills.component.scss'],
   templateUrl: './skills.component.html'
 })
 export class SkillsComponent implements OnInit {
@@ -22,6 +18,7 @@ export class SkillsComponent implements OnInit {
   public chart: { languages: Highcharts.Options, activity: Highcharts.Options, editors: Highcharts.Options } = { languages: {}, activity: {}, editors: {} };
   public skills: any;
   public chartName = 'languages';
+  public selectedTabIndex = 0;
   public minDate = dayjs('2016-06-22', 'YYYY-MM-DD').format();
   public maxDate = dayjs().subtract(1, 'days').format();
   public form = new UntypedFormGroup({
@@ -30,8 +27,8 @@ export class SkillsComponent implements OnInit {
     end: new UntypedFormControl(null, [Validators.required])
   });
   private chartRef: any = { languages: {}, editors: {}, activity: {} };
-  @ViewChild('selector') selector: MatSelect;
-  @ViewChild('picker') datePicker: MatDatepicker<Date>;
+  @ViewChild('selector') selector: any;
+  @ViewChild('picker') datePicker: any;
   constructor(protected http: HttpClient, private ga: GoogleAnalyticsService) { }
 
   public ngOnInit() {
@@ -39,17 +36,20 @@ export class SkillsComponent implements OnInit {
     this.getSkills();
   }
 
-  public selectionChange(selection: MatSelectChange): void {
-    if (selection.value !== 'customrange') {
-      this.getSkills(selection.value);
-      this.ga.eventEmitter('skills', 'select', selection.value);
+  public selectionChange(selection: any): void {
+    const value = selection.target ? selection.target.value : selection.value;
+    if (value !== 'customrange') {
+      this.getSkills(value);
+      this.ga.eventEmitter('skills', 'select', value);
     }
   }
 
-  public selectedTabChange(selection: MatTabChangeEvent): void {
-    this.chartName = toLower(selection.tab.textLabel);
+  public selectedTabChange(selection: any): void {
+    this.selectedTabIndex = selection.index;
+    const tabLabels = ['languages', 'activity', 'editors'];
+    this.chartName = tabLabels[selection.index];
     this.updateSeries();
-    this.ga.eventEmitter('skills', 'tab', selection.tab.textLabel);
+    this.ga.eventEmitter('skills', 'tab', this.chartName);
   }
 
   public dateRangeChange(): void {
@@ -140,7 +140,6 @@ export class SkillsComponent implements OnInit {
         },
         tooltip: {
           pointFormatter() {
-            // tslint:disable-next-line: one-variable-per-declaration
             const time = this.y * 3600,
               hrs = floor(time / 3600),
               mins = floor((time % 3600) / 60);

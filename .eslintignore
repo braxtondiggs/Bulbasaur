@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+tmp/
+out-tsc/
+
+# Test coverage
+coverage/
+
+# IDE
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Configuration files
+*.js
+!.eslintrc.js
+!jest.config.js
+!karma.conf.js
+!protractor.conf.js
+
+# Generated files
+src/setupJest.ts
+src/jest.resolver.js
+
+# Firebase
+.firebaserc
+
+# Cypress
+cypress/downloads/
+cypress/screenshots/
+cypress/videos/

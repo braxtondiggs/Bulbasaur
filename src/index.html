@@ -1,44 +1,193 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Performance hints -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://braxtondiggs.com" />
 
-  <!-- Primary Meta Tags -->
-  <title>Online Portfolio &raquo; Braxton Diggs</title>
-  <meta name="title" content="Online Portfolio » Braxton Diggs">
-  <meta name="apple-mobile-web-app-title" content="Online Portfolio » Braxton Diggs">
-  <meta name="application-name" content="Online Portfolio » Braxton Diggs">
-  <meta name="description" content="Hello, I'm Braxton I am a talanted Freelance Web &amp; Mobile App Developer based in Brooklyn, New York, specializing in User Interface/Experience and Application Development. I build clean, appealing, and functional interfaces which comply with the latest and greatest web standards.">
+    <!-- Primary Meta Tags -->
+    <title>Online Portfolio &raquo; Braxton Diggs</title>
+    <meta name="title" content="Online Portfolio » Braxton Diggs" />
+    <meta
+      name="apple-mobile-web-app-title"
+      content="Online Portfolio » Braxton Diggs"
+    />
+    <meta name="application-name" content="Online Portfolio » Braxton Diggs" />
+    <meta
+      name="description"
+      content="Hello, I'm Braxton, a talented Freelance Web &amp; Mobile App Developer based in Brooklyn, New York, specializing in User Interface/Experience and Application Development. I build clean, appealing, and functional interfaces which comply with the latest web standards."
+    />
+    <meta name="author" content="Braxton Diggs" />
+    <meta
+      name="keywords"
+      content="web developer, mobile app developer, UI/UX designer, freelance developer, Brooklyn, New York, Angular, React, JavaScript, TypeScript"
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://braxtondiggs.com/" />
 
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://braxtondiggs.com/">
-  <meta property="og:title" content="Online Portfolio » Braxton Diggs">
-  <meta property="og:description" content="Hello, I'm Braxton I am a talanted Freelance Web &amp; Mobile App Developer based in Brooklyn, New York, specializing in User Interface/Experience and Application Development. I build clean, appealing, and functional interfaces which comply with the latest and greatest web standards.">
-  <meta property="og:image" content="https://braxtondiggs.com/assets/braxton/profile.png">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://braxtondiggs.com/" />
+    <meta property="og:title" content="Online Portfolio » Braxton Diggs" />
+    <meta
+      property="og:description"
+      content="Hello, I'm Braxton, a talented Freelance Web &amp; Mobile App Developer based in Brooklyn, New York, specializing in User Interface/Experience and Application Development. I build clean, appealing, and functional interfaces which comply with the latest web standards."
+    />
+    <meta property="og:site_name" content="Braxton Diggs Portfolio" />
+    <meta property="og:locale" content="en_US" />
+    <meta
+      property="og:image"
+      content="https://braxtondiggs.com/assets/braxton/profile.png"
+    />
 
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://braxtondiggs.com/">
-  <meta property="twitter:title" content="Online Portfolio » Braxton Diggs">
-  <meta property="twitter:description" content="Hello, I'm Braxton I am a talanted Freelance Web &amp; Mobile App Developer based in Brooklyn, New York, specializing in User Interface/Experience and Application Development. I build clean, appealing, and functional interfaces which comply with the latest and greatest web standards.">
-  <meta property="twitter:image" content="https://braxtondiggs.com/assets/braxton/profile.png">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://braxtondiggs.com/" />
+    <meta property="twitter:title" content="Online Portfolio » Braxton Diggs" />
+    <meta
+      property="twitter:description"
+      content="Hello, I'm Braxton, a talented Freelance Web &amp; Mobile App Developer based in Brooklyn, New York, specializing in User Interface/Experience and Application Development. I build clean, appealing, and functional interfaces which comply with the latest web standards."
+    />
+    <meta property="twitter:creator" content="@braxtondiggs" />
+    <meta property="twitter:site" content="@braxtondiggs" />
+    <meta
+      property="twitter:image"
+      content="https://braxtondiggs.com/assets/braxton/profile.png"
+    />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-  <link rel="manifest" href="manifest.webmanifest">
-  <meta name="theme-color" content="#c0e3e7">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="msapplication-TileColor" content="#c0e3e7"
-</head>
-<body class="mat-typography">
-  <app-root></app-root>
-  <noscript>Your browser does not support JavaScript!</noscript>
-</body>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+
+    <!-- Security headers -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' https:;"
+    />
+    <meta
+      http-equiv="Referrer-Policy"
+      content="strict-origin-when-cross-origin"
+    />
+
+    <!-- Favicon and app icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    <!-- PWA and app configuration -->
+    <link rel="manifest" href="manifest.webmanifest" />
+    <meta name="theme-color" content="#c0e3e7" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="msapplication-TileColor" content="#c0e3e7" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+
+    <!-- Structured data for SEO -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Braxton Diggs",
+        "jobTitle": "Freelance Web & Mobile App Developer",
+        "description": "Talented Freelance Web & Mobile App Developer specializing in UI/UX and Application Development",
+        "url": "https://braxtondiggs.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Brooklyn",
+          "addressRegion": "NY",
+          "addressCountry": "US"
+        },
+        "sameAs": [
+          "https://github.com/braxtondiggs",
+          "https://linkedin.com/in/braxtondiggs",
+          "https://twitter.com/braxtondiggs"
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <!-- Loading indicator for better UX -->
+    <div
+      id="initial-loader"
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #fafafa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      "
+    >
+      <div
+        style="
+          width: 40px;
+          height: 40px;
+          border: 4px solid #c0e3e7;
+          border-top: 4px solid transparent;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+        "
+      ></div>
+      <style>
+        @keyframes spin {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+      </style>
+    </div>
+
+    <!-- Main application root -->
+    <app-root></app-root>
+
+    <!-- Fallback for non-JavaScript users -->
+    <noscript>
+      <div
+        style="
+          text-align: center;
+          padding: 2rem;
+          font-family: system-ui, -apple-system, sans-serif;
+        "
+      >
+        <h1>JavaScript Required</h1>
+        <p>
+          This website requires JavaScript to function properly. Please enable
+          JavaScript in your browser settings and reload the page.
+        </p>
+        <p>
+          If you continue to have issues, please contact
+          <a href="mailto:hello@braxtondiggs.com">hello@braxtondiggs.com</a>
+        </p>
+      </div>
+    </noscript>
+
+    <!-- Remove initial loader once app loads -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(function () {
+          const loader = document.getElementById("initial-loader");
+          if (loader) {
+            loader.style.opacity = "0";
+            loader.style.transition = "opacity 0.3s ease";
+            setTimeout(() => loader.remove(), 300);
+          }
+        }, 1000);
+      });
+    </script>
+  </body>
 </html>

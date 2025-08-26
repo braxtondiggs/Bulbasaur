@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-instagram',
-  styleUrls: ['./instagram.component.scss'],
   templateUrl: './instagram.component.html'
 })
 export class InstagramComponent implements OnInit {

@@ -1,20 +1,53 @@
-<div fxLayout="column" fxLayout.lt-md="row" fxLayoutAlign.lt-md="center" fxLayoutGap="20px">
-	<button matTooltip="About Me" (click)="ga.eventEmitter('nav', 'about')" matTooltipPosition="before" aria-label="About" href="#about" mat-icon-button pageScroll>
-		<img lazyLoad="assets/braxton/profile.png" class="avatar" alt="Braxton Diggs" />
-	</button>
-	<button matTooltip="Experience" (click)="ga.eventEmitter('nav', 'experience')" matTooltipPosition="before" aria-label="Experience" href="#experience" mat-icon-button pageScroll>
-    <mat-icon aria-label="Experience" svgIcon="briefcase-outline"></mat-icon>
-	</button>
-	<button matTooltip="Skills" (click)="ga.eventEmitter('nav', 'skills')" matTooltipPosition="before" aria-label="Skills" href="#skills" mat-icon-button pageScroll>
-    <mat-icon aria-label="Skills" svgIcon="chart-line"></mat-icon>
-	</button>
-	<button matTooltip="Portfolio" (click)="ga.eventEmitter('nav', 'portfolio')" matTooltipPosition="before" aria-label="Portfolio" href="#portfolio" mat-icon-button pageScroll>
-    <mat-icon aria-label="Portfolio" svgIcon="xml"></mat-icon>
-	</button>
-	<!--<button matTooltip="My Music" (click)="ga.eventEmitter('nav', 'music')" matTooltipPosition="before" aria-label="Music" href="#music" mat-icon-button pageScroll>
-    <mat-icon aria-label="My Music" svgIcon="music-box-outline"></mat-icon>
-	</button>-->
-	<button matTooltip="Contact" (click)="ga.eventEmitter('nav', 'contact')" matTooltipPosition="before" aria-label="Contact" href="#contact" mat-icon-button pageScroll>
-    <mat-icon aria-label="Contact" svgIcon="email-outline"></mat-icon>
-	</button>
+<div class="flex flex-row lg:flex-col gap-5">
+  <button
+    type="button"
+    class="btn btn-ghost btn-circle tooltip tooltip-left"
+    data-tip="About Me"
+    (click)="ga.eventEmitter('nav', 'about'); scrollToSection('about')"
+    aria-label="About"
+  >
+    <img
+      lazyLoad="assets/braxton/profile.png"
+      class="w-8 h-8 rounded-full"
+      alt="Braxton Diggs"
+    />
+  </button>
+  <button
+    type="button"
+    class="btn btn-ghost btn-circle tooltip tooltip-left"
+    data-tip="Experience"
+    (click)="
+      ga.eventEmitter('nav', 'experience'); scrollToSection('experience')
+    "
+    aria-label="Experience"
+  >
+    <ng-icon name="featherBriefcase" size="1.5rem"></ng-icon>
+  </button>
+  <button
+    type="button"
+    class="btn btn-ghost btn-circle tooltip tooltip-left"
+    data-tip="Skills"
+    (click)="ga.eventEmitter('nav', 'skills'); scrollToSection('skills')"
+    aria-label="Skills"
+  >
+    <ng-icon name="featherActivity" size="1.5rem"></ng-icon>
+  </button>
+  <button
+    type="button"
+    class="btn btn-ghost btn-circle tooltip tooltip-left"
+    data-tip="Portfolio"
+    (click)="ga.eventEmitter('nav', 'portfolio'); scrollToSection('portfolio')"
+    aria-label="Portfolio"
+  >
+    <ng-icon name="featherCode" size="1.5rem"></ng-icon>
+  </button>
+  <button
+    type="button"
+    class="btn btn-ghost btn-circle tooltip tooltip-left"
+    data-tip="Contact"
+    (click)="ga.eventEmitter('nav', 'contact'); scrollToSection('contact')"
+    aria-label="Contact"
+  >
+    <ng-icon name="featherMail" size="1.5rem"></ng-icon>
+  </button>
 </div>
