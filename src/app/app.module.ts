@@ -1,27 +1,16 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore/';
-import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
-import { HighchartsChartModule } from 'highcharts-angular';
 import { NgModule } from '@angular/core';
-import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { ProfileBoxComponent } from './profile-box/profile-box.component';
-import { SideNavComponent } from './side-nav/side-nav.component';
-import { FooterComponent } from './footer/footer.component';
-import { ContentComponent, ContactComponent, ProjectComponent, SkillsComponent } from './content/';
-import { SocialComponent } from './social';
-import { DateFormatPipe, DifferencePipe, ParsePipe, SkillPipe } from './shared/pipes';
-import { AnimateOnScrollDirective } from './shared/directives/animate-on-scroll.directive';
-import { GoogleAnalyticsService, ScrollService } from './shared/services';
-import { AngularFireModule } from '@angular/fire/compat';
-import { environment } from 'src/environments/environment';
-import { LazyLoadImageModule } from 'ng-lazyload-image';
-import { InstagramComponent } from './profile-box/instagram/instagram.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+
+// Firebase
+import { AngularFireModule } from '@angular/fire/compat';
+
+// Loading bar
+import { LoadingBarHttpClientModule, provideLoadingBarInterceptor } from '@ngx-loading-bar/http-client';
+
+// Icons
 import { NgIconsModule } from '@ng-icons/core';
 import {
   featherChevronsUp,
@@ -48,33 +37,35 @@ import {
   featherX
 } from '@ng-icons/feather-icons';
 
+// Environment
+import { environment } from '@env/environment';
+
+// App modules
+import { AppComponent } from './app.component';
+import { SharedModule } from '@shared/shared.module';
+import { CoreModule } from '@core/core.module';
+import { PortfolioModule } from '@features/portfolio/portfolio.module';
+import { ProfileModule } from '@features/profile/profile.module';
+
+// Services
+import { GoogleAnalyticsService, ScrollService } from '@shared/services';
+
 @NgModule({
-  bootstrap: [AppComponent],
   declarations: [
-    AnimateOnScrollDirective,
-    AppComponent,
-    ContactComponent,
-    ContentComponent,
-    DateFormatPipe,
-    DifferencePipe,
-    FooterComponent,
-    HeaderComponent,
-    InstagramComponent,
-    ParsePipe,
-    ProfileBoxComponent,
-    ProjectComponent,
-    SideNavComponent,
-    SkillPipe,
-    SkillsComponent,
-    SocialComponent
+    AppComponent
   ],
   imports: [
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAnalyticsModule,
-    AngularFirestoreModule,
-    BrowserAnimationsModule,
+    // Angular core modules
     BrowserModule,
-    CommonModule,
+    BrowserAnimationsModule,
+    
+    // Firebase
+    AngularFireModule.initializeApp(environment.firebase),
+    
+    // Loading bar
+    LoadingBarHttpClientModule,
+    
+    // Icons
     NgIconsModule.withIcons({
       featherChevronsUp,
       featherHeart,
@@ -99,21 +90,28 @@ import {
       featherSend,       // send
       featherX          // close
     }),
-    HighchartsChartModule,
-    FormsModule,
-    LazyLoadImageModule,
-    LoadingBarHttpClientModule,
-    ReactiveFormsModule,
+    
+    // Service Worker
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
-      // Register the ServiceWorker as soon as the app is stable
-      // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
-    })
+    }),
+    
+    // App modules
+    SharedModule,
+    CoreModule,
+    PortfolioModule,
+    ProfileModule
   ],
   providers: [
+    // HTTP Client
+    provideHttpClient(withInterceptorsFromDi()),
+    provideLoadingBarInterceptor(),
+    
+    // App services
     GoogleAnalyticsService,
     ScrollService
-  ]
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

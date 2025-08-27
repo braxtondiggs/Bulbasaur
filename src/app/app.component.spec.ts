@@ -1,20 +1,16 @@
 import { Spectator, createComponentFactory, createSpyObject } from '@ngneat/spectator/jest';
 import { AppComponent } from './app.component';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
-import { HeaderComponent } from './header/header.component';
-import { ProfileBoxComponent } from './profile-box/profile-box.component';
-import { SocialComponent } from './social';
-import { ContentComponent, SkillsComponent, ContactComponent } from './content';
-import { SkillPipe } from './shared/pipes/skill.pipe';
-import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent, FooterComponent, SideNavComponent } from '@core/layout';
+import { ProfileBoxComponent, SocialComponent } from '@features/profile';
+import { ContentComponent, SkillsComponent, ContactComponent } from '@features/portfolio';
+import { SkillPipe } from '@shared/pipes';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SideNavComponent } from './side-nav/side-nav.component';
-import { environment } from 'src/environments/environment';
+import { environment } from '@env/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { HttpClientModule } from '@angular/common/http';
-import { testNgIconsModule } from './shared/testing/test-utils';
-import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { testNgIconsModule } from '@shared/testing/test-utils';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { of } from 'rxjs';
 
@@ -42,7 +38,6 @@ describe('AppComponent', () => {
       AngularFireModule.initializeApp(environment.firebase),
       HighchartsChartModule,
       HttpClientModule,
-      LazyLoadImageModule,
       LoadingBarModule,
       ReactiveFormsModule,
       testNgIconsModule

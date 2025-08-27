@@ -1,16 +1,11 @@
-const jestPreset = require("jest-preset-angular/jest-preset");
-const { defaults } = jestPreset;
-
-// Modern Jest configuration for Angular 15+
+// Jest configuration for Angular 16+ with jest-preset-angular v13
 module.exports = {
   preset: "jest-preset-angular",
   setupFilesAfterEnv: ["<rootDir>/src/setupJest.ts"],
-  globalSetup: "jest-preset-angular/global-setup",
 
   // Module resolution
   modulePaths: ["<rootDir>"],
   moduleNameMapper: {
-    "^lodash-es$": "lodash",
     "^@app/(.*)$": "<rootDir>/src/app/$1",
     "^@environments/(.*)$": "<rootDir>/src/environments/$1",
     "^@shared/(.*)$": "<rootDir>/src/app/shared/$1",
@@ -57,10 +52,10 @@ module.exports = {
     "jest-watch-typeahead/testname",
   ],
 
-  // Transform configuration
-  transform: {
-    "^.+\\.(ts|js|html)$": "jest-preset-angular",
-  },
+  // Transform configuration - let jest-preset-angular handle this
+  // transform: {
+  //   "^.+\\.(ts|js|html)$": "jest-preset-angular",
+  // },
 
   // File extensions
   moduleFileExtensions: ["ts", "html", "js", "json", "mjs"],

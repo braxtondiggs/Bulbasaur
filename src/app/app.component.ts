@@ -1,22 +1,23 @@
-import { Component, HostListener, ViewEncapsulation, OnInit } from '@angular/core';
-import { GoogleAnalyticsService } from './shared/services';
+import { Component, HostListener, ViewEncapsulation, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { GoogleAnalyticsService } from '@shared/services';
 import { themeChange } from 'theme-change';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
   selector: 'app-root',
   styleUrls: ['./app.component.scss'],
-  templateUrl: './app.component.html'
+  templateUrl: './app.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
-  public scroll: number;
+  public scroll = 0;
   constructor(public ga: GoogleAnalyticsService) { }
 
   ngOnInit(): void {
     this.initializeTheme();
   }
 
-  @HostListener('window:scroll', ['$event'])
+  @HostListener('window:scroll', [])
   public onScroll(): void {
     this.scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
   }

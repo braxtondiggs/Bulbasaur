@@ -1,6 +1,6 @@
 import { createServiceFactory, SpectatorService, mockProvider } from '@ngneat/spectator/jest';
 import { GoogleAnalyticsService } from './google-analytics.service';
-import { environment } from 'src/environments/environment';
+import { environment } from '@env/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAnalytics } from '@angular/fire/compat/analytics';
 

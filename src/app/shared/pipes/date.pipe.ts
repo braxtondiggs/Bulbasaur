@@ -7,7 +7,7 @@ const dayjsConstructor = dayjs;
 
 @Pipe({ name: 'amParse' })
 export class ParsePipe implements PipeTransform {
-  transform(value: dayjs.Dayjs, formats: string | string[]): dayjs.Dayjs {
+  transform(value: string | dayjs.Dayjs, formats?: string | string[]): dayjs.Dayjs {
     return dayjsConstructor(value, formats);
   }
 }
@@ -15,8 +15,8 @@ export class ParsePipe implements PipeTransform {
 
 @Pipe({ name: 'amDateFormat' })
 export class DateFormatPipe implements PipeTransform {
-  transform(value: dayjs.Dayjs, ...args: any[]): string {
-    return value ? dayjsConstructor(value).format(args[0]) : '';
+  transform(value: dayjs.Dayjs, format: string): string {
+    return value ? dayjsConstructor(value).format(format) : '';
   }
 }
 
