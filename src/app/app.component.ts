@@ -1,12 +1,23 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, HostListener, inject, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  HostListener,
+  inject,
+  OnDestroy,
+  OnInit,
+  ViewEncapsulation
+} from '@angular/core';
 import { HeaderComponent } from '@core/layout/header/header.component';
 import { SideNavComponent } from '@core/layout/side-nav/side-nav.component';
 import { ContentComponent } from '@features/portfolio/content/content.component';
 import { ProfileBoxComponent } from '@features/profile/profile-box/profile-box.component';
 import { NgIcon } from '@ng-icons/core';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
-import { GoogleAnalyticsService } from '@shared/services';
+import { AnalyticsHelperService, GoogleAnalyticsService, ModalService } from '@shared/services';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { themeChange } from 'theme-change';
 
 @Component({
@@ -25,21 +36,69 @@ import { themeChange } from 'theme-change';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   public scroll = 0;
+  public modalOpen = false;
+  private readonly destroy$ = new Subject<void>();
   public ga = inject(GoogleAnalyticsService);
+  private analyticsHelper = inject(AnalyticsHelperService);
+  private modalService = inject(ModalService);
+  private cdr = inject(ChangeDetectorRef);
 
   ngOnInit(): void {
     this.initializeTheme();
+
+    // Subscribe to modal state changes
+    this.modalService.modalOpen$.pipe(takeUntil(this.destroy$)).subscribe(isOpen => {
+      this.modalOpen = isOpen;
+      this.cdr.detectChanges();
+    });
+
+    // Track performance metrics after page load
+    setTimeout(() => {
+      this.analyticsHelper.trackPerformance();
+    }, 1000);
+
+    // Track user engagement time
+    this.startEngagementTracking();
+  }
+
+  private startEngagementTracking(): void {
+    const startTime = Date.now();
+
+    // Track engagement when user leaves the page
+    window.addEventListener('beforeunload', () => {
+      this.analyticsHelper.trackEngagement(startTime);
+    });
+
+    // Track engagement periodically for long sessions
+    setInterval(() => {
+      this.analyticsHelper.trackEngagement(startTime);
+    }, 300000); // Every 5 minutes
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   @HostListener('window:scroll', [])
   public onScroll(): void {
     this.scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+
+    // Track scroll depth
+    const scrollPercentage = Math.round(
+      (this.scroll / (document.documentElement.scrollHeight - window.innerHeight)) * 100
+    );
+    this.analyticsHelper.trackScrollDepth(scrollPercentage);
   }
 
   public isScroll(): boolean {
     return this.scroll > 55;
+  }
+
+  public trackScrollToTop(): void {
+    this.analyticsHelper.trackNavigation('top', 'scroll');
   }
 
   public scrollToTop(): void {
@@ -66,6 +125,9 @@ export class AppComponent implements OnInit {
     document.body.setAttribute('data-theme', initialTheme);
     localStorage.setItem('theme', initialTheme);
 
+    // Track initial theme setting
+    this.analyticsHelper.trackThemeChange(initialTheme as 'light' | 'dark' | 'auto');
+
     // Listen for system theme changes
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
       // Only auto-switch if user hasn't manually set a theme
@@ -74,6 +136,9 @@ export class AppComponent implements OnInit {
         document.documentElement.setAttribute('data-theme', newTheme);
         document.body.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
+
+        // Track automatic theme change
+        this.analyticsHelper.trackThemeChange('auto');
       }
     });
   }

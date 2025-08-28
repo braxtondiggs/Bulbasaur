@@ -3,8 +3,27 @@ import { InstagramComponent } from './instagram.component';
 import { Firestore } from '@angular/fire/firestore';
 import { LazyLoadFadeDirective } from '@shared/directives/lazy-load-fade.directive';
 import { testNgIconsModule } from '@shared/testing/test-utils';
-import { of } from 'rxjs';
+import { of, throwError, Observable } from 'rxjs';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
+// Mock Firebase Firestore functions at module level
+const mockCollectionData = jest.fn();
+const mockCollection = jest.fn();
+const mockQuery = jest.fn();
+const mockOrderBy = jest.fn();
+const mockLimit = jest.fn();
+
+jest.mock('@angular/fire/firestore', () => {
+  const actual = jest.requireActual('@angular/fire/firestore');
+  return {
+    ...actual,
+    collection: (...args: any[]) => mockCollection(...args),
+    collectionData: (...args: any[]) => mockCollectionData(...args),
+    query: (...args: any[]) => mockQuery(...args),
+    orderBy: (...args: any[]) => mockOrderBy(...args),
+    limit: (...args: any[]) => mockLimit(...args)
+  };
+});
 
 describe('InstagramComponent', () => {
   let spectator: Spectator<InstagramComponent>;
@@ -25,21 +44,10 @@ describe('InstagramComponent', () => {
   ];
 
   const mockFirestore = {
-    // Mock the new modular Firebase functions
-    app: {},
+    app: { name: 'test-app' },
     toFirestore: jest.fn(),
     fromFirestore: jest.fn()
   } as unknown as Firestore;
-
-  // Mock the Firebase modular functions globally
-  jest.mock('@angular/fire/firestore', () => ({
-    ...jest.requireActual('@angular/fire/firestore'),
-    collection: jest.fn(),
-    query: jest.fn(),
-    orderBy: jest.fn(),
-    limit: jest.fn(),
-    collectionData: jest.fn(() => of(mockInstagramData))
-  }));
 
   const createComponent = createComponentFactory({
     component: InstagramComponent,
@@ -51,37 +59,97 @@ describe('InstagramComponent', () => {
       { provide: Firestore, useValue: mockFirestore }
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    shallow: true
+    shallow: true,
+    detectChanges: false
   });
 
-  beforeEach(() => spectator = createComponent());
+  beforeEach(() => {
+    // Reset all mocks
+    jest.clearAllMocks();
+    
+    // Setup default mock implementations
+    mockCollection.mockReturnValue({ path: 'instagram' });
+    mockOrderBy.mockReturnValue('orderBy');
+    mockLimit.mockReturnValue('limit');
+    mockQuery.mockReturnValue('query');
+    mockCollectionData.mockReturnValue(of(mockInstagramData));
+    
+    spectator = createComponent();
+  });
 
   it('should create', () => {
     expect(spectator.component).toBeTruthy();
   });
 
-  it('should initialize instagram observable on ngOnInit', () => {
-    spectator.component.ngOnInit();
+  it('should initialize with default instagram observable', () => {
     expect(spectator.component.instagram$).toBeTruthy();
+    expect(spectator.component.instagram$).toBeInstanceOf(Observable);
   });
 
-  it('should handle component initialization', () => {
-    expect(spectator.component).toBeTruthy();
-    expect(spectator.component.instagram$).toBeDefined();
-  });
-
-  it('should have proper accessibility attributes for Instagram links', () => {
-    spectator.detectChanges();
+  it('should initialize Instagram data on ngOnInit', () => {
+    spectator.component.ngOnInit();
     
-    // Wait for async data to load and check template structure
-    spectator.component.instagram$.subscribe(() => {
-      spectator.detectChanges();
-      
-      const links = spectator.queryAll('a[target="_blank"]');
-      links.forEach(link => {
-        expect(link.getAttribute('rel')).toContain('noopener');
-        expect(link.getAttribute('title')).toBeTruthy();
-      });
+    expect(mockCollection).toHaveBeenCalledWith(mockFirestore, 'instagram');
+    expect(mockCollectionData).toHaveBeenCalled();
+  });
+
+  it('should handle Firebase data loading successfully', (done) => {
+    spectator.component.ngOnInit();
+    
+    spectator.component.instagram$.subscribe(data => {
+      if (data !== null && Array.isArray(data)) {
+        expect(data).toEqual(mockInstagramData);
+        expect(data.length).toBe(2);
+        done();
+      }
+    });
+  });
+
+  it('should handle Firebase errors gracefully', (done) => {
+    mockCollectionData.mockReturnValue(throwError(() => new Error('Firebase error')));
+    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    
+    spectator.component.ngOnInit();
+    
+    spectator.component.instagram$.subscribe(data => {
+      expect(data).toEqual([]);
+      consoleSpy.mockRestore();
+      done();
+    });
+  });
+
+  it('should setup Firestore query correctly', () => {
+    spectator.component.ngOnInit();
+    
+    expect(mockCollection).toHaveBeenCalledWith(mockFirestore, 'instagram');
+    expect(mockOrderBy).toHaveBeenCalledWith('CreatedAt', 'desc');
+    expect(mockLimit).toHaveBeenCalledWith(6);
+    expect(mockQuery).toHaveBeenCalled();
+  });
+
+  it('should handle initialization errors gracefully', () => {
+    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    mockCollection.mockImplementation(() => {
+      throw new Error('Collection error');
+    });
+
+    expect(() => {
+      spectator.component.ngOnInit();
+    }).not.toThrow();
+
+    consoleSpy.mockRestore();
+  });
+
+  it('should emit null initially from observable', (done) => {
+    spectator.component.ngOnInit();
+    
+    let emissionCount = 0;
+    spectator.component.instagram$.subscribe(data => {
+      emissionCount++;
+      if (emissionCount === 1) {
+        expect(data).toBe(null);
+        done();
+      }
     });
   });
 });

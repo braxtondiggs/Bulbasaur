@@ -1,9 +1,9 @@
-import { Spectator, createComponentFactory, mockProvider } from '@ngneat/spectator/jest';
-import { SideNavComponent } from './side-nav.component';
-import { GoogleAnalyticsService } from '@shared/services';
 import { NgIconsModule } from '@ng-icons/core';
+import { featherActivity, featherBriefcase, featherCode, featherMail } from '@ng-icons/feather-icons';
+import { Spectator, createComponentFactory, mockProvider } from '@ngneat/spectator/jest';
 import { LazyLoadFadeDirective } from '@shared/directives/lazy-load-fade.directive';
-import { featherBriefcase, featherCode, featherMail, featherActivity } from '@ng-icons/feather-icons';
+import { GoogleAnalyticsService } from '@shared/services';
+import { SideNavComponent } from './side-nav.component';
 
 describe('SideNavComponent', () => {
   let spectator: Spectator<SideNavComponent>;
@@ -53,7 +53,7 @@ describe('SideNavComponent', () => {
         x: 0,
         y: 0,
         // eslint-disable-next-line @typescript-eslint/no-empty-function
-        toJSON: () => { }
+        toJSON: () => {}
       })
     } as HTMLElement);
   });
@@ -131,19 +131,19 @@ describe('SideNavComponent', () => {
     const aboutButton = spectator.query('button[aria-label="About"]');
     spectator.click(aboutButton!);
 
-    expect(spectator.component.ga.eventEmitter).toHaveBeenCalledWith('nav', 'about');
+    expect(spectator.component.analyticsHelper.trackNavigation).toHaveBeenCalledWith('about', 'menu');
     expect(spectator.component.scrollToSection).toHaveBeenCalledWith('about');
   });
 
   it('should render avatar with profile image', () => {
     const avatar = spectator.query('.avatar');
     expect(avatar).toBeTruthy();
-    
+
     const avatarDiv = spectator.query('.avatar > div');
     expect(avatarDiv).toBeTruthy();
     expect(avatarDiv).toHaveClass('w-10');
     expect(avatarDiv).toHaveClass('rounded-full');
-    
+
     const profileImage = spectator.query('.avatar img');
     expect(profileImage).toBeTruthy();
     expect(profileImage).toHaveAttribute('appLazyLoadFade', 'assets/braxton/profile.png');

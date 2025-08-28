@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
-import { Firestore, collection, collectionData, limit, orderBy, query } from '@angular/fire/firestore';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, computed, inject, signal } from '@angular/core';
 import { NgIcon } from '@ng-icons/core';
 import { LazyLoadFadeDirective } from '@shared/directives/lazy-load-fade.directive';
+import { FirebaseDocument, FirebaseService } from '@shared/services/firebase.service';
+import { FirebaseDevUtils } from '@shared/utils/firebase-dev.utils';
 import { Observable, of } from 'rxjs';
-import { catchError, startWith } from 'rxjs/operators';
+import { finalize, startWith } from 'rxjs/operators';
 
-interface InstagramPost {
+export interface InstagramPost extends FirebaseDocument {
   readonly SourceUrl: string;
   readonly Caption: string;
   readonly Url: string;
@@ -24,41 +25,105 @@ interface InstagramPost {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InstagramComponent implements OnInit {
-  public readonly instagram$: Observable<InstagramPost[] | null> = of(null);
-  private readonly firestore = inject(Firestore);
+  // Signals for reactive state management
+  public readonly isLoading = signal(false);
+  public readonly posts = signal<InstagramPost[]>([]);
+  public readonly error = signal<string | null>(null);
+
+  // Computed properties
+  public readonly hasError = computed(() => this.error() !== null);
+  public readonly hasPosts = computed(() => this.posts().length > 0);
+  public readonly isEmpty = computed(() => !this.isLoading() && !this.hasError() && !this.hasPosts());
+
+  // Observable for template compatibility
+  public instagram$: Observable<InstagramPost[] | null> = of(null);
+
+  private readonly firebaseService = inject(FirebaseService);
+  private readonly firebaseDevUtils = inject(FirebaseDevUtils);
   private readonly cdr = inject(ChangeDetectorRef);
 
   ngOnInit(): void {
-    this.initializeInstagramFeed();
+    this.loadInstagramPosts();
   }
 
-  private initializeInstagramFeed(): void {
-    try {
-      const instagramCollection = collection(this.firestore, 'instagram');
-      const instagramQuery = query(
-        instagramCollection, 
-        orderBy('CreatedAt', 'desc'), 
-        limit(6)
-      );
+  /**
+   * Load Instagram posts using Context7 Firebase utilities
+   */
+  private loadInstagramPosts(): void {
+    this.isLoading.set(true);
+    this.error.set(null);
 
-      (this.instagram$ as any) = (collectionData(instagramQuery) as Observable<InstagramPost[]>).pipe(
+    // Analyze query for development insights
+    this.firebaseDevUtils.analyzeQuery('instagram', {
+      orderByField: 'CreatedAt',
+      orderDirection: 'desc',
+      limitCount: 6
+    });
+
+    // Create observable with performance profiling
+    this.instagram$ = this.firebaseDevUtils
+      .profileQuery('Instagram Posts Load', () =>
+        this.firebaseDevUtils.getCollectionWithDevInsights<InstagramPost>('instagram', {
+          orderByField: 'CreatedAt',
+          orderDirection: 'desc',
+          limitCount: 6
+        })
+      )
+      .pipe(
         startWith(null),
-        catchError((error: unknown) => {
-          // Log error for monitoring in development but not detailed info in production
-          if (error instanceof Error) {
-            console.error('Failed to load Instagram data:', error.name);
-          } else {
-            console.error('Failed to load Instagram data: Unknown error');
-          }
-          return of([]);
+        finalize(() => {
+          this.isLoading.set(false);
+          this.cdr.markForCheck();
         })
       );
-      
-      this.cdr.markForCheck();
-    } catch (error) {
-      console.error('Instagram component initialization failed');
-      (this.instagram$ as any) = of([]);
-      this.cdr.markForCheck();
-    }
+
+    // Subscribe to update signals
+    this.instagram$.subscribe({
+      next: posts => {
+        if (posts !== null) {
+          // Validate data with development utilities
+          const isValid = this.firebaseDevUtils.validateFirebaseData(posts, 'instagram', [
+            'SourceUrl',
+            'Caption',
+            'Url',
+            'CreatedAt'
+          ]);
+
+          if (isValid) {
+            this.posts.set(posts);
+            this.error.set(null);
+          } else {
+            this.error.set('Invalid Instagram data received');
+          }
+        }
+      },
+      error: error => {
+        this.posts.set([]);
+        this.error.set('Failed to load Instagram posts');
+        console.error('Instagram component error:', error);
+      }
+    });
+  }
+
+  /**
+   * Retry loading Instagram posts
+   */
+  public retryLoadPosts(): void {
+    this.loadInstagramPosts();
+  }
+
+  /**
+   * Get formatted date from Firestore timestamp
+   */
+  public getFormattedDate(createdAt: { seconds: number; nanoseconds: number }): Date {
+    return new Date(createdAt.seconds * 1000);
+  }
+
+  /**
+   * Track Instagram link clicks
+   */
+  public onInstagramLinkClick(post: InstagramPost): void {
+    // Could integrate with analytics service here
+    console.log('Instagram link clicked:', post.Url);
   }
 }

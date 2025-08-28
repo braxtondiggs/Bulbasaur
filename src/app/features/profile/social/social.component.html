@@ -1,7 +1,7 @@
 <div class="social button-row flex flex-row justify-center">
   <a
     href="https://www.facebook.com/BiggDiggz"
-    (click)="ga.eventEmitter('social', 'facebook')"
+    (click)="trackSocialClick('facebook')"
     aria-label="Facebook"
     target="_blank"
     rel="noopener"
@@ -12,7 +12,7 @@
   </a>
   <a
     href="https://github.com/braxtondiggs"
-    (click)="ga.eventEmitter('social', 'github')"
+    (click)="trackSocialClick('github')"
     aria-label="Github"
     target="_blank"
     rel="noopener"
@@ -23,7 +23,7 @@
   </a>
   <a
     href="http://instagram.com/biggdiggz"
-    (click)="ga.eventEmitter('social', 'instagram')"
+    (click)="trackSocialClick('instagram')"
     aria-label="Instagram"
     target="_blank"
     rel="noopener"
@@ -34,7 +34,7 @@
   </a>
   <a
     href="mailto:hello@braxtondiggs.com"
-    (click)="ga.eventEmitter('social', 'mail')"
+    (click)="trackEmailClick()"
     aria-label="Mail"
     target="_blank"
     rel="noopener"
@@ -45,7 +45,7 @@
   </a>
   <a
     href="https://soundcloud.com/braxton-diggs"
-    (click)="ga.eventEmitter('social', 'soundcloud')"
+    (click)="trackExternalLink('SoundCloud', 'https://soundcloud.com/braxton-diggs')"
     aria-label="SoundCloud"
     target="_blank"
     rel="noopener"

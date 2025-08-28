@@ -5,6 +5,7 @@ import { NgIcon } from '@ng-icons/core';
 import { AnimateOnScrollDirective } from '@shared/directives/animate-on-scroll.directive';
 import { LazyBackgroundFadeDirective } from '@shared/directives/lazy-background-fade.directive';
 import { LazyLoadFadeDirective } from '@shared/directives/lazy-load-fade.directive';
+import { AnalyticsHelperService, GoogleAnalyticsService } from '@shared/services';
 import { SocialComponent } from '../../../profile/social/social.component';
 
 @Component({
@@ -42,6 +43,16 @@ export class ContactComponent {
   public submit = false;
 
   protected http = inject(HttpClient);
+  private ga = inject(GoogleAnalyticsService);
+  private analyticsHelper = inject(AnalyticsHelperService);
+  private formStarted = false;
+
+  public onFieldFocus(fieldName: string): void {
+    if (!this.formStarted) {
+      this.formStarted = true;
+      this.analyticsHelper.trackContactForm('start', fieldName);
+    }
+  }
 
   public getErrorMessage(input: UntypedFormControl, label: string = 'This field'): string {
     if (input.hasError('required')) {
@@ -58,6 +69,10 @@ export class ContactComponent {
   public onSubmit() {
     if (this.contactForm.valid) {
       this.submit = true;
+
+      // Track form submission attempt
+      this.analyticsHelper.trackContactForm('submit', 'contact_form');
+
       this.http
         .post('https://us-central1-bulbasaur-bfb64.cloudfunctions.net/endpoints/mail', {
           email: this.email.value,
@@ -68,6 +83,8 @@ export class ContactComponent {
         .subscribe({
           next: (data: { status: boolean }) => {
             if (data.status) {
+              // Track successful form submission
+              this.analyticsHelper.trackContactForm('success', 'contact_form');
               this.showToast('Email successfully sent', 'success');
               this.contactForm.reset();
               for (const i of Object.keys(this.contactForm.controls)) {
@@ -76,6 +93,8 @@ export class ContactComponent {
             }
           },
           error: ({ error }) => {
+            // Track form submission error
+            this.analyticsHelper.trackContactForm('error', 'contact_form', error?.message || 'Unknown error');
             this.showToast('Something went wrong', error);
           }
         });

@@ -1,11 +1,11 @@
 <div
-  class="flex flex-row gap-5 lg:flex-col w-[56px] order-1 lg:order-3 lg:sticky top-4 mt-4 lg:mt-0 self-start z-20 -mb-4 lg:-mb-0 static"
+  class="md:flex flex-row gap-5 lg:flex-col w-[56px] order-1 lg:order-3 lg:sticky top-4 mt-4 lg:mt-0 self-start z-20 -mb-4 lg:-mb-0 hidden"
 >
   <button
     type="button"
     class="btn btn-ghost btn-circle tooltip tooltip-left"
     data-tip="About Me"
-    (click)="ga.eventEmitter('nav', 'about'); scrollToSection('about')"
+    (click)="scrollToSection('about')"
     aria-label="About"
   >
     <div class="avatar">
@@ -18,7 +18,7 @@
     type="button"
     class="btn btn-ghost btn-circle tooltip tooltip-left"
     data-tip="Experience"
-    (click)="ga.eventEmitter('nav', 'experience'); scrollToSection('experience')"
+    (click)="scrollToSection('experience')"
     aria-label="Experience"
   >
     <ng-icon name="featherBriefcase" size="1.5rem"></ng-icon>
@@ -27,7 +27,7 @@
     type="button"
     class="btn btn-ghost btn-circle tooltip tooltip-left"
     data-tip="Skills"
-    (click)="ga.eventEmitter('nav', 'skills'); scrollToSection('skills')"
+    (click)="scrollToSection('skills')"
     aria-label="Skills"
   >
     <ng-icon name="featherActivity" size="1.5rem"></ng-icon>
@@ -36,7 +36,7 @@
     type="button"
     class="btn btn-ghost btn-circle tooltip tooltip-left"
     data-tip="Portfolio"
-    (click)="ga.eventEmitter('nav', 'portfolio'); scrollToSection('portfolio')"
+    (click)="scrollToSection('portfolio')"
     aria-label="Portfolio"
   >
     <ng-icon name="featherCode" size="1.5rem"></ng-icon>
@@ -45,7 +45,7 @@
     type="button"
     class="btn btn-ghost btn-circle tooltip tooltip-left"
     data-tip="Contact"
-    (click)="ga.eventEmitter('nav', 'contact'); scrollToSection('contact')"
+    (click)="scrollToSection('contact')"
     aria-label="Contact"
   >
     <ng-icon name="featherMail" size="1.5rem"></ng-icon>

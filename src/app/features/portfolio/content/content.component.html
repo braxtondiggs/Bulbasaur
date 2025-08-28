@@ -59,16 +59,33 @@
       </div>
     </div>
     <div class="divider"></div>
-    <h2 class="flex items-center gap-2 mb-5 text-3xl font-bold">
+    <h2 class="flex items-center gap-2 mb-8 text-3xl font-bold">
       Things I&nbsp;<ng-icon name="featherHeart" class="text-red-500" />
     </h2>
-    <div class="grid grid-cols-1 mb-4 sm:grid-cols-2">
+    <div class="grid grid-cols-1 gap-4 mb-6 sm:grid-cols-2 lg:grid-cols-3">
       @for (interest of interests; track trackByInterestTitle($index, interest)) {
-      <div class="flex flex-row items-center gap-3 mb-4">
-        <span class="text-xl">{{ interest.emoji }}</span>
-        <h4 class="font-medium text-md sm:text-lg whitespace-nowrap">
-          {{ interest.title }}
-        </h4>
+      <div class="group transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg">
+        <div
+          class="p-4 rounded-lg bg-base-200/50 hover:bg-base-200 transition-colors duration-300 h-full border border-base-300/30 hover:border-accent/30"
+        >
+          <div class="flex items-start gap-3">
+            <div class="flex-shrink-0">
+              <span class="text-2xl filter drop-shadow-sm group-hover:scale-110 transition-transform duration-300">
+                {{ interest.emoji }}
+              </span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <h4
+                class="font-semibold text-base text-base-content group-hover:text-accent transition-colors duration-300 mb-1"
+              >
+                {{ interest.title }}
+              </h4>
+              <p class="text-sm text-base-content/70 leading-relaxed">
+                {{ interest.description }}
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
       }
     </div>
@@ -212,7 +229,7 @@
     <a
       class="btn btn-lg btn-primary"
       href="assets/resume/braxton-diggs.pdf"
-      (click)="ga.eventEmitter('experience', 'resume')"
+      (click)="trackResumeDownload()"
       target="_blank"
     >
       <ng-icon name="featherDownload" class="mr-2" size="1.5rem"></ng-icon>
@@ -231,9 +248,9 @@
           class="flex-1 overflow-hidden transition-shadow shadow-md cursor-pointer card hover:shadow-lg group"
           role="button"
           tabindex="0"
-          (click)="openProject(project); ga.eventEmitter('projects', 'more', project.title)"
-          (keyup.enter)="openProject(project); ga.eventEmitter('projects', 'more', project.title)"
-          (keyup.space)="openProject(project); ga.eventEmitter('projects', 'more', project.title)"
+          (click)="openProject(project)"
+          (keyup.enter)="openProject(project)"
+          (keyup.space)="openProject(project)"
         >
           <figure class="relative overflow-hidden">
             <img
@@ -296,15 +313,9 @@
               <button
                 type="button"
                 class="text-sm btn btn-sm btn-outline"
-                (click)="
-                  openProject(project); ga.eventEmitter('projects', 'more', project.title); $event.stopPropagation()
-                "
-                (keyup.enter)="
-                  openProject(project); ga.eventEmitter('projects', 'more', project.title); $event.stopPropagation()
-                "
-                (keyup.space)="
-                  openProject(project); ga.eventEmitter('projects', 'more', project.title); $event.stopPropagation()
-                "
+                (click)="openProject(project); $event.stopPropagation()"
+                (keyup.enter)="openProject(project); $event.stopPropagation()"
+                (keyup.space)="openProject(project); $event.stopPropagation()"
               >
                 Learn More
               </button>

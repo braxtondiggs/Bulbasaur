@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, effect, inject, input, output, View
 import { NgIcon } from '@ng-icons/core';
 import { LazyLoadFadeDirective } from '@shared/directives/lazy-load-fade.directive';
 import { Project } from '@shared/models';
-import { GoogleAnalyticsService } from '@shared/services';
+import { AnalyticsHelperService, GoogleAnalyticsService } from '@shared/services';
 
 @Component({
   selector: 'app-project',
@@ -19,6 +19,38 @@ export class ProjectComponent {
   closeModal = output<void>();
 
   public ga = inject(GoogleAnalyticsService);
+  private analyticsHelper = inject(AnalyticsHelperService);
+
+  public trackProjectView(): void {
+    const project = this.project();
+    if (project) {
+      this.analyticsHelper.trackProjectInteraction('view', project.name || project.title, project.category);
+    }
+  }
+
+  public trackProjectDemo(): void {
+    const project = this.project();
+    if (project) {
+      this.analyticsHelper.trackProjectInteraction('demo', project.name || project.title, project.category);
+
+      // Track the appropriate URL based on available options
+      const webUrl = project.url?.web || project.urls?.web;
+      if (webUrl) {
+        this.ga.trackExternalLink(webUrl, `${project.name || project.title} demo`);
+      }
+    }
+  }
+
+  public trackProjectSource(): void {
+    const project = this.project();
+    if (project) {
+      this.analyticsHelper.trackProjectInteraction('source', project.name || project.title, project.category);
+
+      if (project.github) {
+        this.ga.trackExternalLink(project.github, `${project.name || project.title} source`);
+      }
+    }
+  }
 
   constructor() {
     // Use effect to watch for project changes instead of ngOnChanges
@@ -26,6 +58,8 @@ export class ProjectComponent {
       const currentProject = this.project();
       if (currentProject && currentProject.description) {
         currentProject.description_modified = currentProject.description;
+        // Track project view when project is loaded
+        this.trackProjectView();
       }
     });
   }

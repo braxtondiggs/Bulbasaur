@@ -1,7 +1,7 @@
 <ngx-loading-bar />
 <app-header />
 <div
-  class="container flex flex-col lg:flex-row mx-auto px-5 lg:max-w-[1196px] md:px-0 gap-8 md:mt-10 z-10 relative"
+  class="container flex flex-col lg:flex-row mx-auto pt-5 lg:max-w-[1196px] md:px-0 gap-0 md:gap-8 md:mt-10 z-10 relative"
   [class.mb-[75px]]="isScroll()"
   [ngClass]="{ 'side-scroll': isScroll() }"
 >
@@ -17,10 +17,10 @@
 </svg>
 <button
   type="button"
-  class="fixed z-10 transition-all duration-300 btn btn-neutral btn-circle btn-lg bottom-6 right-6"
-  [class.opacity-0]="!isScroll()"
-  [class.pointer-events-none]="!isScroll()"
-  (click)="ga.eventEmitter('nav', 'top'); scrollToTop()"
+  class="fixed z-20 transition-all duration-300 btn btn-neutral btn-circle btn-lg bottom-6 right-6"
+  [class.opacity-0]="!isScroll() || modalOpen"
+  [class.pointer-events-none]="!isScroll() || modalOpen"
+  (click)="trackScrollToTop(); scrollToTop()"
   title="Back to Top"
 >
   <ng-icon name="featherChevronsUp" size="1.5rem"></ng-icon>

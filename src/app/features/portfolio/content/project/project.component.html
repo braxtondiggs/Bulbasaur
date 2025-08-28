@@ -100,16 +100,16 @@
           }
         </div>
         @if (project().urls || project().url) {
-        <div class="flex flex-col gap-4 mt-6 sm:flex-row sm:items-center">
+        <div class="flex flex-col items-center gap-4 mt-6 sm:flex-row">
           <div class="flex-1">
             @if (project().urls?.web || project().url?.web) {
             <a
               [href]="project().urls?.web || project().url?.web"
               target="_blank"
-              (click)="ga.eventEmitter('projects', 'web', project().title)"
+              (click)="trackProjectDemo()"
               class="btn btn-primary btn-lg"
             >
-              <ng-icon name="featherExternalLink" class="mr-2" size="1.2rem"></ng-icon>
+              <ng-icon name="featherExternalLink" class="mr-2" size="1.2rem" />
               View Project
             </a>
             }
@@ -119,7 +119,7 @@
             <a
               [href]="project().urls?.android || project().url?.android"
               target="_blank"
-              (click)="ga.eventEmitter('projects', 'android', project().title)"
+              (click)="trackProjectDemo()"
               class="block"
               title="Download on Google Play"
             >
@@ -133,7 +133,7 @@
             <a
               [href]="project().urls?.ios || project().url?.ios"
               target="_blank"
-              (click)="ga.eventEmitter('projects', 'ios', project().title)"
+              (click)="trackProjectDemo()"
               class="block"
               title="Download on App Store"
             >
@@ -147,7 +147,7 @@
             <a
               [href]="project().urls?.other || project().url?.other"
               target="_blank"
-              (click)="ga.eventEmitter('projects', 'other', project().title)"
+              (click)="trackProjectDemo()"
               class="block"
             >
               <img [appLazyLoadFade]="project().image.other" [alt]="project().title" class="w-auto h-8 shadow-none" />

@@ -33,6 +33,7 @@
           [formControl]="name"
           class="w-full input input-bordered"
           [class.input-error]="name.invalid && name.touched"
+          (focus)="onFieldFocus('name')"
           required
         />
         @if (name.invalid && name.touched) {
@@ -48,6 +49,7 @@
           [formControl]="email"
           class="w-full input input-bordered"
           [class.input-error]="email.invalid && email.touched"
+          (focus)="onFieldFocus('email')"
           required
         />
         @if (email.invalid && email.touched) {
@@ -57,7 +59,13 @@
         }
       </div>
       <div class="form-control">
-        <input placeholder="Subject" type="text" [formControl]="subject" class="w-full input input-bordered" />
+        <input
+          placeholder="Subject"
+          type="text"
+          [formControl]="subject"
+          class="w-full input input-bordered"
+          (focus)="onFieldFocus('subject')"
+        />
       </div>
       <div class="form-control">
         <textarea
@@ -65,6 +73,7 @@
           [formControl]="message"
           class="textarea textarea-bordered w-full min-h-[200px]"
           [class.textarea-error]="message.invalid && message.touched"
+          (focus)="onFieldFocus('message')"
           required
         ></textarea>
         @if (message.invalid && message.touched) {

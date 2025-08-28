@@ -1,18 +1,23 @@
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { ApplicationConfig } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { ServiceWorkerModule } from '@angular/service-worker';
+import { provideServiceWorker } from '@angular/service-worker';
 
 import { getAnalytics, provideAnalytics } from '@angular/fire/analytics';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-// Compat API for test files that still use legacy imports
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
+import {
+  connectFirestoreEmulator,
+  enableIndexedDbPersistence,
+  getFirestore,
+  provideFirestore
+} from '@angular/fire/firestore';
+import { connectFunctionsEmulator, getFunctions, provideFunctions } from '@angular/fire/functions';
+import { connectStorageEmulator, getStorage, provideStorage } from '@angular/fire/storage';
 import { provideHighcharts } from 'highcharts-angular';
 
 // Loading bar
-import { LoadingBarHttpClientModule, provideLoadingBarInterceptor } from '@ngx-loading-bar/http-client';
+import { provideLoadingBarInterceptor } from '@ngx-loading-bar/http-client';
 
 // Icons
 import { provideIcons } from '@ng-icons/core';
@@ -22,6 +27,8 @@ import {
   featherChevronsUp,
   featherCode,
   featherDownload,
+  featherEdit,
+  featherExternalLink,
   featherFacebook,
   featherGithub,
   featherHeart,
@@ -35,7 +42,11 @@ import {
 import { environment } from '@env/environment';
 
 // Services
-import { GoogleAnalyticsService, ScrollService } from '@shared/services';
+import { AnalyticsHelperService } from '@shared/services/analytics-helper.service';
+import { FirebaseService } from '@shared/services/firebase.service';
+import { GoogleAnalyticsService } from '@shared/services/google-analytics.service';
+import { ScrollService } from '@shared/services/scroll.service';
+import { FirebaseDevUtils } from '@shared/utils/firebase-dev.utils';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -43,43 +54,114 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),
     provideLoadingBarInterceptor(),
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAnalytics(() => getAnalytics()),
-    provideFirestore(() => getFirestore()),
+
+    // Firebase providers with enhanced configuration
+    provideFirebaseApp(() => {
+      const app = initializeApp(environment.firebase);
+      return app;
+    }),
+
+    provideAnalytics(() => {
+      const app = getApp();
+      const analytics = getAnalytics(app);
+      return analytics;
+    }),
+
+    provideAuth(() => {
+      const app = getApp();
+      const auth = getAuth(app);
+      if (!environment.production) {
+        try {
+          connectAuthEmulator(auth, 'http://localhost:9099', { disableWarnings: true });
+        } catch (error) {
+          console.warn('Auth emulator connection failed:', error);
+        }
+      }
+      return auth;
+    }),
+
+    provideFirestore(() => {
+      const app = getApp();
+      const firestore = getFirestore(app);
+      if (!environment.production && false) {
+        // Turn off Firestore emulator
+        try {
+          connectFirestoreEmulator(firestore, 'localhost', 8080);
+        } catch (error) {
+          console.warn('Firestore emulator connection failed:', error);
+        }
+      }
+
+      // Enable offline persistence in production
+      if (environment.production) {
+        enableIndexedDbPersistence(firestore).catch(err => {
+          console.warn('Failed to enable Firestore persistence:', err.code);
+          if (err.code === 'failed-precondition') {
+            console.warn('Multiple tabs open, persistence can only be enabled in one tab at a time.');
+          } else if (err.code === 'unimplemented') {
+            console.warn('The current browser does not support persistence.');
+          }
+        });
+      }
+      return firestore;
+    }),
+
+    provideStorage(() => {
+      const app = getApp();
+      const storage = getStorage(app);
+      if (!environment.production) {
+        try {
+          connectStorageEmulator(storage, 'localhost', 9199);
+        } catch (error) {
+          console.warn('Storage emulator connection failed:', error);
+        }
+      }
+      return storage;
+    }),
+
+    provideFunctions(() => {
+      const app = getApp();
+      const functions = getFunctions(app);
+      if (!environment.production) {
+        try {
+          connectFunctionsEmulator(functions, 'localhost', 5001);
+        } catch (error) {
+          console.warn('Functions emulator connection failed:', error);
+        }
+      }
+      return functions;
+    }),
+
     provideHighcharts(),
     provideIcons({
-      featherChevronsUp,
-      featherHeart,
-      featherBriefcase, // experience/work
       featherActivity, // skills/performance
+      featherBriefcase, // experience/work
+      featherChevronsUp,
       featherCode, // portfolio/projects
-      featherMail, // contact
+      featherDownload, // download
+      featherEdit,
+      featherExternalLink,
       featherFacebook, // facebook
       featherGithub, // github
+      featherHeart,
       featherInstagram, // instagram
-      featherDownload, // download
+      featherMail, // contact
       featherSend, // send
       featherX // close
     }),
 
-    // Import legacy modules
-    importProvidersFrom(
-      // Firebase compat modules for test compatibility
-      AngularFireModule.initializeApp(environment.firebase),
-      AngularFirestoreModule,
-
-      // Loading bar
-      LoadingBarHttpClientModule,
-
-      // Service Worker
-      ServiceWorkerModule.register('ngsw-worker.js', {
-        enabled: environment.production,
-        registrationStrategy: 'registerWhenStable:30000'
-      })
-    ),
+    // Service Worker with enhanced configuration
+    provideServiceWorker('ngsw-worker.js', {
+      enabled: environment.production,
+      registrationStrategy: 'registerWhenStable:30000',
+      scope: './'
+    }),
 
     // App services
     GoogleAnalyticsService,
+    AnalyticsHelperService,
+    FirebaseService,
+    FirebaseDevUtils,
     ScrollService
   ]
 };

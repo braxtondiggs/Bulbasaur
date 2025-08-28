@@ -35,7 +35,7 @@ describe('AppComponent', () => {
 
   // Mock GoogleAnalyticsService
   const mockGA = createSpyObject(GoogleAnalyticsService);
-  mockGA.eventEmitter.andReturn(undefined);
+  mockGA.trackEvent.andReturn(undefined);
 
   const createComponent = createComponentFactory({
     component: AppComponent,

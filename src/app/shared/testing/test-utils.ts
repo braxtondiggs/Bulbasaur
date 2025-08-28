@@ -3,18 +3,18 @@ import { ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NgIconsModule } from '@ng-icons/core';
 import {
+  featherActivity,
   featherBriefcase,
+  featherChevronsUp,
   featherCode,
-  featherMail,
+  featherDownload,
   featherFacebook,
   featherGithub,
+  featherHeart,
   featherInstagram,
   featherLinkedin,
+  featherMail,
   featherMapPin,
-  featherDownload,
-  featherActivity,
-  featherHeart,
-  featherChevronsUp,
   featherSend
 } from '@ng-icons/feather-icons';
 
@@ -35,11 +35,33 @@ export const testNgIconsModule = NgIconsModule.withIcons({
   featherHeart,
   featherChevronsUp,
   featherSend
-});/**
+});
+/**
  * Mock Google Analytics service for tests
  */
 export const mockGoogleAnalyticsService = {
-  eventEmitter: jest.fn()
+  // Legacy method
+  eventEmitter: jest.fn(),
+
+  // New enhanced methods
+  trackEvent: jest.fn(),
+  trackPageView: jest.fn(),
+  trackScreenView: jest.fn(),
+  trackUserInteraction: jest.fn(),
+  trackTiming: jest.fn(),
+  trackError: jest.fn(),
+  trackSocialInteraction: jest.fn(),
+  trackDownload: jest.fn(),
+  trackExternalLink: jest.fn(),
+  trackFormInteraction: jest.fn(),
+  trackSearch: jest.fn(),
+  trackVideo: jest.fn(),
+  setUserProperties: jest.fn(),
+  setUserId: jest.fn(),
+  setAnalyticsEnabled: jest.fn(),
+  setAnalyticsConsent: jest.fn(),
+  isAnalyticsEnabled: jest.fn().mockReturnValue(true),
+  setDebugMode: jest.fn()
 };
 
 /**
@@ -85,7 +107,7 @@ export const mockGetElementById = (mockElement?: Partial<HTMLElement>) => {
       x: 0,
       y: 0,
       // eslint-disable-next-line @typescript-eslint/no-empty-function
-      toJSON: () => { }
+      toJSON: () => {}
     }),
     ...mockElement
   } as HTMLElement;
@@ -115,30 +137,21 @@ export class TestUtils {
   /**
    * Find element by CSS selector
    */
-  static findElement<T>(
-    fixture: ComponentFixture<T>,
-    selector: string
-  ): DebugElement | null {
+  static findElement<T>(fixture: ComponentFixture<T>, selector: string): DebugElement | null {
     return fixture.debugElement.query(By.css(selector));
   }
 
   /**
    * Find all elements by CSS selector
    */
-  static findElements<T>(
-    fixture: ComponentFixture<T>,
-    selector: string
-  ): DebugElement[] {
+  static findElements<T>(fixture: ComponentFixture<T>, selector: string): DebugElement[] {
     return fixture.debugElement.queryAll(By.css(selector));
   }
 
   /**
    * Get element text content
    */
-  static getElementText<T>(
-    fixture: ComponentFixture<T>,
-    selector: string
-  ): string {
+  static getElementText<T>(fixture: ComponentFixture<T>, selector: string): string {
     const element = this.findElement(fixture, selector);
     return element ? element.nativeElement.textContent.trim() : '';
   }
@@ -146,10 +159,7 @@ export class TestUtils {
   /**
    * Click element
    */
-  static clickElement<T>(
-    fixture: ComponentFixture<T>,
-    selector: string
-  ): void {
+  static clickElement<T>(fixture: ComponentFixture<T>, selector: string): void {
     const element = this.findElement(fixture, selector);
     if (element) {
       element.nativeElement.click();
@@ -160,11 +170,7 @@ export class TestUtils {
   /**
    * Trigger input event
    */
-  static setInputValue<T>(
-    fixture: ComponentFixture<T>,
-    selector: string,
-    value: string
-  ): void {
+  static setInputValue<T>(fixture: ComponentFixture<T>, selector: string, value: string): void {
     const element = this.findElement(fixture, selector);
     if (element) {
       const input = element.nativeElement;
@@ -195,10 +201,7 @@ export class TestUtils {
   /**
    * Assert element existence
    */
-  static expectElementToExist<T>(
-    fixture: ComponentFixture<T>,
-    selector: string
-  ): void {
+  static expectElementToExist<T>(fixture: ComponentFixture<T>, selector: string): void {
     const element = this.findElement(fixture, selector);
     expect(element).toBeTruthy();
   }
@@ -206,10 +209,7 @@ export class TestUtils {
   /**
    * Assert element does not exist
    */
-  static expectElementNotToExist<T>(
-    fixture: ComponentFixture<T>,
-    selector: string
-  ): void {
+  static expectElementNotToExist<T>(fixture: ComponentFixture<T>, selector: string): void {
     const element = this.findElement(fixture, selector);
     expect(element).toBeFalsy();
   }
@@ -221,12 +221,12 @@ export class TestUtils {
 export class MockDataFactory {
   static createMockSkillData() {
     return {
-      'Frontend': [
+      Frontend: [
         { name: 'Angular', level: 90 },
         { name: 'React', level: 80 },
         { name: 'TypeScript', level: 85 }
       ],
-      'Backend': [
+      Backend: [
         { name: 'Node.js', level: 85 },
         { name: 'Python', level: 75 },
         { name: 'Java', level: 70 }

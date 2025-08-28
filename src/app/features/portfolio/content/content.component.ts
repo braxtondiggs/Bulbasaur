@@ -1,6 +1,6 @@
+import { TitleCasePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { TitleCasePipe } from '@angular/common';
 import { FooterComponent } from '@core/layout/footer/footer.component';
 import { NgIcon } from '@ng-icons/core';
 import { AnimateOnScrollDirective } from '@shared/directives/animate-on-scroll.directive';
@@ -8,7 +8,7 @@ import { LazyLoadFadeDirective } from '@shared/directives/lazy-load-fade.directi
 import { AppData, Employment, Interests, Project, SkillLanguage } from '@shared/models';
 import { DateFormatPipe, DifferencePipe, ParsePipe } from '@shared/pipes/date.pipe';
 import { SkillPipe } from '@shared/pipes/skill.pipe';
-import { GoogleAnalyticsService } from '@shared/services';
+import { AnalyticsHelperService, GoogleAnalyticsService, ModalService } from '@shared/services';
 import dayjs from 'dayjs';
 import { Subject, of } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
@@ -48,7 +48,9 @@ export class ContentComponent implements OnInit, OnDestroy {
   private readonly destroy$ = new Subject<void>();
   private http = inject(HttpClient);
   private cdr = inject(ChangeDetectorRef);
+  private modalService = inject(ModalService);
   public ga = inject(GoogleAnalyticsService);
+  private analyticsHelper = inject(AnalyticsHelperService);
 
   public ngOnInit(): void {
     this.loadAppData();
@@ -58,6 +60,10 @@ export class ContentComponent implements OnInit, OnDestroy {
   public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  public trackResumeDownload(): void {
+    this.analyticsHelper.trackResumeDownload('pdf');
   }
 
   private loadAppData(): void {
@@ -120,13 +126,18 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
 
   public openProject(project: Project): void {
+    // Track project view
+    this.analyticsHelper.trackProjectInteraction('view', project.name || project.title, project.category);
+
     this.selectedProject = project;
     this.showProjectModal = true;
+    this.modalService.setModalOpen(true);
   }
 
   public closeProject(): void {
     this.showProjectModal = false;
     this.selectedProject = null;
+    this.modalService.setModalOpen(false);
   }
 
   public getYears(time: number): string {
