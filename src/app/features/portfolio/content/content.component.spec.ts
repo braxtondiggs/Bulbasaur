@@ -1,28 +1,25 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 // Removed AngularFireModule to avoid duplicate import warning
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Spectator, createComponentFactory, createSpyObject } from '@ngneat/spectator/jest';
-import { HighchartsChartModule } from 'highcharts-angular';
-import { environment } from '@env/environment';
 import { FooterComponent } from '@core/layout';
-import { SkillPipe } from '@shared/pipes';
 import { SocialComponent } from '@features/profile';
+import { Spectator, createComponentFactory, createSpyObject } from '@ngneat/spectator/jest';
+import { AnimateOnScrollDirective } from '@shared/directives/animate-on-scroll.directive';
+import { LazyLoadFadeDirective } from '@shared/directives/lazy-load-fade.directive';
+import { SkillPipe } from '@shared/pipes';
+import { DateFormatPipe, ParsePipe } from '@shared/pipes/date.pipe';
+import { GoogleAnalyticsService } from '@shared/services';
+import { ScrollService } from '@shared/services/scroll.service';
+import { testNgIconsModule } from '@shared/testing/test-utils';
+import { of } from 'rxjs';
 import { ContactComponent } from './contact/contact.component';
 import { ContentComponent } from './content.component';
-import { SkillsComponent } from './skills/skills.component';
 import { ProjectComponent } from './project/project.component';
-import { testNgIconsModule } from '@shared/testing/test-utils';
-import { LazyLoadFadeDirective } from '@shared/directives/lazy-load-fade.directive';
-import { AnimateOnScrollDirective } from '@shared/directives/animate-on-scroll.directive';
-import { ScrollService } from '@shared/services/scroll.service';
-import { GoogleAnalyticsService } from '@shared/services';
-import { ParsePipe, DateFormatPipe } from '@shared/pipes/date.pipe';
-import { of } from 'rxjs';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-
+import { SkillsComponent } from './skills/skills.component';
 
 describe('ContentComponent', () => {
   let spectator: Spectator<ContentComponent>;
@@ -74,8 +71,8 @@ describe('ContentComponent', () => {
       { provide: AngularFirestore, useValue: mockFireStore },
       { provide: ScrollService, useValue: mockScrollService },
       { provide: GoogleAnalyticsService, useValue: mockGA },
-      { 
-        provide: FIREBASE_OPTIONS, 
+      {
+        provide: FIREBASE_OPTIONS,
         useValue: {
           apiKey: 'fake-api-key',
           authDomain: 'test.firebaseapp.com',

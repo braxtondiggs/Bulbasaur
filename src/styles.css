@@ -1,0 +1,104 @@
+@import 'tailwindcss';
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark, cyberpunk --prefersdark, synthwave --prefersdark;
+}
+
+/* Font declarations */
+@font-face {
+  font-family: 'BandaRegular';
+  font-display: swap;
+  src: url('./fonts/BandaRegular/banda.eot');
+  src: url('./fonts/BandaRegular/banda.eot') format('eot'), url('./fonts/BandaRegular/banda.woff') format('woff'),
+    url('./fonts/BandaRegular/banda.ttf') format('truetype'),
+    url('./fonts/BandaRegular/banda.svg#BandaRegular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Override DaisyUI base styles to work with your custom font */
+:root {
+  font-family: 'BandaRegular', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Font smoothing for better rendering */
+body {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'BandaRegular', sans-serif;
+  letter-spacing: 0.04em;
+  line-height: 1.4em;
+  text-rendering: optimizeLegibility;
+}
+
+/* Consistent letter spacing for headings */
+h1,
+h2,
+p {
+  letter-spacing: 0.04em !important;
+}
+
+/* Enhanced image lazy loading with fade effect */
+img[appLazyLoadFade] {
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+img[appLazyLoadFade].loaded {
+  opacity: 1;
+}
+
+/* Enhanced background lazy loading with fade effect */
+[appLazyBackgroundFade] {
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+[appLazyBackgroundFade].loaded {
+  opacity: 1;
+}
+
+/* Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(156, 163, 175, 0.7);
+}
+
+/* Dark mode scrollbar */
+[data-theme='dark'] ::-webkit-scrollbar-thumb {
+  background: rgba(75, 85, 99, 0.5);
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(75, 85, 99, 0.7);
+}
+
+/* Improve focus indicators for accessibility */
+:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Hide focus outline for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}

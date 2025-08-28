@@ -68,17 +68,6 @@
       }
     },
     {
-      "name": "Cypress Tests",
-      "type": "node",
-      "request": "launch",
-      "program": "${workspaceFolder}/node_modules/.bin/cypress",
-      "args": [
-        "run"
-      ],
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen"
-    },
-    {
       "name": "Launch Edge (ng serve)",
       "type": "msedge",
       "request": "launch",

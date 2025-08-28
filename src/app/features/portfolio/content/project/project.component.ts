@@ -1,18 +1,14 @@
-import { Component, ViewEncapsulation, ChangeDetectionStrategy, inject, input, output, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgIconsModule } from '@ng-icons/core';
-import { GoogleAnalyticsService } from '@shared/services';
-import { Project } from '@shared/models';
+import { ChangeDetectionStrategy, Component, effect, inject, input, output, ViewEncapsulation } from '@angular/core';
+import { NgIcon } from '@ng-icons/core';
 import { LazyLoadFadeDirective } from '@shared/directives/lazy-load-fade.directive';
+import { Project } from '@shared/models';
+import { GoogleAnalyticsService } from '@shared/services';
 
 @Component({
   selector: 'app-project',
   standalone: true,
-  imports: [
-    CommonModule,
-    NgIconsModule,
-    LazyLoadFadeDirective
-  ],
+  imports: [CommonModule, NgIcon, LazyLoadFadeDirective],
   templateUrl: './project.component.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -29,7 +25,7 @@ export class ProjectComponent {
     effect(() => {
       const currentProject = this.project();
       if (currentProject && currentProject.description) {
-        currentProject.description_modified = currentProject.description.join('<br /><br />');
+        currentProject.description_modified = currentProject.description;
       }
     });
   }

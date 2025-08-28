@@ -1,25 +1,26 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
-import { NgIconsModule } from '@ng-icons/core';
 import { HttpClient } from '@angular/common/http';
-import { GoogleAnalyticsService } from '@shared/services';
-import { SkillsComponent } from './skills/skills.component';
-import { ContactComponent } from './contact/contact.component';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { TitleCasePipe } from '@angular/common';
 import { FooterComponent } from '@core/layout/footer/footer.component';
-import { ProjectComponent } from './project/project.component';
-import { Subject, of } from 'rxjs';
-import { takeUntil, catchError } from 'rxjs/operators';
-import dayjs from 'dayjs';
-import { AppData, Employment, Project, Interests, SkillLanguage } from '@shared/models';
+import { NgIcon } from '@ng-icons/core';
 import { AnimateOnScrollDirective } from '@shared/directives/animate-on-scroll.directive';
 import { LazyLoadFadeDirective } from '@shared/directives/lazy-load-fade.directive';
+import { AppData, Employment, Interests, Project, SkillLanguage } from '@shared/models';
+import { DateFormatPipe, DifferencePipe, ParsePipe } from '@shared/pipes/date.pipe';
 import { SkillPipe } from '@shared/pipes/skill.pipe';
-import { ParsePipe, DateFormatPipe, DifferencePipe } from '@shared/pipes/date.pipe';
+import { GoogleAnalyticsService } from '@shared/services';
+import dayjs from 'dayjs';
+import { Subject, of } from 'rxjs';
+import { catchError, takeUntil } from 'rxjs/operators';
+import { ContactComponent } from './contact/contact.component';
+import { ProjectComponent } from './project/project.component';
+import { SkillsComponent } from './skills/skills.component';
 
 @Component({
   selector: 'app-content',
   standalone: true,
   imports: [
-    NgIconsModule,
+    NgIcon,
     SkillsComponent,
     ContactComponent,
     FooterComponent,
@@ -29,10 +30,10 @@ import { ParsePipe, DateFormatPipe, DifferencePipe } from '@shared/pipes/date.pi
     SkillPipe,
     ParsePipe,
     DateFormatPipe,
-    DifferencePipe
+    DifferencePipe,
+    TitleCasePipe
   ],
   templateUrl: './content.component.html',
-  styleUrls: ['./content.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContentComponent implements OnInit, OnDestroy {
@@ -60,7 +61,8 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
 
   private loadAppData(): void {
-    this.http.get<AppData>('assets/data.json')
+    this.http
+      .get<AppData>('assets/data.json')
       .pipe(
         takeUntil(this.destroy$),
         catchError(error => {
@@ -83,7 +85,8 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
 
   private loadSkillsData(): void {
-    this.http.get<{ Languages: SkillLanguage[] }>('https://code.braxtondiggs.com/api?range=last30days')
+    this.http
+      .get<{ Languages: SkillLanguage[] }>('https://code.braxtondiggs.com/api?range=last30days')
       .pipe(
         takeUntil(this.destroy$),
         catchError(error => {
@@ -98,8 +101,7 @@ export class ContentComponent implements OnInit, OnDestroy {
         for (const lang of data.Languages) {
           totalTime += lang.total_seconds;
         }
-        const filteredLanguages = data.Languages
-          .filter(lang => lang.name !== 'Other')
+        const filteredLanguages = data.Languages.filter(lang => lang.name !== 'Other')
           .sort((a, b) => b.total_seconds - a.total_seconds)
           .slice(0, 6)
           .map((language: SkillLanguage) => ({
@@ -149,7 +151,7 @@ export class ContentComponent implements OnInit, OnDestroy {
     return skill.name;
   }
 
-  public trackByInterestName(index: number, interest: Interests): string {
-    return interest.name;
+  public trackByInterestTitle(index: number, interest: Interests): string {
+    return interest.title;
   }
 }

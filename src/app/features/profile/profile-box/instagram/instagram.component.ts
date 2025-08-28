@@ -1,68 +1,63 @@
-import { Component, OnInit, ChangeDetectionStrategy, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgIconsModule } from '@ng-icons/core';
-import { Firestore, collection, collectionData, query, orderBy, limit } from '@angular/fire/firestore';
-import { Observable, of } from 'rxjs';
-import { tap, catchError, startWith } from 'rxjs/operators';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
+import { Firestore, collection, collectionData, limit, orderBy, query } from '@angular/fire/firestore';
+import { NgIcon } from '@ng-icons/core';
 import { LazyLoadFadeDirective } from '@shared/directives/lazy-load-fade.directive';
+import { Observable, of } from 'rxjs';
+import { catchError, startWith } from 'rxjs/operators';
 
 interface InstagramPost {
-  SourceUrl: string;
-  Caption: string;
-  Url: string;
-  CreatedAt: {
-    seconds: number;
-    nanoseconds: number;
+  readonly SourceUrl: string;
+  readonly Caption: string;
+  readonly Url: string;
+  readonly CreatedAt: {
+    readonly seconds: number;
+    readonly nanoseconds: number;
   };
 }
 
 @Component({
   selector: 'app-instagram',
   standalone: true,
-  imports: [
-    CommonModule,
-    NgIconsModule,
-    LazyLoadFadeDirective
-  ],
+  imports: [CommonModule, NgIcon, LazyLoadFadeDirective],
   templateUrl: './instagram.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InstagramComponent implements OnInit {
-  public instagram$!: Observable<InstagramPost[]>;
-  private firestore = inject(Firestore);
-  private cdr = inject(ChangeDetectorRef);
+  public readonly instagram$: Observable<InstagramPost[] | null> = of(null);
+  private readonly firestore = inject(Firestore);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   ngOnInit(): void {
-    try {
-      // Create collection reference
-      const instagramCollection = collection(this.firestore, 'instagram');
+    this.initializeInstagramFeed();
+  }
 
-      // Create query with ordering and limit
+  private initializeInstagramFeed(): void {
+    try {
+      const instagramCollection = collection(this.firestore, 'instagram');
       const instagramQuery = query(
-        instagramCollection,
-        orderBy('CreatedAt', 'desc'),
+        instagramCollection, 
+        orderBy('CreatedAt', 'desc'), 
         limit(6)
       );
 
-      // Get observable data stream with error handling and timeout
-      this.instagram$ = (collectionData(instagramQuery) as Observable<InstagramPost[]>).pipe(
-        startWith(null), // Start with null to handle initial loading state
-        tap((data) => {
-          console.log('Instagram data loaded:', data);
-          // Ensure change detection runs when data arrives with OnPush strategy
-          this.cdr.markForCheck();
-        }),
-        catchError((error) => {
-          console.error('Instagram Firestore error:', error);
-          console.log('Falling back to empty state due to error');
-          // Return empty array on error to show empty state instead of loading
+      (this.instagram$ as any) = (collectionData(instagramQuery) as Observable<InstagramPost[]>).pipe(
+        startWith(null),
+        catchError((error: unknown) => {
+          // Log error for monitoring in development but not detailed info in production
+          if (error instanceof Error) {
+            console.error('Failed to load Instagram data:', error.name);
+          } else {
+            console.error('Failed to load Instagram data: Unknown error');
+          }
           return of([]);
         })
       );
+      
+      this.cdr.markForCheck();
     } catch (error) {
-      console.error('Instagram component initialization error:', error);
-      // Fallback to empty observable if initialization fails
-      this.instagram$ = of([]);
+      console.error('Instagram component initialization failed');
+      (this.instagram$ as any) = of([]);
       this.cdr.markForCheck();
     }
   }

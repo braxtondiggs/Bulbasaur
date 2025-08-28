@@ -1,23 +1,20 @@
 <div
   id="about"
   animateOnScroll
-  class="mb-6 shadow-xl card bg-base-100 animated"
+  class="flex-1 order-2 block min-w-0 mb-6 shadow-xl card bg-base-100 animated shrink-0"
   animationName="fadeInUp"
 >
   <div class="card-body">
     <h2 class="mb-4 text-4xl font-bold card-title">Hello, I'm Braxton</h2>
     <p class="mb-6 text-lg text-base-content/80">
-      I am a talented Freelance Web & Mobile App Developer based in Brooklyn,
-      New York, specializing in User Interface/Experience and Application
-      Development. I build clean, appealing, and functional interfaces which
-      comply with the latest and greatest web standards.
+      I am a talented Freelance Web & Mobile App Developer based in Brooklyn, New York, specializing in User
+      Interface/Experience and Application Development. I build clean, appealing, and functional interfaces which comply
+      with the latest and greatest web standards.
     </p>
     <div class="divider"></div>
     <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
       <div class="skills-container-1">
-        <h2 class="mb-8 text-xl font-semibold uppercase">
-          professional skills
-        </h2>
+        <h2 class="mb-8 text-xl font-semibold uppercase">professional skills</h2>
         @if (!loadingSkills) {
         <div class="space-y-4">
           @for (skill of skills[0]; track trackBySkillName($index, skill)) {
@@ -26,11 +23,7 @@
               <div class="font-semibold name">{{ skill.name }}</div>
               <div class="text-sm">{{ skill.value | skill }}%</div>
             </div>
-            <progress
-              class="progress progress-accent"
-              [value]="skill.value | skill"
-              max="100"
-            ></progress>
+            <progress class="progress progress-accent" [value]="skill.value | skill" max="100"></progress>
           </div>
           }
         </div>
@@ -70,8 +63,7 @@
       Things I&nbsp;<ng-icon name="featherHeart" class="text-red-500" />
     </h2>
     <div class="grid grid-cols-1 mb-4 sm:grid-cols-2">
-      @for (interest of interests; track trackByInterestName($index, interest))
-      {
+      @for (interest of interests; track trackByInterestTitle($index, interest)) {
       <div class="flex flex-row items-center gap-3 mb-4">
         <span class="text-xl">{{ interest.emoji }}</span>
         <h4 class="font-medium text-md sm:text-lg whitespace-nowrap">
@@ -82,58 +74,37 @@
     </div>
   </div>
 </div>
-<div
-  id="experience"
-  animateOnScroll
-  class="mb-6 shadow-xl card bg-base-100 animated"
-  animationName="fadeInUp"
->
+<div id="experience" animateOnScroll class="mb-6 shadow-xl card bg-base-100 animated" animationName="fadeInUp">
   <div class="card-body">
     <h2 class="mb-6 text-3xl font-bold card-title">Work Experience</h2>
 
     <!-- Mobile Layout: Full width cards without timeline -->
     <div class="block space-y-4 md:hidden">
-      @for (company of employment; track trackByEmploymentIndex($index,
-      company)) {
+      @for (company of employment; track trackByEmploymentIndex($index, company)) {
       <div class="shadow-md card bg-base-200">
         <div class="card-body">
           <div class="flex flex-row justify-center gap-2">
             <div class="w-20 avatar">
               <div class="my-auto rounded-full">
-                <img
-                  [appLazyLoadFade]="company.image.icon"
-                  [alt]="company.name"
-                  class="!h-auto"
-                />
+                <img [appLazyLoadFade]="company.image.icon" [alt]="company.name" class="!h-auto" />
               </div>
             </div>
             <div class="flex-1">
               <h3 class="text-lg font-semibold text-accent">
                 {{ company.position }}
               </h3>
-              <h4 class="text-base font-medium">
-                {{ company.name }} ({{ company.location }})
-              </h4>
+              <h4 class="text-base font-medium">{{ company.name }} ({{ company.location }})</h4>
               <h5 class="text-sm text-base-content/70">
                 <span class="start-date">{{
-                  company.date.start
-                    | amParse : "YYYY-MM-DD"
-                    | amDateFormat : "MMM YYYY"
+                  company.date.start | amParse : 'YYYY-MM-DD' | amDateFormat : 'MMM YYYY'
                 }}</span>
                 &#8211; @if (company.date.end) {
                 <span class="end-date">{{
-                  company.date.end
-                    | amParse : "YYYY-MM-DD"
-                    | amDateFormat : "MMM YYYY"
+                  company.date.end | amParse : 'YYYY-MM-DD' | amDateFormat : 'MMM YYYY'
                 }}</span>
                 } @if (company.date.end) {
                 <span class="difference-date">
-                  ({{
-                    getYears(
-                      company.date.end
-                        | amDifference : company.date.start : "years"
-                    )
-                  }})</span
+                  ({{ getYears(company.date.end | amDifference : company.date.start : 'years') }})</span
                 >
                 } @if (!company.date.end) {
                 <span>Present</span>
@@ -147,58 +118,42 @@
     </div>
 
     <!-- Desktop Layout: Timeline -->
-    <ul class="hidden timeline timeline-vertical md:block">
-      @for (company of employment; track trackByEmploymentIndex($index,
-      company); let isOdd = $odd) {
+    <ul class="hidden md:block timeline timeline-vertical">
+      @for (company of employment; track trackByEmploymentIndex($index, company); let isOdd = $odd) {
       <li>
+        @if (!$first) {
         <hr />
-        <div class="timeline-start" [class.md:timeline-end]="isOdd"></div>
+        } @if (isOdd) {
+        <!-- Odd items (1, 3, 5...) - Content on the right -->
+        <div class="timeline-start"></div>
         <div class="timeline-middle">
           <div
             class="w-5 h-5 leading-5 text-center text-white border-4 border-white rounded-full shadow-md bg-accent"
           ></div>
         </div>
-        <div
-          class="timeline-end timeline-box"
-          [class.md:timeline-start]="isOdd"
-        >
+        <div class="timeline-end timeline-box">
           <div class="flex flex-row justify-center gap-2">
             <div class="w-20 avatar">
               <div class="my-auto rounded-full">
-                <img
-                  [appLazyLoadFade]="company.image.icon"
-                  [alt]="company.name"
-                  class="!h-auto"
-                />
+                <img [appLazyLoadFade]="company.image.icon" [alt]="company.name" class="!h-auto" />
               </div>
             </div>
             <div class="flex-1">
               <h3 class="text-lg font-semibold text-accent">
                 {{ company.position }}
               </h3>
-              <h4 class="text-base font-medium">
-                {{ company.name }} ({{ company.location }})
-              </h4>
+              <h4 class="text-base font-medium">{{ company.name }} ({{ company.location }})</h4>
               <h5 class="text-sm text-base-content/70">
                 <span class="start-date">{{
-                  company.date.start
-                    | amParse : "YYYY-MM-DD"
-                    | amDateFormat : "MMM YYYY"
+                  company.date.start | amParse : 'YYYY-MM-DD' | amDateFormat : 'MMM YYYY'
                 }}</span>
                 &#8211; @if (company.date.end) {
                 <span class="end-date">{{
-                  company.date.end
-                    | amParse : "YYYY-MM-DD"
-                    | amDateFormat : "MMM YYYY"
+                  company.date.end | amParse : 'YYYY-MM-DD' | amDateFormat : 'MMM YYYY'
                 }}</span>
                 } @if (company.date.end) {
                 <span class="difference-date">
-                  ({{
-                    getYears(
-                      company.date.end
-                        | amDifference : company.date.start : "years"
-                    )
-                  }})</span
+                  ({{ getYears(company.date.end | amDifference : company.date.start : 'years') }})</span
                 >
                 } @if (!company.date.end) {
                 <span>Present</span>
@@ -207,7 +162,48 @@
             </div>
           </div>
         </div>
+        } @else {
+        <!-- Even items (0, 2, 4...) - Content on the left -->
+        <div class="timeline-start timeline-box">
+          <div class="flex flex-row justify-center gap-2">
+            <div class="w-20 avatar">
+              <div class="my-auto rounded-full">
+                <img [appLazyLoadFade]="company.image.icon" [alt]="company.name" class="!h-auto" />
+              </div>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold text-accent">
+                {{ company.position }}
+              </h3>
+              <h4 class="text-base font-medium">{{ company.name }} ({{ company.location }})</h4>
+              <h5 class="text-sm text-base-content/70">
+                <span class="start-date">{{
+                  company.date.start | amParse : 'YYYY-MM-DD' | amDateFormat : 'MMM YYYY'
+                }}</span>
+                &#8211; @if (company.date.end) {
+                <span class="end-date">{{
+                  company.date.end | amParse : 'YYYY-MM-DD' | amDateFormat : 'MMM YYYY'
+                }}</span>
+                } @if (company.date.end) {
+                <span class="difference-date">
+                  ({{ getYears(company.date.end | amDifference : company.date.start : 'years') }})</span
+                >
+                } @if (!company.date.end) {
+                <span>Present</span>
+                }
+              </h5>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-middle">
+          <div
+            class="w-5 h-5 leading-5 text-center text-white border-4 border-white rounded-full shadow-md bg-accent"
+          ></div>
+        </div>
+        <div class="timeline-end"></div>
+        } @if (!$last) {
         <hr />
+        }
       </li>
       }
     </ul>
@@ -225,54 +221,95 @@
   </div>
 </div>
 <app-skills />
-<div
-  id="portfolio"
-  animateOnScroll
-  class="mb-6 shadow-xl card bg-base-100 animated"
-  animationName="fadeInUp"
->
+<div id="portfolio" animateOnScroll class="mb-6 shadow-xl card bg-base-100 animated" animationName="fadeInUp">
   <div class="card-body">
     <h2 class="mb-6 text-3xl font-bold card-title">Working Projects</h2>
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 auto-rows-fr">
       @for (project of projects; track trackByProjectId($index, project)) {
       <div class="flex" [class.hidden]="project.status !== 'active'">
         <div
-          class="flex-1 overflow-hidden transition-shadow shadow-md cursor-pointer card bg-base-200 hover:shadow-lg group"
+          class="flex-1 overflow-hidden transition-shadow shadow-md cursor-pointer card hover:shadow-lg group"
           role="button"
           tabindex="0"
-          (click)="
-            openProject(project);
-            ga.eventEmitter('projects', 'more', project.title)
-          "
-          (keyup.enter)="
-            openProject(project);
-            ga.eventEmitter('projects', 'more', project.title)
-          "
-          (keyup.space)="
-            openProject(project);
-            ga.eventEmitter('projects', 'more', project.title)
-          "
+          (click)="openProject(project); ga.eventEmitter('projects', 'more', project.title)"
+          (keyup.enter)="openProject(project); ga.eventEmitter('projects', 'more', project.title)"
+          (keyup.space)="openProject(project); ga.eventEmitter('projects', 'more', project.title)"
         >
           <figure class="relative overflow-hidden">
             <img
               [appLazyLoadFade]="project.image.screenshot"
-              [alt]="project.title"
-              class="object-cover w-full h-48 transition-transform duration-300 group-hover:scale-105"
+              [alt]="project.image.alt || project.title"
+              class="z-10 object-cover w-full h-48 transition-transform duration-300 group-hover:scale-105"
             />
             <div
               class="absolute inset-0 flex items-center justify-center transition-all duration-300 bg-black bg-opacity-0 group-hover:bg-opacity-60"
             >
-              <div
-                class="text-center text-white transition-opacity duration-300 opacity-0 group-hover:opacity-100"
-              >
+              <div class="text-center text-white transition-opacity duration-300 opacity-0 group-hover:opacity-100">
                 <h3 class="mb-2 text-xl font-bold">{{ project.title }}</h3>
-                <p class="px-4 mb-4 text-sm">{{ project.summary }}</p>
-                <button type="button" class="btn btn-secondary">
-                  View More
-                </button>
+                <p class="px-4 mb-2 text-sm opacity-90">{{ project.category }}</p>
+                <p class="px-4 mb-4 text-sm">{{ project.description }}</p>
+                @if (project.technologies && project.technologies.length > 0) {
+                <div class="flex flex-wrap justify-center gap-1 px-4 mb-4">
+                  @for (tech of project.technologies.slice(0, 3); track tech) {
+                  <span class="px-2 py-1 text-xs rounded-full bg-white/20">{{ tech }}</span>
+                  } @if (project.technologies.length > 3) {
+                  <span class="px-2 py-1 text-xs rounded-full bg-white/20">+{{ project.technologies.length - 3 }}</span>
+                  }
+                </div>
+                }
+                <button type="button" class="btn btn-secondary">View More</button>
               </div>
             </div>
           </figure>
+          <div class="p-4">
+            <div class="flex items-start justify-between mb-2">
+              <h3 class="text-lg font-semibold line-clamp-2">{{ project.title }}</h3>
+              @if (project.featured) {
+              <span class="px-2 py-1 ml-2 text-xs font-medium rounded-full bg-accent text-accent-content shrink-0">
+                Featured
+              </span>
+              }
+            </div>
+            <p class="mb-2 text-sm text-base-content/70">{{ project.category }}</p>
+            <p class="mb-3 text-sm line-clamp-3">{{ project.description }}</p>
+            @if (project.technologies && project.technologies.length > 0) {
+            <div class="flex flex-wrap gap-1 mb-3">
+              @for (tech of project.technologies.slice(0, 4); track tech) {
+              <span class="px-2 py-1 text-xs rounded-md bg-base-300 text-base-content">{{ tech }}</span>
+              } @if (project.technologies.length > 4) {
+              <span class="px-2 py-1 text-xs rounded-md bg-base-300 text-base-content"
+                >+{{ project.technologies.length - 4 }}</span
+              >
+              }
+            </div>
+            }
+            <div class="flex items-center justify-between">
+              @if (project.platforms && project.platforms.length > 0) {
+              <div class="flex gap-1">
+                @for (platform of project.platforms; track platform) {
+                <span class="px-2 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                  {{ platform | titlecase }}
+                </span>
+                }
+              </div>
+              }
+              <button
+                type="button"
+                class="text-sm btn btn-sm btn-outline"
+                (click)="
+                  openProject(project); ga.eventEmitter('projects', 'more', project.title); $event.stopPropagation()
+                "
+                (keyup.enter)="
+                  openProject(project); ga.eventEmitter('projects', 'more', project.title); $event.stopPropagation()
+                "
+                (keyup.space)="
+                  openProject(project); ga.eventEmitter('projects', 'more', project.title); $event.stopPropagation()
+                "
+              >
+                Learn More
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       }
@@ -281,8 +318,4 @@
 </div>
 <app-contact />
 <app-footer />
-<app-project
-  [project]="selectedProject"
-  [isVisible]="showProjectModal"
-  (closeModal)="closeProject()"
-/>
+<app-project [project]="selectedProject" [isVisible]="showProjectModal" (closeModal)="closeProject()" />

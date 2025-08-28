@@ -33,8 +33,3 @@ src/jest.resolver.js
 
 # Firebase
 .firebaserc
-
-# Cypress
-cypress/downloads/
-cypress/screenshots/
-cypress/videos/

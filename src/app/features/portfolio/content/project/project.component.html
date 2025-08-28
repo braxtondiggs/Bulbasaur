@@ -1,11 +1,5 @@
 @if (isVisible()) {
-<div
-  class="modal modal-open"
-  (click)="close()"
-  tabindex="0"
-  (keyup.enter)="close()"
-  (keyup.space)="close()"
->
+<div class="z-30 modal modal-open" (click)="close()" tabindex="0" (keyup.enter)="close()" (keyup.space)="close()">
   <div
     class="w-11/12 max-w-4xl modal-box"
     (click)="$event.stopPropagation()"
@@ -22,47 +16,112 @@
     >
       <ng-icon name="featherX" size="1.5rem"></ng-icon>
     </button>
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-5">
+    <div class="grid grid-cols-1 gap-6 mt-6 md:grid-cols-5">
       <div class="md:col-span-2">
         <img
           [appLazyLoadFade]="project().image.screenshot"
-          [alt]="project().title"
+          [alt]="project().image.alt || project().title"
           class="w-full max-h-[65vh] object-contain shadow-lg rounded-lg block mx-auto"
           [ngClass]="{
-            'aspect-[9/16]': project().mobile,
-            'aspect-video': !project().mobile
+            'aspect-[9/16]': project().mobile || project().type === 'mobile',
+            'aspect-video': !project().mobile && project().type !== 'mobile'
           }"
         />
       </div>
       <div class="flex flex-col md:col-span-3">
         <div class="flex-1">
-          <h2 class="mb-4 text-2xl font-bold">{{ project().title }}</h2>
-          <div
-            class="prose-sm prose max-w-none"
-            [innerHtml]="project().description_modified"
-          ></div>
+          <div class="flex items-start justify-between mb-4">
+            <h2 class="text-2xl font-bold">{{ project().title }}</h2>
+            <div class="flex gap-2 ml-2 shrink-0">
+              @if (project().featured) {
+              <span class="px-3 py-1 text-sm font-medium rounded-full bg-accent text-accent-content"> Featured </span>
+              } @if (project().status === 'active') {
+              <span class="px-3 py-1 text-sm font-medium rounded-full bg-success text-success-content"> Active </span>
+              } @else if (project().status === 'discontinued') {
+              <span class="px-3 py-1 text-sm font-medium rounded-full bg-warning text-warning-content">
+                Discontinued
+              </span>
+              }
+            </div>
+          </div>
+
+          @if (project().category) {
+          <div class="mb-3">
+            <span class="px-3 py-1 text-sm font-medium rounded-full bg-primary/10 text-primary">
+              {{ project().category }}
+            </span>
+          </div>
+          }
+
+          <div class="mb-4 prose-sm prose max-w-none">
+            {{ project().description }}
+          </div>
+
+          @if (project().technologies && project().technologies.length > 0) {
+          <div class="mb-4">
+            <h3 class="mb-2 text-sm font-semibold uppercase text-base-content/70">Technologies</h3>
+            <div class="flex flex-wrap gap-2">
+              @for (tech of project().technologies; track tech) {
+              <span class="px-2 py-1 text-xs rounded-md bg-base-300 text-base-content">{{ tech }}</span>
+              }
+            </div>
+          </div>
+          } @if (project().platforms && project().platforms.length > 0) {
+          <div class="mb-4">
+            <h3 class="mb-2 text-sm font-semibold uppercase text-base-content/70">Platforms</h3>
+            <div class="flex flex-wrap gap-2">
+              @for (platform of project().platforms; track platform) {
+              <span class="px-2 py-1 text-xs font-medium rounded-full bg-secondary/10 text-secondary">{{
+                platform | titlecase
+              }}</span>
+              }
+            </div>
+          </div>
+          } @if (project().features && project().features.length > 0) {
+          <div class="mb-4">
+            <h3 class="mb-2 text-sm font-semibold uppercase text-base-content/70">Key Features</h3>
+            <ul class="space-y-1 text-sm list-disc list-inside text-base-content/80">
+              @for (feature of project().features.slice(0, 4); track feature) {
+              <li>{{ feature }}</li>
+              } @if (project().features.length > 4) {
+              <li class="text-base-content/60">+ {{ project().features.length - 4 }} more features</li>
+              }
+            </ul>
+          </div>
+          } @if (project().highlights && project().highlights.length > 0) {
+          <div class="mb-4">
+            <h3 class="mb-2 text-sm font-semibold uppercase text-base-content/70">Highlights</h3>
+            <ul class="space-y-1 text-sm list-disc list-inside">
+              @for (highlight of project().highlights; track highlight) {
+              <li>{{ highlight }}</li>
+              }
+            </ul>
+          </div>
+          }
         </div>
-        @if (project().url) {
+        @if (project().urls || project().url) {
         <div class="flex flex-col gap-4 mt-6 sm:flex-row sm:items-center">
           <div class="flex-1">
-            @if (project().url.web) {
+            @if (project().urls?.web || project().url?.web) {
             <a
-              [href]="project().url.web"
+              [href]="project().urls?.web || project().url?.web"
               target="_blank"
               (click)="ga.eventEmitter('projects', 'web', project().title)"
               class="btn btn-primary btn-lg"
             >
+              <ng-icon name="featherExternalLink" class="mr-2" size="1.2rem"></ng-icon>
               View Project
             </a>
             }
           </div>
           <div class="flex gap-2">
-            @if (project().url.android) {
+            @if (project().urls?.android || project().url?.android) {
             <a
-              [href]="project().url.android"
+              [href]="project().urls?.android || project().url?.android"
               target="_blank"
               (click)="ga.eventEmitter('projects', 'android', project().title)"
               class="block"
+              title="Download on Google Play"
             >
               <img
                 appLazyLoadFade="assets/Google-Store.png"
@@ -70,12 +129,13 @@
                 class="w-auto h-8 shadow-none"
               />
             </a>
-            } @if (project().url.ios) {
+            } @if (project().urls?.ios || project().url?.ios) {
             <a
-              [href]="project().url.ios"
+              [href]="project().urls?.ios || project().url?.ios"
               target="_blank"
               (click)="ga.eventEmitter('projects', 'ios', project().title)"
               class="block"
+              title="Download on App Store"
             >
               <img
                 appLazyLoadFade="assets/Apple-Store.png"
@@ -83,19 +143,34 @@
                 class="w-auto h-8 shadow-none"
               />
             </a>
-            } @if (project().url.other) {
+            } @if (project().urls?.other || project().url?.other) {
             <a
-              [href]="project().url.other"
+              [href]="project().urls?.other || project().url?.other"
               target="_blank"
               (click)="ga.eventEmitter('projects', 'other', project().title)"
               class="block"
             >
-              <img
-                [appLazyLoadFade]="project().image.other"
-                [alt]="project().title"
-                class="w-auto h-8 shadow-none"
-              />
+              <img [appLazyLoadFade]="project().image.other" [alt]="project().title" class="w-auto h-8 shadow-none" />
             </a>
+            }
+          </div>
+        </div>
+        }
+
+        <!-- Project Metadata Footer -->
+        @if (project().dateCreated || project().lastUpdated) {
+        <div class="pt-4 mt-4 border-t border-base-300">
+          <div class="grid grid-cols-1 gap-2 text-xs sm:grid-cols-2 text-base-content/60">
+            @if (project().dateCreated) {
+            <div>
+              <span class="font-medium">Created:</span>
+              {{ project().dateCreated | date : 'MMM yyyy' }}
+            </div>
+            } @if (project().lastUpdated) {
+            <div>
+              <span class="font-medium">Last Updated:</span>
+              {{ project().lastUpdated | date : 'MMM yyyy' }}
+            </div>
             }
           </div>
         </div>

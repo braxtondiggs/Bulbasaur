@@ -21,25 +21,43 @@ export interface Employment {
 
 export interface Project {
   id: string;
-  name: string;
   title: string;
-  summary: string;
-  description: string[];
-  description_modified?: string;
+  category: string;
+  type: string;
   status: string;
+  featured: boolean;
+  technologies: string[];
+  platforms: string[];
   image: {
+    icon: string;
     screenshot: string;
     other?: string;
+    alt: string;
   };
-  url: {
+  description: string;
+  features?: string[];
+  highlights?: string[];
+  urls?: {
+    web?: string;
+    android?: string;
+    ios?: string;
+    other?: string;
+    award?: string;
+  };
+  dateCreated: string;
+  lastUpdated: string;
+  discontinuedDate?: string;
+  // Legacy fields for backward compatibility
+  name?: string;
+  summary?: string;
+  description_modified?: string;
+  url?: {
     web?: string;
     android?: string;
     ios?: string;
     other?: string;
   };
   github?: string;
-  technologies: string[];
-  featured?: boolean;
   mobile?: boolean;
 }
 

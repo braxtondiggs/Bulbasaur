@@ -1,92 +1,93 @@
+import { HttpClient } from '@angular/common/http';
 import {
-  Component,
-  OnInit,
-  OnDestroy,
-  ViewChild,
-  ViewEncapsulation,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  Component,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation,
   inject,
-  HostListener
 } from '@angular/core';
-import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { GoogleAnalyticsService } from '@shared/services';
-import { Subject, of } from 'rxjs';
-import { takeUntil, catchError } from 'rxjs/operators';
-import * as Highcharts from 'highcharts';
-import { HighchartsChartModule } from 'highcharts-angular';
-import dayjs from 'dayjs';
-import { SkillsData, ChartData, CustomDateRange } from '@shared/models';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AnimateOnScrollDirective } from '@shared/directives/animate-on-scroll.directive';
-import { ParsePipe, DateFormatPipe } from '@shared/pipes/date.pipe';
+import { CustomDateRange, SkillsData } from '@shared/models';
+import { DateFormatPipe, ParsePipe } from '@shared/pipes/date.pipe';
+import { GoogleAnalyticsService } from '@shared/services';
+import dayjs from 'dayjs';
+import * as Highcharts from 'highcharts';
+import { HighchartsChartComponent } from 'highcharts-angular';
+import { Subject, of } from 'rxjs';
+import { catchError, takeUntil } from 'rxjs/operators';
 
 @Component({
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    HighchartsChartModule,
-    AnimateOnScrollDirective,
-    ParsePipe,
-    DateFormatPipe
-  ],
+  imports: [ReactiveFormsModule, AnimateOnScrollDirective, ParsePipe, DateFormatPipe, HighchartsChartComponent],
   encapsulation: ViewEncapsulation.None,
   selector: 'app-skills',
   templateUrl: './skills.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SkillsComponent implements OnInit, OnDestroy {
+  public Highcharts: typeof Highcharts = Highcharts;
   public updateFlag: boolean = false;
-  public readonly Highcharts: typeof Highcharts = Highcharts;
   public date: CustomDateRange = { begin: '', end: '' };
-  public chart: ChartData = { languages: {}, activity: {}, editors: {} };
   public skills!: SkillsData;
   public chartName: 'languages' | 'activity' | 'editors' = 'languages';
   public selectedTabIndex = 0;
   public readonly minDate = dayjs('2016-06-22', 'YYYY-MM-DD').format();
   public readonly maxDate = dayjs().subtract(1, 'days').format();
+
+  // Chart options for each chart type
+  public languagesChartOptions: Highcharts.Options = {};
+  public activityChartOptions: Highcharts.Options = {};
+  public editorsChartOptions: Highcharts.Options = {};
+
   public form = new FormGroup({
     range: new FormControl<string>('last30days', {
       nonNullable: true,
-      validators: [Validators.required]
+      validators: [Validators.required],
     }),
     start: new FormControl<string>('', { validators: [Validators.required] }),
-    end: new FormControl<string>('', { validators: [Validators.required] })
+    end: new FormControl<string>('', { validators: [Validators.required] }),
   });
 
-  private readonly chartRef: Record<string, Highcharts.Chart> = {
-    languages: {} as Highcharts.Chart,
-    editors: {} as Highcharts.Chart,
-    activity: {} as Highcharts.Chart
-  };
   private readonly destroy$ = new Subject<void>();
+  private isDarkMode = false;
 
   @ViewChild('selector') selector!: any;
   @ViewChild('picker') datePicker!: any;
+  @ViewChild('languagesChart') languagesChart!: HighchartsChartComponent;
+  @ViewChild('activityChart') activityChart!: HighchartsChartComponent;
+  @ViewChild('editorsChart') editorsChart!: HighchartsChartComponent;
 
   private http = inject(HttpClient);
   private cdr = inject(ChangeDetectorRef);
   private ga = inject(GoogleAnalyticsService);
-  private isDarkMode = false;
 
   public ngOnInit(): void {
     this.detectTheme();
-    this.setDefaultCharts();
+    this.initializeChartOptions();
     this.getSkills();
+    setTimeout(() => this.cdr.detectChanges(), 100);
   }
 
   @HostListener('window:resize', ['$event'])
   onResize(): void {
-    // Responsive chart resizing
-    if (this.chartRef.languages?.reflow) {
-      this.chartRef.languages.reflow();
-    }
-    if (this.chartRef.activity?.reflow) {
-      this.chartRef.activity.reflow();
-    }
-    if (this.chartRef.editors?.reflow) {
-      this.chartRef.editors.reflow();
-    }
+    // Trigger chart resize when window resizes
+    this.resizeCharts();
+  }
+
+  private resizeCharts(): void {
+    // Trigger update flag to force chart resize
+    this.updateFlag = true;
+    this.cdr.detectChanges();
+    
+    // Reset update flag after a short delay
+    setTimeout(() => {
+      this.updateFlag = false;
+    }, 100);
   }
 
   private detectTheme(): void {
@@ -95,13 +96,13 @@ export class SkillsComponent implements OnInit, OnDestroy {
     this.isDarkMode = ['dark', 'cyberpunk', 'synthwave'].includes(theme || '');
 
     // Watch for theme changes
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
+    const observer = new MutationObserver(mutations => {
+      mutations.forEach(mutation => {
         if (mutation.attributeName === 'data-theme') {
           const newTheme = htmlElement.getAttribute('data-theme');
           this.isDarkMode = ['dark', 'cyberpunk', 'synthwave'].includes(newTheme || '');
-          this.setDefaultCharts();
-          this.updateSeries();
+          this.initializeChartOptions();
+          this.updateChartData();
         }
       });
     });
@@ -133,7 +134,6 @@ export class SkillsComponent implements OnInit, OnDestroy {
     const tabLabels: Array<'languages' | 'activity' | 'editors'> = ['languages', 'activity', 'editors'];
     this.chartName = tabLabels[selection.index];
     this.cdr.detectChanges();
-    this.updateSeries();
     this.ga.eventEmitter('skills', 'tab', this.chartName);
   }
 
@@ -141,7 +141,7 @@ export class SkillsComponent implements OnInit, OnDestroy {
     if (this.form.valid) {
       this.date = {
         begin: dayjs(this.form.value.start).format('YYYY-MM-DD'),
-        end: dayjs(this.form.value.end).format('YYYY-MM-DD')
+        end: dayjs(this.form.value.end).format('YYYY-MM-DD'),
       };
       this.getSkills('customrange');
     }
@@ -152,376 +152,311 @@ export class SkillsComponent implements OnInit, OnDestroy {
     this.selector.close();
   }
 
-  private updateSeries(): void {
-    if (!this.skills) {
-      return;
-    }
-
-    this.skills.Editors = this.skills.Editors.filter(
-      editor => editor.total_seconds !== undefined
-    );
-    this.skills.Languages = this.skills.Languages.filter(
-      language => language.total_seconds !== undefined
-    );
-    const totalCount: number = this.skills.Languages.reduce(
-      (sum: number, language) => sum + language.total_seconds, 0
-    );
-
-    if (this.chartName === 'languages' && this.chartRef.languages?.series?.[0]) {
-      this.chartRef.languages.series[0].remove();
-      this.chartRef.languages.addSeries({
-        type: 'pie',
-        data: this.skills.Languages.map(language => [
-          language.name,
-          Math.ceil((language.total_seconds / totalCount) * 100 * 100) / 100
-        ]),
-        name: 'Percentage'
-      });
-    } else if (this.chartName === 'activity' && this.chartRef.activity?.series?.[0]) {
-      this.chartRef.activity.series[0].remove();
-      this.chartRef.activity.addSeries({
-        type: 'line',
-        data: this.skills.Timeline.map(item => item.total_seconds).map((seconds: number) => seconds / 3600),
-        showInLegend: false
-      });
-      this.chart.activity.xAxis = {
-        categories: this.skills.Timeline.map(item => item.date).map((dateStr: string) => dayjs(dateStr).format('MMM Do'))
-      };
-    } else if (this.chartName === 'editors' && this.chartRef.editors?.series?.[0]) {
-      this.chartRef.editors.series[0].remove();
-      this.chartRef.editors.addSeries({
-        type: 'pie',
-        data: this.skills.Editors.map(editor => [
-          editor.name,
-          Math.ceil((editor.total_seconds / totalCount) * 100 * 100) / 100
-        ]),
-        name: 'Percentage'
-      });
-    }
-
-    this.updateFlag = true;
-    // Trigger change detection after updating charts
-    this.cdr.detectChanges();
-  }
-
-  public chartCallbackLang(chart: Highcharts.Chart): void {
-    this.chartRef.languages = chart;
-    // Trigger change detection to ensure chart is properly rendered
-    this.cdr.detectChanges();
-  }
-
-  public chartCallbackAct(chart: Highcharts.Chart): void {
-    this.chartRef.activity = chart;
-    // Trigger change detection to ensure chart is properly rendered
-    this.cdr.detectChanges();
-  }
-
-  public chartCallbackEditor(chart: Highcharts.Chart): void {
-    this.chartRef.editors = chart;
-    // Trigger change detection to ensure chart is properly rendered
-    this.cdr.detectChanges();
-  }
-
-  private getCustomDate(range: string): string {
-    return range === 'customrange' && this.date.begin && this.date.end ?
-      `&start=${this.date.begin}&end=${this.date.end}` : '';
-  }
-
-  private getSkills(range: string = 'last30days'): void {
-    this.http.get<SkillsData>(`https://code.braxtondiggs.com/api?range=${range}${this.getCustomDate(range)}`)
-      .pipe(
-        takeUntil(this.destroy$),
-        catchError(error => {
-          console.error('Error loading skills data:', error);
-          this.cdr.detectChanges(); // Trigger change detection on error
-          return of({ Languages: [], Editors: [], Timeline: [] } as SkillsData);
-        })
-      )
-      .subscribe(data => {
-        this.skills = data;
-        this.updateSeries();
-        this.cdr.detectChanges(); // Trigger change detection after data loads
-      });
-  }
-
-  private setDefaultCharts(): void {
-    const skillsElement = document.getElementById('skills');
-    const width: number = skillsElement ? skillsElement.clientWidth - 40 : 800;
+  private initializeChartOptions(): void {
     const colors = this.getThemeColors();
-
-    // Modern color palette
-    const modernPalette = this.isDarkMode
-      ? ['#A855F7', '#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#06B6D4', '#84CC16']
-      : ['#7C3AED', '#2563EB', '#059669', '#D97706', '#DC2626', '#7C2D12', '#0891B2', '#65A30D'];
-
-    Highcharts.setOptions({
-      colors: modernPalette,
-      lang: {
-        loading: 'Loading data...',
-        noData: 'No data available'
-      },
-      accessibility: {
-        enabled: false
-      }
-    });
-
-    const baseOptions = {
+    const baseOptions: Partial<Highcharts.Options> = {
       credits: { enabled: false },
       chart: {
         backgroundColor: colors.background,
         style: { fontFamily: 'BandaRegular, sans-serif' },
         borderRadius: 8,
         spacing: [15, 15, 15, 15],
-        animation: { duration: 800, easing: 'easeOutQuart' }
+        // Make charts fully responsive
+        width: null, // Let container determine width
+        height: null, // Let container determine height
+        reflow: true, // Enable automatic reflow
       },
       title: { text: null },
+      accessibility: { enabled: false },
+      responsive: {
+        rules: [
+          {
+            condition: {
+              maxWidth: 500,
+            },
+            chartOptions: {
+              chart: {
+                spacing: [10, 10, 10, 10],
+              },
+              plotOptions: {
+                pie: {
+                  dataLabels: {
+                    enabled: false,
+                  },
+                  showInLegend: true,
+                },
+              },
+            },
+          },
+        ],
+      },
       exporting: {
         enabled: true,
         buttons: {
           contextButton: {
-            menuItems: ['viewFullscreen', 'separator', 'downloadPNG', 'downloadJPEG', 'downloadPDF', 'downloadSVG']
-          }
-        }
+            menuItems: ['viewFullscreen', 'separator', 'downloadPNG', 'downloadJPEG', 'downloadPDF', 'downloadSVG'],
+          },
+        },
       },
-      accessibility: {
-        enabled: false
-      }
     };
 
-    this.chart = {
-      activity: {
-        ...baseOptions,
-        accessibility: {
-          enabled: false
-        },
-        chart: {
-          ...baseOptions.chart,
-          type: 'areaspline',
-          width: Math.min(width, 675), // Limit maximum width to prevent overflow
-          height: 400, // Set a fixed height
-          zooming: {
-            type: 'x'
-          }
-        },
-        tooltip: {
-          backgroundColor: colors.tooltipBg,
-          borderColor: colors.border,
-          borderRadius: 6,
-          borderWidth: 1,
-          shadow: {
-            color: 'rgba(0, 0, 0, 0.3)',
-            offsetX: 2,
-            offsetY: 2,
-            opacity: 0.3,
-            width: 3
+    // Languages Chart (Pie)
+    this.languagesChartOptions = {
+      ...baseOptions,
+      chart: {
+        ...baseOptions.chart,
+        type: 'pie',
+      },
+      tooltip: {
+        backgroundColor: colors.tooltipBg,
+        borderColor: colors.border,
+        style: { color: colors.text, fontSize: '12px', fontFamily: 'BandaRegular, sans-serif' },
+        pointFormat: '<b>{point.name}</b>: {point.percentage:.1f}%',
+      },
+      plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: true,
+            format: '<b>{point.name}</b><br>{point.percentage:.1f}%',
+            style: { color: colors.text, fontSize: '12px', fontFamily: 'BandaRegular, sans-serif' },
           },
+          showInLegend: false,
+          borderWidth: 2,
+          borderColor: colors.background,
+        },
+      },
+      series: [
+        {
+          type: 'pie',
+          name: 'Languages',
+          data: [],
+        },
+      ],
+    };
+
+    // Activity Chart (Area Spline)
+    this.activityChartOptions = {
+      ...baseOptions,
+      chart: {
+        ...baseOptions.chart,
+        type: 'areaspline',
+        height: 400,
+        zooming: { type: 'x' },
+      },
+      tooltip: {
+        backgroundColor: colors.tooltipBg,
+        borderColor: colors.border,
+        style: { color: colors.text, fontSize: '12px', fontFamily: 'BandaRegular, sans-serif' },
+        formatter: function () {
+          const hours = this.y || 0;
+          const time = hours * 3600;
+          const hrs = Math.floor(hours);
+          const mins = Math.floor((time % 3600) / 60);
+          return (
+            `<span style="color: ${this.color}">●</span> ` +
+            `${hrs > 0 ? `${hrs}h ` : ''}${mins > 0 ? `${mins}m` : '0m'}`
+          );
+        },
+      },
+      xAxis: {
+        type: 'datetime',
+        gridLineColor: colors.gridLine,
+        lineColor: colors.border,
+        tickColor: colors.border,
+        labels: {
           style: {
             color: colors.text,
-            fontSize: '12px',
-            fontFamily: 'BandaRegular, sans-serif'
+            fontFamily: 'BandaRegular, sans-serif',
           },
-          pointFormatter() {
-            const time = this.y * 3600;
-            const hrs = Math.floor(time / 3600);
-            const mins = Math.floor((time % 3600) / 60);
-            return `<span style="color: ${this.color}">●</span> ` +
-              `${hrs > 0 ? `${hrs}h ` : ''}${mins > 0 ? `${mins}m` : '0m'}`;
-          }
         },
-        xAxis: {
-          type: 'datetime',
-          gridLineColor: colors.gridLine,
-          lineColor: colors.border,
-          tickColor: colors.border,
-          labels: {
-            style: {
-              color: colors.text,
-              fontFamily: 'BandaRegular, sans-serif'
-            }
+        title: {
+          text: 'Date',
+          style: {
+            color: colors.text,
+            fontFamily: 'BandaRegular, sans-serif',
           },
-          title: {
-            text: 'Date',
-            style: {
-              color: colors.text,
-              fontFamily: 'BandaRegular, sans-serif'
-            }
-          }
         },
-        yAxis: {
-          gridLineColor: colors.gridLine,
-          lineColor: colors.border,
-          tickColor: colors.border,
-          labels: {
-            style: {
-              color: colors.text,
-              fontFamily: 'BandaRegular, sans-serif'
-            }
+      },
+      yAxis: {
+        gridLineColor: colors.gridLine,
+        lineColor: colors.border,
+        tickColor: colors.border,
+        labels: {
+          style: {
+            color: colors.text,
+            fontFamily: 'BandaRegular, sans-serif',
           },
-          title: {
-            text: 'Hours',
-            style: {
-              color: colors.text,
-              fontFamily: 'BandaRegular, sans-serif'
-            }
+        },
+        title: {
+          text: 'Hours',
+          style: {
+            color: colors.text,
+            fontFamily: 'BandaRegular, sans-serif',
           },
-          plotLines: [{
+        },
+        plotLines: [
+          {
             color: colors.plotLine,
             value: 0,
             width: 1,
-            zIndex: 4
-          }]
-        },
-        plotOptions: {
-          areaspline: {
-            fillOpacity: 0.2,
-            marker: {
-              enabled: true,
-              radius: 4,
-              states: {
-                hover: { radius: 6, lineWidth: 2 }
-              }
-            }
-          }
-        },
-        legend: {
-          enabled: true,
-          itemStyle: {
-            color: colors.text,
-            fontFamily: 'BandaRegular, sans-serif'
+            zIndex: 4,
           },
-          itemHoverStyle: {
-            color: colors.textHover,
-            fontFamily: 'BandaRegular, sans-serif'
-          }
-        },
-        series: []
+        ],
       },
-
-      languages: {
-        ...baseOptions,
-        accessibility: {
-          enabled: false
-        },
-        chart: {
-          ...baseOptions.chart,
-          type: 'pie',
-          width,
-          options3d: {
-            enabled: false
-          }
-        },
-        tooltip: {
-          backgroundColor: colors.tooltipBg,
-          borderColor: colors.border,
-          borderRadius: 6,
-          borderWidth: 1,
-          shadow: {
-            color: 'rgba(0, 0, 0, 0.3)',
-            offsetX: 2,
-            offsetY: 2,
-            opacity: 0.3,
-            width: 3
+      plotOptions: {
+        areaspline: {
+          fillOpacity: 0.2,
+          marker: {
+            enabled: true,
+            radius: 4,
+            states: { hover: { radius: 6, lineWidth: 2 } },
           },
-          style: {
-            color: colors.text,
-            fontSize: '12px',
-            fontFamily: 'BandaRegular, sans-serif'
-          },
-          pointFormat: '<b>{point.name}</b>: {point.percentage:.1f}%'
         },
-        plotOptions: {
-          pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-              enabled: true,
-              distance: 15,
-              format: '<b>{point.name}</b><br>{point.percentage:.1f}%',
-              style: {
-                color: colors.text,
-                fontSize: '12px',
-                fontWeight: 'normal',
-                fontFamily: 'BandaRegular, sans-serif'
-              }
-            },
-            showInLegend: true,
-            states: {
-              hover: {
-                halo: { size: 5, opacity: 0.25 }
-              }
-            },
-            borderWidth: 2,
-            borderColor: colors.background,
-            size: '75%'
-          }
-        },
-        legend: {
-          enabled: false // Disabled for pie charts to use data labels instead
-        },
-        series: []
       },
-
-      editors: {
-        ...baseOptions,
-        accessibility: {
-          enabled: false
+      legend: {
+        enabled: true,
+        itemStyle: {
+          color: colors.text,
+          fontFamily: 'BandaRegular, sans-serif',
         },
-        chart: {
-          ...baseOptions.chart,
-          type: 'pie',
-          width
+        itemHoverStyle: {
+          color: colors.textHover,
+          fontFamily: 'BandaRegular, sans-serif',
         },
-        tooltip: {
-          backgroundColor: colors.tooltipBg,
-          borderColor: colors.border,
-          borderRadius: 6,
-          borderWidth: 1,
-          shadow: {
-            color: 'rgba(0, 0, 0, 0.3)',
-            offsetX: 2,
-            offsetY: 2,
-            opacity: 0.3,
-            width: 3
-          },
-          style: {
-            color: colors.text,
-            fontSize: '12px',
-            fontFamily: 'BandaRegular, sans-serif'
-          },
-          pointFormat: '<b>{point.name}</b>: {point.percentage:.1f}%'
-        },
-        plotOptions: {
-          pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-              enabled: true,
-              distance: 15,
-              format: '<b>{point.name}</b><br>{point.percentage:.1f}%',
-              style: {
-                color: colors.text,
-                fontSize: '12px',
-                fontWeight: 'normal',
-                fontFamily: 'BandaRegular, sans-serif'
-              }
-            },
-            showInLegend: true,
-            states: {
-              hover: {
-                halo: { size: 5, opacity: 0.25 }
-              }
-            },
-            borderWidth: 2,
-            borderColor: colors.background,
-            size: '75%'
-          }
-        },
-        legend: {
-          enabled: false
-        },
-        series: []
-      }
+      },
+      series: [],
     };
+
+    // Editors Chart (Pie)
+    this.editorsChartOptions = {
+      ...baseOptions,
+      chart: {
+        ...baseOptions.chart,
+        type: 'pie',
+      },
+      tooltip: {
+        backgroundColor: colors.tooltipBg,
+        borderColor: colors.border,
+        style: { color: colors.text, fontSize: '12px', fontFamily: 'BandaRegular, sans-serif' },
+        pointFormat: '<b>{point.name}</b>: {point.percentage:.1f}%',
+      },
+      plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: true,
+            format: '<b>{point.name}</b><br>{point.percentage:.1f}%',
+            style: { color: colors.text, fontSize: '12px', fontFamily: 'BandaRegular, sans-serif' },
+          },
+          showInLegend: false,
+          borderWidth: 2,
+          borderColor: colors.background,
+        },
+      },
+      series: [
+        {
+          type: 'pie',
+          name: 'Editors',
+          data: [],
+        },
+      ],
+    };
+  }
+
+  private updateChartData(): void {
+    if (!this.skills || !this.skills.Languages || !this.skills.Editors || !this.skills.Timeline) {
+      return;
+    }
+
+    // Filter out undefined data
+    this.skills.Editors = this.skills.Editors.filter(editor => editor.total_seconds !== undefined);
+    this.skills.Languages = this.skills.Languages.filter(language => language.total_seconds !== undefined);
+
+    const totalCount: number = this.skills.Languages.reduce((sum: number, language) => sum + language.total_seconds, 0);
+
+    // Update Languages Chart
+    const languagesData = this.skills.Languages.map(language => [
+      language.name,
+      Math.ceil((language.total_seconds / totalCount) * 100 * 100) / 100,
+    ]);
+
+    this.languagesChartOptions = {
+      ...this.languagesChartOptions,
+      series: [
+        {
+          type: 'pie',
+          name: 'Languages',
+          data: languagesData,
+        },
+      ],
+    };
+
+    // Update Activity Chart
+    const activityData = this.skills.Timeline.map(item => item.total_seconds / 3600);
+    const categories = this.skills.Timeline.map(item => dayjs(item.date).format('MMM Do'));
+
+    this.activityChartOptions = {
+      ...this.activityChartOptions,
+      xAxis: {
+        ...this.activityChartOptions.xAxis,
+        categories: categories,
+      },
+      series: [
+        {
+          type: 'areaspline',
+          name: 'Daily Activity',
+          data: activityData,
+          showInLegend: false,
+        },
+      ],
+    };
+
+    // Update Editors Chart
+    const editorsData = this.skills.Editors.map(editor => [
+      editor.name,
+      Math.ceil((editor.total_seconds / totalCount) * 100 * 100) / 100,
+    ]);
+
+    this.editorsChartOptions = {
+      ...this.editorsChartOptions,
+      series: [
+        {
+          type: 'pie',
+          name: 'Editors',
+          data: editorsData,
+        },
+      ],
+    };
+
+    this.updateFlag = true;
+    this.cdr.detectChanges();
+  }
+
+  private getCustomDate(range: string): string {
+    return range === 'customrange' && this.date.begin && this.date.end
+      ? `&start=${this.date.begin}&end=${this.date.end}`
+      : '';
+  }
+
+  private getSkills(range: string = 'last30days'): void {
+    this.http
+      .get<SkillsData>(`https://code.braxtondiggs.com/api?range=${range}${this.getCustomDate(range)}`)
+      .pipe(
+        takeUntil(this.destroy$),
+        catchError(error => {
+          console.error('Error loading skills data:', error);
+          this.cdr.detectChanges();
+          return of({ Languages: [], Editors: [], Timeline: [] } as SkillsData);
+        })
+      )
+      .subscribe(data => {
+        this.skills = data;
+        this.updateChartData();
+        this.cdr.detectChanges();
+      });
   }
 
   private getThemeColors() {
@@ -532,12 +467,12 @@ export class SkillsComponent implements OnInit, OnDestroy {
       case 'dark':
         return {
           background: 'transparent',
-          text: '#a6adba', // Explicit fallback for hsl(var(--bc))
+          text: '#a6adba',
           textHover: '#ffffff',
-          border: '#2a2e37', // Explicit fallback for hsl(var(--b2))
+          border: '#2a2e37',
           gridLine: 'rgba(42, 46, 55, 0.3)',
           plotLine: '#1f2937',
-          tooltipBg: '#1f2937' // Explicit dark background
+          tooltipBg: '#1f2937',
         };
       case 'cyberpunk':
         return {
@@ -547,7 +482,7 @@ export class SkillsComponent implements OnInit, OnDestroy {
           border: '#FF003C',
           gridLine: 'rgba(255, 227, 0, 0.2)',
           plotLine: '#00D8FF',
-          tooltipBg: '#1A0B33'
+          tooltipBg: '#1A0B33',
         };
       case 'synthwave':
         return {
@@ -557,19 +492,18 @@ export class SkillsComponent implements OnInit, OnDestroy {
           border: '#E4007C',
           gridLine: 'rgba(228, 0, 124, 0.2)',
           plotLine: '#00D9FF',
-          tooltipBg: '#1A0B2E'
+          tooltipBg: '#1A0B2E',
         };
       default: // light theme
         return {
           background: 'transparent',
-          text: '#1f2937', // Explicit fallback for hsl(var(--bc))
+          text: '#1f2937',
           textHover: '#374151',
-          border: '#e5e7eb', // Explicit fallback for hsl(var(--b3))
+          border: '#e5e7eb',
           gridLine: 'rgba(229, 231, 235, 0.3)',
           plotLine: '#f3f4f6',
-          tooltipBg: '#ffffff' // Explicit white background
+          tooltipBg: '#ffffff',
         };
     }
   }
 }
-

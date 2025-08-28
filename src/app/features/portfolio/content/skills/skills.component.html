@@ -1,9 +1,4 @@
-<div
-  id="skills"
-  animateOnScroll
-  class="mb-6 shadow-xl card bg-base-100 animated"
-  animationName="fadeInUp"
->
+<div id="skills" animateOnScroll class="mb-6 shadow-xl card bg-base-100 animated" animationName="fadeInUp">
   <div class="card-body">
     <h2 class="mb-6 text-3xl font-bold card-title">My "Real-Time" Coding</h2>
     <form [formGroup]="form" class="mb-6 text-center">
@@ -12,12 +7,7 @@
         <a href="https://wakatime.com/" class="link link-accent">WakaTime</a>.
       </p>
       <div class="w-full max-w-xs mx-auto form-control">
-        <select
-          #selector
-          formControlName="range"
-          (change)="selectionChange($event)"
-          class="select select-bordered"
-        >
+        <select #selector formControlName="range" (change)="selectionChange($event)" class="select select-bordered">
           <option value="yesterday">Yesterday</option>
           <option value="last7days">Last 7 Days</option>
           <option value="thisweek">This Week</option>
@@ -26,23 +16,17 @@
           <option value="last30days">Last 30 Days</option>
           <option value="thismonth">This Month</option>
           <option value="lastmonth">Last Month</option>
-          <option value="customrange" (click)="openCustomRange()">
-            Custom Range
-          </option>
+          <option value="customrange" (click)="openCustomRange()">Custom Range</option>
         </select>
       </div>
       <div class="hidden">
-        <input
-          type="date"
-          formControlName="start"
-          (change)="dateRangeChange()"
-        />
+        <input type="date" formControlName="start" (change)="dateRangeChange()" />
         <input type="date" formControlName="end" (change)="dateRangeChange()" />
       </div>
       @if (form.valid && form.value.range === 'customrange') {
       <h4 class="mt-4 text-lg font-medium">
-        {{ form.value.start | amParse | amDateFormat : "MMM Do YYYY" }} -
-        {{ form.value.end | amParse | amDateFormat : "MMM Do YYYY" }}
+        {{ form.value.start | amParse | amDateFormat : 'MMM Do YYYY' }} -
+        {{ form.value.end | amParse | amDateFormat : 'MMM Do YYYY' }}
       </h4>
       }
     </form>
@@ -85,44 +69,38 @@
     <!-- Tab Content -->
     @if (selectedTabIndex === 0) {
     <div class="p-6">
-      <div class="w-full max-w-full overflow-hidden">
-        @if ( chart.languages && chart.languages.series &&
-        chart.languages.series[0] && chart.languages.series[0] ) {
-        <highcharts-chart
-          [options]="chart.languages"
-          [Highcharts]="Highcharts"
-          [(update)]="updateFlag"
-          [callbackFunction]="chartCallbackLang.bind(this)"
-          class="w-full max-w-full"
-        >
-        </highcharts-chart>
-        }
+      <div class="w-full max-w-full overflow-hidden min-h-[400px] flex items-center justify-center">
+        <highcharts-chart 
+          #languagesChart
+          [options]="languagesChartOptions" 
+          [(update)]="updateFlag" 
+          class="w-full h-full max-w-full"
+          style="min-height: 350px;"
+        ></highcharts-chart>
       </div>
     </div>
     } @if (selectedTabIndex === 1) {
     <div class="p-6">
-      <div class="w-full max-w-full overflow-hidden">
-        <highcharts-chart
-          [options]="chart.activity"
-          [Highcharts]="Highcharts"
-          [(update)]="updateFlag"
-          [callbackFunction]="chartCallbackAct.bind(this)"
-          class="w-full max-w-full"
-        >
-        </highcharts-chart>
+      <div class="w-full max-w-full overflow-hidden min-h-[450px] flex items-center justify-center">
+        <highcharts-chart 
+          #activityChart
+          [options]="activityChartOptions" 
+          [(update)]="updateFlag" 
+          class="w-full h-full max-w-full"
+          style="min-height: 400px;"
+        ></highcharts-chart>
       </div>
     </div>
     } @if (selectedTabIndex === 2) {
     <div class="p-6">
-      <div class="w-full max-w-full overflow-hidden">
-        <highcharts-chart
-          [options]="chart.editors"
-          [Highcharts]="Highcharts"
-          [(update)]="updateFlag"
-          [callbackFunction]="chartCallbackEditor.bind(this)"
-          class="w-full max-w-full"
-        >
-        </highcharts-chart>
+      <div class="w-full max-w-full overflow-hidden min-h-[400px] flex items-center justify-center">
+        <highcharts-chart 
+          #editorsChart
+          [options]="editorsChartOptions" 
+          [(update)]="updateFlag" 
+          class="w-full h-full max-w-full"
+          style="min-height: 350px;"
+        ></highcharts-chart>
       </div>
     </div>
     }

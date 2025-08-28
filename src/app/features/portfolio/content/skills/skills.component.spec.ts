@@ -1,15 +1,13 @@
-import { Spectator, createComponentFactory, SpyObject, createSpyObject } from '@ngneat/spectator/jest';
-import { SkillsComponent } from './skills.component';
-import { HighchartsChartModule } from 'highcharts-angular';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { createComponentFactory, createSpyObject, Spectator, SpyObject } from '@ngneat/spectator/jest';
+import { SkillsComponent } from './skills.component';
 // Removed AngularFireModule to avoid duplicate import warning
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
-import { environment } from '@env/environment';
-import { GoogleAnalyticsService, ScrollService } from '@shared/services';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AnimateOnScrollDirective } from '@shared/directives/animate-on-scroll.directive';
-import { ParsePipe, DateFormatPipe } from '@shared/pipes/date.pipe';
+import { DateFormatPipe, ParsePipe } from '@shared/pipes/date.pipe';
+import { GoogleAnalyticsService, ScrollService } from '@shared/services';
 import { of, Subject } from 'rxjs';
 
 describe('SkillsComponent', () => {
@@ -40,8 +38,8 @@ describe('SkillsComponent', () => {
     providers: [
       { provide: AngularFirestore, useValue: mockFireStore },
       { provide: ScrollService, useValue: mockScrollService },
-      { 
-        provide: FIREBASE_OPTIONS, 
+      {
+        provide: FIREBASE_OPTIONS,
         useValue: {
           apiKey: 'fake-api-key',
           authDomain: 'test.firebaseapp.com',

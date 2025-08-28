@@ -170,11 +170,6 @@ pids
 # Testing
 /coverage
 /.nyc_output
-/cypress/screenshots
-/cypress/videos
-/cypress/downloads
-/e2e/screenshots
-/e2e/videos
 
 # Jest
 jest_html_reporters.html

@@ -1,23 +1,13 @@
+import { NgIcon } from '@ng-icons/core';
 import { Spectator, createComponentFactory, mockProvider } from '@ngneat/spectator/jest';
-import { SocialComponent } from './social.component';
 import { GoogleAnalyticsService } from '@shared/services';
-import { NgIconsModule } from '@ng-icons/core';
-import { featherFacebook, featherGithub, featherInstagram, featherLinkedin, featherTwitter, featherMail } from '@ng-icons/feather-icons';
+import { SocialComponent } from './social.component';
 
 describe('SocialComponent', () => {
   let spectator: Spectator<SocialComponent>;
   const createComponent = createComponentFactory({
     component: SocialComponent,
-    imports: [
-      NgIconsModule.withIcons({
-        featherFacebook,
-        featherGithub,
-        featherInstagram,
-        featherLinkedin,
-        featherTwitter,
-        featherMail
-      })
-    ],
+    imports: [NgIcon],
     providers: [
       mockProvider(GoogleAnalyticsService, {
         eventEmitter: jest.fn()
@@ -26,7 +16,7 @@ describe('SocialComponent', () => {
     shallow: true
   });
 
-  beforeEach(() => spectator = createComponent());
+  beforeEach(() => (spectator = createComponent()));
 
   it('should create', () => {
     expect(spectator.component).toBeTruthy();

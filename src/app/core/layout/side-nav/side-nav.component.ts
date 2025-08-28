@@ -1,18 +1,14 @@
-import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
-import { NgIconsModule } from '@ng-icons/core';
-import { GoogleAnalyticsService } from '@shared/services';
+import { NgIcon } from '@ng-icons/core';
 import { LazyLoadFadeDirective } from '@shared/directives/lazy-load-fade.directive';
+import { GoogleAnalyticsService } from '@shared/services';
 
 @Component({
   selector: 'app-side-nav',
   standalone: true,
-  imports: [
-    NgIconsModule,
-    LazyLoadFadeDirective
-],
+  imports: [NgIcon, LazyLoadFadeDirective],
   templateUrl: './side-nav.component.html',
-  styleUrls: ['./side-nav.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SideNavComponent {

@@ -57,10 +57,7 @@
       "duration": "8 months",
       "technologies": ["React", "Node.js", "PostgreSQL", "GraphQL"],
       "description": "Developed waste management tracking solutions for commercial clients.",
-      "achievements": [
-        "Built real-time tracking dashboard",
-        "Optimized database queries improving performance by 40%"
-      ]
+      "achievements": ["Built real-time tracking dashboard", "Optimized database queries improving performance by 40%"]
     },
     {
       "id": "bytecubed-2017",
@@ -105,10 +102,7 @@
       "duration": "1.3 years",
       "technologies": ["JavaScript", "jQuery", "Sass", "Drupal"],
       "description": "Created interactive web experiences for Fortune 500 companies.",
-      "achievements": [
-        "Developed mobile-first responsive designs",
-        "Improved site performance by 50%"
-      ]
+      "achievements": ["Developed mobile-first responsive designs", "Improved site performance by 50%"]
     },
     {
       "id": "tahzoo-2013",
@@ -129,10 +123,7 @@
       "duration": "2 years",
       "technologies": ["HTML5", "CSS3", "JavaScript", "AngularJS"],
       "description": "Built engaging digital experiences for enterprise clients.",
-      "achievements": [
-        "Delivered pixel-perfect implementations",
-        "Collaborated with UX team on design systems"
-      ]
+      "achievements": ["Delivered pixel-perfect implementations", "Collaborated with UX team on design systems"]
     },
     {
       "id": "navigation-arts-2010",
@@ -153,10 +144,7 @@
       "duration": "3.3 years",
       "technologies": ["Adobe CQ5", "Java", "JSP", "Apache Sling"],
       "description": "Developed content management solutions using Adobe CQ5/AEM.",
-      "achievements": [
-        "Built custom CQ5 components",
-        "Integrated third-party systems"
-      ]
+      "achievements": ["Built custom CQ5 components", "Integrated third-party systems"]
     },
     {
       "id": "gdi-2009",
@@ -177,10 +165,7 @@
       "duration": "1 year",
       "technologies": ["PHP", "MySQL", "JavaScript", "CSS"],
       "description": "Developed web applications and maintained existing systems.",
-      "achievements": [
-        "Built e-commerce platform features",
-        "Improved application security"
-      ]
+      "achievements": ["Built e-commerce platform features", "Improved application security"]
     },
     {
       "id": "liberty-tax-2008",
@@ -201,10 +186,7 @@
       "duration": "2 years",
       "technologies": [".NET", "C#", "SQL Server", "ASP.NET"],
       "description": "Developed tax preparation software and internal tools.",
-      "achievements": [
-        "Built automated reporting system",
-        "Maintained legacy applications"
-      ]
+      "achievements": ["Built automated reporting system", "Maintained legacy applications"]
     }
   ],
   "projects": [
@@ -214,7 +196,7 @@
       "category": "Mobile App",
       "type": "mobile",
       "status": "active",
-      "featured": true,
+      "featured": false,
       "technologies": ["React Native", "Android", "iOS", "API Integration"],
       "platforms": ["android"],
       "image": {
@@ -249,7 +231,7 @@
       "category": "Mobile App",
       "type": "mobile",
       "status": "active",
-      "featured": true,
+      "featured": false,
       "technologies": ["Android", "Reddit API", "Image Processing", "Java"],
       "platforms": ["android"],
       "image": {
@@ -284,7 +266,7 @@
       "category": "Mobile App",
       "type": "mobile",
       "status": "active",
-      "featured": true,
+      "featured": false,
       "technologies": ["React Native", "Firebase", "Node.js", "Express"],
       "platforms": ["web", "android", "ios"],
       "image": {
@@ -408,11 +390,7 @@
         "Responsive design",
         "Touch and mouse support"
       ],
-      "highlights": [
-        "Creative expression tool",
-        "Hip-hop culture celebration",
-        "Engaging interactive experience"
-      ],
+      "highlights": ["Creative expression tool", "Hip-hop culture celebration", "Engaging interactive experience"],
       "urls": {
         "web": "https://braxtondiggs.github.io/Metapod/"
       },
@@ -425,7 +403,7 @@
       "category": "Entertainment App",
       "type": "mobile",
       "status": "active",
-      "featured": true,
+      "featured": false,
       "technologies": ["Android", "Java", "Reddit API", "YouTube API", "Vimeo API"],
       "platforms": ["android"],
       "image": {
@@ -489,7 +467,7 @@
       "category": "Quiz Game",
       "type": "web",
       "status": "active",
-      "featured": true,
+      "featured": false,
       "technologies": ["JavaScript", "Web Audio API", "CSS3", "HTML5"],
       "platforms": ["web"],
       "image": {

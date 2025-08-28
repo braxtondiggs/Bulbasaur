@@ -1,23 +1,22 @@
-import { Spectator, createComponentFactory, createSpyObject } from '@ngneat/spectator/jest';
-import { AppComponent } from './app.component';
-import { LoadingBarModule } from '@ngx-loading-bar/core';
-import { HeaderComponent, FooterComponent, SideNavComponent } from '@core/layout';
-import { ProfileBoxComponent, InstagramComponent, SocialComponent } from '@features/profile';
-import { ContentComponent, SkillsComponent, ContactComponent } from '@features/portfolio';
-import { SkillPipe } from '@shared/pipes';
-import { HighchartsChartModule } from 'highcharts-angular';
-import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { testNgIconsModule } from '@shared/testing/test-utils';
-import { Firestore } from '@angular/fire/firestore';
-import { Analytics } from '@angular/fire/analytics';
-import { LazyLoadFadeDirective } from '@shared/directives/lazy-load-fade.directive';
-import { AnimateOnScrollDirective } from '@shared/directives/animate-on-scroll.directive';
-import { ScrollService } from '@shared/services/scroll.service';
-import { GoogleAnalyticsService } from '@shared/services';
-import { ParsePipe, DateFormatPipe } from '@shared/pipes/date.pipe';
-import { of } from 'rxjs';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Analytics } from '@angular/fire/analytics';
+import { Firestore } from '@angular/fire/firestore';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FooterComponent, HeaderComponent, SideNavComponent } from '@core/layout';
+import { ContactComponent, ContentComponent, SkillsComponent } from '@features/portfolio';
+import { InstagramComponent, ProfileBoxComponent, SocialComponent } from '@features/profile';
+import { Spectator, createComponentFactory, createSpyObject } from '@ngneat/spectator/jest';
+import { LoadingBarModule } from '@ngx-loading-bar/core';
+import { AnimateOnScrollDirective } from '@shared/directives/animate-on-scroll.directive';
+import { LazyLoadFadeDirective } from '@shared/directives/lazy-load-fade.directive';
+import { SkillPipe } from '@shared/pipes';
+import { DateFormatPipe, ParsePipe } from '@shared/pipes/date.pipe';
+import { GoogleAnalyticsService } from '@shared/services';
+import { ScrollService } from '@shared/services/scroll.service';
+import { testNgIconsModule } from '@shared/testing/test-utils';
+import { of } from 'rxjs';
+import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
   let spectator: Spectator<AppComponent>;
@@ -59,7 +58,6 @@ describe('AppComponent', () => {
       LazyLoadFadeDirective,
       AnimateOnScrollDirective,
       // Modules
-      HighchartsChartModule,
       HttpClientModule,
       LoadingBarModule,
       ReactiveFormsModule,
@@ -75,7 +73,7 @@ describe('AppComponent', () => {
     shallow: true
   });
 
-  beforeEach(() => spectator = createComponent());
+  beforeEach(() => (spectator = createComponent()));
 
   it('should create', () => {
     expect(spectator.component).toBeTruthy();
@@ -91,12 +89,7 @@ describe('AppComponent', () => {
 
   it('should contain all main components', () => {
     // These components should be present in the app template
-    const expectedComponents = [
-      'app-header',
-      'app-side-nav',
-      'app-profile-box',
-      'app-content'
-    ];
+    const expectedComponents = ['app-header', 'app-side-nav', 'app-profile-box', 'app-content'];
 
     expectedComponents.forEach(selector => {
       expect(spectator.query(selector)).toBeTruthy();

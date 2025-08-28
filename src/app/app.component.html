@@ -5,19 +5,14 @@
   [class.mb-[75px]]="isScroll()"
   [ngClass]="{ 'side-scroll': isScroll() }"
 >
-  <app-profile-box />
+  <app-profile-box [class]="isScroll() ? 'side-scroll' : ''" [ngClass]="{ 'side-scroll': isScroll() }" />
   <app-content />
-  <app-side-nav />
+  <app-side-nav [class]="isScroll() ? 'side-scroll' : ''" [ngClass]="{ 'side-scroll': isScroll() }" />
 </div>
 <svg id="crtBgShape1" height="519" width="758" class="fixed top-0 left-0 z-0">
   <polygon class="pol fill-[#e1e1e1]" points="0,455,693,352,173,0,92,0,0,71" />
 </svg>
-<svg
-  id="crtBgShape2"
-  height="536"
-  width="633"
-  class="fixed top-[-100px] right-[-100px]"
->
+<svg id="crtBgShape2" height="536" width="633" class="fixed top-[-100px] right-[-100px]">
   <polygon class="fill-[#c0e3e7]" points="0,0,633,0,633,536" />
 </svg>
 <button
