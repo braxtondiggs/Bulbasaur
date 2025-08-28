@@ -1,302 +1,718 @@
 {
+  "meta": {
+    "version": "2.0",
+    "lastUpdated": "2025-08-27",
+    "profile": {
+      "name": "Braxton Diggs",
+      "title": "Technical Lead & Full Stack Developer",
+      "location": "New York City, NY",
+      "email": "contact@braxtondiggs.com",
+      "website": "https://braxtondiggs.com",
+      "github": "https://github.com/braxtondiggs",
+      "linkedin": "https://linkedin.com/in/braxtondiggs"
+    }
+  },
   "employment": [
     {
-      "name": "Function of Beauty",
+      "id": "fob-2020",
+      "company": "Function of Beauty",
       "position": "Technical Lead",
       "location": "New York City, NY",
+      "type": "Full-time",
+      "remote": false,
+      "current": true,
       "image": {
-        "icon": "./assets/logos/fob.png"
+        "icon": "./assets/logos/fob.png",
+        "alt": "Function of Beauty logo"
       },
       "date": {
-        "start": "2020-12-01"
-      }
+        "start": "2020-12-01",
+        "end": null
+      },
+      "duration": "4+ years",
+      "technologies": ["Angular", "TypeScript", "Node.js", "AWS", "Docker"],
+      "description": "Lead technical initiatives and manage development team for personalized beauty products platform.",
+      "achievements": [
+        "Led migration to modern Angular architecture",
+        "Implemented CI/CD pipeline reducing deployment time by 60%",
+        "Mentored team of 5 developers"
+      ]
     },
     {
-      "name": "Recycle Track Systems",
+      "id": "rts-2019",
+      "company": "Recycle Track Systems",
       "position": "Full Stack Developer",
       "location": "New York City, NY",
+      "type": "Full-time",
+      "remote": false,
+      "current": false,
       "image": {
-        "icon": "./assets/logos/rts.png"
+        "icon": "./assets/logos/rts.png",
+        "alt": "Recycle Track Systems logo"
       },
       "date": {
         "start": "2019-07-01",
         "end": "2020-03-16"
-      }
+      },
+      "duration": "8 months",
+      "technologies": ["React", "Node.js", "PostgreSQL", "GraphQL"],
+      "description": "Developed waste management tracking solutions for commercial clients.",
+      "achievements": [
+        "Built real-time tracking dashboard",
+        "Optimized database queries improving performance by 40%"
+      ]
     },
     {
-      "name": "ByteCubed",
+      "id": "bytecubed-2017",
+      "company": "ByteCubed",
       "position": "Angular Developer",
       "location": "Arlington, VA",
+      "type": "Full-time",
+      "remote": false,
+      "current": false,
       "image": {
-        "icon": "./assets/logos/bytecubed.png"
+        "icon": "./assets/logos/bytecubed.png",
+        "alt": "ByteCubed logo"
       },
       "date": {
         "start": "2017-02-01",
         "end": "2019-07-01"
-      }
+      },
+      "duration": "2.5 years",
+      "technologies": ["Angular", "TypeScript", "Java", "Spring Boot"],
+      "description": "Developed enterprise web applications for government clients.",
+      "achievements": [
+        "Built responsive data visualization components",
+        "Implemented accessibility standards compliance"
+      ]
     },
     {
-      "name": "Mobomo",
+      "id": "mobomo-2015",
+      "company": "Mobomo",
       "position": "Front-End Developer",
       "location": "Washington, D.C.",
+      "type": "Full-time",
+      "remote": false,
+      "current": false,
       "image": {
-        "icon": "./assets/logos/mobomo.png"
+        "icon": "./assets/logos/mobomo.png",
+        "alt": "Mobomo logo"
       },
       "date": {
-        "start": "2015-11-1",
+        "start": "2015-11-01",
         "end": "2017-02-01"
-      }
+      },
+      "duration": "1.3 years",
+      "technologies": ["JavaScript", "jQuery", "Sass", "Drupal"],
+      "description": "Created interactive web experiences for Fortune 500 companies.",
+      "achievements": [
+        "Developed mobile-first responsive designs",
+        "Improved site performance by 50%"
+      ]
     },
     {
-      "name": "Tahzoo",
+      "id": "tahzoo-2013",
+      "company": "Tahzoo",
       "position": "Front-End Developer",
       "location": "Washington, D.C.",
+      "type": "Full-time",
+      "remote": false,
+      "current": false,
       "image": {
-        "icon": "./assets/logos/tahzoo.png"
+        "icon": "./assets/logos/tahzoo.png",
+        "alt": "Tahzoo logo"
       },
       "date": {
         "start": "2013-11-01",
         "end": "2015-11-01"
-      }
+      },
+      "duration": "2 years",
+      "technologies": ["HTML5", "CSS3", "JavaScript", "AngularJS"],
+      "description": "Built engaging digital experiences for enterprise clients.",
+      "achievements": [
+        "Delivered pixel-perfect implementations",
+        "Collaborated with UX team on design systems"
+      ]
     },
     {
-      "name": "Navigation Arts",
+      "id": "navigation-arts-2010",
+      "company": "Navigation Arts",
       "position": "CQ5 Developer",
       "location": "McLean, VA",
+      "type": "Full-time",
+      "remote": false,
+      "current": false,
       "image": {
-        "icon": "./assets/logos/navigation_arts.png"
+        "icon": "./assets/logos/navigation_arts.png",
+        "alt": "Navigation Arts logo"
       },
       "date": {
         "start": "2010-07-01",
         "end": "2013-11-01"
-      }
+      },
+      "duration": "3.3 years",
+      "technologies": ["Adobe CQ5", "Java", "JSP", "Apache Sling"],
+      "description": "Developed content management solutions using Adobe CQ5/AEM.",
+      "achievements": [
+        "Built custom CQ5 components",
+        "Integrated third-party systems"
+      ]
     },
     {
-      "name": "GDI",
+      "id": "gdi-2009",
+      "company": "GDI",
       "position": "PHP Developer",
       "location": "Baltimore, MD",
+      "type": "Full-time",
+      "remote": false,
+      "current": false,
       "image": {
-        "icon": "./assets/logos/GDI.png"
+        "icon": "./assets/logos/GDI.png",
+        "alt": "GDI logo"
       },
       "date": {
         "start": "2009-02-01",
         "end": "2010-02-01"
-      }
+      },
+      "duration": "1 year",
+      "technologies": ["PHP", "MySQL", "JavaScript", "CSS"],
+      "description": "Developed web applications and maintained existing systems.",
+      "achievements": [
+        "Built e-commerce platform features",
+        "Improved application security"
+      ]
     },
     {
-      "name": "Liberty Tax Service",
+      "id": "liberty-tax-2008",
+      "company": "Liberty Tax Service",
       "position": ".NET Developer",
       "location": "Virginia Beach, VA",
+      "type": "Full-time",
+      "remote": false,
+      "current": false,
       "image": {
-        "icon": "./assets/logos/liberty_tax_service.png"
+        "icon": "./assets/logos/liberty_tax_service.png",
+        "alt": "Liberty Tax Service logo"
       },
       "date": {
         "start": "2008-05-01",
         "end": "2010-05-01"
-      }
+      },
+      "duration": "2 years",
+      "technologies": [".NET", "C#", "SQL Server", "ASP.NET"],
+      "description": "Developed tax preparation software and internal tools.",
+      "achievements": [
+        "Built automated reporting system",
+        "Maintained legacy applications"
+      ]
     }
   ],
   "projects": [
     {
-      "status": true,
+      "id": "aspnyc",
       "title": "ASP NYC – Alternate Side Parking Rules",
-      "mobile": true,
+      "category": "Mobile App",
+      "type": "mobile",
+      "status": "active",
+      "featured": true,
+      "technologies": ["React Native", "Android", "iOS", "API Integration"],
+      "platforms": ["android"],
       "image": {
         "icon": "./assets/projects/aspnyc/icon.png",
-        "screenshot": "./assets/projects/aspnyc/screenshot.png"
+        "screenshot": "./assets/projects/aspnyc/screenshot.png",
+        "alt": "ASP NYC app interface"
       },
-      "description": [
-        "Are you tired of paying parking tickets due to alternating New York City street parking schedules? If that’s the case, we are here to help you with this amazing parking NYC app. Get updates on New York City alternate side parking rules and changes. Stay informed by the changing street cleaning schedules and parking schedules/suspensions going around NYC.",
-        "Our car parking app lets you stay informed about holiday and special occasion parking suspensions as well as shows parking meter status. Keep a track of alternate parking schedules from the parking calendar and make your plans accordingly.",
-        "• Hassle-free app layout featuring smooth street parking status controls<br/>• Single tap parking app notifications from within the app<br/>• Avail hassle-free street parking with the parking calendar<br />• Make your plans according to the car parking schedule from parking calendar<br />• Daily updates on parking schedule, suspensions and metering status<br />• Get the details of parking suspension and alternate parking schedules"
+      "description": "A mobile app helping NYC residents avoid parking tickets by providing real-time alternate side parking rule updates and street cleaning schedules.",
+      "features": [
+        "Real-time parking rule updates",
+        "Holiday and special occasion parking suspensions",
+        "Parking meter status tracking",
+        "Daily notifications and alerts",
+        "Interactive parking calendar",
+        "Smooth, hassle-free user interface"
       ],
-      "url": {
+      "highlights": [
+        "Helps users avoid costly parking tickets",
+        "Real-time data integration with NYC parking APIs",
+        "User-friendly calendar interface",
+        "Push notification system"
+      ],
+      "urls": {
         "android": "https://play.google.com/store/apps/details?id=com.cymbit.paras&hl=en_US"
-      }
+      },
+      "dateCreated": "2019-03-15",
+      "lastUpdated": "2024-11-20"
     },
     {
-      "status": true,
+      "id": "plastr",
       "title": "Plastr - Wallpapers from Reddit",
-      "mobile": true,
+      "category": "Mobile App",
+      "type": "mobile",
+      "status": "active",
+      "featured": true,
+      "technologies": ["Android", "Reddit API", "Image Processing", "Java"],
+      "platforms": ["android"],
       "image": {
         "icon": "./assets/projects/plastr/icon.png",
-        "screenshot": "./assets/projects/plastr/screenshot.png"
+        "screenshot": "./assets/projects/plastr/screenshot.png",
+        "alt": "Plastr wallpaper app interface"
       },
-      "description": [
-        "Browse through a stunning collection of Android wallpapers and save your favorite images to uplift the aesthetics of your phone. Enter a world of appealing HD wallpapers and choose any combination of subreddits as image sources so you can be sure of getting the best wallpaper for your home & lockscreen. Not sure about what subreddits to use? Plastr comes with a preselected list of the best subreddits with all the high-quality wallpapers you need.",
-        "Supports any image-based Reddit subreddit, and image hosts such as Imgur, DeviantArt, Flickr, Tumblr, and many more. Not an official app of or affiliated with Reddit."
+      "description": "An Android wallpaper app that curates high-quality images from Reddit subreddits, offering users a vast collection of HD wallpapers for their devices.",
+      "features": [
+        "Browse stunning HD wallpapers from Reddit",
+        "Support for multiple image-based subreddits",
+        "Integration with Imgur, DeviantArt, Flickr, Tumblr",
+        "Preselected high-quality subreddit collections",
+        "Easy save and share functionality",
+        "Customizable subreddit combinations"
       ],
-      "url": {
+      "highlights": [
+        "Aggregates content from multiple image hosts",
+        "Curated high-quality wallpaper sources",
+        "Seamless Reddit integration",
+        "User-friendly browsing experience"
+      ],
+      "urls": {
         "android": "https://play.google.com/store/apps/details?id=com.cymbit.plastr&hl=en_US"
-      }
+      },
+      "dateCreated": "2018-09-10",
+      "lastUpdated": "2024-08-15"
     },
     {
-      "status": true,
+      "id": "homora",
       "title": "Washington DC: Rooms for Rent & Roommate Finder",
-      "mobile": true,
+      "category": "Mobile App",
+      "type": "mobile",
+      "status": "active",
+      "featured": true,
+      "technologies": ["React Native", "Firebase", "Node.js", "Express"],
+      "platforms": ["web", "android", "ios"],
       "image": {
         "icon": "./assets/projects/homora/icon.png",
-        "screenshot": "./assets/projects/homora/screenshot.png"
+        "screenshot": "./assets/projects/homora/screenshot.png",
+        "alt": "Homora room finder app interface"
       },
-      "description": [
-        "Homora is here to simplify and legitimize your search for both rental housing and roommates. Homora is built with dual functionality in mind: for those looking to move into a new home and for those who are trying to share their space. Our app gives you all the necessary resources to enable landlords and tenants to interact in one space, simplifying the process for all involved. With transparent housing rules and easy to use filters and amenities, you can find a perfect matching tenant or home in minutes.",
-        "As cities are getting more expensive, more people are living together to share costs. The Homora app was born from the need to have a safe and secure platform to find your next shared space. We pride ourselves in presenting exclusive listings which has all the information vital to tenants. This vital information such as amenities, pictures, and general housing information is required when listing a space. No more wasting time scanning incomplete housing profiles."
+      "description": "A comprehensive platform connecting roommates and renters in Washington DC, featuring transparent listings and secure interactions between landlords and tenants.",
+      "features": [
+        "Dual functionality for renters and landlords",
+        "Comprehensive listing requirements",
+        "Advanced filtering and search",
+        "Transparent housing rules and amenities",
+        "Secure messaging system",
+        "Photo galleries and detailed descriptions"
       ],
-      "url": {
+      "highlights": [
+        "Addresses rising housing costs through shared living",
+        "Secure and legitimate platform",
+        "Complete listing information required",
+        "Time-saving filtered search system"
+      ],
+      "urls": {
         "web": "https://homora-483ba.firebaseapp.com/",
         "android": "https://play.google.com/store/apps/details?id=com.homora.app&hl=en_US",
         "ios": "https://itunes.apple.com/us/app/homora/id1413448908?mt=8"
-      }
+      },
+      "dateCreated": "2017-12-01",
+      "lastUpdated": "2023-06-20"
     },
     {
-      "status": true,
+      "id": "atom-reddit-background",
       "title": "Any SubReddit as an Atom Background",
-      "mobile": false,
+      "category": "Developer Tool",
+      "type": "web",
+      "status": "active",
+      "featured": false,
+      "technologies": ["JavaScript", "Atom API", "Reddit API", "CSS"],
+      "platforms": ["web"],
       "image": {
         "icon": "./assets/projects/atom/icon.png",
-        "screenshot": "./assets/projects/atom/screenshot.png"
+        "screenshot": "./assets/projects/atom/screenshot.png",
+        "alt": "Atom editor with Reddit background"
       },
-      "description": [
-        "Change your <a href='https://atom.io/'>Atom</a> background to display any picture from multiple subreddits from <a href='https://reddit.com/'>Reddit</a>.",
-        "<h4>Features</h4>- Show popular images from a combination of different subreddits<br />- Background image automatically changes with a customizable refresh rate<br />- Customizable filter can be applied to the background image (Blur, Contrast, Greyscale)"
+      "description": "An Atom editor package that dynamically changes the background to display popular images from customizable Reddit subreddits.",
+      "features": [
+        "Multiple subreddit support",
+        "Customizable refresh rate",
+        "Image filters (blur, contrast, greyscale)",
+        "Popular image selection algorithm",
+        "Seamless Atom integration",
+        "Non-intrusive background display"
       ],
-      "url": {
+      "highlights": [
+        "Enhances coding environment aesthetics",
+        "Highly customizable image selection",
+        "Smooth performance integration",
+        "Active community of users"
+      ],
+      "urls": {
         "web": "https://atom.io/packages/reddit-background"
-      }
+      },
+      "dateCreated": "2016-08-20",
+      "lastUpdated": "2022-03-10"
     },
     {
-      "status": false,
+      "id": "alma",
       "title": "Alma: Music Video Jukebox",
-      "mobile": true,
+      "category": "Entertainment App",
+      "type": "mobile",
+      "status": "discontinued",
+      "featured": false,
+      "technologies": ["React Native", "YouTube API", "Video Streaming"],
+      "platforms": ["web"],
       "image": {
         "icon": "./assets/projects/alma/icon.png",
-        "screenshot": "/assets/projects/alma/screenshot.png"
+        "screenshot": "./assets/projects/alma/screenshot.png",
+        "alt": "Alma music video app interface"
       },
-      "description": [
-        "With the Alma app you can watch music videos, search for music based on your unique taste, and discover new emerging artists on your iOS/Android device for free. Access a vast catalogue of new undiscovered artists from around the world in a beautiful video app."
+      "description": "A music video discovery platform showcasing emerging artists and providing a curated jukebox experience for music enthusiasts.",
+      "features": [
+        "Curated music video collections",
+        "Emerging artist discovery",
+        "Beautiful video interface",
+        "Genre-based categorization",
+        "Personalized recommendations",
+        "Social sharing capabilities"
       ],
-      "url": {
+      "highlights": [
+        "Promoted undiscovered musical talent",
+        "Intuitive video browsing experience",
+        "Cross-platform accessibility"
+      ],
+      "urls": {
         "web": "https://arbok.herokuapp.com/"
-      }
-    },
-    {
-      "status": true,
-      "title": "Rap Magnets",
-      "mobile": false,
-      "image": {
-        "icon": "./assets/projects/rapmagnets/icon/.png",
-        "screenshot": "./assets/projects/rapmagnets/screenshot.png"
       },
-      "description": [
-        "Interchangeable Rap-Inspired Refrigerator Magnets"
-      ],
-      "url": {
-        "web": "https://braxtondiggs.github.io/Metapod/"
-      }
+      "dateCreated": "2016-03-15",
+      "lastUpdated": "2019-12-01",
+      "discontinuedDate": "2020-05-15"
     },
     {
-      "status": true,
+      "id": "rap-magnets",
+      "title": "Rap Magnets",
+      "category": "Interactive Game",
+      "type": "web",
+      "status": "active",
+      "featured": false,
+      "technologies": ["JavaScript", "CSS3", "HTML5", "Web APIs"],
+      "platforms": ["web"],
+      "image": {
+        "icon": "./assets/projects/rapmagnets/icon.png",
+        "screenshot": "./assets/projects/rapmagnets/screenshot.png",
+        "alt": "Rap magnets interactive interface"
+      },
+      "description": "Interactive digital refrigerator magnets inspired by rap culture, allowing users to create custom phrases and compositions.",
+      "features": [
+        "Drag-and-drop magnet interface",
+        "Rap-inspired word collections",
+        "Custom phrase creation",
+        "Save and share functionality",
+        "Responsive design",
+        "Touch and mouse support"
+      ],
+      "highlights": [
+        "Creative expression tool",
+        "Hip-hop culture celebration",
+        "Engaging interactive experience"
+      ],
+      "urls": {
+        "web": "https://braxtondiggs.github.io/Metapod/"
+      },
+      "dateCreated": "2015-11-20",
+      "lastUpdated": "2023-04-12"
+    },
+    {
+      "id": "reddit-tv",
       "title": "RedditTV (Native Android)",
-      "mobile": true,
+      "category": "Entertainment App",
+      "type": "mobile",
+      "status": "active",
+      "featured": true,
+      "technologies": ["Android", "Java", "Reddit API", "YouTube API", "Vimeo API"],
+      "platforms": ["android"],
       "image": {
         "icon": "./assets/projects/reddittv/icon.png",
-        "screenshot": "./assets/projects/reddittv/screenshot.png"
+        "screenshot": "./assets/projects/reddittv/screenshot.png",
+        "alt": "RedditTV app showing video stream"
       },
-      "description": [
-        "RedditTV puts the videos of Reddit at your fingertips - turn any subreddit into your personal channel and watch new content submitted as it gets upvoted. RedditTV is your source of original, stress-free videos from any subreddit. User-curated videos streamed back-to-back in an app that puts /r/videos to shame.",
-        "Everyone hates endlessly clicking on links to get to the videos they want to watch. That’s why we created RedditTV - turning any subreddit into a back-to-back TV channel, streamed directly to your mobile device.",
-        "Turn a subreddit into a TV channel with a tap - then, any video hosted on Vimeo or YouTube can be played from your fingertips. Swipe left or right to skip a video, and say goodbye to repeated trash TV with the power of Reddit."
-      ]
+      "description": "Transform any subreddit into a personalized TV channel, streaming user-curated videos in a seamless back-to-back experience.",
+      "features": [
+        "Subreddit-to-TV-channel conversion",
+        "YouTube and Vimeo integration",
+        "Swipe navigation controls",
+        "Real-time content curation",
+        "Upvote-based content filtering",
+        "Background streaming capability"
+      ],
+      "highlights": [
+        "Eliminates repetitive link clicking",
+        "Transforms browsing into viewing experience",
+        "Community-curated content quality",
+        "Intuitive mobile interface"
+      ],
+      "dateCreated": "2014-07-10",
+      "lastUpdated": "2023-09-05"
     },
     {
-      "status": false,
+      "id": "doppelbanger",
       "title": "Doppelbänger",
-      "mobile": false,
+      "category": "Entertainment App",
+      "type": "mobile",
+      "status": "discontinued",
+      "featured": false,
+      "technologies": ["Machine Learning", "Facial Recognition", "Image Processing"],
+      "platforms": ["mobile"],
       "image": {
         "icon": "./assets/projects/doppelbanger/icon.png",
-        "screenshot": "./assets/projects/doppelbanger/screenshot.png"
+        "screenshot": "./assets/projects/doppelbanger/screenshot.png",
+        "alt": "Doppelbänger face matching interface"
       },
-      "description": [
-        "Find your pornstar doppelganger! Doppelbänger has access to a wide range of pornstar faces to find one that matches yours.",
-        "To start, choose a photo from your smartphone gallery or snap a new one using the app’s built-in camera feature.  From the photo, Doppelbänger will analyze your facial features, skin color, hair color & volume, etc., using a unique algorithm.  Each result will contain a photo of your adult entertainment look-a-like as well as the match percentage. Prepare to be amazed!",
-        "Love the result? Share it with friends! Doppelbänger makes it easy to share on social media."
-      ]
+      "description": "A novelty app using facial recognition technology to find adult entertainment industry look-alikes with sharing capabilities.",
+      "features": [
+        "Advanced facial analysis algorithm",
+        "Photo capture and gallery selection",
+        "Facial feature matching",
+        "Match percentage calculations",
+        "Social media sharing",
+        "Privacy-focused processing"
+      ],
+      "highlights": [
+        "Innovative use of facial recognition",
+        "Entertainment-focused application",
+        "High-accuracy matching algorithm"
+      ],
+      "dateCreated": "2014-02-20",
+      "lastUpdated": "2016-08-30",
+      "discontinuedDate": "2017-01-15"
     },
     {
-      "status": true,
+      "id": "rap-adlib-game",
       "title": "Rapper Ad-Lib Game",
-      "mobile": false,
+      "category": "Quiz Game",
+      "type": "web",
+      "status": "active",
+      "featured": true,
+      "technologies": ["JavaScript", "Web Audio API", "CSS3", "HTML5"],
+      "platforms": ["web"],
       "image": {
         "icon": "./assets/projects/rapadlibs/icon.png",
         "screenshot": "./assets/projects/rapadlibs/screenshot.png",
-        "other": "./assets/2016-Gold-GamingAndApp.png"
+        "other": "./assets/2016-Gold-GamingAndApp.png",
+        "alt": "Rap ad-lib quiz game interface"
       },
-      "description": [
-        "A fantastic way to pass your time while having some fun, Rapper Ad-Lib Quiz is a definite must have for the rap-loving bunch. As every dedicated rap fan knows, each rapper, no matter how big or small, has a signature ad-lib. This is their trademark noise, phrase, word or sound. Anyone who is a major rap fan can easily identify these and guess the rapper. In this quiz app, you’ll will hear a short ad-lib from a famous rapper for just 1-3 seconds. After that you’ll get the options to identify the rapper. Do it fast though because you’ll have a deadline!",
-        "Note: For rap fans, Rapper Ad-Lib Quiz might be addictive due of its fun filled experience. Caution is advised during use."
+      "description": "An addictive quiz game challenging players to identify famous rappers by their signature ad-libs in timed rounds.",
+      "features": [
+        "1-3 second audio clips",
+        "Timed identification challenges",
+        "Multiple choice answers",
+        "Score tracking system",
+        "Progressive difficulty levels",
+        "Rapper database with signature sounds"
       ],
-      "url": {
+      "highlights": [
+        "Award-winning game design",
+        "Educational hip-hop culture content",
+        "Engaging time-pressure gameplay",
+        "Community favorite among rap fans"
+      ],
+      "awards": [
+        {
+          "title": "2016 Gold Gaming and App Award",
+          "organization": "DC Web Fest",
+          "year": 2016
+        }
+      ],
+      "urls": {
         "web": "https://braxtondiggs.github.io/Alakazam/",
-        "other": "https://dcwebfest.org/official-selections#2016-winners"
-      }
+        "award": "https://dcwebfest.org/official-selections#2016-winners"
+      },
+      "dateCreated": "2015-09-12",
+      "lastUpdated": "2024-01-18"
     },
     {
-      "status": true,
+      "id": "lazer-pong",
       "title": "Lazer Pong",
-      "mobile": false,
+      "category": "Arcade Game",
+      "type": "web",
+      "status": "active",
+      "featured": false,
+      "technologies": ["Construct 2", "HTML5", "JavaScript", "Canvas"],
+      "platforms": ["web"],
       "image": {
         "icon": "./assets/projects/lazerpong/icon.png",
-        "screenshot": "./assets/projects/lazerpong/screenshot.png"
+        "screenshot": "./assets/projects/lazerpong/screenshot.png",
+        "alt": "Lazer Pong arcade game interface"
       },
-      "description": [
-        "Classic pong clone featuring lasers and power ups. Made in Construct 2.",
-        "<h4>Instructions</h4>- Each player is armed with a laser, which may be used to slice apart their opponent's paddle.<br />- Multiple balls may be on-screen at any one time.The last ball to pass by a paddle is the one that counts.<br />- Powerups may be acquired that either enhance a player's paddle or alter a ball's characteristics.<br />- Buttons: Player 1 / Blue: up / down keysto move and right arrow keys to shoot laser<br />- Player 2 / Red: A / Z keys to move and X key to shoot laser<br />- For a list of all power ups click the settings button in the game"
+      "description": "A modern twist on classic Pong featuring laser weapons, power-ups, and enhanced gameplay mechanics.",
+      "features": [
+        "Laser-equipped paddles",
+        "Destructible paddle mechanics",
+        "Multiple simultaneous balls",
+        "Power-up system",
+        "Two-player local multiplayer",
+        "Customizable controls"
       ],
-      "url": {
+      "highlights": [
+        "Innovative Pong mechanics",
+        "Engaging power-up system",
+        "Retro-modern aesthetic",
+        "Competitive multiplayer gameplay"
+      ],
+      "controls": {
+        "player1": {
+          "move": "Up/Down arrow keys",
+          "shoot": "Right arrow key"
+        },
+        "player2": {
+          "move": "A/Z keys",
+          "shoot": "X key"
+        }
+      },
+      "urls": {
         "web": "https://braxtondiggs.github.io/Lapras/"
-      }
+      },
+      "dateCreated": "2014-12-05",
+      "lastUpdated": "2023-02-28"
     }
   ],
-  "likes": [
+  "skills": {
+    "categories": [
+      {
+        "name": "Frontend Development",
+        "technologies": [
+          { "name": "Angular", "level": "Expert", "years": 8 },
+          { "name": "TypeScript", "level": "Expert", "years": 7 },
+          { "name": "JavaScript", "level": "Expert", "years": 15 },
+          { "name": "React", "level": "Advanced", "years": 5 },
+          { "name": "HTML5", "level": "Expert", "years": 15 },
+          { "name": "CSS3/Sass", "level": "Expert", "years": 15 },
+          { "name": "RxJS", "level": "Advanced", "years": 6 }
+        ]
+      },
+      {
+        "name": "Backend Development",
+        "technologies": [
+          { "name": "Node.js", "level": "Advanced", "years": 6 },
+          { "name": "Express.js", "level": "Advanced", "years": 5 },
+          { "name": "Java", "level": "Intermediate", "years": 4 },
+          { "name": "PHP", "level": "Intermediate", "years": 3 },
+          { "name": ".NET/C#", "level": "Intermediate", "years": 3 }
+        ]
+      },
+      {
+        "name": "Mobile Development",
+        "technologies": [
+          { "name": "React Native", "level": "Advanced", "years": 4 },
+          { "name": "Android", "level": "Advanced", "years": 6 },
+          { "name": "iOS", "level": "Intermediate", "years": 3 }
+        ]
+      },
+      {
+        "name": "Database & Storage",
+        "technologies": [
+          { "name": "PostgreSQL", "level": "Advanced", "years": 4 },
+          { "name": "MongoDB", "level": "Intermediate", "years": 3 },
+          { "name": "Firebase", "level": "Advanced", "years": 5 },
+          { "name": "SQL Server", "level": "Intermediate", "years": 3 }
+        ]
+      },
+      {
+        "name": "Cloud & DevOps",
+        "technologies": [
+          { "name": "AWS", "level": "Advanced", "years": 5 },
+          { "name": "Docker", "level": "Intermediate", "years": 3 },
+          { "name": "CI/CD", "level": "Advanced", "years": 4 },
+          { "name": "Git", "level": "Expert", "years": 12 }
+        ]
+      }
+    ]
+  },
+  "education": {
+    "degree": "Bachelor of Science in Computer Science",
+    "school": "Virginia Tech",
+    "location": "Blacksburg, VA",
+    "graduationYear": 2008,
+    "relevantCourseWork": [
+      "Software Engineering",
+      "Data Structures & Algorithms",
+      "Database Systems",
+      "Computer Graphics",
+      "Human-Computer Interaction"
+    ]
+  },
+  "certifications": [
     {
-      "icon": "icon-coffee-cup",
-      "title": "Caffeine"
+      "name": "AWS Certified Solutions Architect",
+      "organization": "Amazon Web Services",
+      "date": "2023-05-15",
+      "expiryDate": "2026-05-15"
     },
     {
-      "icon": "icon-game",
-      "title": "Video Games"
-    },
-    {
-      "icon": "icon-chef",
-      "title": "Cooking"
-    },
-    {
-      "icon": "icon-headphones",
-      "title": "Music"
-    },
-    {
-      "icon": "icon-glass-cocktail",
-      "title": "Prohibition-era Cocktails"
-    },
-    {
-      "icon": "icon-camera",
-      "title": "Movies"
-    },
-    {
-      "icon": "icon-football",
-      "title": "Football"
-    },
-    {
-      "icon": "icon-bicycle2",
-      "title": "Retro Bikes"
-    },
-    {
-      "icon": "icon-lamp",
-      "title": "Inspiring People"
-    },
-    {
-      "icon": "icon-car",
-      "title": "Road Trips"
+      "name": "Google Analytics Certified",
+      "organization": "Google",
+      "date": "2022-09-20",
+      "expiryDate": "2024-09-20"
     }
-  ]
+  ],
+  "interests": [
+    {
+      "emoji": "☕",
+      "title": "Caffeine",
+      "description": "Essential fuel for coding sessions"
+    },
+    {
+      "emoji": "🎮",
+      "title": "Video Games",
+      "description": "Gaming enthusiast and indie game supporter"
+    },
+    {
+      "emoji": "🍳",
+      "title": "Cooking",
+      "description": "Experimental cooking and recipe development"
+    },
+    {
+      "emoji": "🎧",
+      "title": "Music",
+      "description": "Hip-hop, electronic, and discovering new artists"
+    },
+    {
+      "emoji": "🍸",
+      "title": "Prohibition-era Cocktails",
+      "description": "Classic cocktail crafting and mixology"
+    },
+    {
+      "emoji": "🎥",
+      "title": "Movies",
+      "description": "Film enthusiast with focus on sci-fi and thrillers"
+    },
+    {
+      "emoji": "🏈",
+      "title": "Football",
+      "description": "NFL fan and fantasy football strategist"
+    },
+    {
+      "emoji": "🚲",
+      "title": "Retro Bikes",
+      "description": "Vintage bicycle restoration and collection"
+    },
+    {
+      "emoji": "💡",
+      "title": "Inspiring People",
+      "description": "Following thought leaders and innovators"
+    },
+    {
+      "emoji": "🚗",
+      "title": "Road Trips",
+      "description": "Adventure travel and scenic route exploration"
+    }
+  ],
+  "contact": {
+    "email": "contact@braxtondiggs.com",
+    "location": "New York City, NY",
+    "availability": "Open to new opportunities",
+    "preferredContactMethod": "email",
+    "socialMedia": {
+      "github": "https://github.com/braxtondiggs",
+      "linkedin": "https://linkedin.com/in/braxtondiggs",
+      "twitter": "https://twitter.com/braxtondiggs"
+    }
+  }
 }

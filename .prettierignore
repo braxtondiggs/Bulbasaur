@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+.angular/
+coverage/
+
+# Logs
+*.log
+
+# Package files
+package-lock.json
+yarn.lock
+
+# Environment files
+.env*
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Generated files
+*.d.ts
+
+# Firebase
+.firebase/
+firebase-debug.log
+
+# Cypress
+cypress/screenshots/
+cypress/videos/

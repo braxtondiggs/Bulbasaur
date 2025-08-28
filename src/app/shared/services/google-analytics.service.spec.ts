@@ -1,33 +1,55 @@
-import { createServiceFactory, SpectatorService, mockProvider } from '@ngneat/spectator/jest';
+import { TestBed } from '@angular/core/testing';
 import { GoogleAnalyticsService } from './google-analytics.service';
-import { environment } from '@env/environment';
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireAnalytics } from '@angular/fire/compat/analytics';
+import { Analytics } from '@angular/fire/analytics';
+
+// Mock the logEvent function globally
+jest.mock('@angular/fire/analytics', () => ({
+  logEvent: jest.fn().mockImplementation(() => {
+    // Mock implementation that doesn't throw
+    return Promise.resolve();
+  })
+}));
+
+// Import the mocked logEvent
+import { logEvent } from '@angular/fire/analytics';
 
 describe('GoogleAnalyticsService', () => {
-  let spectator: SpectatorService<GoogleAnalyticsService>;
-  const createService = createServiceFactory({
-    service: GoogleAnalyticsService,
-    imports: [AngularFireModule.initializeApp(environment.firebase)],
-    providers: [
-      mockProvider(AngularFireAnalytics, {
-        logEvent: () => jest.fn()
-      })
-    ]
+  let service: GoogleAnalyticsService;
+  let mockAnalytics: any;
+
+  beforeEach(() => {
+    // Create a proper mock Analytics object
+    mockAnalytics = {
+      app: {},
+      measurementId: 'test-measurement-id'
+    };
+    
+    TestBed.configureTestingModule({
+      providers: [
+        GoogleAnalyticsService,
+        { provide: Analytics, useValue: mockAnalytics }
+      ]
+    });
+    
+    service = TestBed.inject(GoogleAnalyticsService);
+    (logEvent as jest.Mock).mockClear();
   });
 
-  beforeEach(() => spectator = createService());
-
   it('should create', () => {
-    expect(spectator.service).toBeTruthy();
+    expect(service).toBeTruthy();
   });
 
   it('should send a gtag event', () => {
-    const analytics = spectator.inject(AngularFireAnalytics);
-    const spy = jest.spyOn(analytics, 'logEvent');
-    spectator.service.eventEmitter('event_category', 'event_action');
-    expect(spy).toHaveBeenCalledWith('event_action', {
-      category: 'event_category', label: null, value: null
-    });
+    service.eventEmitter('event_category', 'event_action');
+    
+    expect(logEvent).toHaveBeenCalledWith(
+      mockAnalytics,
+      'event_action',
+      {
+        event_category: 'event_category',
+        event_label: null,
+        value: null
+      }
+    );
   });
 });

@@ -1,12 +1,12 @@
-import { Directive, ElementRef, Input, OnInit, OnDestroy } from '@angular/core';
+import { Directive, ElementRef, OnInit, OnDestroy, input } from '@angular/core';
 
 @Directive({
   selector: '[appLazyBackgroundFade]',
   standalone: true
 })
 export class LazyBackgroundFadeDirective implements OnInit, OnDestroy {
-  @Input('appLazyBackgroundFade') backgroundUrl!: string;
-  @Input() rootMargin: string = '50px';
+  backgroundUrl = input.required<string>({ alias: 'appLazyBackgroundFade' });
+  rootMargin = input<string>('50px');
   
   private observer!: IntersectionObserver;
   private element!: HTMLElement;
@@ -32,7 +32,7 @@ export class LazyBackgroundFadeDirective implements OnInit, OnDestroy {
       },
       {
         root: null,
-        rootMargin: this.rootMargin,
+        rootMargin: this.rootMargin(),
         threshold: 0.1
       }
     );
@@ -47,19 +47,19 @@ export class LazyBackgroundFadeDirective implements OnInit, OnDestroy {
     
     imageLoader.onload = () => {
       // Set the background image and fade in
-      this.element.style.backgroundImage = `url(${this.backgroundUrl})`;
+      this.element.style.backgroundImage = `url(${this.backgroundUrl()})`;
       setTimeout(() => {
         this.element.style.opacity = '1';
       }, 10); // Small delay to ensure background is set
     };
     
     imageLoader.onerror = () => {
-      console.warn(`Failed to load background image: ${this.backgroundUrl}`);
+      console.warn(`Failed to load background image: ${this.backgroundUrl()}`);
       this.element.style.opacity = '1'; // Show anyway in case of error
     };
     
     // Start loading
-    imageLoader.src = this.backgroundUrl;
+    imageLoader.src = this.backgroundUrl();
   }
 
   ngOnDestroy() {

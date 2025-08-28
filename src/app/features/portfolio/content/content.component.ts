@@ -9,7 +9,7 @@ import { ProjectComponent } from './project/project.component';
 import { Subject, of } from 'rxjs';
 import { takeUntil, catchError } from 'rxjs/operators';
 import dayjs from 'dayjs';
-import { AppData, Employment, Project, Like, SkillLanguage } from '@shared/models';
+import { AppData, Employment, Project, Interests, SkillLanguage } from '@shared/models';
 import { AnimateOnScrollDirective } from '@shared/directives/animate-on-scroll.directive';
 import { LazyLoadFadeDirective } from '@shared/directives/lazy-load-fade.directive';
 import { SkillPipe } from '@shared/pipes/skill.pipe';
@@ -30,15 +30,14 @@ import { ParsePipe, DateFormatPipe, DifferencePipe } from '@shared/pipes/date.pi
     ParsePipe,
     DateFormatPipe,
     DifferencePipe
-],
+  ],
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContentComponent implements OnInit, OnDestroy {
-  toggleLikes = false;
   loadingSkills = true;
-  likes: Like[] = [];
+  interests: Interests[] = [];
   employment: Employment[] = [];
   projects: Project[] = [];
   skills: SkillLanguage[][] = [];
@@ -66,11 +65,11 @@ export class ContentComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$),
         catchError(error => {
           console.error('Error loading app data:', error);
-          return of({ employment: [], projects: [], likes: [] } as AppData);
+          return of({ employment: [], projects: [], interests: [] } as AppData);
         })
       )
       .subscribe(data => {
-        this.likes = data.likes;
+        this.interests = data.interests;
         this.employment = data.employment.map((employment: Employment) => ({
           ...employment,
           date: {
@@ -150,7 +149,7 @@ export class ContentComponent implements OnInit, OnDestroy {
     return skill.name;
   }
 
-  public trackByLikeName(index: number, like: Like): string {
-    return like.name;
+  public trackByInterestName(index: number, interest: Interests): string {
+    return interest.name;
   }
 }

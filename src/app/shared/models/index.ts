@@ -26,7 +26,7 @@ export interface Project {
   summary: string;
   description: string[];
   description_modified?: string;
-  status: boolean;
+  status: string;
   image: {
     screenshot: string;
     other?: string;
@@ -43,17 +43,18 @@ export interface Project {
   mobile?: boolean;
 }
 
-export interface Like {
+export interface Interests {
   name: string;
   title: string;
   description: string;
   icon: string;
+  emoji: string;
 }
 
 export interface AppData {
   employment: Employment[];
   projects: Project[];
-  likes: Like[];
+  interests: Interests[];
 }
 
 export interface SkillLanguage {

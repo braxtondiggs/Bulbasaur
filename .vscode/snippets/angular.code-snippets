@@ -1,0 +1,139 @@
+{
+  "Angular Component": {
+    "prefix": "ng-component",
+    "body": [
+      "import { Component } from '@angular/core';",
+      "",
+      "@Component({",
+      "  selector: 'app-${1:component-name}',",
+      "  templateUrl: './${1:component-name}.component.html',",
+      "  styleUrls: ['./${1:component-name}.component.scss']",
+      "})",
+      "export class ${2:ComponentName}Component {",
+      "  constructor() { }",
+      "",
+      "  ngOnInit(): void {",
+      "    $0",
+      "  }",
+      "}"
+    ],
+    "description": "Angular Component with template and styles"
+  },
+  "Angular Service": {
+    "prefix": "ng-service",
+    "body": [
+      "import { Injectable } from '@angular/core';",
+      "",
+      "@Injectable({",
+      "  providedIn: 'root'",
+      "})",
+      "export class ${1:ServiceName}Service {",
+      "  constructor() { }",
+      "",
+      "  $0",
+      "}"
+    ],
+    "description": "Angular Service"
+  },
+  "Angular Interface": {
+    "prefix": "ng-interface",
+    "body": [
+      "export interface ${1:InterfaceName} {",
+      "  $0",
+      "}"
+    ],
+    "description": "Angular Interface"
+  },
+  "Angular Enum": {
+    "prefix": "ng-enum",
+    "body": [
+      "export enum ${1:EnumName} {",
+      "  $0",
+      "}"
+    ],
+    "description": "Angular Enum"
+  },
+  "Angular Type": {
+    "prefix": "ng-type",
+    "body": [
+      "export type ${1:TypeName} = $0;"
+    ],
+    "description": "Angular Type"
+  },
+  "Jest Test Suite": {
+    "prefix": "jest-describe",
+    "body": [
+      "describe('${1:TestSuite}', () => {",
+      "  beforeEach(() => {",
+      "    $0",
+      "  });",
+      "",
+      "  it('should ${2:test description}', () => {",
+      "    // Arrange",
+      "",
+      "    // Act",
+      "",
+      "    // Assert",
+      "  });",
+      "});"
+    ],
+    "description": "Jest test suite with describe block"
+  },
+  "Jest Test Case": {
+    "prefix": "jest-it",
+    "body": [
+      "it('should ${1:test description}', () => {",
+      "  // Arrange",
+      "  $0",
+      "",
+      "  // Act",
+      "",
+      "  // Assert",
+      "});"
+    ],
+    "description": "Jest test case"
+  },
+  "Angular Component Test": {
+    "prefix": "ng-component-test",
+    "body": [
+      "import { ComponentFixture, TestBed } from '@angular/core/testing';",
+      "import { ${1:ComponentName}Component } from './${2:component-name}.component';",
+      "",
+      "describe('${1:ComponentName}Component', () => {",
+      "  let component: ${1:ComponentName}Component;",
+      "  let fixture: ComponentFixture<${1:ComponentName}Component>;",
+      "",
+      "  beforeEach(async () => {",
+      "    await TestBed.configureTestingModule({",
+      "      declarations: [${1:ComponentName}Component]",
+      "    }).compileComponents();",
+      "",
+      "    fixture = TestBed.createComponent(${1:ComponentName}Component);",
+      "    component = fixture.componentInstance;",
+      "    fixture.detectChanges();",
+      "  });",
+      "",
+      "  it('should create', () => {",
+      "    expect(component).toBeTruthy();",
+      "  });",
+      "",
+      "  $0",
+      "});"
+    ],
+    "description": "Angular Component Test"
+  },
+  "Console Log": {
+    "prefix": "log",
+    "body": [
+      "console.log('${1:message}', $0);"
+    ],
+    "description": "Console Log"
+  },
+  "Console Error": {
+    "prefix": "error",
+    "body": [
+      "console.error('${1:message}', $0);"
+    ],
+    "description": "Console Error"
+  }
+}

@@ -4,6 +4,14 @@ import { testNgIconsModule, mockGoogleAnalyticsService } from '@shared/testing/t
 import { GoogleAnalyticsService } from '@shared/services';
 import { LazyLoadFadeDirective } from '@shared/directives/lazy-load-fade.directive';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Firestore } from '@angular/fire/firestore';
+
+// Mock Firestore
+const mockFirestore = {
+  collection: jest.fn(),
+  doc: jest.fn(),
+  collectionGroup: jest.fn()
+};
 
 describe('ProfileBoxComponent', () => {
   let spectator: Spectator<ProfileBoxComponent>;
@@ -15,7 +23,8 @@ describe('ProfileBoxComponent', () => {
       testNgIconsModule
     ],
     providers: [
-      { provide: GoogleAnalyticsService, useValue: mockGoogleAnalyticsService }
+      { provide: GoogleAnalyticsService, useValue: mockGoogleAnalyticsService },
+      { provide: Firestore, useValue: mockFirestore }
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     shallow: true
@@ -28,11 +37,11 @@ describe('ProfileBoxComponent', () => {
   });
 
   it('should render profile card with DaisyUI classes', () => {
-    const profileCard = spectator.query('.card.bg-accent-content');
+    const profileCard = spectator.query('.card.bg-primary');
     expect(profileCard).toBeTruthy();
     expect(profileCard).toHaveClass('shadow-xl');
     expect(profileCard).toHaveClass('mb-4');
-    expect(profileCard).toHaveClass('text-neutral-content');
+    expect(profileCard).toHaveClass('text-primary-content');
   });
 
   it('should display avatar with profile image', () => {
@@ -59,7 +68,7 @@ describe('ProfileBoxComponent', () => {
     expect(nameElement).toHaveClass('text-3xl');
     expect(nameElement).toHaveClass('mb-2');
 
-    const titleElement = spectator.query('.text-base-content\\/70');
+    const titleElement = spectator.query('p');
     expect(titleElement).toHaveText('Front-end Developer');
     expect(titleElement).toHaveClass('mb-4');
   });

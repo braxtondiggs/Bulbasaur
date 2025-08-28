@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation, OnChanges, ChangeDetectionStrategy, inject } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy, inject, input, output, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgIconsModule } from '@ng-icons/core';
 import { GoogleAnalyticsService } from '@shared/services';
@@ -17,17 +17,21 @@ import { LazyLoadFadeDirective } from '@shared/directives/lazy-load-fade.directi
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProjectComponent implements OnChanges {
-  @Input() project!: Project;
-  @Input() isVisible: boolean = false;
-  @Output() closeModal = new EventEmitter<void>();
+export class ProjectComponent {
+  project = input.required<Project>();
+  isVisible = input<boolean>(false);
+  closeModal = output<void>();
 
   public ga = inject(GoogleAnalyticsService);
 
-  ngOnChanges() {
-    if (this.project && this.project.description) {
-      this.project.description_modified = this.project.description.join('<br /><br />');
-    }
+  constructor() {
+    // Use effect to watch for project changes instead of ngOnChanges
+    effect(() => {
+      const currentProject = this.project();
+      if (currentProject && currentProject.description) {
+        currentProject.description_modified = currentProject.description.join('<br /><br />');
+      }
+    });
   }
 
   close() {

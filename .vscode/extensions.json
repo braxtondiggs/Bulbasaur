@@ -1,16 +1,52 @@
 {
   "recommendations": [
-    "aaron-bond.better-comments",
+    // Angular Development
     "angular.ng-template",
+    "johnpapa.angular2",
+
+    // Code Quality & Linting
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "streetsidesoftware.code-spell-checker",
+
+    // TypeScript Enhancement
+    "ms-vscode.vscode-typescript-next",
+
+    // Productivity & Navigation
     "christian-kohler.npm-intellisense",
     "christian-kohler.path-intellisense",
-    "dbaeumer.vscode-eslint",
-    "eamodio.gitlens",
-    "esbenp.prettier-vscode",
-    "johnpapa.angular2",
-    "michelemelluso.code-beautifier",
-    "streetsidesoftware.code-spell-checker",
     "wix.vscode-import-cost",
-    "xabikos.JavaScriptSnippets"
+    "bradlc.vscode-tailwindcss",
+
+    // Git Integration
+    "eamodio.gitlens",
+
+    // Testing
+    "orta.vscode-jest",
+    "shelex.vscode-cy-helper",
+
+    // Code Enhancement
+    "aaron-bond.better-comments",
+    "usernamehw.errorlens",
+    "gruntfuggly.todo-tree",
+    "formulahendry.auto-rename-tag",
+    "ms-vscode.vscode-json",
+
+    // Snippets & Shortcuts
+    "xabikos.JavaScriptSnippets",
+    "johnpapa.vscode-peacock",
+
+    // File Management
+    "sleistner.vscode-fileutils",
+
+    // Theme & UI
+    "pkief.material-icon-theme",
+    "zhuangtongfei.material-theme",
+
+    // Documentation
+    "yzhang.markdown-all-in-one",
+
+    // Debugging
+    "ms-vscode.vscode-js-debug"
   ]
 }

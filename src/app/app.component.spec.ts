@@ -9,9 +9,8 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { testNgIconsModule } from '@shared/testing/test-utils';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { Firestore } from '@angular/fire/firestore';
+import { Analytics } from '@angular/fire/analytics';
 import { LazyLoadFadeDirective } from '@shared/directives/lazy-load-fade.directive';
 import { AnimateOnScrollDirective } from '@shared/directives/animate-on-scroll.directive';
 import { ScrollService } from '@shared/services/scroll.service';
@@ -24,11 +23,10 @@ describe('AppComponent', () => {
   let spectator: Spectator<AppComponent>;
 
   // Mock Firestore for Instagram component
-  const mockFireStore = createSpyObject(AngularFirestore);
-  mockFireStore.collection.andReturn({ valueChanges: jest.fn(() => of([])) });
+  const mockFirestore = {};
 
-  // Mock AngularFireAuth
-  const mockFireAuth = createSpyObject(AngularFireAuth);
+  // Mock Analytics
+  const mockAnalytics = {};
 
   // Mock ScrollService
   const mockScrollService = createSpyObject(ScrollService);
@@ -69,21 +67,10 @@ describe('AppComponent', () => {
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     providers: [
-      { provide: AngularFirestore, useValue: mockFireStore },
-      { provide: AngularFireAuth, useValue: mockFireAuth },
+      { provide: Firestore, useValue: mockFirestore },
+      { provide: Analytics, useValue: mockAnalytics },
       { provide: ScrollService, useValue: mockScrollService },
-      { provide: GoogleAnalyticsService, useValue: mockGA },
-      { 
-        provide: FIREBASE_OPTIONS, 
-        useValue: {
-          apiKey: 'fake-api-key',
-          authDomain: 'test.firebaseapp.com',
-          projectId: 'test-project',
-          storageBucket: 'test.appspot.com',
-          messagingSenderId: '123456789',
-          appId: 'test-app-id'
-        }
-      }
+      { provide: GoogleAnalyticsService, useValue: mockGA }
     ],
     shallow: true
   });

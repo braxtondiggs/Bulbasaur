@@ -1,6 +1,6 @@
 /* eslint-disable @angular-eslint/directive-selector */
 import { takeUntil } from 'rxjs/operators';
-import { Directive, Input, Renderer2, ElementRef, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Directive, Renderer2, ElementRef, OnInit, OnDestroy, AfterViewInit, input, inject } from '@angular/core';
 import { ScrollService } from '../services/scroll.service';
 import { Subject } from 'rxjs';
 
@@ -19,14 +19,16 @@ export class AnimateOnScrollDirective implements OnInit, OnDestroy, AfterViewIni
     return this.elementRef.nativeElement.id;
   }
 
-  @Input() private animationName: string; // use fadeIn as default if not specified
+  animationName = input.required<string>(); // use fadeIn as default if not specified
   // Pixel offset from screen bottom to the animated element to determine the start of the animation
-  @Input() private offset = 80;
+  offset = input<number>(80);
 
-  constructor(private elementRef: ElementRef, private renderer: Renderer2, private scroll: ScrollService) { }
+  private scroll = inject(ScrollService);
+
+  constructor(private elementRef: ElementRef, private renderer: Renderer2) { }
 
   public ngOnInit(): void {
-    if (!this.animationName) {
+    if (!this.animationName()) {
       throw new Error('animationName required');
     }
     // default visibility to false
@@ -70,7 +72,7 @@ export class AnimateOnScrollDirective implements OnInit, OnDestroy, AfterViewIni
     this.getOffsetTop();
 
     // we should trigger the addition of the animation class a little after getting to the element
-    const scrollTrigger = this.offsetTop + +this.offset - this.winHeight;
+    const scrollTrigger = this.offsetTop + this.offset() - this.winHeight;
 
     // using values updated in service
     if (this.scroll.pos >= scrollTrigger) {
@@ -90,7 +92,7 @@ export class AnimateOnScrollDirective implements OnInit, OnDestroy, AfterViewIni
     this.isVisible = true;
 
     // use default for animate.css if no value provided
-    this.setClass(this.animationName);
+    this.setClass(this.animationName());
 
   }
 

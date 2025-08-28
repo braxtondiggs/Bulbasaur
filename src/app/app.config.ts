@@ -18,16 +18,6 @@ import { NgIconsModule } from '@ng-icons/core';
 import {
   featherChevronsUp,
   featherHeart,
-  featherCoffee,
-  featherHeadphones,
-  featherCamera,
-  featherZap,
-  featherTool,
-  featherWind,
-  featherMapPin,
-  featherSun,
-  featherTruck,
-  featherUser,
   featherBriefcase,
   featherActivity,
   featherCode,
@@ -61,7 +51,7 @@ export const appConfig: ApplicationConfig = {
       // Firebase compat modules for test compatibility
       AngularFireModule.initializeApp(environment.firebase),
       AngularFirestoreModule,
-      
+
       // Loading bar
       LoadingBarHttpClientModule,
 
@@ -69,16 +59,6 @@ export const appConfig: ApplicationConfig = {
       NgIconsModule.withIcons({
         featherChevronsUp,
         featherHeart,
-        featherCoffee,
-        featherHeadphones,
-        featherCamera,
-        featherZap,        // gaming/energy
-        featherTool,       // chef/cooking
-        featherWind,       // drinks/refreshment
-        featherMapPin,     // travel/activity
-        featherSun,        // bright/ideas
-        featherTruck,      // vehicles
-        featherUser,       // about/profile
         featherBriefcase,  // experience/work
         featherActivity,   // skills/performance
         featherCode,       // portfolio/projects

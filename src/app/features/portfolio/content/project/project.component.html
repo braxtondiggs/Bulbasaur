@@ -1,4 +1,4 @@
-@if (isVisible) {
+@if (isVisible()) {
 <div
   class="modal modal-open"
   (click)="close()"
@@ -25,31 +25,31 @@
     <div class="grid grid-cols-1 gap-6 md:grid-cols-5">
       <div class="md:col-span-2">
         <img
-          [appLazyLoadFade]="project.image.screenshot"
-          [alt]="project.title"
+          [appLazyLoadFade]="project().image.screenshot"
+          [alt]="project().title"
           class="w-full max-h-[65vh] object-contain shadow-lg rounded-lg block mx-auto"
           [ngClass]="{
-            'aspect-[9/16]': project.mobile,
-            'aspect-video': !project.mobile
+            'aspect-[9/16]': project().mobile,
+            'aspect-video': !project().mobile
           }"
         />
       </div>
       <div class="flex flex-col md:col-span-3">
         <div class="flex-1">
-          <h2 class="mb-4 text-2xl font-bold">{{ project.title }}</h2>
+          <h2 class="mb-4 text-2xl font-bold">{{ project().title }}</h2>
           <div
             class="prose-sm prose max-w-none"
-            [innerHtml]="project.description_modified"
+            [innerHtml]="project().description_modified"
           ></div>
         </div>
-        @if (project.url) {
+        @if (project().url) {
         <div class="flex flex-col gap-4 mt-6 sm:flex-row sm:items-center">
           <div class="flex-1">
-            @if (project.url.web) {
+            @if (project().url.web) {
             <a
-              [href]="project.url.web"
+              [href]="project().url.web"
               target="_blank"
-              (click)="ga.eventEmitter('projects', 'web', project.title)"
+              (click)="ga.eventEmitter('projects', 'web', project().title)"
               class="btn btn-primary btn-lg"
             >
               View Project
@@ -57,42 +57,42 @@
             }
           </div>
           <div class="flex gap-2">
-            @if (project.url.android) {
+            @if (project().url.android) {
             <a
-              [href]="project.url.android"
+              [href]="project().url.android"
               target="_blank"
-              (click)="ga.eventEmitter('projects', 'android', project.title)"
+              (click)="ga.eventEmitter('projects', 'android', project().title)"
               class="block"
             >
               <img
                 appLazyLoadFade="assets/Google-Store.png"
-                [alt]="project.title + ' on Google Play'"
+                [alt]="project().title + ' on Google Play'"
                 class="w-auto h-8 shadow-none"
               />
             </a>
-            } @if (project.url.ios) {
+            } @if (project().url.ios) {
             <a
-              [href]="project.url.ios"
+              [href]="project().url.ios"
               target="_blank"
-              (click)="ga.eventEmitter('projects', 'ios', project.title)"
+              (click)="ga.eventEmitter('projects', 'ios', project().title)"
               class="block"
             >
               <img
                 appLazyLoadFade="assets/Apple-Store.png"
-                [alt]="project.title + ' on Apple Store'"
+                [alt]="project().title + ' on Apple Store'"
                 class="w-auto h-8 shadow-none"
               />
             </a>
-            } @if (project.url.other) {
+            } @if (project().url.other) {
             <a
-              [href]="project.url.other"
+              [href]="project().url.other"
               target="_blank"
-              (click)="ga.eventEmitter('projects', 'other', project.title)"
+              (click)="ga.eventEmitter('projects', 'other', project().title)"
               class="block"
             >
               <img
-                [appLazyLoadFade]="project.image.other"
-                [alt]="project.title"
+                [appLazyLoadFade]="project().image.other"
+                [alt]="project().title"
                 class="w-auto h-8 shadow-none"
               />
             </a>

@@ -1,0 +1,76 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "typescript.preferences.importModuleSpecifier": "relative",
+    "angular.enable-strict-mode-prompt": false,
+    "files.associations": {
+      "*.component.html": "html",
+      "*.component.scss": "scss"
+    },
+    "emmet.includeLanguages": {
+      "typescript": "html"
+    },
+    "html.suggest.html5": true
+  },
+  "extensions": {
+    "recommendations": [
+      "angular.ng-template",
+      "johnpapa.angular2",
+      "dbaeumer.vscode-eslint",
+      "esbenp.prettier-vscode",
+      "streetsidesoftware.code-spell-checker",
+      "ms-vscode.vscode-typescript-next",
+      "christian-kohler.npm-intellisense",
+      "christian-kohler.path-intellisense",
+      "wix.vscode-import-cost",
+      "bradlc.vscode-tailwindcss",
+      "eamodio.gitlens",
+      "orta.vscode-jest",
+      "shelex.vscode-cy-helper",
+      "aaron-bond.better-comments",
+      "usernamehw.errorlens",
+      "gruntfuggly.todo-tree",
+      "formulahendry.auto-rename-tag",
+      "ms-vscode.vscode-json",
+      "xabikos.JavaScriptSnippets",
+      "johnpapa.vscode-peacock",
+      "sleistner.vscode-fileutils",
+      "pkief.material-icon-theme",
+      "zhuangtongfei.material-theme",
+      "yzhang.markdown-all-in-one",
+      "ms-vscode.vscode-js-debug"
+    ]
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Launch Chrome (ng serve)",
+        "type": "chrome",
+        "request": "launch",
+        "preLaunchTask": "ng serve",
+        "url": "http://localhost:4200",
+        "webRoot": "${workspaceFolder}"
+      }
+    ]
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "ng serve",
+        "type": "npm",
+        "script": "start",
+        "isBackground": true,
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        }
+      }
+    ]
+  }
+}

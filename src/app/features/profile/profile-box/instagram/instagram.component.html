@@ -1,37 +1,45 @@
 @if (instagram$ | async; as instagram) {
-  <div
-    class="instagram p-4"
-    >
-    <h2 class="title flex items-center text-xl font-semibold mb-4">
-      <ng-icon name="featherInstagram" size="1.5rem" class="mr-2" />
-      Instagram
-    </h2>
-    <div class="grid grid-cols-2 gap-1 sm:gap-2">
-      @for (item of instagram; track item) {
-        <a
-          [href]="item.Url"
-          target="_blank"
-          rel="noopener"
-          class="block aspect-square overflow-hidden rounded-lg hover:opacity-80 transition-opacity"
-          [title]="item.Caption"
-          >
-          <img
-            [appLazyLoadFade]="item.SourceUrl"
-            [alt]="item.Caption"
-            rootMargin="100px"
-            class="w-full h-full object-cover"
-            />
-        </a>
-      }
+  @if (instagram === null) {
+    <!-- Loading state -->
+    <div class="p-4 flex justify-center">
+      <span class="loading loading-spinner loading-md"></span>
     </div>
-  </div>
-} @else {
-  <div class="p-4 flex justify-center">
-    <span class="loading loading-spinner loading-md"></span>
-  </div>
+  } @else if (instagram.length > 0) {
+    <!-- Data loaded successfully -->
+    <div class="instagram p-4">
+      <h2 class="title flex items-center text-xl font-semibold mb-4">
+        <ng-icon name="featherInstagram" size="1.5rem" class="mr-2" />
+        Instagram
+      </h2>
+      <div class="grid grid-cols-2 gap-1 sm:gap-2">
+        @for (item of instagram; track item) {
+          <a
+            [href]="item.Url"
+            target="_blank"
+            rel="noopener"
+            class="block aspect-square overflow-hidden rounded-lg hover:opacity-80 transition-opacity"
+            [title]="item.Caption"
+            >
+            <img
+              [appLazyLoadFade]="item.SourceUrl"
+              [alt]="item.Caption"
+              rootMargin="100px"
+              class="w-full h-full object-cover"
+              />
+          </a>
+        }
+      </div>
+    </div>
+  } @else {
+    <!-- Empty state or error -->
+    <div class="instagram p-4">
+      <h2 class="title flex items-center text-xl font-semibold mb-4">
+        <ng-icon name="featherInstagram" size="1.5rem" class="mr-2" />
+        Instagram
+      </h2>
+      <div class="p-4 text-center text-base-content/60">
+        <p>No Instagram posts available</p>
+      </div>
+    </div>
+  }
 }
-<ng-template #loading>
-  <div class="p-4 flex justify-center">
-    <span class="loading loading-spinner loading-md"></span>
-  </div>
-</ng-template>

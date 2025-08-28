@@ -1,13 +1,13 @@
-import { Directive, ElementRef, Input, OnInit, OnDestroy } from '@angular/core';
+import { Directive, ElementRef, OnInit, OnDestroy, input } from '@angular/core';
 
 @Directive({
   selector: '[appLazyLoadFade]',
   standalone: true
 })
 export class LazyLoadFadeDirective implements OnInit, OnDestroy {
-  @Input('appLazyLoadFade') src!: string;
-  @Input() alt: string = '';
-  @Input() rootMargin: string = '50px';
+  src = input.required<string>({ alias: 'appLazyLoadFade' });
+  alt = input<string>('');
+  rootMargin = input<string>('50px');
   
   private observer!: IntersectionObserver;
   private img!: HTMLImageElement;
@@ -20,7 +20,7 @@ export class LazyLoadFadeDirective implements OnInit, OnDestroy {
     // Set initial state
     this.img.style.opacity = '0';
     this.img.style.transition = 'opacity 0.6s ease-in-out';
-    this.img.alt = this.alt;
+    this.img.alt = this.alt();
     
     // Create intersection observer
     this.observer = new IntersectionObserver(
@@ -34,7 +34,7 @@ export class LazyLoadFadeDirective implements OnInit, OnDestroy {
       },
       {
         root: null,
-        rootMargin: this.rootMargin,
+        rootMargin: this.rootMargin(),
         threshold: 0.1
       }
     );
@@ -56,12 +56,12 @@ export class LazyLoadFadeDirective implements OnInit, OnDestroy {
     };
     
     imageLoader.onerror = () => {
-      console.warn(`Failed to load image: ${this.src}`);
+      console.warn(`Failed to load image: ${this.src()}`);
       this.img.style.opacity = '1'; // Show anyway in case of error
     };
     
     // Start loading
-    imageLoader.src = this.src;
+    imageLoader.src = this.src();
   }
 
   ngOnDestroy() {
