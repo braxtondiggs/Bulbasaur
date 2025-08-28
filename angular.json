@@ -21,7 +21,8 @@
           "builder": "@angular/build:application",
           "options": {
             "outputPath": {
-              "base": "dist"
+              "base": "dist",
+              "browser": ""
             },
             "index": "src/index.html",
             "polyfills": ["src/polyfills.ts"],
@@ -45,8 +46,7 @@
             "sourceMap": true,
             "optimization": false,
             "namedChunks": true,
-            "serviceWorker": "ngsw-config.json",
-            "browser": "src/main.ts"
+            "serviceWorker": "ngsw-config.json"
           },
           "configurations": {
             "production": {
