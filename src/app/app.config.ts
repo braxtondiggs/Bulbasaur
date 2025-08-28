@@ -46,21 +46,7 @@ export const appConfig: ApplicationConfig = {
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),
     provideFirestore(() => getFirestore()),
-    provideHighcharts({
-      instance: () => import('highcharts'),
-      modules: () => {
-        return [import('highcharts/esm/modules/accessibility')];
-      },
-      options: {
-        lang: {
-          loading: 'Loading data...',
-          noData: 'No data available'
-        },
-        accessibility: {
-          enabled: false
-        }
-      }
-    }),
+    provideHighcharts(),
     provideIcons({
       featherChevronsUp,
       featherHeart,
