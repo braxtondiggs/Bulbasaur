@@ -19,7 +19,8 @@
     "pretest:ci": "npm run clean",
     "deploy": "firebase deploy --only hosting",
     "serve:dist": "npx http-server dist -p 4200 -c-1",
-    "check": "npm run lint && npm run test:ci && npm run build"
+    "check": "npm run lint && npm run test:ci && npm run build",
+    "validate-pwa": "node validate-pwa.js"
   },
   "private": true,
   "dependencies": {
