@@ -83,7 +83,7 @@ export class SkillsComponent implements OnInit, OnDestroy {
     // Trigger update flag to force chart resize
     this.updateFlag = true;
     this.cdr.detectChanges();
-    
+
     // Reset update flag after a short delay
     setTimeout(() => {
       this.updateFlag = false;
