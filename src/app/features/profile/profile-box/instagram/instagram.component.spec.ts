@@ -1,9 +1,10 @@
-import { Spectator, createSpyObject, createComponentFactory } from '@ngneat/spectator/jest';
+import { Spectator, createComponentFactory } from '@ngneat/spectator/jest';
 import { InstagramComponent } from './instagram.component';
-import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { environment } from '@env/environment';
+import { LazyLoadFadeDirective } from '@shared/directives/lazy-load-fade.directive';
+import { testNgIconsModule } from '@shared/testing/test-utils';
 import { of } from 'rxjs';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('InstagramComponent', () => {
   let spectator: Spectator<InstagramComponent>;
@@ -24,17 +25,24 @@ describe('InstagramComponent', () => {
   ];
 
   const data$ = of(mockInstagramData);
-  const mockFireStore = createSpyObject(AngularFirestore);
-  mockFireStore.collection.andReturn({ valueChanges: jest.fn(() => data$) });
+  
+  // Create a complete mock without using createSpyObject to avoid Firebase initialization
+  const mockFireStore = {
+    collection: jest.fn().mockReturnValue({
+      valueChanges: jest.fn().mockReturnValue(data$)
+    })
+  };
 
   const createComponent = createComponentFactory({
     component: InstagramComponent,
     imports: [
-      AngularFireModule.initializeApp(environment.firebase),
+      LazyLoadFadeDirective,
+      testNgIconsModule
     ],
     providers: [
       { provide: AngularFirestore, useValue: mockFireStore }
     ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
     shallow: true
   });
 
@@ -54,7 +62,7 @@ describe('InstagramComponent', () => {
     spectator.component.ngOnInit();
 
     // Get the callback function passed to collection
-    const collectionCalls = (mockFireStore.collection as jest.Mock).mock.calls;
+    const collectionCalls = mockFireStore.collection.mock.calls;
     const lastCall = collectionCalls[collectionCalls.length - 1];
     const queryCallback = lastCall[1];
 

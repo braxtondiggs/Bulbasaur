@@ -5,7 +5,8 @@ import { ScrollService } from '../services/scroll.service';
 import { Subject } from 'rxjs';
 
 @Directive({
-  selector: '[animateOnScroll]'
+  selector: '[animateOnScroll]',
+  standalone: true
 })
 export class AnimateOnScrollDirective implements OnInit, OnDestroy, AfterViewInit {
 

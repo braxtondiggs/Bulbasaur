@@ -2,18 +2,18 @@
   animateOnScroll
   class="mb-6 shadow-xl card bg-base-100 animated"
   animationName="fadeInUp"
->
+  >
   <div class="card-body">
     <div class="contact-map mb-6 h-[180px]">
       <div
         class="relative h-full overflow-hidden bg-center bg-no-repeat bg-cover rounded-lg background"
         appLazyBackgroundFade="assets/contactmap.png"
-      >
+        >
         <img
           appLazyLoadFade="assets/braxton/contact.png"
           alt="Contact Me"
           class="absolute top-2.5 right-5 w-[100px] h-[100px] md:w-[75px] md:h-[75px] rounded-full object-cover"
-        />
+          />
       </div>
     </div>
     <h2 class="mb-4 text-3xl font-bold card-title">Contact Me</h2>
@@ -28,82 +28,92 @@
     <p class="mb-6 text-base-content/80">
       If you'd like to contact me directly, please email me at
       <a href="mailto:hello@braxtondiggs.com" class="link link-primary"
-        >hello@braxtondiggs.com</a
-      >. I can provide phone number and more information if the situation
-      warrants.
-    </p>
-    <form
-      class="space-y-4 contact-form"
-      [formGroup]="contactForm"
-      (ngSubmit)="onSubmit()"
-      novalidate
-    >
-      <div class="form-control">
-        <input
-          placeholder="Your Name"
-          type="text"
-          [formControl]="name"
-          class="w-full input input-bordered"
-          [class.input-error]="name.invalid && name.touched"
-          required
-        />
-        <label class="label" *ngIf="name.invalid && name.touched">
-          <span class="label-text-alt text-error">{{
-            getErrorMessage(name, "Your name")
-          }}</span>
-        </label>
-      </div>
-      <div class="form-control">
-        <input
-          placeholder="Your Email"
-          type="email"
-          [formControl]="email"
-          class="w-full input input-bordered"
-          [class.input-error]="email.invalid && email.touched"
-          required
-        />
-        <label class="label" *ngIf="email.invalid && email.touched">
-          <span class="label-text-alt text-error">{{
-            getErrorMessage(email, "Your email")
-          }}</span>
-        </label>
-      </div>
-      <div class="form-control">
-        <input
-          placeholder="Subject"
-          type="text"
-          [formControl]="subject"
-          class="w-full input input-bordered"
-        />
-      </div>
-      <div class="form-control">
-        <textarea
-          placeholder="Your Message"
-          [formControl]="message"
-          class="textarea textarea-bordered w-full min-h-[200px]"
-          [class.textarea-error]="message.invalid && message.touched"
-          required
-        ></textarea>
-        <label class="label" *ngIf="message.invalid && message.touched">
-          <span class="label-text-alt text-error">{{
-            getErrorMessage(message, "Your message")
-          }}</span>
-        </label>
-      </div>
-      <div class="mt-6 text-right form-control">
-        <button
-          type="submit"
-          [disabled]="submit"
-          class="btn btn-primary"
-          [class.loading]="submit"
+        >hello&#64;braxtondiggs.com</a
+        >. I can provide phone number and more information if the situation
+        warrants.
+      </p>
+      <form
+        class="space-y-4 contact-form"
+        [formGroup]="contactForm"
+        (ngSubmit)="onSubmit()"
+        novalidate
         >
-          <span *ngIf="!submit" class="flex items-center">
-            Send Message
-            <ng-icon name="featherSend" class="ml-2" size="1.5rem"></ng-icon>
-          </span>
-          <span *ngIf="submit">Sending...</span>
-        </button>
-      </div>
-    </form>
+        <div class="form-control">
+          <input
+            placeholder="Your Name"
+            type="text"
+            [formControl]="name"
+            class="w-full input input-bordered"
+            [class.input-error]="name.invalid && name.touched"
+            required
+            />
+          @if (name.invalid && name.touched) {
+            <label class="label">
+              <span class="label-text-alt text-error">{{
+                getErrorMessage(name, "Your name")
+              }}</span>
+            </label>
+          }
+        </div>
+        <div class="form-control">
+          <input
+            placeholder="Your Email"
+            type="email"
+            [formControl]="email"
+            class="w-full input input-bordered"
+            [class.input-error]="email.invalid && email.touched"
+            required
+            />
+          @if (email.invalid && email.touched) {
+            <label class="label">
+              <span class="label-text-alt text-error">{{
+                getErrorMessage(email, "Your email")
+              }}</span>
+            </label>
+          }
+        </div>
+        <div class="form-control">
+          <input
+            placeholder="Subject"
+            type="text"
+            [formControl]="subject"
+            class="w-full input input-bordered"
+            />
+        </div>
+        <div class="form-control">
+          <textarea
+            placeholder="Your Message"
+            [formControl]="message"
+            class="textarea textarea-bordered w-full min-h-[200px]"
+            [class.textarea-error]="message.invalid && message.touched"
+            required
+          ></textarea>
+          @if (message.invalid && message.touched) {
+            <label class="label">
+              <span class="label-text-alt text-error">{{
+                getErrorMessage(message, "Your message")
+              }}</span>
+            </label>
+          }
+        </div>
+        <div class="mt-6 text-right form-control">
+          <button
+            type="submit"
+            [disabled]="submit"
+            class="btn btn-primary"
+            [class.loading]="submit"
+            >
+            @if (!submit) {
+              <span class="flex items-center">
+                Send Message
+                <ng-icon name="featherSend" class="ml-2" size="1.5rem"></ng-icon>
+              </span>
+            }
+            @if (submit) {
+              <span>Sending...</span>
+            }
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
-</div>

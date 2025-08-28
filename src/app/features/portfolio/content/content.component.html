@@ -1,27 +1,29 @@
 <div
   id="about"
   animateOnScroll
-  class="card bg-base-100 shadow-xl mb-6 animated"
+  class="mb-6 shadow-xl card bg-base-100 animated"
   animationName="fadeInUp"
 >
   <div class="card-body">
-    <h2 class="card-title text-4xl font-bold mb-4">Hello, I'm Braxton</h2>
-    <p class="text-base-content/80 mb-6 text-lg">
+    <h2 class="mb-4 text-4xl font-bold card-title">Hello, I'm Braxton</h2>
+    <p class="mb-6 text-lg text-base-content/80">
       I am a talented Freelance Web & Mobile App Developer based in Brooklyn,
       New York, specializing in User Interface/Experience and Application
       Development. I build clean, appealing, and functional interfaces which
       comply with the latest and greatest web standards.
     </p>
     <div class="divider"></div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
       <div class="skills-container-1">
-        <h2 class="text-xl font-semibold mb-8 uppercase">
+        <h2 class="mb-8 text-xl font-semibold uppercase">
           professional skills
         </h2>
-        <div *ngIf="!loadingSkills" class="space-y-4">
-          <div *ngFor="let skill of skills[0]; trackBy: trackBySkillName" class="skills">
+        @if (!loadingSkills) {
+        <div class="space-y-4">
+          @for (skill of skills[0]; track trackBySkillName($index, skill)) {
+          <div class="skills">
             <div class="flex justify-between mb-1">
-              <div class="name font-semibold">{{ skill.name }}</div>
+              <div class="font-semibold name">{{ skill.name }}</div>
               <div class="text-sm">{{ skill.value | skill }}%</div>
             </div>
             <progress
@@ -30,67 +32,77 @@
               max="100"
             ></progress>
           </div>
+          }
         </div>
-        <div *ngIf="loadingSkills" class="flex justify-center">
+        } @if (loadingSkills) {
+        <div class="flex justify-center">
           <span
             class="loading loading-spinner loading-xl text-secondary"
           ></span>
         </div>
+        }
       </div>
       <div class="skills-container-2">
-        <h2 class="text-xl font-semibold mb-8 uppercase">additional skills</h2>
-        <div class="grid grid-cols-3" *ngIf="!loadingSkills">
-          <div *ngFor="let skill of skills[1]; trackBy: trackBySkillName" class="skills text-center">
+        <h2 class="mb-8 text-xl font-semibold uppercase">additional skills</h2>
+        @if (!loadingSkills) {
+        <div class="grid grid-cols-3">
+          @for (skill of skills[1]; track trackBySkillName($index, skill)) {
+          <div class="text-center skills">
             <div
               class="radial-progress text-secondary"
-              style="--value:{{ skill.value | skill }}; --size:6rem;"
+              [style.--value]="skill.value | skill"
+              [style.--size]="'6rem'"
               role="progressbar"
             >
               <span class="text-base-content">{{ skill.value | skill }}%</span>
             </div>
-            <div class="name text-sm font-semibold mt-2">{{ skill.name }}</div>
+            <div class="mt-2 text-sm font-semibold name">{{ skill.name }}</div>
           </div>
+          }
         </div>
-        <div *ngIf="loadingSkills" class="flex justify-center">
+        } @if (loadingSkills) {
+        <div class="flex justify-center">
           <span
             class="loading loading-spinner loading-xl text-secondary"
           ></span>
         </div>
+        }
       </div>
     </div>
     <div class="divider"></div>
-    <h2 class="text-3xl font-bold mb-5 flex items-center gap-2">
+    <h2 class="flex items-center gap-2 mb-5 text-3xl font-bold">
       Things I&nbsp;<ng-icon name="featherHeart" class="text-red-500" />
     </h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 mb-4">
-      <div
-        *ngFor="let like of likes; trackBy: trackByLikeName"
-        class="flex flex-row mb-4 gap-3 items-center"
-      >
+    <div class="grid grid-cols-1 mb-4 sm:grid-cols-2">
+      @for (like of likes; track trackByLikeName($index, like)) {
+      <div class="flex flex-row items-center gap-3 mb-4">
         <ng-icon [name]="like.icon"></ng-icon>
-        <h4 class="text-md sm:text-lg font-medium whitespace-nowrap">
+        <h4 class="font-medium text-md sm:text-lg whitespace-nowrap">
           {{ like.title }}
         </h4>
       </div>
+      }
     </div>
   </div>
 </div>
 <div
   id="experience"
   animateOnScroll
-  class="card bg-base-100 shadow-xl mb-6 animated"
+  class="mb-6 shadow-xl card bg-base-100 animated"
   animationName="fadeInUp"
 >
   <div class="card-body">
-    <h2 class="card-title text-3xl font-bold mb-6">Work Experience</h2>
-    
+    <h2 class="mb-6 text-3xl font-bold card-title">Work Experience</h2>
+
     <!-- Mobile Layout: Full width cards without timeline -->
-    <div class="block md:hidden space-y-4">
-      <div *ngFor="let company of employment; trackBy: trackByEmploymentIndex" class="card bg-base-200 shadow-md">
+    <div class="block space-y-4 md:hidden">
+      @for (company of employment; track trackByEmploymentIndex($index,
+      company)) {
+      <div class="shadow-md card bg-base-200">
         <div class="card-body">
-          <div class="flex flex-row gap-2 justify-center">
-            <div class="avatar w-20">
-              <div class="rounded-full my-auto">
+          <div class="flex flex-row justify-center gap-2">
+            <div class="w-20 avatar">
+              <div class="my-auto rounded-full">
                 <img
                   [appLazyLoadFade]="company.image.icon"
                   [alt]="company.name"
@@ -111,13 +123,14 @@
                     | amParse : "YYYY-MM-DD"
                     | amDateFormat : "MMM YYYY"
                 }}</span>
-                &#8211;
-                <span class="end-date" *ngIf="company.date.end">{{
+                &#8211; @if (company.date.end) {
+                <span class="end-date">{{
                   company.date.end
                     | amParse : "YYYY-MM-DD"
                     | amDateFormat : "MMM YYYY"
                 }}</span>
-                <span class="difference-date" *ngIf="company.date.end">
+                } @if (company.date.end) {
+                <span class="difference-date">
                   ({{
                     getYears(
                       company.date.end
@@ -125,31 +138,36 @@
                     )
                   }})</span
                 >
-                <span *ngIf="!company.date.end">Present</span>
+                } @if (!company.date.end) {
+                <span>Present</span>
+                }
               </h5>
             </div>
           </div>
         </div>
       </div>
+      }
     </div>
 
     <!-- Desktop Layout: Timeline -->
-    <ul class="timeline timeline-vertical hidden md:block">
-      <li *ngFor="let company of employment; let isOdd = odd; trackBy: trackByEmploymentIndex">
+    <ul class="hidden timeline timeline-vertical md:block">
+      @for (company of employment; track trackByEmploymentIndex($index,
+      company); let isOdd = $odd) {
+      <li>
         <hr />
         <div class="timeline-start" [class.md:timeline-end]="isOdd"></div>
         <div class="timeline-middle">
           <div
-            class="w-5 h-5 bg-neutral border-white border-4 rounded-full shadow-md text-white text-center leading-5"
+            class="w-5 h-5 leading-5 text-center text-white border-4 border-white rounded-full shadow-md bg-neutral"
           ></div>
         </div>
         <div
           class="timeline-end timeline-box"
           [class.md:timeline-start]="isOdd"
         >
-          <div class="flex flex-row gap-2 justify-center">
-            <div class="avatar w-20">
-              <div class="rounded-full my-auto">
+          <div class="flex flex-row justify-center gap-2">
+            <div class="w-20 avatar">
+              <div class="my-auto rounded-full">
                 <img
                   [appLazyLoadFade]="company.image.icon"
                   [alt]="company.name"
@@ -170,13 +188,14 @@
                     | amParse : "YYYY-MM-DD"
                     | amDateFormat : "MMM YYYY"
                 }}</span>
-                &#8211;
-                <span class="end-date" *ngIf="company.date.end">{{
+                &#8211; @if (company.date.end) {
+                <span class="end-date">{{
                   company.date.end
                     | amParse : "YYYY-MM-DD"
                     | amDateFormat : "MMM YYYY"
                 }}</span>
-                <span class="difference-date" *ngIf="company.date.end">
+                } @if (company.date.end) {
+                <span class="difference-date">
                   ({{
                     getYears(
                       company.date.end
@@ -184,16 +203,19 @@
                     )
                   }})</span
                 >
-                <span *ngIf="!company.date.end">Present</span>
+                } @if (!company.date.end) {
+                <span>Present</span>
+                }
               </h5>
             </div>
           </div>
         </div>
         <hr />
       </li>
+      }
     </ul>
   </div>
-  <div class="card-actions justify-center p-6 pt-0">
+  <div class="justify-center p-6 pt-0 card-actions">
     <a
       class="btn btn-lg btn-primary"
       href="assets/resume/braxton-diggs.pdf"
@@ -209,20 +231,27 @@
 <div
   id="portfolio"
   animateOnScroll
-  class="card bg-base-100 shadow-xl mb-6 animated"
+  class="mb-6 shadow-xl card bg-base-100 animated"
   animationName="fadeInUp"
 >
   <div class="card-body">
-    <h2 class="card-title text-3xl font-bold mb-6">Working Projects</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 auto-rows-fr">
-      <div
-        *ngFor="let project of projects; trackBy: trackByProjectId"
-        class="flex"
-        [class.hidden]="!project.status"
-      >
+    <h2 class="mb-6 text-3xl font-bold card-title">Working Projects</h2>
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 auto-rows-fr">
+      @for (project of projects; track trackByProjectId($index, project)) {
+      <div class="flex" [class.hidden]="!project.status">
         <div
-          class="card bg-base-200 shadow-md hover:shadow-lg transition-shadow cursor-pointer group overflow-hidden flex-1"
+          class="flex-1 overflow-hidden transition-shadow shadow-md cursor-pointer card bg-base-200 hover:shadow-lg group"
+          role="button"
+          tabindex="0"
           (click)="
+            openProject(project);
+            ga.eventEmitter('projects', 'more', project.title)
+          "
+          (keyup.enter)="
+            openProject(project);
+            ga.eventEmitter('projects', 'more', project.title)
+          "
+          (keyup.space)="
             openProject(project);
             ga.eventEmitter('projects', 'more', project.title)
           "
@@ -231,22 +260,23 @@
             <img
               [appLazyLoadFade]="project.image.screenshot"
               [alt]="project.title"
-              class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+              class="object-cover w-full h-48 transition-transform duration-300 group-hover:scale-105"
             />
             <div
-              class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-300 flex items-center justify-center"
+              class="absolute inset-0 flex items-center justify-center transition-all duration-300 bg-black bg-opacity-0 group-hover:bg-opacity-60"
             >
               <div
-                class="text-white text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                class="text-center text-white transition-opacity duration-300 opacity-0 group-hover:opacity-100"
               >
-                <h3 class="text-xl font-bold mb-2">{{ project.title }}</h3>
-                <p class="text-sm mb-4 px-4">{{ project.summary }}</p>
+                <h3 class="mb-2 text-xl font-bold">{{ project.title }}</h3>
+                <p class="px-4 mb-4 text-sm">{{ project.summary }}</p>
                 <button type="button" class="btn btn-primary">View More</button>
               </div>
             </div>
           </figure>
         </div>
       </div>
+      }
     </div>
   </div>
 </div>

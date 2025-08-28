@@ -1,7 +1,8 @@
 import { Directive, ElementRef, Input, OnInit, OnDestroy } from '@angular/core';
 
 @Directive({
-  selector: '[appLazyBackgroundFade]'
+  selector: '[appLazyBackgroundFade]',
+  standalone: true
 })
 export class LazyBackgroundFadeDirective implements OnInit, OnDestroy {
   @Input('appLazyBackgroundFade') backgroundUrl!: string;

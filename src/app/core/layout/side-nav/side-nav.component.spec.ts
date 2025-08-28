@@ -2,19 +2,21 @@ import { Spectator, createComponentFactory, mockProvider } from '@ngneat/spectat
 import { SideNavComponent } from './side-nav.component';
 import { GoogleAnalyticsService } from '@shared/services';
 import { NgIconsModule } from '@ng-icons/core';
-import { featherBriefcase, featherCode, featherMail, featherFolder } from '@ng-icons/feather-icons';
+import { LazyLoadFadeDirective } from '@shared/directives/lazy-load-fade.directive';
+import { featherBriefcase, featherCode, featherMail, featherActivity } from '@ng-icons/feather-icons';
 
 describe('SideNavComponent', () => {
   let spectator: Spectator<SideNavComponent>;
   const createComponent = createComponentFactory({
     component: SideNavComponent,
     imports: [
+      LazyLoadFadeDirective,
       NgIconsModule.withIcons({
         featherBriefcase,
         featherCode,
         featherMail,
-        featherFolder
-      }),
+        featherActivity
+      })
     ],
     providers: [
       mockProvider(GoogleAnalyticsService, {
@@ -50,6 +52,7 @@ describe('SideNavComponent', () => {
         height: 0,
         x: 0,
         y: 0,
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         toJSON: () => { }
       })
     } as HTMLElement);
@@ -132,15 +135,18 @@ describe('SideNavComponent', () => {
     expect(spectator.component.scrollToSection).toHaveBeenCalledWith('about');
   });
 
-  it('should render profile image with lazy loading', () => {
-    const profileImage = spectator.query('img');
-
+  it('should render avatar with profile image', () => {
+    const avatar = spectator.query('.avatar');
+    expect(avatar).toBeTruthy();
+    
+    const avatarDiv = spectator.query('.avatar > div');
+    expect(avatarDiv).toBeTruthy();
+    expect(avatarDiv).toHaveClass('w-10');
+    expect(avatarDiv).toHaveClass('rounded-full');
+    
+    const profileImage = spectator.query('.avatar img');
     expect(profileImage).toBeTruthy();
-    expect(profileImage).toHaveAttribute('src', 'assets/braxton/profile.png');
-    expect(profileImage).toHaveAttribute('loading', 'lazy');
+    expect(profileImage).toHaveAttribute('appLazyLoadFade', 'assets/braxton/profile.png');
     expect(profileImage).toHaveAttribute('alt', 'Braxton Diggs');
-    expect(profileImage).toHaveClass('w-8');
-    expect(profileImage).toHaveClass('h-8');
-    expect(profileImage).toHaveClass('rounded-full');
   });
 });

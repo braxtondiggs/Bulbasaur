@@ -2,12 +2,15 @@ import { Spectator, createComponentFactory, SpyObject, createSpyObject } from '@
 import { SkillsComponent } from './skills.component';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { AngularFireModule } from '@angular/fire/compat';
-import { environment } from '@env/environment';
-import { GoogleAnalyticsService } from '@shared/services';
-import { ReactiveFormsModule } from '@angular/forms';
+// Removed AngularFireModule to avoid duplicate import warning
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { of } from 'rxjs';
+import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { environment } from '@env/environment';
+import { GoogleAnalyticsService, ScrollService } from '@shared/services';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AnimateOnScrollDirective } from '@shared/directives/animate-on-scroll.directive';
+import { ParsePipe, DateFormatPipe } from '@shared/pipes/date.pipe';
+import { of, Subject } from 'rxjs';
 
 describe('SkillsComponent', () => {
   let spectator: Spectator<SkillsComponent>;
@@ -17,34 +20,78 @@ describe('SkillsComponent', () => {
   const mockFireStore = createSpyObject(AngularFirestore);
   mockFireStore.collection.andReturn({ valueChanges: jest.fn(() => of([])) });
 
+  // Mock ScrollService
+  const mockScrollService = {
+    scrollObs: new Subject(),
+    resizeObs: new Subject(),
+    pos: 0
+  };
+
   const createComponent = createComponentFactory({
     component: SkillsComponent,
     imports: [
-      AngularFireModule.initializeApp(environment.firebase),
+      AnimateOnScrollDirective,
+      ParsePipe,
+      DateFormatPipe,
       HighchartsChartModule,
       HttpClientTestingModule,
       ReactiveFormsModule
     ],
     providers: [
-      { provide: AngularFirestore, useValue: mockFireStore }
+      { provide: AngularFirestore, useValue: mockFireStore },
+      { provide: ScrollService, useValue: mockScrollService },
+      { 
+        provide: FIREBASE_OPTIONS, 
+        useValue: {
+          apiKey: 'fake-api-key',
+          authDomain: 'test.firebaseapp.com',
+          projectId: 'test-project',
+          storageBucket: 'test.appspot.com',
+          messagingSenderId: '123456789',
+          appId: 'test-app-id'
+        }
+      }
     ],
     mocks: [GoogleAnalyticsService]
   });
 
   beforeEach(() => {
+    // Mock DOM elements that Highcharts needs
+    jest.spyOn(document, 'getElementById').mockReturnValue({
+      clientWidth: 800,
+      getBoundingClientRect: () => ({
+        width: 800,
+        height: 400,
+        top: 0,
+        left: 0,
+        right: 800,
+        bottom: 400,
+        x: 0,
+        y: 0,
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        toJSON: () => {}
+      })
+    } as HTMLElement);
+
     spectator = createComponent({
       detectChanges: false // Prevent automatic change detection
     });
     httpMock = spectator.inject(HttpTestingController);
-    spectator.component.skills = {};
+    spectator.component.skills = {
+      Languages: [],
+      Editors: [],
+      Timeline: []
+    };
 
     // Mock the chart callback methods to prevent Highcharts DOM access
-    jest.spyOn(spectator.component, 'chartCallbackLang').mockImplementation(() => { });
-    jest.spyOn(spectator.component, 'chartCallbackAct').mockImplementation(() => { });
-    jest.spyOn(spectator.component, 'chartCallbackEditor').mockImplementation(() => { });
+    jest.spyOn(spectator.component, 'chartCallbackLang').mockImplementation(() => undefined);
+    jest.spyOn(spectator.component, 'chartCallbackAct').mockImplementation(() => undefined);
+    jest.spyOn(spectator.component, 'chartCallbackEditor').mockImplementation(() => undefined);
 
     // Mock updateSeries globally to prevent chart access errors
-    jest.spyOn(spectator.component as any, 'updateSeries').mockImplementation(() => { });
+    jest.spyOn(spectator.component as any, 'updateSeries').mockImplementation(() => undefined);
+    jest.spyOn(spectator.component as any, 'setDefaultCharts').mockImplementation(() => undefined);
+    jest.spyOn(spectator.component as any, 'detectTheme').mockImplementation(() => undefined);
   });
 
   it('should create', () => {

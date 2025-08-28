@@ -1,7 +1,8 @@
 import { Directive, ElementRef, Input, OnInit, OnDestroy } from '@angular/core';
 
 @Directive({
-  selector: '[appLazyLoadFade]'
+  selector: '[appLazyLoadFade]',
+  standalone: true
 })
 export class LazyLoadFadeDirective implements OnInit, OnDestroy {
   @Input('appLazyLoadFade') src!: string;

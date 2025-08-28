@@ -1,13 +1,28 @@
-<div class="modal modal-open" *ngIf="isVisible" (click)="close()">
-  <div class="modal-box max-w-4xl w-11/12" (click)="$event.stopPropagation()">
+@if (isVisible) {
+<div
+  class="modal modal-open"
+  (click)="close()"
+  tabindex="0"
+  (keyup.enter)="close()"
+  (keyup.space)="close()"
+>
+  <div
+    class="w-11/12 max-w-4xl modal-box"
+    (click)="$event.stopPropagation()"
+    tabindex="0"
+    (keyup.enter)="$event.stopPropagation()"
+    (keyup.space)="$event.stopPropagation()"
+  >
     <button
       type="button"
-      class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+      class="absolute btn btn-sm btn-circle btn-ghost right-2 top-2"
       (click)="close()"
+      (keyup.enter)="close()"
+      (keyup.space)="close()"
     >
       <ng-icon name="featherX" size="1.5rem"></ng-icon>
     </button>
-    <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-5">
       <div class="md:col-span-2">
         <img
           [appLazyLoadFade]="project.image.screenshot"
@@ -19,72 +34,74 @@
           }"
         />
       </div>
-      <div class="md:col-span-3 flex flex-col">
+      <div class="flex flex-col md:col-span-3">
         <div class="flex-1">
-          <h2 class="text-2xl font-bold mb-4">{{ project.title }}</h2>
+          <h2 class="mb-4 text-2xl font-bold">{{ project.title }}</h2>
           <div
-            class="prose prose-sm max-w-none"
+            class="prose-sm prose max-w-none"
             [innerHtml]="project.description_modified"
           ></div>
         </div>
-        <div
-          class="flex flex-col sm:flex-row gap-4 sm:items-center mt-6"
-          *ngIf="project.url"
-        >
+        @if (project.url) {
+        <div class="flex flex-col gap-4 mt-6 sm:flex-row sm:items-center">
           <div class="flex-1">
+            @if (project.url.web) {
             <a
               [href]="project.url.web"
               target="_blank"
               (click)="ga.eventEmitter('projects', 'web', project.title)"
-              *ngIf="project.url.web"
               class="btn btn-primary btn-lg"
             >
               View Project
             </a>
+            }
           </div>
           <div class="flex gap-2">
+            @if (project.url.android) {
             <a
               [href]="project.url.android"
               target="_blank"
-              *ngIf="project.url.android"
               (click)="ga.eventEmitter('projects', 'android', project.title)"
               class="block"
             >
               <img
                 appLazyLoadFade="assets/Google-Store.png"
                 [alt]="project.title + ' on Google Play'"
-                class="h-8 w-auto shadow-none"
+                class="w-auto h-8 shadow-none"
               />
             </a>
+            } @if (project.url.ios) {
             <a
               [href]="project.url.ios"
               target="_blank"
-              *ngIf="project.url.ios"
               (click)="ga.eventEmitter('projects', 'ios', project.title)"
               class="block"
             >
               <img
                 appLazyLoadFade="assets/Apple-Store.png"
                 [alt]="project.title + ' on Apple Store'"
-                class="h-8 w-auto shadow-none"
+                class="w-auto h-8 shadow-none"
               />
             </a>
+            } @if (project.url.other) {
             <a
               [href]="project.url.other"
               target="_blank"
-              *ngIf="project.url.other"
               (click)="ga.eventEmitter('projects', 'other', project.title)"
               class="block"
             >
               <img
                 [appLazyLoadFade]="project.image.other"
                 [alt]="project.title"
-                class="h-8 w-auto shadow-none"
+                class="w-auto h-8 shadow-none"
               />
             </a>
+            }
           </div>
         </div>
+        }
       </div>
     </div>
   </div>
 </div>
+}

@@ -1,19 +1,22 @@
 <div>
-  <div class="card bg-accent-content shadow-xl mb-4 text-neutral-content">
-    <div class="card-body text-center">
-      <img
-        appLazyLoadFade="assets/braxton/profile.png"
-        class="w-24 h-24 rounded-full mx-auto mb-4"
-        alt="Braxton Diggs"
-      />
-      <div class="card-info">
-        <h2 class="card-title justify-center text-3xl mb-2">Braxton Diggs</h2>
-        <p class="text-base-content/70 mb-4">Front-end Developer</p>
+  <div class="mb-4 shadow-xl card bg-accent-content text-neutral-content">
+    <div class="text-center card-body">
+      <div class="mx-auto mb-4 avatar">
+        <div class="w-48 rounded-full">
+          <img
+            appLazyLoadFade="assets/braxton/profile.png"
+            alt="Braxton Diggs"
+          />
+        </div>
       </div>
-      <app-social></app-social>
+      <div class="card-info">
+        <h2 class="justify-center mb-2 text-3xl card-title">Braxton Diggs</h2>
+        <p class="mb-4">Front-end Developer</p>
+      </div>
+      <app-social />
     </div>
   </div>
-  <div class="card bg-base-100 shadow-xl min-h-80">
-    <app-instagram></app-instagram>
+  <div class="shadow-xl card bg-base-100 min-h-80">
+    <app-instagram />
   </div>
 </div>

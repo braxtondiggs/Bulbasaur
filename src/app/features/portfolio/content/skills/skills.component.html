@@ -1,17 +1,17 @@
 <div
   id="skills"
   animateOnScroll
-  class="card bg-base-100 shadow-xl mb-6 animated"
+  class="mb-6 shadow-xl card bg-base-100 animated"
   animationName="fadeInUp"
 >
   <div class="card-body">
-    <h2 class="card-title text-3xl font-bold mb-6">My "Real-Time" Coding</h2>
+    <h2 class="mb-6 text-3xl font-bold card-title">My "Real-Time" Coding</h2>
     <form [formGroup]="form" class="mb-6 text-center">
-      <p class="text-base-content/80 mb-4">
+      <p class="mb-4 text-base-content/80">
         See exactly when & what my coding activity is using
         <a href="https://wakatime.com/" class="link link-primary">WakaTime</a>.
       </p>
-      <div class="form-control w-full max-w-xs mx-auto">
+      <div class="w-full max-w-xs mx-auto form-control">
         <select
           #selector
           formControlName="range"
@@ -39,86 +39,92 @@
         />
         <input type="date" formControlName="end" (change)="dateRangeChange()" />
       </div>
-      <h4
-        *ngIf="form.valid && form.value.range === 'customrange'"
-        class="mt-4 text-lg font-medium"
-      >
-        {{ (form.value.start | amParse) | amDateFormat : "MMM Do YYYY" }} -
-        {{ (form.value.end | amParse) | amDateFormat : "MMM Do YYYY" }}
+      @if (form.valid && form.value.range === 'customrange') {
+      <h4 class="mt-4 text-lg font-medium">
+        {{ form.value.start | amParse | amDateFormat : "MMM Do YYYY" }} -
+        {{ form.value.end | amParse | amDateFormat : "MMM Do YYYY" }}
       </h4>
+      }
     </form>
-    <div class="tabs tabs-border">
-      <input
-        type="radio"
-        name="skills_tabs"
+    <div role="tablist" class="tabs tabs-bordered">
+      <a
         role="tab"
         class="tab"
+        [class.tab-active]="selectedTabIndex === 0"
+        (click)="selectedTabChange({ index: 0 })"
+        (keydown.enter)="selectedTabChange({ index: 0 })"
         aria-label="Languages"
-        [checked]="selectedTabIndex === 0"
-        (change)="selectedTabChange({ index: 0 })"
-      />
-      <div role="tabpanel" class="tab-content p-6">
-        <div class="w-full max-w-full overflow-hidden">
-          <highcharts-chart
-            *ngIf="
-              chart.languages &&
-              chart.languages.series &&
-              chart.languages.series[0] &&
-              chart.languages.series[0]
-            "
-            [options]="chart.languages"
-            [Highcharts]="Highcharts"
-            [(update)]="updateFlag"
-            [callbackFunction]="chartCallbackLang.bind(this)"
-            class="w-full max-w-full"
-          >
-          </highcharts-chart>
-        </div>
-      </div>
-
-      <input
-        type="radio"
-        name="skills_tabs"
+        tabindex="0"
+      >
+        Languages
+      </a>
+      <a
         role="tab"
         class="tab"
+        [class.tab-active]="selectedTabIndex === 1"
+        (click)="selectedTabChange({ index: 1 })"
+        (keydown.enter)="selectedTabChange({ index: 1 })"
         aria-label="Activity"
-        [checked]="selectedTabIndex === 1"
-        (change)="selectedTabChange({ index: 1 })"
-      />
-      <div role="tabpanel" class="tab-content p-6">
-        <div class="w-full max-w-full overflow-hidden">
-          <highcharts-chart
-            [options]="chart.activity"
-            [Highcharts]="Highcharts"
-            [(update)]="updateFlag"
-            [callbackFunction]="chartCallbackAct.bind(this)"
-            class="w-full max-w-full"
-          >
-          </highcharts-chart>
-        </div>
-      </div>
-
-      <input
-        type="radio"
-        name="skills_tabs"
+        tabindex="0"
+      >
+        Activity
+      </a>
+      <a
         role="tab"
         class="tab"
+        [class.tab-active]="selectedTabIndex === 2"
+        (click)="selectedTabChange({ index: 2 })"
+        (keydown.enter)="selectedTabChange({ index: 2 })"
         aria-label="Editors"
-        [checked]="selectedTabIndex === 2"
-        (change)="selectedTabChange({ index: 2 })"
-      />
-      <div role="tabpanel" class="tab-content p-6">
-        <div class="w-full max-w-full overflow-hidden">
-          <highcharts-chart
-            [options]="chart.editors"
-            [Highcharts]="Highcharts"
-            [(update)]="updateFlag"
-            [callbackFunction]="chartCallbackEditor.bind(this)"
-            class="w-full max-w-full"
-          >
-          </highcharts-chart>
-        </div>
+        tabindex="0"
+      >
+        Editors
+      </a>
+    </div>
+
+    <!-- Tab Content -->
+    @if (selectedTabIndex === 0) {
+    <div class="p-6">
+      <div class="w-full max-w-full overflow-hidden">
+        @if ( chart.languages && chart.languages.series &&
+        chart.languages.series[0] && chart.languages.series[0] ) {
+        <highcharts-chart
+          [options]="chart.languages"
+          [Highcharts]="Highcharts"
+          [(update)]="updateFlag"
+          [callbackFunction]="chartCallbackLang.bind(this)"
+          class="w-full max-w-full"
+        >
+        </highcharts-chart>
+        }
       </div>
     </div>
+    } @if (selectedTabIndex === 1) {
+    <div class="p-6">
+      <div class="w-full max-w-full overflow-hidden">
+        <highcharts-chart
+          [options]="chart.activity"
+          [Highcharts]="Highcharts"
+          [(update)]="updateFlag"
+          [callbackFunction]="chartCallbackAct.bind(this)"
+          class="w-full max-w-full"
+        >
+        </highcharts-chart>
+      </div>
+    </div>
+    } @if (selectedTabIndex === 2) {
+    <div class="p-6">
+      <div class="w-full max-w-full overflow-hidden">
+        <highcharts-chart
+          [options]="chart.editors"
+          [Highcharts]="Highcharts"
+          [(update)]="updateFlag"
+          [callbackFunction]="chartCallbackEditor.bind(this)"
+          class="w-full max-w-full"
+        >
+        </highcharts-chart>
+      </div>
+    </div>
+    }
   </div>
 </div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -91,6 +91,20 @@
     <meta name="msapplication-config" content="/browserconfig.xml" />
 
     <!-- Structured data for SEO -->
+    <!-- Theme initialization script - prevents flash of unstyled content -->
+    <script>
+      (function() {
+        // Get saved theme or detect system preference
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+        
+        // Apply theme immediately
+        document.documentElement.setAttribute('data-theme', theme);
+        document.body?.setAttribute('data-theme', theme);
+      })();
+    </script>
+
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",

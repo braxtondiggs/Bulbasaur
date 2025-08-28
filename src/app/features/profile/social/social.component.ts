@@ -1,12 +1,17 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+
+import { NgIconsModule } from '@ng-icons/core';
 import { GoogleAnalyticsService } from '@shared/services';
 
 @Component({
   selector: 'app-social',
+  standalone: true,
+  imports: [
+    NgIconsModule
+],
   templateUrl: './social.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SocialComponent {
-
-  constructor(public ga: GoogleAnalyticsService) { }
+  public ga = inject(GoogleAnalyticsService);
 }

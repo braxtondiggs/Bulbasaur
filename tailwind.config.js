@@ -37,5 +37,9 @@ module.exports = {
     styled: true,
     base: true,
     utils: true,
+    logs: true,
+    rtl: false,
+    prefix: "",
+    darkTheme: "dark",
   },
 };

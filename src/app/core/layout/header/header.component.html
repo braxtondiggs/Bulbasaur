@@ -1,5 +1,5 @@
-<div class="container">
-  <div class="dropdown dropdown-end absolute right-3 top-3">
+<div class="container relative z-20 h-12">
+  <div class="absolute dropdown dropdown-end right-3 top-3">
     <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
       <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
         <path
@@ -9,7 +9,7 @@
     </div>
     <ul
       tabindex="0"
-      class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-32"
+      class="w-32 p-2 shadow dropdown-content menu bg-base-100 rounded-box"
     >
       <li>
         <button type="button" (click)="setTheme('light')">Light</button>

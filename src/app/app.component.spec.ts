@@ -2,17 +2,23 @@ import { Spectator, createComponentFactory, createSpyObject } from '@ngneat/spec
 import { AppComponent } from './app.component';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { HeaderComponent, FooterComponent, SideNavComponent } from '@core/layout';
-import { ProfileBoxComponent, SocialComponent } from '@features/profile';
+import { ProfileBoxComponent, InstagramComponent, SocialComponent } from '@features/profile';
 import { ContentComponent, SkillsComponent, ContactComponent } from '@features/portfolio';
 import { SkillPipe } from '@shared/pipes';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { ReactiveFormsModule } from '@angular/forms';
-import { environment } from '@env/environment';
-import { AngularFireModule } from '@angular/fire/compat';
 import { HttpClientModule } from '@angular/common/http';
 import { testNgIconsModule } from '@shared/testing/test-utils';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { LazyLoadFadeDirective } from '@shared/directives/lazy-load-fade.directive';
+import { AnimateOnScrollDirective } from '@shared/directives/animate-on-scroll.directive';
+import { ScrollService } from '@shared/services/scroll.service';
+import { GoogleAnalyticsService } from '@shared/services';
+import { ParsePipe, DateFormatPipe } from '@shared/pipes/date.pipe';
 import { of } from 'rxjs';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('AppComponent', () => {
   let spectator: Spectator<AppComponent>;
@@ -21,29 +27,63 @@ describe('AppComponent', () => {
   const mockFireStore = createSpyObject(AngularFirestore);
   mockFireStore.collection.andReturn({ valueChanges: jest.fn(() => of([])) });
 
+  // Mock AngularFireAuth
+  const mockFireAuth = createSpyObject(AngularFireAuth);
+
+  // Mock ScrollService
+  const mockScrollService = createSpyObject(ScrollService);
+  mockScrollService.scrollObs = of({});
+  mockScrollService.resizeObs = of({});
+  mockScrollService.pos = 0;
+
+  // Mock GoogleAnalyticsService
+  const mockGA = createSpyObject(GoogleAnalyticsService);
+  mockGA.eventEmitter.andReturn(undefined);
+
   const createComponent = createComponentFactory({
     component: AppComponent,
-    declarations: [
+    imports: [
+      // Standalone components
       ContactComponent,
       ContentComponent,
       FooterComponent,
       HeaderComponent,
       ProfileBoxComponent,
       SideNavComponent,
-      SkillPipe,
       SkillsComponent,
-      SocialComponent
-    ],
-    imports: [
-      AngularFireModule.initializeApp(environment.firebase),
+      SocialComponent,
+      InstagramComponent,
+      // Standalone pipes
+      SkillPipe,
+      ParsePipe,
+      DateFormatPipe,
+      // Standalone directives
+      LazyLoadFadeDirective,
+      AnimateOnScrollDirective,
+      // Modules
       HighchartsChartModule,
       HttpClientModule,
       LoadingBarModule,
       ReactiveFormsModule,
       testNgIconsModule
     ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
     providers: [
-      { provide: AngularFirestore, useValue: mockFireStore }
+      { provide: AngularFirestore, useValue: mockFireStore },
+      { provide: AngularFireAuth, useValue: mockFireAuth },
+      { provide: ScrollService, useValue: mockScrollService },
+      { provide: GoogleAnalyticsService, useValue: mockGA },
+      { 
+        provide: FIREBASE_OPTIONS, 
+        useValue: {
+          apiKey: 'fake-api-key',
+          authDomain: 'test.firebaseapp.com',
+          projectId: 'test-project',
+          storageBucket: 'test.appspot.com',
+          messagingSenderId: '123456789',
+          appId: 'test-app-id'
+        }
+      }
     ],
     shallow: true
   });

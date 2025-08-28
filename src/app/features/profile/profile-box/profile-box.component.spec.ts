@@ -1,32 +1,23 @@
-import { createComponentFactory, Spectator, createSpyObject } from '@ngneat/spectator/jest';
-import { SocialComponent } from '../social';
+import { createComponentFactory, Spectator } from '@ngneat/spectator/jest';
 import { ProfileBoxComponent } from './profile-box.component';
-import { InstagramComponent } from './instagram/instagram.component';
 import { testNgIconsModule, mockGoogleAnalyticsService } from '@shared/testing/test-utils';
 import { GoogleAnalyticsService } from '@shared/services';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { AngularFireModule } from '@angular/fire/compat';
-import { environment } from '@env/environment';
-import { of } from 'rxjs';
+import { LazyLoadFadeDirective } from '@shared/directives/lazy-load-fade.directive';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('ProfileBoxComponent', () => {
   let spectator: Spectator<ProfileBoxComponent>;
 
-  // Mock Firestore
-  const mockFireStore = createSpyObject(AngularFirestore);
-  mockFireStore.collection.andReturn({ valueChanges: jest.fn(() => of([])) });
-
   const createComponent = createComponentFactory({
     component: ProfileBoxComponent,
-    declarations: [SocialComponent, InstagramComponent],
     imports: [
-      testNgIconsModule,
-      AngularFireModule.initializeApp(environment.firebase)
+      LazyLoadFadeDirective,
+      testNgIconsModule
     ],
     providers: [
-      { provide: GoogleAnalyticsService, useValue: mockGoogleAnalyticsService },
-      { provide: AngularFirestore, useValue: mockFireStore }
+      { provide: GoogleAnalyticsService, useValue: mockGoogleAnalyticsService }
     ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
     shallow: true
   });
 
@@ -44,17 +35,21 @@ describe('ProfileBoxComponent', () => {
     expect(profileCard).toHaveClass('text-neutral-content');
   });
 
-  it('should display profile image with correct attributes', () => {
-    const profileImage = spectator.query('img');
+  it('should display avatar with profile image', () => {
+    const avatar = spectator.query('.avatar');
+    expect(avatar).toBeTruthy();
+    expect(avatar).toHaveClass('mx-auto');
+    expect(avatar).toHaveClass('mb-4');
+
+    const avatarDiv = spectator.query('.avatar > div');
+    expect(avatarDiv).toBeTruthy();
+    expect(avatarDiv).toHaveClass('w-48');
+    expect(avatarDiv).toHaveClass('rounded-full');
+
+    const profileImage = spectator.query('.avatar img');
     expect(profileImage).toBeTruthy();
-    expect(profileImage).toHaveAttribute('src', 'assets/braxton/profile.png');
-    expect(profileImage).toHaveAttribute('loading', 'lazy');
+    expect(profileImage).toHaveAttribute('appLazyLoadFade', 'assets/braxton/profile.png');
     expect(profileImage).toHaveAttribute('alt', 'Braxton Diggs');
-    expect(profileImage).toHaveClass('w-24');
-    expect(profileImage).toHaveClass('h-24');
-    expect(profileImage).toHaveClass('rounded-full');
-    expect(profileImage).toHaveClass('mx-auto');
-    expect(profileImage).toHaveClass('mb-4');
   });
 
   it('should display name and title', () => {
@@ -70,6 +65,7 @@ describe('ProfileBoxComponent', () => {
   });
 
   it('should contain social component', () => {
+    // With shallow rendering, child components are rendered as plain elements
     expect(spectator.query('app-social')).toBeTruthy();
   });
 
@@ -79,6 +75,7 @@ describe('ProfileBoxComponent', () => {
     expect(instagramCard).toHaveClass('shadow-xl');
     expect(instagramCard).toHaveClass('min-h-80');
 
+    // With shallow rendering, child components are rendered as plain elements
     expect(spectator.query('app-instagram')).toBeTruthy();
   });
 

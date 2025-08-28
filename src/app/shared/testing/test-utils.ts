@@ -52,9 +52,9 @@ export const setupDomMocks = () => {
       getItem: jest.fn(),
       setItem: jest.fn(),
       removeItem: jest.fn(),
-      clear: jest.fn(),
+      clear: jest.fn()
     },
-    writable: true,
+    writable: true
   });
 
   // Mock window.scrollTo
@@ -84,6 +84,7 @@ export const mockGetElementById = (mockElement?: Partial<HTMLElement>) => {
       height: 0,
       x: 0,
       y: 0,
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
       toJSON: () => { }
     }),
     ...mockElement

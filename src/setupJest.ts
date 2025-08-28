@@ -1,5 +1,36 @@
 import 'jest-preset-angular/setup-jest';
 
+// Firebase compatibility polyfills
+import { TextEncoder, TextDecoder } from 'util';
+import { ReadableStream, WritableStream } from 'stream/web';
+
+// Mock fetch API for Firebase
+const mockResponse = class {
+  body: any;
+  status: number;
+  statusText: string;
+  headers: Map<string, string>;
+  
+  constructor(body: any, init: any = {}) {
+    this.body = body;
+    this.status = init.status || 200;
+    this.statusText = init.statusText || 'OK';
+    this.headers = new Map();
+  }
+  json() { return Promise.resolve({}); }
+  text() { return Promise.resolve(''); }
+  arrayBuffer() { return Promise.resolve(new ArrayBuffer(0)); }
+};
+
+Object.assign(global, { 
+  TextDecoder, 
+  TextEncoder, 
+  ReadableStream, 
+  WritableStream,
+  Response: mockResponse,
+  fetch: jest.fn(() => Promise.resolve(new mockResponse({})))
+});
+
 // Global test setup and polyfills
 Object.defineProperty(window, 'CSS', { value: null });
 Object.defineProperty(window, 'getComputedStyle', {

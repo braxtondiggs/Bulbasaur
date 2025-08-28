@@ -1,10 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import { ReactiveFormsModule, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { NgIconsModule } from '@ng-icons/core';
+import { SocialComponent } from '../../../profile/social/social.component';
+import { AnimateOnScrollDirective } from '@shared/directives/animate-on-scroll.directive';
+import { LazyLoadFadeDirective } from '@shared/directives/lazy-load-fade.directive';
+import { LazyBackgroundFadeDirective } from '@shared/directives/lazy-background-fade.directive';
 
 @Component({
   selector: 'app-contact',
-  templateUrl: './contact.component.html'
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    NgIconsModule,
+    SocialComponent,
+    AnimateOnScrollDirective,
+    LazyLoadFadeDirective,
+    LazyBackgroundFadeDirective
+  ],
+  templateUrl: './contact.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContactComponent {
   public name: UntypedFormControl = new UntypedFormControl('', [Validators.required]);
@@ -25,7 +40,7 @@ export class ContactComponent {
   });
   public submit = false;
 
-  constructor(protected http: HttpClient) { }
+  protected http = inject(HttpClient);
 
   public getErrorMessage(input: UntypedFormControl, label: string = 'This field'): string {
     if (input.hasError('required')) {

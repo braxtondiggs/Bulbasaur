@@ -84,18 +84,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "Bulbasaur:build"
+            "buildTarget": "Bulbasaur:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "Bulbasaur:build:production"
+              "buildTarget": "Bulbasaur:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Bulbasaur:build"
+            "buildTarget": "Bulbasaur:build"
           }
         },
         "e2e": {

@@ -1,11 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import * as customParseFormat from 'dayjs/plugin/advancedFormat';
 import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/advancedFormat';
 dayjs.extend(customParseFormat);
 
 const dayjsConstructor = dayjs;
 
-@Pipe({ name: 'amParse' })
+@Pipe({ name: 'amParse', standalone: true })
 export class ParsePipe implements PipeTransform {
   transform(value: string | dayjs.Dayjs, formats?: string | string[]): dayjs.Dayjs {
     return dayjsConstructor(value, formats);
@@ -13,18 +13,18 @@ export class ParsePipe implements PipeTransform {
 }
 
 
-@Pipe({ name: 'amDateFormat' })
+@Pipe({ name: 'amDateFormat', standalone: true })
 export class DateFormatPipe implements PipeTransform {
   transform(value: dayjs.Dayjs, format: string): string {
     return value ? dayjsConstructor(value).format(format) : '';
   }
 }
 
-@Pipe({ name: 'amDifference' })
+@Pipe({ name: 'amDifference', standalone: true })
 export class DifferencePipe implements PipeTransform {
   transform(
-    value: dayjs.Dayjs,
-    otherValue: dayjs.Dayjs,
+    value: dayjs.Dayjs | string,
+    otherValue: dayjs.Dayjs | string,
     unit?: dayjs.QUnitType,
     precision?: boolean
   ): number {

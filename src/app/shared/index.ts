@@ -1,6 +1,3 @@
-// Shared module export
-export * from './shared.module';
-
 // Services
 export * from './services';
 

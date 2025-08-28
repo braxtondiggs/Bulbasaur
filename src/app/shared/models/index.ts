@@ -7,10 +7,15 @@ export interface DateRange {
 
 export interface Employment {
   company: string;
+  name: string;
   position: string;
   description: string;
+  location: string;
   date: DateRange;
   logo?: string;
+  image: {
+    icon: string;
+  };
   technologies?: string[];
 }
 
@@ -18,8 +23,10 @@ export interface Project {
   id: string;
   name: string;
   title: string;
+  summary: string;
   description: string[];
   description_modified?: string;
+  status: boolean;
   image: {
     screenshot: string;
     other?: string;
@@ -38,8 +45,9 @@ export interface Project {
 
 export interface Like {
   name: string;
+  title: string;
   description: string;
-  icon?: string;
+  icon: string;
 }
 
 export interface AppData {

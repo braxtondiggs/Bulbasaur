@@ -1,14 +1,22 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+
+import { NgIconsModule } from '@ng-icons/core';
 import { GoogleAnalyticsService } from '@shared/services';
+import { LazyLoadFadeDirective } from '@shared/directives/lazy-load-fade.directive';
 
 @Component({
   selector: 'app-side-nav',
-  styleUrls: ['./side-nav.component.scss'],
+  standalone: true,
+  imports: [
+    NgIconsModule,
+    LazyLoadFadeDirective
+],
   templateUrl: './side-nav.component.html',
+  styleUrls: ['./side-nav.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SideNavComponent {
-  constructor(public ga: GoogleAnalyticsService) { }
+  public ga = inject(GoogleAnalyticsService);
 
   public scrollToSection(sectionId: string): void {
     const element = document.getElementById(sectionId);

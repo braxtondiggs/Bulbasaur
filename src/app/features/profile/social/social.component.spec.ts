@@ -2,7 +2,7 @@ import { Spectator, createComponentFactory, mockProvider } from '@ngneat/spectat
 import { SocialComponent } from './social.component';
 import { GoogleAnalyticsService } from '@shared/services';
 import { NgIconsModule } from '@ng-icons/core';
-import { featherFacebook, featherGithub, featherInstagram, featherLinkedin, featherTwitter } from '@ng-icons/feather-icons';
+import { featherFacebook, featherGithub, featherInstagram, featherLinkedin, featherTwitter, featherMail } from '@ng-icons/feather-icons';
 
 describe('SocialComponent', () => {
   let spectator: Spectator<SocialComponent>;
@@ -14,7 +14,8 @@ describe('SocialComponent', () => {
         featherGithub,
         featherInstagram,
         featherLinkedin,
-        featherTwitter
+        featherTwitter,
+        featherMail
       })
     ],
     providers: [
@@ -36,7 +37,7 @@ describe('SocialComponent', () => {
   });
 
   it('should render social media links', () => {
-    expect(spectator.queryAll('a')).toHaveLength(5); // Facebook, GitHub, Instagram, LinkedIn, Twitter
+    expect(spectator.queryAll('a')).toHaveLength(5); // Facebook, GitHub, Instagram, Mail, SoundCloud
   });
 
   it('should call Google Analytics when social links are clicked', () => {

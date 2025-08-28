@@ -1,15 +1,38 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
+import { NgIconsModule } from '@ng-icons/core';
 import { HttpClient } from '@angular/common/http';
 import { GoogleAnalyticsService } from '@shared/services';
+import { SkillsComponent } from './skills/skills.component';
+import { ContactComponent } from './contact/contact.component';
+import { FooterComponent } from '@core/layout/footer/footer.component';
+import { ProjectComponent } from './project/project.component';
 import { Subject, of } from 'rxjs';
 import { takeUntil, catchError } from 'rxjs/operators';
 import dayjs from 'dayjs';
 import { AppData, Employment, Project, Like, SkillLanguage } from '@shared/models';
+import { AnimateOnScrollDirective } from '@shared/directives/animate-on-scroll.directive';
+import { LazyLoadFadeDirective } from '@shared/directives/lazy-load-fade.directive';
+import { SkillPipe } from '@shared/pipes/skill.pipe';
+import { ParsePipe, DateFormatPipe, DifferencePipe } from '@shared/pipes/date.pipe';
 
 @Component({
   selector: 'app-content',
-  styleUrls: ['./content.component.scss'],
+  standalone: true,
+  imports: [
+    NgIconsModule,
+    SkillsComponent,
+    ContactComponent,
+    FooterComponent,
+    ProjectComponent,
+    AnimateOnScrollDirective,
+    LazyLoadFadeDirective,
+    SkillPipe,
+    ParsePipe,
+    DateFormatPipe,
+    DifferencePipe
+],
   templateUrl: './content.component.html',
+  styleUrls: ['./content.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContentComponent implements OnInit, OnDestroy {
@@ -23,8 +46,9 @@ export class ContentComponent implements OnInit, OnDestroy {
   showProjectModal = false;
 
   private readonly destroy$ = new Subject<void>();
-
-  constructor(private http: HttpClient, public ga: GoogleAnalyticsService) { }
+  private http = inject(HttpClient);
+  private cdr = inject(ChangeDetectorRef);
+  public ga = inject(GoogleAnalyticsService);
 
   public ngOnInit(): void {
     this.loadAppData();
@@ -55,6 +79,7 @@ export class ContentComponent implements OnInit, OnDestroy {
           }
         }));
         this.projects = data.projects;
+        this.cdr.detectChanges(); // Trigger change detection after data loads
       });
   }
 
@@ -65,6 +90,7 @@ export class ContentComponent implements OnInit, OnDestroy {
         catchError(error => {
           console.error('Error loading skills data:', error);
           this.loadingSkills = false;
+          this.cdr.detectChanges(); // Trigger change detection on error
           return of({ Languages: [] });
         })
       )
@@ -88,6 +114,7 @@ export class ContentComponent implements OnInit, OnDestroy {
           this.skills.push(filteredLanguages.slice(i, i + 3));
         }
         this.loadingSkills = false;
+        this.cdr.detectChanges(); // Trigger change detection after skills data loads
       });
   }
 
