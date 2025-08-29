@@ -1,16 +1,13 @@
 {
   "recommendations": [
-    // Angular Development
+    // Angular & CLI helpers
     "angular.ng-template",
-    "johnpapa.angular2",
+    "nrwl.angular-console",
 
-    // Code Quality & Linting
+    // Code quality & formatting
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "streetsidesoftware.code-spell-checker",
-
-    // TypeScript Enhancement
-    "ms-vscode.vscode-typescript-next",
 
     // Productivity & Navigation
     "christian-kohler.npm-intellisense",
@@ -18,32 +15,24 @@
     "wix.vscode-import-cost",
     "bradlc.vscode-tailwindcss",
 
-    // Git Integration
+    // Git & Code intelligence
     "eamodio.gitlens",
+    "VisualStudioExptTeam.vscodeintellicode",
 
     // Testing
     "orta.vscode-jest",
-    "shelex.vscode-cy-helper",
 
-    // Code Enhancement
+    // Developer ergonomics
     "aaron-bond.better-comments",
     "usernamehw.errorlens",
     "gruntfuggly.todo-tree",
     "formulahendry.auto-rename-tag",
-    "ms-vscode.vscode-json",
-
-    // Snippets & Shortcuts
-    "xabikos.JavaScriptSnippets",
-    "johnpapa.vscode-peacock",
-
-    // File Management
     "sleistner.vscode-fileutils",
+    "EditorConfig.EditorConfig",
 
-    // Theme & UI
+    // Theme & docs
     "pkief.material-icon-theme",
     "zhuangtongfei.material-theme",
-
-    // Documentation
     "yzhang.markdown-all-in-one",
 
     // Debugging

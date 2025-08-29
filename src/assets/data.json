@@ -3,10 +3,9 @@
     "version": "2.0",
     "lastUpdated": "2025-08-27",
     "profile": {
-      "name": "Braxton Diggs",
-      "title": "Technical Lead & Full Stack Developer",
-      "location": "New York City, NY",
-      "email": "contact@braxtondiggs.com",
+      "name": "Braxton A. Diggs",
+      "title": "Seasoned IT Professional & Full Stack Developer",
+      "location": "Brooklyn, NY",
       "website": "https://braxtondiggs.com",
       "github": "https://github.com/braxtondiggs",
       "linkedin": "https://linkedin.com/in/braxtondiggs"
@@ -14,35 +13,59 @@
   },
   "employment": [
     {
+      "id": "tablet-hotels-2023",
+      "name": "Tablet Hotels",
+      "position": "Front End Developer",
+      "location": "New York, NY",
+      "type": "Full-time",
+      "remote": true,
+      "current": true,
+      "image": {
+        "icon": "./assets/logos/tablet_hotels.png",
+        "alt": "Tablet Hotels logo"
+      },
+      "date": {
+        "start": "2023-10-01",
+        "end": null
+      },
+      "technologies": ["React", "Node.js", "Travel Tech"],
+      "description": "Developing frontend solutions for luxury hotel booking platform.",
+      "achievements": [
+        "Building responsive user interfaces for hotel search and booking",
+        "Implementing modern frontend architecture patterns",
+        "Contributing to travel technology innovation"
+      ]
+    },
+    {
       "id": "fob-2020",
-      "company": "Function of Beauty",
+      "name": "Function of Beauty",
       "position": "Technical Lead",
-      "location": "New York City, NY",
+      "location": "New York, NY",
       "type": "Full-time",
       "remote": false,
-      "current": true,
+      "current": false,
       "image": {
         "icon": "./assets/logos/fob.png",
         "alt": "Function of Beauty logo"
       },
       "date": {
         "start": "2020-12-01",
-        "end": null
+        "end": "2023-07-01"
       },
-      "duration": "4+ years",
-      "technologies": ["Angular", "TypeScript", "Node.js", "AWS", "Docker"],
-      "description": "Lead technical initiatives and manage development team for personalized beauty products platform.",
+      "duration": "2 years",
+      "technologies": ["React", "Next.js", "AWS Lambda", "Python", "Jest", "Storybook"],
+      "description": "Lead a small team developing new e-commerce platform for personalized hair care products. Migrated from custom LAMP stack to React with Next.js and AWS lambda micro-services in Python.",
       "achievements": [
-        "Led migration to modern Angular architecture",
-        "Implemented CI/CD pipeline reducing deployment time by 60%",
-        "Mentored team of 5 developers"
+        "Led complete platform migration from LAMP stack to modern React/Next.js architecture",
+        "Developed automated documentation solution for front-end components and backend endpoints",
+        "Implemented testing infrastructure using Jest, Storybook, and Ghost Inspector"
       ]
     },
     {
       "id": "rts-2019",
-      "company": "Recycle Track Systems",
-      "position": "Full Stack Developer",
-      "location": "New York City, NY",
+      "name": "Recycle Track Systems",
+      "position": "Full Stack/Mobile Developer",
+      "location": "New York, NY",
       "type": "Full-time",
       "remote": false,
       "current": false,
@@ -52,16 +75,21 @@
       },
       "date": {
         "start": "2019-07-01",
-        "end": "2020-03-16"
+        "end": "2020-03-01"
       },
       "duration": "8 months",
-      "technologies": ["React", "Node.js", "PostgreSQL", "GraphQL"],
-      "description": "Developed waste management tracking solutions for commercial clients.",
-      "achievements": ["Built real-time tracking dashboard", "Optimized database queries improving performance by 40%"]
+      "technologies": ["Angular", "Kotlin", "Swift", "Jest", "Cypress", "JUnit", "Espresso", "XCTest"],
+      "description": "Led efforts in organizing medium-sized startup's Angular codebase and implemented scrum methodology. Owned mobile application development for Android and iOS platforms.",
+      "achievements": [
+        "Organized and restructured original Angular codebase with scrum methodology implementation",
+        "Led development of all mobile applications for Android (Kotlin) and iOS (Swift)",
+        "Implemented enterprise-level test suite for web and mobile applications",
+        "Optimized codebases and improved app store SEO"
+      ]
     },
     {
       "id": "bytecubed-2017",
-      "company": "ByteCubed",
+      "name": "ByteCubed",
       "position": "Angular Developer",
       "location": "Arlington, VA",
       "type": "Full-time",
@@ -76,18 +104,21 @@
         "end": "2019-07-01"
       },
       "duration": "2.5 years",
-      "technologies": ["Angular", "TypeScript", "Java", "Spring Boot"],
-      "description": "Developed enterprise web applications for government clients.",
+      "technologies": ["Angular", "React", "NgRx", "Redux", "Material Design", "Karma", "Jasmine"],
+      "description": "Built multiple Angular progressive web applications using Test Driven Development and Continuous Integration with reactive state management frameworks.",
       "achievements": [
-        "Built responsive data visualization components",
-        "Implemented accessibility standards compliance"
+        "Developed Angular PWAs with TDD and CI using NgRx and Redux",
+        "Implemented Material Design component library integration",
+        "Enabled RESTful API service integration using HttpClient",
+        "Generated comprehensive unit and functional tests using Karma, Jasmine, and PhantomJS",
+        "Worked on I18N integration"
       ]
     },
     {
       "id": "mobomo-2015",
-      "company": "Mobomo",
-      "position": "Front-End Developer",
-      "location": "Washington, D.C.",
+      "name": "Mobomo",
+      "position": "AngularJS Developer",
+      "location": "Washington, DC",
       "type": "Full-time",
       "remote": false,
       "current": false,
@@ -100,15 +131,19 @@
         "end": "2017-02-01"
       },
       "duration": "1.3 years",
-      "technologies": ["JavaScript", "jQuery", "Sass", "Drupal"],
-      "description": "Created interactive web experiences for Fortune 500 companies.",
-      "achievements": ["Developed mobile-first responsive designs", "Improved site performance by 50%"]
+      "technologies": ["AngularJS", "ngMaterial", "Highcharts", "ngRoute", "ngMessage", "Karma", "Jasmine"],
+      "description": "Developed interactive web experiences using popular JS-based libraries and componentized AngularJS architecture.",
+      "achievements": [
+        "Utilized popular JS libraries including ngMaterial, Highcharts, ngRoute, and ngMessage",
+        "Generated componentized AngularJS directives and services for developer extensibility",
+        "Developed unit testing for components using Karma, Jasmine, and ngMocks"
+      ]
     },
     {
       "id": "tahzoo-2013",
-      "company": "Tahzoo",
+      "name": "Tahzoo",
       "position": "Front-End Developer",
-      "location": "Washington, D.C.",
+      "location": "Washington, DC",
       "type": "Full-time",
       "remote": false,
       "current": false,
@@ -121,14 +156,18 @@
         "end": "2015-11-01"
       },
       "duration": "2 years",
-      "technologies": ["HTML5", "CSS3", "JavaScript", "AngularJS"],
-      "description": "Built engaging digital experiences for enterprise clients.",
-      "achievements": ["Delivered pixel-perfect implementations", "Collaborated with UX team on design systems"]
+      "technologies": ["HTML5", "CSS3", "JavaScript", "AngularJS", "Grunt", "Node", "NPM", "SCSS"],
+      "description": "Developed, debugged, and upgraded pre-existing large-scale websites using modern web development tools.",
+      "achievements": [
+        "Developed, debugged, and upgraded pre-existing large-scale websites",
+        "Used web tools including Grunt, Node, NPM, AngularJS, Yeoman, and SCSS",
+        "Led establishment of multiple web templates for Tridion SDL implementation"
+      ]
     },
     {
       "id": "navigation-arts-2010",
-      "company": "Navigation Arts",
-      "position": "CQ5 Developer",
+      "name": "Navigation Arts",
+      "position": "CQ5 Developer and Web Developer",
       "location": "McLean, VA",
       "type": "Full-time",
       "remote": false,
@@ -142,35 +181,21 @@
         "end": "2013-11-01"
       },
       "duration": "3.3 years",
-      "technologies": ["Adobe CQ5", "Java", "JSP", "Apache Sling"],
-      "description": "Developed content management solutions using Adobe CQ5/AEM.",
-      "achievements": ["Built custom CQ5 components", "Integrated third-party systems"]
-    },
-    {
-      "id": "gdi-2009",
-      "company": "GDI",
-      "position": "PHP Developer",
-      "location": "Baltimore, MD",
-      "type": "Full-time",
-      "remote": false,
-      "current": false,
-      "image": {
-        "icon": "./assets/logos/GDI.png",
-        "alt": "GDI logo"
-      },
-      "date": {
-        "start": "2009-02-01",
-        "end": "2010-02-01"
-      },
-      "duration": "1 year",
-      "technologies": ["PHP", "MySQL", "JavaScript", "CSS"],
-      "description": "Developed web applications and maintained existing systems.",
-      "achievements": ["Built e-commerce platform features", "Improved application security"]
+      "technologies": ["Adobe CQ5", "Java", "JSP", "EXTJS", "XSLT", "CSS", "HTML", "JavaScript"],
+      "description": "Architected, developed, migrated, and integrated Adobe/Day CQ5 Java-based web content management system for intranet and internet applications.",
+      "achievements": [
+        "Drafted custom EXTJS for dialogs, DAM management, user permissions, and site workflows",
+        "Created cross-browser, standards compliant CSS, HTML, and JavaScript for CMS integration",
+        "Led Google Mini Search Appliance installation with custom XSLT and CSS",
+        "Created custom Java servlets and DAOs for backend communication from Adobe CQ5",
+        "Established reusable Java/JSP components and templates across multiple websites",
+        "Developed mobile site integration within CQ5"
+      ]
     },
     {
       "id": "liberty-tax-2008",
-      "company": "Liberty Tax Service",
-      "position": ".NET Developer",
+      "name": "Liberty Tax Service",
+      "position": "Application Developer and Tax Specialist",
       "location": "Virginia Beach, VA",
       "type": "Full-time",
       "remote": false,
@@ -184,9 +209,15 @@
         "end": "2010-05-01"
       },
       "duration": "2 years",
-      "technologies": [".NET", "C#", "SQL Server", "ASP.NET"],
-      "description": "Developed tax preparation software and internal tools.",
-      "achievements": ["Built automated reporting system", "Maintained legacy applications"]
+      "technologies": ["VB.NET", "ASP.NET", "JavaScript", "jQuery", "SQL Server", "XML"],
+      "description": "Prepared tax returns for individuals and small businesses while creating the company's online forms-based software, eSmart Tax.",
+      "achievements": [
+        "Prepared tax returns for individuals and small businesses",
+        "Created company's online forms-based software eSmart Tax",
+        "Managed and updated states to match current tax information using VB.NET and ASP.NET",
+        "Edited and managed database content and structure using SQL Server 2005/2008",
+        "Built custom PDF tax forms that read XML created by VB applications"
+      ]
     }
   ],
   "projects": [
@@ -605,8 +636,8 @@
   },
   "education": {
     "degree": "Bachelor of Science in Computer Science",
-    "school": "Virginia Tech",
-    "location": "Blacksburg, VA",
+    "school": "Hampton University",
+    "location": "Hampton, VA",
     "graduationYear": 2008,
     "relevantCourseWork": [
       "Software Engineering",

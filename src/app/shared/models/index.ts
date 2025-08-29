@@ -6,17 +6,22 @@ export interface DateRange {
 }
 
 export interface Employment {
-  company: string;
+  id: string;
   name: string;
   position: string;
   description: string;
   location: string;
+  type: string;
+  remote: boolean;
+  current: boolean;
   date: DateRange;
-  logo?: string;
+  duration?: string;
   image: {
     icon: string;
+    alt: string;
   };
   technologies?: string[];
+  achievements?: string[];
 }
 
 export interface Project {

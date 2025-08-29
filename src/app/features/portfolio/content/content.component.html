@@ -103,7 +103,7 @@
           <div class="flex flex-row justify-center gap-2">
             <div class="w-20 avatar">
               <div class="my-auto rounded-full">
-                <img [appLazyLoadFade]="company.image.icon" [alt]="company.name" class="!h-auto" />
+                <img [appLazyLoadFade]="company.image.icon" [alt]="company.image?.alt" class="!h-auto" />
               </div>
             </div>
             <div class="flex-1">
@@ -127,6 +127,13 @@
                 <span>Present</span>
                 }
               </h5>
+              @if (company.current) {
+              <div class="mt-2">
+                <span class="px-2 py-1 text-xs font-medium rounded-full bg-success/20 text-success"
+                  >Current Position</span
+                >
+              </div>
+              }
             </div>
           </div>
         </div>
@@ -150,9 +157,9 @@
         </div>
         <div class="timeline-end timeline-box">
           <div class="flex flex-row justify-center gap-2">
-            <div class="w-20 avatar">
+            <div class="w-16 avatar">
               <div class="my-auto rounded-full">
-                <img [appLazyLoadFade]="company.image.icon" [alt]="company.name" class="!h-auto" />
+                <img [appLazyLoadFade]="company.image.icon" [alt]="company.image.alt" class="!h-auto" />
               </div>
             </div>
             <div class="flex-1">
@@ -185,7 +192,7 @@
           <div class="flex flex-row justify-center gap-2">
             <div class="w-20 avatar">
               <div class="my-auto rounded-full">
-                <img [appLazyLoadFade]="company.image.icon" [alt]="company.name" class="!h-auto" />
+                <img [appLazyLoadFade]="company.image.icon" [alt]="company.image.alt" class="!h-auto" />
               </div>
             </div>
             <div class="flex-1">

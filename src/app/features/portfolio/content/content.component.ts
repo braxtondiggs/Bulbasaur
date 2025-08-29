@@ -155,7 +155,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
 
   public trackByEmploymentIndex(index: number, employment: Employment): string {
-    return `${employment.company}-${employment.position}`;
+    return `${employment.name}-${employment.position}`;
   }
 
   public trackBySkillName(index: number, skill: SkillLanguage): string {
