@@ -146,3 +146,18 @@ export const endpoints = onRequest(
   },
   app
 );
+
+// SSR function for server-side rendering
+export const ssr = onRequest(
+  {
+    cors: true,
+    memory: '2GiB',
+    timeoutSeconds: 60,
+    maxInstances: 100
+  },
+  (req, res) => {
+    // This would be implemented after uploading the server bundle
+    // For now, just serve the static files
+    res.status(501).send('SSR not implemented yet');
+  }
+);

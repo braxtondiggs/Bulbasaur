@@ -20,7 +20,10 @@
       },
       {
         "source": "**",
-        "destination": "/index.html"
+        "function": {
+          "functionId": "ssr",
+          "region": "us-central1"
+        }
       }
     ],
     "headers": [

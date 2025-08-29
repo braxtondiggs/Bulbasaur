@@ -22,8 +22,10 @@
           "options": {
             "outputPath": {
               "base": "dist",
-              "browser": ""
+              "browser": "",
+              "server": "server"
             },
+            "server": "src/main.server.ts",
             "index": "src/index.html",
             "polyfills": ["src/polyfills.ts"],
             "tsConfig": "tsconfig.app.json",
