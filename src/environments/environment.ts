@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  functionsUrl: 'http://localhost:5001/bulbasaur-bfb64/us-central1/endpoints',
   firebase: {
     apiKey: 'AIzaSyDgiyC2qlZIZy7rPNWTMcUj44g48rIbWtk',
     authDomain: 'bulbasaur-bfb64.firebaseapp.com',

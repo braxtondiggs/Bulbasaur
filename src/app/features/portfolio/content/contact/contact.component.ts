@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { environment } from '@env/environment';
 import { NgIcon } from '@ng-icons/core';
 import { AnimateOnScrollDirective } from '@shared/directives/animate-on-scroll.directive';
 import { LazyBackgroundFadeDirective } from '@shared/directives/lazy-background-fade.directive';
@@ -74,7 +75,7 @@ export class ContactComponent {
       this.analyticsHelper.trackContactForm('submit', 'contact_form');
 
       this.http
-        .post('https://us-central1-bulbasaur-bfb64.cloudfunctions.net/endpoints/mail', {
+        .post(`${environment.functionsUrl}/mail`, {
           email: this.email.value,
           message: this.message.value,
           name: this.name.value,
@@ -91,11 +92,13 @@ export class ContactComponent {
                 this.contactForm.controls[i].setErrors(null);
               }
             }
+            this.submit = false;
           },
           error: ({ error }) => {
             // Track form submission error
             this.analyticsHelper.trackContactForm('error', 'contact_form', error?.message || 'Unknown error');
-            this.showToast('Something went wrong', error);
+            this.showToast('Something went wrong', 'error');
+            this.submit = false;
           }
         });
     }

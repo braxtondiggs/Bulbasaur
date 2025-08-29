@@ -1,6 +1,5 @@
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ApplicationConfig } from '@angular/core';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideServiceWorker } from '@angular/service-worker';
 
 import { getAnalytics, provideAnalytics } from '@angular/fire/analytics';
@@ -51,7 +50,6 @@ import { FirebaseDevUtils } from '@shared/utils/firebase-dev.utils';
 export const appConfig: ApplicationConfig = {
   providers: [
     // Core providers
-    provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),
     provideLoadingBarInterceptor(),
 
@@ -83,7 +81,8 @@ export const appConfig: ApplicationConfig = {
     provideFirestore(() => {
       const app = getApp();
       const firestore = getFirestore(app);
-      if (!environment.production && false) {
+      // Firestore emulator disabled
+      if (false && !environment.production) {
         // Turn off Firestore emulator
         try {
           connectFirestoreEmulator(firestore, 'localhost', 8080);
