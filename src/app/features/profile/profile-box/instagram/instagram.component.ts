@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, computed, inject, signal } from '@angular/core';
 import { NgIcon } from '@ng-icons/core';
@@ -42,7 +43,7 @@ export class InstagramComponent implements OnInit {
   private readonly firebaseDevUtils = inject(FirebaseDevUtils);
   private readonly cdr = inject(ChangeDetectorRef);
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.loadInstagramPosts();
   }
 
@@ -117,13 +118,5 @@ export class InstagramComponent implements OnInit {
    */
   public getFormattedDate(createdAt: { seconds: number; nanoseconds: number }): Date {
     return new Date(createdAt.seconds * 1000);
-  }
-
-  /**
-   * Track Instagram link clicks
-   */
-  public onInstagramLinkClick(post: InstagramPost): void {
-    // Could integrate with analytics service here
-    console.log('Instagram link clicked:', post.Url);
   }
 }

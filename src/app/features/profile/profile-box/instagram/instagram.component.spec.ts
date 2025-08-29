@@ -1,10 +1,10 @@
-import { Spectator, createComponentFactory } from '@ngneat/spectator/jest';
-import { InstagramComponent } from './instagram.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
+import { Spectator, createComponentFactory } from '@ngneat/spectator/jest';
 import { LazyLoadFadeDirective } from '@shared/directives/lazy-load-fade.directive';
 import { testNgIconsModule } from '@shared/testing/test-utils';
-import { of, throwError, Observable } from 'rxjs';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Observable, of, throwError } from 'rxjs';
+import { InstagramComponent } from './instagram.component';
 
 // Mock Firebase Firestore functions at module level
 const mockCollectionData = jest.fn();
@@ -30,16 +30,18 @@ describe('InstagramComponent', () => {
 
   const mockInstagramData = [
     {
-      'SourceUrl': 'https://storage.googleapis.com/download/storage/v1/b/bulbasaur-bfb64.appspot.com/o/instagram%2FCWepSuXrTsX.jpeg?generation=1637370968273624&alt=media',
-      'Caption': 'Water Wall 🧱 💦',
-      'Url': 'https://instagr.am/p/CWepSuXrTsX/',
-      'CreatedAt': { 'seconds': 1637370968, 'nanoseconds': 367000000 }
+      SourceUrl:
+        'https://storage.googleapis.com/download/storage/v1/b/bulbasaur-bfb64.appspot.com/o/instagram%2FCWepSuXrTsX.jpeg?generation=1637370968273624&alt=media',
+      Caption: 'Water Wall 🧱 💦',
+      Url: 'https://instagr.am/p/CWepSuXrTsX/',
+      CreatedAt: { seconds: 1637370968, nanoseconds: 367000000 }
     },
     {
-      'SourceUrl': 'https://firebasestorage.googleapis.com/v0/b/bulbasaur-bfb64.appspot.com/o/instagram%2F118683005_308694883721559_7400362705411114887_n.jpeg?alt=media&token=99cf6af8-ba92-4965-8ab9-bc7af6fc7558',
-      'Url': 'https://www.instagram.com/p/CEW1uGkgeAi/',
-      'Caption': 'Photo by Braxton Diggs in Central Park.',
-      'CreatedAt': { 'seconds': 1616569438, 'nanoseconds': 114000000 }
+      SourceUrl:
+        'https://firebasestorage.googleapis.com/v0/b/bulbasaur-bfb64.appspot.com/o/instagram%2F118683005_308694883721559_7400362705411114887_n.jpeg?alt=media&token=99cf6af8-ba92-4965-8ab9-bc7af6fc7558',
+      Url: 'https://www.instagram.com/p/CEW1uGkgeAi/',
+      Caption: 'Photo by Braxton Diggs in Central Park.',
+      CreatedAt: { seconds: 1616569438, nanoseconds: 114000000 }
     }
   ];
 
@@ -51,13 +53,8 @@ describe('InstagramComponent', () => {
 
   const createComponent = createComponentFactory({
     component: InstagramComponent,
-    imports: [
-      LazyLoadFadeDirective,
-      testNgIconsModule
-    ],
-    providers: [
-      { provide: Firestore, useValue: mockFirestore }
-    ],
+    imports: [LazyLoadFadeDirective, testNgIconsModule],
+    providers: [{ provide: Firestore, useValue: mockFirestore }],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     shallow: true,
     detectChanges: false
@@ -66,14 +63,14 @@ describe('InstagramComponent', () => {
   beforeEach(() => {
     // Reset all mocks
     jest.clearAllMocks();
-    
+
     // Setup default mock implementations
     mockCollection.mockReturnValue({ path: 'instagram' });
     mockOrderBy.mockReturnValue('orderBy');
     mockLimit.mockReturnValue('limit');
     mockQuery.mockReturnValue('query');
     mockCollectionData.mockReturnValue(of(mockInstagramData));
-    
+
     spectator = createComponent();
   });
 
@@ -88,14 +85,14 @@ describe('InstagramComponent', () => {
 
   it('should initialize Instagram data on ngOnInit', () => {
     spectator.component.ngOnInit();
-    
+
     expect(mockCollection).toHaveBeenCalledWith(mockFirestore, 'instagram');
     expect(mockCollectionData).toHaveBeenCalled();
   });
 
-  it('should handle Firebase data loading successfully', (done) => {
+  it('should handle Firebase data loading successfully', done => {
     spectator.component.ngOnInit();
-    
+
     spectator.component.instagram$.subscribe(data => {
       if (data !== null && Array.isArray(data)) {
         expect(data).toEqual(mockInstagramData);
@@ -105,12 +102,14 @@ describe('InstagramComponent', () => {
     });
   });
 
-  it('should handle Firebase errors gracefully', (done) => {
+  it('should handle Firebase errors gracefully', done => {
     mockCollectionData.mockReturnValue(throwError(() => new Error('Firebase error')));
-    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
-    
+    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {
+      // Mock implementation to suppress console errors in tests
+    });
+
     spectator.component.ngOnInit();
-    
+
     spectator.component.instagram$.subscribe(data => {
       expect(data).toEqual([]);
       consoleSpy.mockRestore();
@@ -120,7 +119,7 @@ describe('InstagramComponent', () => {
 
   it('should setup Firestore query correctly', () => {
     spectator.component.ngOnInit();
-    
+
     expect(mockCollection).toHaveBeenCalledWith(mockFirestore, 'instagram');
     expect(mockOrderBy).toHaveBeenCalledWith('CreatedAt', 'desc');
     expect(mockLimit).toHaveBeenCalledWith(6);
@@ -128,7 +127,9 @@ describe('InstagramComponent', () => {
   });
 
   it('should handle initialization errors gracefully', () => {
-    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {
+      // Mock implementation to suppress console errors in tests
+    });
     mockCollection.mockImplementation(() => {
       throw new Error('Collection error');
     });
@@ -140,9 +141,9 @@ describe('InstagramComponent', () => {
     consoleSpy.mockRestore();
   });
 
-  it('should emit null initially from observable', (done) => {
+  it('should emit null initially from observable', done => {
     spectator.component.ngOnInit();
-    
+
     let emissionCount = 0;
     spectator.component.instagram$.subscribe(data => {
       emissionCount++;

@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { HttpClient } from '@angular/common/http';
 import {
   ChangeDetectionStrategy,
@@ -46,7 +47,7 @@ export class SkillsComponent implements OnInit, OnDestroy {
 
   // Computed values
   public chartName = computed(() => {
-    const tabLabels: Array<'languages' | 'activity' | 'editors'> = ['languages', 'activity', 'editors'];
+    const tabLabels: ('languages' | 'activity' | 'editors')[] = ['languages', 'activity', 'editors'];
     return tabLabels[this.selectedTabIndex()];
   });
 
@@ -73,11 +74,11 @@ export class SkillsComponent implements OnInit, OnDestroy {
   private readonly destroy$ = new Subject<void>();
   private resizeObserver?: ResizeObserver;
 
-  @ViewChild('selector') selector!: any;
-  @ViewChild('picker') datePicker!: any;
-  @ViewChild('languagesChart') languagesChart?: HighchartsChartComponent;
-  @ViewChild('activityChart') activityChart?: HighchartsChartComponent;
-  @ViewChild('editorsChart') editorsChart?: HighchartsChartComponent;
+  @ViewChild('selector') public selector!: any;
+  @ViewChild('picker') public datePicker!: any;
+  @ViewChild('languagesChart') public languagesChart?: HighchartsChartComponent;
+  @ViewChild('activityChart') public activityChart?: HighchartsChartComponent;
+  @ViewChild('editorsChart') public editorsChart?: HighchartsChartComponent;
 
   private readonly http = inject(HttpClient);
   private readonly ga = inject(GoogleAnalyticsService);
@@ -111,7 +112,7 @@ export class SkillsComponent implements OnInit, OnDestroy {
   private setupResizeObserver(): void {
     if (typeof ResizeObserver !== 'undefined') {
       this.resizeObserver = new ResizeObserver(
-        debounce(() => {
+        this.debounce(() => {
           this.resizeCharts();
         }, 250)
       );
@@ -168,10 +169,10 @@ export class SkillsComponent implements OnInit, OnDestroy {
   public selectionChange(selection: Event | { value: string }): void {
     let value: string;
     if ('value' in selection) {
-      value = selection.value;
+      ({ value } = selection);
     } else {
       const target = selection.target as HTMLSelectElement;
-      value = target.value;
+      ({ value } = target);
     }
     if (value === 'customrange') {
       this.openCustomRange();
@@ -213,8 +214,8 @@ export class SkillsComponent implements OnInit, OnDestroy {
   }
 
   public applyCustomRange() {
-    const start = this.form.value.start;
-    const end = this.form.value.end;
+    const { start } = this.form.value;
+    const { end } = this.form.value;
 
     if (start && end) {
       // Validate that end date is after start date
@@ -233,8 +234,8 @@ export class SkillsComponent implements OnInit, OnDestroy {
   }
 
   public getDaysDifference(): number {
-    const start = this.form.value.start;
-    const end = this.form.value.end;
+    const { start } = this.form.value;
+    const { end } = this.form.value;
 
     if (start && end) {
       return dayjs(end).diff(dayjs(start), 'day') + 1; // +1 to include both start and end days
@@ -374,11 +375,11 @@ export class SkillsComponent implements OnInit, OnDestroy {
           fontFamily: 'BandaRegular, sans-serif',
           padding: '8px'
         },
-        formatter: function () {
+        formatter() {
           const hours = this.y || 0;
           const hrs = Math.floor(hours);
           const mins = Math.floor((hours % 1) * 60);
-          const date = Highcharts.dateFormat('%b %d, %Y', this.x as number);
+          const date = Highcharts.dateFormat('%b %d, %Y', this.x);
           return (
             `<span style="color: ${this.color}">●</span> ` +
             `<b>${date}</b><br/>` +
@@ -418,7 +419,7 @@ export class SkillsComponent implements OnInit, OnDestroy {
             color: colors.text,
             fontFamily: 'BandaRegular, sans-serif'
           },
-          formatter: function () {
+          formatter() {
             return `${this.value}h`;
           }
         },
@@ -540,7 +541,7 @@ export class SkillsComponent implements OnInit, OnDestroy {
     const totalEditorTime = validEditors.reduce((sum, editor) => sum + editor.total_seconds, 0);
 
     // Update Languages Chart
-    const languagesData: Array<[string, number]> = validLanguages
+    const languagesData: [string, number][] = validLanguages
       .map(
         language =>
           [language.name, Math.round((language.total_seconds / totalLanguageTime) * 100 * 100) / 100] as [
@@ -563,10 +564,9 @@ export class SkillsComponent implements OnInit, OnDestroy {
     }));
 
     // Update Activity Chart
-    const activityData: Array<[number, number]> = validTimeline
+    const activityData: [number, number][] = validTimeline
       .map(
-        item =>
-          [dayjs(item.date).valueOf(), Math.round((item.total_seconds / 3600) * 100) / 100] as [number, number]
+        item => [dayjs(item.date).valueOf(), Math.round((item.total_seconds / 3600) * 100) / 100] as [number, number]
       )
       .sort((a, b) => a[0] - b[0]); // Sort by timestamp
 
@@ -590,7 +590,7 @@ export class SkillsComponent implements OnInit, OnDestroy {
     }));
 
     // Update Editors Chart
-    const editorsData: Array<[string, number]> = validEditors
+    const editorsData: [string, number][] = validEditors
       .map(
         editor =>
           [editor.name, Math.round((editor.total_seconds / totalEditorTime) * 100 * 100) / 100] as [string, number]
@@ -622,7 +622,7 @@ export class SkillsComponent implements OnInit, OnDestroy {
       : '';
   }
 
-  private getSkills(range: string = 'last30days'): void {
+  private getSkills(range = 'last30days'): void {
     // Set different loading states based on whether we have existing data
     if (this.skills() === null) {
       this.isLoading.set(true);
@@ -713,13 +713,13 @@ export class SkillsComponent implements OnInit, OnDestroy {
         return '#6366f1';
     }
   }
-}
 
-// Utility function for debouncing
-function debounce<T extends (...args: unknown[]) => unknown>(func: T, wait: number): (...args: Parameters<T>) => void {
-  let timeout: any;
-  return (...args: Parameters<T>) => {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func(...args), wait);
-  };
+  // Utility method for debouncing
+  private debounce<T extends (...args: unknown[]) => unknown>(func: T, wait: number): (...args: Parameters<T>) => void {
+    let timeout: number | undefined;
+    return (...args: Parameters<T>) => {
+      clearTimeout(timeout);
+      timeout = window.setTimeout(() => func(...args), wait);
+    };
+  }
 }

@@ -5,7 +5,8 @@
       "Bash(npm:*)",
       "Bash(npx jest:*)",
       "mcp__context7__resolve-library-id",
-      "mcp__context7__get-library-docs"
+      "mcp__context7__get-library-docs",
+      "Bash(npx eslint:*)"
     ],
     "deny": [],
     "ask": []

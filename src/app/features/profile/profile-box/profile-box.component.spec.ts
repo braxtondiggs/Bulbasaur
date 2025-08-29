@@ -1,10 +1,10 @@
-import { createComponentFactory, Spectator } from '@ngneat/spectator/jest';
-import { ProfileBoxComponent } from './profile-box.component';
-import { testNgIconsModule, mockGoogleAnalyticsService } from '@shared/testing/test-utils';
-import { GoogleAnalyticsService } from '@shared/services';
-import { LazyLoadFadeDirective } from '@shared/directives/lazy-load-fade.directive';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
+import { createComponentFactory, Spectator } from '@ngneat/spectator/jest';
+import { LazyLoadFadeDirective } from '@shared/directives/lazy-load-fade.directive';
+import { GoogleAnalyticsService } from '@shared/services';
+import { mockGoogleAnalyticsService, testNgIconsModule } from '@shared/testing/test-utils';
+import { ProfileBoxComponent } from './profile-box.component';
 
 // Mock Firestore
 const mockFirestore = {
@@ -18,10 +18,7 @@ describe('ProfileBoxComponent', () => {
 
   const createComponent = createComponentFactory({
     component: ProfileBoxComponent,
-    imports: [
-      LazyLoadFadeDirective,
-      testNgIconsModule
-    ],
+    imports: [LazyLoadFadeDirective, testNgIconsModule],
     providers: [
       { provide: GoogleAnalyticsService, useValue: mockGoogleAnalyticsService },
       { provide: Firestore, useValue: mockFirestore }
@@ -30,7 +27,9 @@ describe('ProfileBoxComponent', () => {
     shallow: true
   });
 
-  beforeEach(() => spectator = createComponent());
+  beforeEach(() => {
+    spectator = createComponent();
+  });
 
   it('should create', () => {
     expect(spectator.component).toBeTruthy();

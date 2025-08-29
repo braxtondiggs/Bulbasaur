@@ -5,7 +5,7 @@ import { GoogleAnalyticsService } from './google-analytics.service';
   providedIn: 'root'
 })
 export class AnalyticsHelperService {
-  private ga = inject(GoogleAnalyticsService);
+  private readonly ga = inject(GoogleAnalyticsService);
 
   /**
    * Track portfolio project interactions

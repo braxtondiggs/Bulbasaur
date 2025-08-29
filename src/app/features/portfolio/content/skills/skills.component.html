@@ -4,7 +4,8 @@
     <form [formGroup]="form" class="mb-6 text-center">
       <p class="mb-4 text-base-content/80">
         See exactly when & what my coding activity is using
-        <a href="https://wakatime.com/" class="link link-accent">WakaTime</a>.
+        <a href="https://wakatime.com/" class="link link-accent">WakaTime</a>
+        .
       </p>
       <div class="w-full max-w-xs mx-auto form-control">
         <select #selector formControlName="range" (change)="selectionChange($event)" class="select select-bordered">
@@ -24,13 +25,13 @@
         <input type="date" formControlName="end" (change)="dateRangeChange()" />
       </div>
       @if (form.valid && form.value.range === 'customrange') {
-      <div class="p-3 mt-4 rounded-lg bg-base-200">
-        <h4 class="mb-1 text-sm font-medium text-base-content/70">Custom Date Range</h4>
-        <p class="text-lg font-semibold">
-          {{ form.value.start | amParse | amDateFormat : 'MMM Do YYYY' }} -
-          {{ form.value.end | amParse | amDateFormat : 'MMM Do YYYY' }}
-        </p>
-      </div>
+        <div class="p-3 mt-4 rounded-lg bg-base-200">
+          <h4 class="mb-1 text-sm font-medium text-base-content/70">Custom Date Range</h4>
+          <p class="text-lg font-semibold">
+            {{ form.value.start | amParse | amDateFormat: 'MMM Do YYYY' }} -
+            {{ form.value.end | amParse | amDateFormat: 'MMM Do YYYY' }}
+          </p>
+        </div>
       }
     </form>
     <div role="tablist" class="tabs tabs-border">
@@ -80,151 +81,146 @@
 
     <!-- Tab Content -->
     @if (selectedTabIndex() === 0) {
-    <div class="p-6 relative">
-      @if (isInitialLoad()) {
-      <div class="flex items-center justify-center min-h-[400px]">
-        <span class="loading loading-spinner loading-lg"></span>
+      <div class="p-6 relative">
+        @if (isInitialLoad()) {
+          <div class="flex items-center justify-center min-h-[400px]">
+            <span class="loading loading-spinner loading-lg"></span>
+          </div>
+        } @else {
+          <!-- Refreshing indicator overlay -->
+          @if (isRefreshing()) {
+            <div class="absolute top-2 right-2 z-10">
+              <span class="loading loading-spinner loading-sm text-accent"></span>
+            </div>
+          }
+          <div
+            class="w-full max-w-full overflow-hidden min-h-[400px] flex items-center justify-center"
+            [class.opacity-75]="isRefreshing()"
+            [class.transition-opacity]="isRefreshing()"
+            [class.duration-300]="isRefreshing()"
+          >
+            <highcharts-chart
+              #languagesChart
+              [options]="languagesChartOptions()"
+              [update]="updateFlag()"
+              class="w-full h-full max-w-full"
+              style="min-height: 350px; max-height: 500px"
+            />
+          </div>
+        }
       </div>
-      } @else {
-      <!-- Refreshing indicator overlay -->
-      @if (isRefreshing()) {
-      <div class="absolute top-2 right-2 z-10">
-        <span class="loading loading-spinner loading-sm text-accent"></span>
-      </div>
-      }
-      <div
-        class="w-full max-w-full overflow-hidden min-h-[400px] flex items-center justify-center"
-        [class.opacity-75]="isRefreshing()"
-        [class.transition-opacity]="isRefreshing()"
-        [class.duration-300]="isRefreshing()"
-      >
-        <highcharts-chart
-          #languagesChart
-          [options]="languagesChartOptions()"
-          [update]="updateFlag()"
-          class="w-full h-full max-w-full"
-          style="min-height: 350px; max-height: 500px"
-        />
-      </div>
-      }
-    </div>
     } @else if (selectedTabIndex() === 1) {
-    <div class="p-6 relative">
-      @if (isInitialLoad()) {
-      <div class="flex items-center justify-center min-h-[450px]">
-        <span class="loading loading-spinner loading-lg"></span>
+      <div class="p-6 relative">
+        @if (isInitialLoad()) {
+          <div class="flex items-center justify-center min-h-[450px]">
+            <span class="loading loading-spinner loading-lg"></span>
+          </div>
+        } @else {
+          <!-- Refreshing indicator overlay -->
+          @if (isRefreshing()) {
+            <div class="absolute top-2 right-2 z-10">
+              <span class="loading loading-spinner loading-sm text-accent"></span>
+            </div>
+          }
+          <div
+            class="w-full max-w-full overflow-hidden min-h-[450px] flex items-center justify-center"
+            [class.opacity-75]="isRefreshing()"
+            [class.transition-opacity]="isRefreshing()"
+            [class.duration-300]="isRefreshing()"
+          >
+            <highcharts-chart
+              #activityChart
+              [options]="activityChartOptions()"
+              [update]="updateFlag()"
+              class="w-full h-full max-w-full"
+              style="min-height: 400px; max-height: 500px"
+            />
+          </div>
+        }
       </div>
-      } @else {
-      <!-- Refreshing indicator overlay -->
-      @if (isRefreshing()) {
-      <div class="absolute top-2 right-2 z-10">
-        <span class="loading loading-spinner loading-sm text-accent"></span>
-      </div>
-      }
-      <div
-        class="w-full max-w-full overflow-hidden min-h-[450px] flex items-center justify-center"
-        [class.opacity-75]="isRefreshing()"
-        [class.transition-opacity]="isRefreshing()"
-        [class.duration-300]="isRefreshing()"
-      >
-        <highcharts-chart
-          #activityChart
-          [options]="activityChartOptions()"
-          [update]="updateFlag()"
-          class="w-full h-full max-w-full"
-          style="min-height: 400px; max-height: 500px"
-        />
-      </div>
-      }
-    </div>
     } @else if (selectedTabIndex() === 2) {
-    <div class="p-6 relative">
-      @if (isInitialLoad()) {
-      <div class="flex items-center justify-center min-h-[400px]">
-        <span class="loading loading-spinner loading-lg"></span>
+      <div class="p-6 relative">
+        @if (isInitialLoad()) {
+          <div class="flex items-center justify-center min-h-[400px]">
+            <span class="loading loading-spinner loading-lg"></span>
+          </div>
+        } @else {
+          <!-- Refreshing indicator overlay -->
+          @if (isRefreshing()) {
+            <div class="absolute top-2 right-2 z-10">
+              <span class="loading loading-spinner loading-sm text-accent"></span>
+            </div>
+          }
+          <div
+            class="w-full max-w-full overflow-hidden min-h-[400px] flex items-center justify-center"
+            [class.opacity-75]="isRefreshing()"
+            [class.transition-opacity]="isRefreshing()"
+            [class.duration-300]="isRefreshing()"
+          >
+            <highcharts-chart
+              #editorsChart
+              [options]="editorsChartOptions()"
+              [update]="updateFlag()"
+              class="w-full h-full max-w-full"
+              style="min-height: 350px; max-height: 500px"
+            />
+          </div>
+        }
       </div>
-      } @else {
-      <!-- Refreshing indicator overlay -->
-      @if (isRefreshing()) {
-      <div class="absolute top-2 right-2 z-10">
-        <span class="loading loading-spinner loading-sm text-accent"></span>
-      </div>
-      }
-      <div
-        class="w-full max-w-full overflow-hidden min-h-[400px] flex items-center justify-center"
-        [class.opacity-75]="isRefreshing()"
-        [class.transition-opacity]="isRefreshing()"
-        [class.duration-300]="isRefreshing()"
-      >
-        <highcharts-chart
-          #editorsChart
-          [options]="editorsChartOptions()"
-          [update]="updateFlag()"
-          class="w-full h-full max-w-full"
-          style="min-height: 350px; max-height: 500px"
-        />
-      </div>
-      }
-    </div>
     }
   </div>
 </div>
 
 <!-- Custom Date Range Modal -->
 @if (showCustomRangeModal()) {
-<div class="z-50 modal modal-open" (click)="closeCustomRange()">
-  <div class="w-11/12 max-w-md modal-box" (click)="$event.stopPropagation()">
-    <h3 class="text-lg font-bold">Select Custom Date Range</h3>
-    <p class="py-2 text-sm text-base-content/70">
-      Choose a start and end date to view your coding activity for a specific period.
-    </p>
+  <div class="z-50 modal modal-open" 
+       (click)="closeCustomRange()" 
+       (keydown.escape)="closeCustomRange()" 
+       tabindex="0" 
+       role="dialog" 
+       aria-label="Custom date range modal">
+    <div class="w-11/12 max-w-md modal-box" 
+         (click)="$event.stopPropagation()" 
+         (keydown)="$event.stopPropagation()" 
+         tabindex="-1">
+      <h3 class="text-lg font-bold">Select Custom Date Range</h3>
+      <p class="py-2 text-sm text-base-content/70">Choose a start and end date to view your coding activity for a specific period.</p>
 
-    <form [formGroup]="form">
-      <div class="py-4 space-y-4">
-        <div class="form-control">
-          <label class="label">
-            <span class="label-text">Start Date</span>
-          </label>
-          <input type="date" formControlName="start" class="input input-bordered w-full" [max]="form.value.end || ''" />
-        </div>
-
-        <div class="form-control">
-          <label class="label">
-            <span class="label-text">End Date</span>
-          </label>
-          <input
-            type="date"
-            formControlName="end"
-            class="input input-bordered w-full"
-            [min]="form.value.start || ''"
-            [max]="today"
-          />
-        </div>
-
-        @if (form.value.start && form.value.end) {
-        <div class="p-3 rounded-lg bg-base-200">
-          <div class="text-sm text-base-content/70">Selected Range:</div>
-          <div class="font-semibold">
-            {{ form.value.start | amParse | amDateFormat : 'MMM Do, YYYY' }} -
-            {{ form.value.end | amParse | amDateFormat : 'MMM Do, YYYY' }}
+      <form [formGroup]="form">
+        <div class="py-4 space-y-4">
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">Start Date</span>
+            </label>
+            <input type="date" formControlName="start" class="input input-bordered w-full" [max]="form.value.end || ''" />
           </div>
-          <div class="text-xs text-base-content/60">{{ getDaysDifference() }} days</div>
-        </div>
-        }
-      </div>
-    </form>
 
-    <div class="modal-action">
-      <button type="button" class="btn btn-ghost" (click)="closeCustomRange()">Cancel</button>
-      <button
-        type="button"
-        class="btn btn-primary"
-        (click)="applyCustomRange()"
-        [disabled]="!form.value.start || !form.value.end"
-      >
-        Apply Range
-      </button>
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">End Date</span>
+            </label>
+            <input type="date" formControlName="end" class="input input-bordered w-full" [min]="form.value.start || ''" [max]="today" />
+          </div>
+
+          @if (form.value.start && form.value.end) {
+            <div class="p-3 rounded-lg bg-base-200">
+              <div class="text-sm text-base-content/70">Selected Range:</div>
+              <div class="font-semibold">
+                {{ form.value.start | amParse | amDateFormat: 'MMM Do, YYYY' }} -
+                {{ form.value.end | amParse | amDateFormat: 'MMM Do, YYYY' }}
+              </div>
+              <div class="text-xs text-base-content/60">{{ getDaysDifference() }} days</div>
+            </div>
+          }
+        </div>
+      </form>
+
+      <div class="modal-action">
+        <button type="button" class="btn btn-ghost" (click)="closeCustomRange()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="applyCustomRange()" [disabled]="!form.value.start || !form.value.end">
+          Apply Range
+        </button>
+      </div>
     </div>
   </div>
-</div>
 }

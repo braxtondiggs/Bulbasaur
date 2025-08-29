@@ -12,7 +12,7 @@ import { AnalyticsHelperService, GoogleAnalyticsService } from '@shared/services
 })
 export class SocialComponent {
   public ga = inject(GoogleAnalyticsService);
-  private analyticsHelper = inject(AnalyticsHelperService);
+  private readonly analyticsHelper = inject(AnalyticsHelperService);
 
   public trackSocialClick(platform: 'github' | 'linkedin' | 'twitter' | 'instagram' | 'facebook'): void {
     this.analyticsHelper.trackSocialClick(platform, 'profile');

@@ -19,13 +19,8 @@
             rel="noopener"
             class="block aspect-square overflow-hidden rounded-lg hover:opacity-80 transition-opacity"
             [title]="item.Caption"
-            >
-            <img
-              [appLazyLoadFade]="item.SourceUrl"
-              [alt]="item.Caption"
-              rootMargin="100px"
-              class="w-full h-full object-cover"
-              />
+          >
+            <img [appLazyLoadFade]="item.SourceUrl" [alt]="item.Caption" rootMargin="100px" class="w-full h-full object-cover" />
           </a>
         }
       </div>

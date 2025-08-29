@@ -11,7 +11,7 @@ export class FirebaseDevUtils {
   /**
    * Get collection with development insights and performance monitoring
    */
-  getCollectionWithDevInsights<T extends FirebaseDocument>(
+  public getCollectionWithDevInsights<T extends FirebaseDocument>(
     collectionName: string,
     options?: QueryOptions
   ): Observable<T[]> {
@@ -22,18 +22,25 @@ export class FirebaseDevUtils {
 
     const startTime = performance.now();
 
+    // eslint-disable-next-line no-console
     console.group(`[Firebase Dev] Query: ${collectionName}`);
+    // eslint-disable-next-line no-console
     console.log('Options:', options);
+    // eslint-disable-next-line no-console
     console.log('Start time:', new Date().toISOString());
 
     return this.firebaseService.getCollection<T>(collectionName, options).pipe(
       tap(data => {
         const endTime = performance.now();
+        // eslint-disable-next-line no-console
         console.log(`Query completed in ${(endTime - startTime).toFixed(2)}ms`);
+        // eslint-disable-next-line no-console
         console.log('Results count:', data.length);
+        // eslint-disable-next-line no-console
         console.log('Sample data:', data.slice(0, 2)); // Log first 2 items for debugging
       }),
       finalize(() => {
+        // eslint-disable-next-line no-console
         console.groupEnd();
       })
     );
@@ -42,9 +49,12 @@ export class FirebaseDevUtils {
   /**
    * Analyze query performance and provide suggestions
    */
-  analyzeQuery(collectionName: string, options?: QueryOptions): void {
-    if (!isDevMode()) return;
+  public analyzeQuery(collectionName: string, options?: QueryOptions): void {
+    if (!isDevMode()) {
+      return;
+    }
 
+    // eslint-disable-next-line no-console
     console.group(`[Firebase Dev Query Analyzer] ${collectionName}`);
 
     // Analyze query complexity
@@ -64,28 +74,34 @@ export class FirebaseDevUtils {
       suggestions.push('Ensure your Firestore indexes support this query combination');
     }
 
+    // eslint-disable-next-line no-console
     console.log('Query Complexity:', complexity);
     if (suggestions.length > 0) {
+      // eslint-disable-next-line no-console
       console.log('Performance Suggestions:', suggestions);
     }
+    // eslint-disable-next-line no-console
     console.groupEnd();
   }
 
   /**
    * Profile a query with timing information
    */
-  profileQuery<T>(operationName: string, queryFunction: () => Observable<T>): Observable<T> {
+  public profileQuery<T>(operationName: string, queryFunction: () => Observable<T>): Observable<T> {
     if (!isDevMode()) {
       return queryFunction();
     }
 
     const startTime = performance.now();
+    // eslint-disable-next-line no-console
     console.time(`[Firebase Profile] ${operationName}`);
 
     return queryFunction().pipe(
       finalize(() => {
         const endTime = performance.now();
+        // eslint-disable-next-line no-console
         console.timeEnd(`[Firebase Profile] ${operationName}`);
+        // eslint-disable-next-line no-console
         console.log(`[Firebase Profile] ${operationName} took ${(endTime - startTime).toFixed(2)}ms`);
       })
     );
@@ -94,13 +110,16 @@ export class FirebaseDevUtils {
   /**
    * Validate Firebase data structure
    */
-  validateFirebaseData<T extends FirebaseDocument>(
+  public validateFirebaseData<T extends FirebaseDocument>(
     data: T[],
     collectionName: string,
     requiredFields: string[]
   ): boolean {
-    if (!isDevMode()) return true;
+    if (!isDevMode()) {
+      return true;
+    }
 
+    // eslint-disable-next-line no-console
     console.group(`[Firebase Validator] ${collectionName}`);
 
     let isValid = true;
@@ -108,7 +127,7 @@ export class FirebaseDevUtils {
 
     data.forEach((item, index) => {
       requiredFields.forEach(field => {
-        if (!item.hasOwnProperty(field) || item[field] === undefined || item[field] === null) {
+        if (!Object.prototype.hasOwnProperty.call(item, field) || item[field] === undefined || item[field] === null) {
           issues.push(`Item ${index}: Missing required field '${field}'`);
           isValid = false;
         }
@@ -124,10 +143,13 @@ export class FirebaseDevUtils {
     if (issues.length > 0) {
       console.warn('Data validation issues found:', issues);
     } else {
+      // eslint-disable-next-line no-console
       console.log('✓ All data validation checks passed');
     }
 
+    // eslint-disable-next-line no-console
     console.log('Data sample:', data.slice(0, 1));
+    // eslint-disable-next-line no-console
     console.groupEnd();
 
     return isValid;
@@ -136,9 +158,12 @@ export class FirebaseDevUtils {
   /**
    * Log Firebase operation for debugging
    */
-  logOperation(operation: string, details: any): void {
-    if (!isDevMode()) return;
+  public logOperation(operation: string, details: unknown): void {
+    if (!isDevMode()) {
+      return;
+    }
 
+    // eslint-disable-next-line no-console
     console.log(`[Firebase Operation] ${operation}`, {
       timestamp: new Date().toISOString(),
       details

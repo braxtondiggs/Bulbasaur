@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 // Data models for the application
+import * as highcharts from 'highcharts';
 
 export interface DateRange {
   start: string;
@@ -103,9 +105,9 @@ export interface SkillsData {
 }
 
 export interface ChartData {
-  languages: Highcharts.Options;
-  activity: Highcharts.Options;
-  editors: Highcharts.Options;
+  languages: highcharts.Options;
+  activity: highcharts.Options;
+  editors: highcharts.Options;
 }
 
 export interface CustomDateRange {

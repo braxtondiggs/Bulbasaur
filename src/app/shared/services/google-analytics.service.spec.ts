@@ -367,6 +367,7 @@ describe('GoogleAnalyticsService', () => {
 
   describe('error handling', () => {
     it('should handle logEvent errors gracefully', () => {
+      // eslint-disable-next-line no-empty-function
       const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
       mockLogEvent.mockRejectedValueOnce(new Error('Analytics error'));
 

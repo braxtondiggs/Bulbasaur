@@ -5,12 +5,7 @@ import { provideServiceWorker } from '@angular/service-worker';
 import { getAnalytics, provideAnalytics } from '@angular/fire/analytics';
 import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
-import {
-  connectFirestoreEmulator,
-  enableIndexedDbPersistence,
-  getFirestore,
-  provideFirestore
-} from '@angular/fire/firestore';
+import { enableIndexedDbPersistence, getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { connectFunctionsEmulator, getFunctions, provideFunctions } from '@angular/fire/functions';
 import { connectStorageEmulator, getStorage, provideStorage } from '@angular/fire/storage';
 import { provideHighcharts } from 'highcharts-angular';
@@ -82,14 +77,6 @@ export const appConfig: ApplicationConfig = {
       const app = getApp();
       const firestore = getFirestore(app);
       // Firestore emulator disabled
-      if (false && !environment.production) {
-        // Turn off Firestore emulator
-        try {
-          connectFirestoreEmulator(firestore, 'localhost', 8080);
-        } catch (error) {
-          console.warn('Firestore emulator connection failed:', error);
-        }
-      }
 
       // Enable offline persistence in production
       if (environment.production) {

@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class ModalService {
-  private modalOpenSubject = new BehaviorSubject<boolean>(false);
+  private readonly modalOpenSubject = new BehaviorSubject<boolean>(false);
   public modalOpen$ = this.modalOpenSubject.asObservable();
 
   public setModalOpen(isOpen: boolean): void {

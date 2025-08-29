@@ -341,10 +341,10 @@ describe('SkillsComponent', () => {
 
   describe('Component Cleanup', () => {
     it('should cleanup resources on destroy', () => {
-      const destroySpy = jest.spyOn(spectator.component['destroy$'], 'next');
-      const completeSpy = jest.spyOn(spectator.component['destroy$'], 'complete');
+      const destroySpy = jest.spyOn(spectator.component.destroy$, 'next');
+      const completeSpy = jest.spyOn(spectator.component.destroy$, 'complete');
       const mockResizeObserver = { disconnect: jest.fn() };
-      spectator.component['resizeObserver'] = mockResizeObserver as any;
+      spectator.component.resizeObserver = mockResizeObserver as any;
 
       spectator.component.ngOnDestroy();
 

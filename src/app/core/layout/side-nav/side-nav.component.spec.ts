@@ -52,8 +52,8 @@ describe('SideNavComponent', () => {
         height: 0,
         x: 0,
         y: 0,
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        toJSON: () => {}
+
+        toJSON: () => ({})
       })
     } as HTMLElement);
   });
@@ -129,7 +129,7 @@ describe('SideNavComponent', () => {
     jest.spyOn(spectator.component, 'scrollToSection');
 
     const aboutButton = spectator.query('button[aria-label="About"]');
-    spectator.click(aboutButton!);
+    spectator.click(aboutButton);
 
     expect(spectator.component.analyticsHelper.trackNavigation).toHaveBeenCalledWith('about', 'menu');
     expect(spectator.component.scrollToSection).toHaveBeenCalledWith('about');

@@ -1,36 +1,40 @@
+/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, HostListener, inject, Input } from '@angular/core';
 import { GoogleAnalyticsService } from '@shared/services';
 
 @Directive({
-  selector: '[analyticsTrack]',
+  selector: '[AnalyticsTrack]',
   standalone: true
 })
 export class AnalyticsTrackDirective {
-  @Input() analyticsTrack!: string; // Event action
-  @Input() analyticsCategory = 'user_interaction'; // Event category
-  @Input() analyticsLabel?: string; // Event label
-  @Input() analyticsValue?: number; // Event value
-  @Input() analyticsCustomParams?: Record<string, string | number | boolean>; // Custom parameters
+  @Input() public analyticsTrack!: string; // Event action
+  @Input() public analyticsCategory = 'user_interaction'; // Event category
+  @Input() public analyticsLabel?: string; // Event label
+  @Input() public analyticsValue?: number; // Event value
+  @Input() public analyticsCustomParams?: Record<string, string | number | boolean>; // Custom parameters
 
-  private ga = inject(GoogleAnalyticsService);
-  private elementRef = inject(ElementRef);
+  private readonly ga = inject(GoogleAnalyticsService);
+  private readonly elementRef = inject(ElementRef);
 
   @HostListener('click', ['$event'])
-  onClick(event: Event): void {
-    this.trackInteraction('click', event);
+  // eslint-disable-next-line no-unused-vars
+  public onClick(_event: Event): void {
+    this.trackInteraction('click');
   }
 
   @HostListener('focus', ['$event'])
-  onFocus(event: Event): void {
-    this.trackInteraction('focus', event);
+  // eslint-disable-next-line no-unused-vars
+  public onFocus(_event: Event): void {
+    this.trackInteraction('focus');
   }
 
   @HostListener('submit', ['$event'])
-  onSubmit(event: Event): void {
-    this.trackInteraction('submit', event);
+  // eslint-disable-next-line no-unused-vars
+  public onSubmit(_event: Event): void {
+    this.trackInteraction('submit');
   }
 
-  private trackInteraction(interactionType: string, event: Event): void {
+  private trackInteraction(interactionType: string): void {
     const element = this.elementRef.nativeElement;
     const elementType = element.tagName.toLowerCase();
     const elementId = element.id || 'unknown';

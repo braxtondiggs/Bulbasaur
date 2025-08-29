@@ -71,15 +71,15 @@ describe('HeaderComponent', () => {
     it('should call setTheme when theme buttons are clicked', () => {
       jest.spyOn(spectator.component, 'setTheme');
 
-      const lightButton = spectator.query('[data-text="Light"]') || spectator.query('button') as HTMLElement;
-      const darkButton = spectator.query('[data-text="Dark"]') || spectator.queryAll('button')[1] as HTMLElement;
+      const lightButton = spectator.query('[data-text="Light"]') || spectator.query('button');
+      const darkButton = spectator.query('[data-text="Dark"]') || (spectator.queryAll('button')[1] as HTMLElement);
 
-      if (lightButton && lightButton.textContent?.includes('Light')) {
+      if (lightButton?.textContent?.includes('Light')) {
         spectator.click(lightButton);
         expect(spectator.component.setTheme).toHaveBeenCalledWith('light');
       }
 
-      if (darkButton && darkButton.textContent?.includes('Dark')) {
+      if (darkButton?.textContent?.includes('Dark')) {
         spectator.click(darkButton);
         expect(spectator.component.setTheme).toHaveBeenCalledWith('dark');
       }

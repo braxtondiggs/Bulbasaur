@@ -30,11 +30,11 @@ export interface QueryOptions {
   orderByField?: string;
   orderDirection?: 'asc' | 'desc';
   limitCount?: number;
-  whereConditions?: Array<{
+  whereConditions?: {
     field: string;
     operator: '==' | '!=' | '<' | '<=' | '>' | '>=' | 'array-contains' | 'in' | 'array-contains-any' | 'not-in';
     value: any;
-  }>;
+  }[];
 }
 
 @Injectable({
@@ -46,7 +46,7 @@ export class FirebaseService {
   /**
    * Get a collection with query options
    */
-  getCollection<T extends FirebaseDocument>(collectionName: string, options?: QueryOptions): Observable<T[]> {
+  public getCollection<T extends FirebaseDocument>(collectionName: string, options?: QueryOptions): Observable<T[]> {
     try {
       const collectionRef = collection(this.firestore, collectionName);
       const queryConstraints = this.buildQueryConstraints(options);
@@ -65,7 +65,7 @@ export class FirebaseService {
   /**
    * Get a single document by ID
    */
-  getDocument<T extends FirebaseDocument>(collectionName: string, documentId: string): Observable<T | null> {
+  public getDocument<T extends FirebaseDocument>(collectionName: string, documentId: string): Observable<T | null> {
     try {
       const docRef = doc(this.firestore, collectionName, documentId);
 
@@ -83,16 +83,16 @@ export class FirebaseService {
   /**
    * Add a new document to a collection
    */
-  async addDocument<T extends Partial<FirebaseDocument>>(collectionName: string, data: T): Promise<string> {
+  public async addDocument<T extends Partial<FirebaseDocument>>(collectionName: string, data: T): Promise<string> {
     try {
       const collectionRef = collection(this.firestore, collectionName);
-      const docData = {
+      const documentData = {
         ...data,
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp()
       };
 
-      const docRef = await addDoc(collectionRef, docData);
+      const docRef = await addDoc(collectionRef, documentData);
       return docRef.id;
     } catch (error) {
       throw new Error(`Failed to add document to ${collectionName}: ${error}`);
@@ -102,7 +102,7 @@ export class FirebaseService {
   /**
    * Update an existing document
    */
-  async updateDocument<T extends Partial<FirebaseDocument>>(
+  public async updateDocument<T extends Partial<FirebaseDocument>>(
     collectionName: string,
     documentId: string,
     data: T
@@ -123,7 +123,7 @@ export class FirebaseService {
   /**
    * Delete a document
    */
-  async deleteDocument(collectionName: string, documentId: string): Promise<void> {
+  public async deleteDocument(collectionName: string, documentId: string): Promise<void> {
     try {
       const docRef = doc(this.firestore, collectionName, documentId);
       await deleteDoc(docRef);
@@ -135,14 +135,14 @@ export class FirebaseService {
   /**
    * Create a batch for multiple operations
    */
-  createBatch(): WriteBatch {
+  public createBatch(): WriteBatch {
     return writeBatch(this.firestore);
   }
 
   /**
    * Get server timestamp
    */
-  getServerTimestamp(): Timestamp {
+  public getServerTimestamp(): Timestamp {
     return serverTimestamp() as Timestamp;
   }
 

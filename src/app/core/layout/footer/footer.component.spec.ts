@@ -1,6 +1,6 @@
 import { Spectator, createComponentFactory } from '@ngneat/spectator/jest';
-import { FooterComponent } from './footer.component';
 import dayjs from 'dayjs';
+import { FooterComponent } from './footer.component';
 
 describe('FooterComponent', () => {
   let spectator: Spectator<FooterComponent>;
@@ -9,7 +9,9 @@ describe('FooterComponent', () => {
     shallow: true
   });
 
-  beforeEach(() => spectator = createComponent());
+  beforeEach(() => {
+    spectator = createComponent();
+  });
 
   it('should create', () => {
     expect(spectator.component).toBeTruthy();

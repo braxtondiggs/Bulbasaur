@@ -41,11 +41,11 @@ export class AppComponent implements OnInit, OnDestroy {
   public modalOpen = false;
   private readonly destroy$ = new Subject<void>();
   public ga = inject(GoogleAnalyticsService);
-  private analyticsHelper = inject(AnalyticsHelperService);
-  private modalService = inject(ModalService);
-  private cdr = inject(ChangeDetectorRef);
+  private readonly analyticsHelper = inject(AnalyticsHelperService);
+  private readonly modalService = inject(ModalService);
+  private readonly cdr = inject(ChangeDetectorRef);
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.initializeTheme();
 
     // Subscribe to modal state changes
@@ -77,7 +77,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }, 300000); // Every 5 minutes
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }

@@ -5,9 +5,9 @@ describe('ScrollService', () => {
   let spectator: SpectatorService<ScrollService>;
   const createService = createServiceFactory(ScrollService);
 
-  beforeEach(() => spectator = createService());
+  beforeEach(() => (spectator = createService()));
 
-  it('should create', async () => {
+  it('should create', () => {
     expect(spectator.service).toBeTruthy();
   });
 });

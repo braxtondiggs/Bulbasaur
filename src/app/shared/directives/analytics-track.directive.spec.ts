@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { GoogleAnalyticsService } from '@shared/services';
 import { AnalyticsTrackDirective } from './analytics-track.directive';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button
       analyticsTrack="button_click"

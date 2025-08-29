@@ -14,12 +14,12 @@ import { AnalyticsHelperService, GoogleAnalyticsService } from '@shared/services
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectComponent {
-  project = input.required<Project>();
-  isVisible = input<boolean>(false);
-  closeModal = output<void>();
+  public readonly project = input.required<Project>();
+  public readonly isVisible = input<boolean>(false);
+  public readonly closeModal = output<void>();
 
   public ga = inject(GoogleAnalyticsService);
-  private analyticsHelper = inject(AnalyticsHelperService);
+  private readonly analyticsHelper = inject(AnalyticsHelperService);
 
   public trackProjectView(): void {
     const project = this.project();
@@ -56,7 +56,7 @@ export class ProjectComponent {
     // Use effect to watch for project changes instead of ngOnChanges
     effect(() => {
       const currentProject = this.project();
-      if (currentProject && currentProject.description) {
+      if (currentProject?.description) {
         currentProject.description_modified = currentProject.description;
         // Track project view when project is loaded
         this.trackProjectView();
@@ -64,7 +64,7 @@ export class ProjectComponent {
     });
   }
 
-  close() {
+  public close(): void {
     this.closeModal.emit();
   }
 }

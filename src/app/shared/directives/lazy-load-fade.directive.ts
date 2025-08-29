@@ -1,30 +1,31 @@
-import { Directive, ElementRef, OnInit, OnDestroy, input } from '@angular/core';
+import { Directive, ElementRef, OnDestroy, OnInit, inject, input } from '@angular/core';
 
 @Directive({
   selector: '[appLazyLoadFade]',
   standalone: true
 })
 export class LazyLoadFadeDirective implements OnInit, OnDestroy {
-  src = input.required<string>({ alias: 'appLazyLoadFade' });
-  alt = input<string>('');
-  rootMargin = input<string>('50px');
-  
-  private observer!: IntersectionObserver;
-  private img!: HTMLImageElement;
+  public readonly src = input.required<string>({ alias: 'appLazyLoadFade' });
+  public readonly alt = input<string>('');
+  public readonly rootMargin = input<string>('50px');
 
-  constructor(private el: ElementRef<HTMLImageElement>) {
+  private observer!: IntersectionObserver;
+  private readonly img!: HTMLImageElement;
+  private readonly el = inject(ElementRef<HTMLImageElement>);
+
+  constructor() {
     this.img = this.el.nativeElement;
   }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     // Set initial state
     this.img.style.opacity = '0';
     this.img.style.transition = 'opacity 0.6s ease-in-out';
     this.img.alt = this.alt();
-    
+
     // Create intersection observer
     this.observer = new IntersectionObserver(
-      (entries) => {
+      entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             this.loadImage();
@@ -43,10 +44,10 @@ export class LazyLoadFadeDirective implements OnInit, OnDestroy {
     this.observer.observe(this.img);
   }
 
-  private loadImage() {
+  private loadImage(): void {
     // Create a new image to preload
-    const imageLoader = new Image();
-    
+    const imageLoader = new window.Image();
+
     imageLoader.onload = () => {
       // Set the src and fade in
       this.img.src = imageLoader.src;
@@ -54,17 +55,17 @@ export class LazyLoadFadeDirective implements OnInit, OnDestroy {
         this.img.style.opacity = '1';
       }, 10); // Small delay to ensure src is set
     };
-    
+
     imageLoader.onerror = () => {
       console.warn(`Failed to load image: ${this.src()}`);
       this.img.style.opacity = '1'; // Show anyway in case of error
     };
-    
+
     // Start loading
     imageLoader.src = this.src();
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy(): void {
     if (this.observer) {
       this.observer.disconnect();
     }

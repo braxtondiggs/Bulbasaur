@@ -52,28 +52,30 @@ export interface TimingEvent {
   providedIn: 'root'
 })
 export class GoogleAnalyticsService implements OnDestroy {
-  private analytics = inject(Analytics);
-  private router = inject(Router);
-  private platformId = inject(PLATFORM_ID);
-  private destroy$ = new Subject<void>();
+  private readonly analytics = inject(Analytics);
+  private readonly router = inject(Router);
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly destroy$ = new Subject<void>();
 
   private readonly isEnabled$ = new BehaviorSubject<boolean>(true);
   private readonly isSupported$ = new BehaviorSubject<boolean>(false);
   private debugMode = isDevMode();
-  private isBrowser = isPlatformBrowser(this.platformId);
+  private readonly isBrowser = isPlatformBrowser(this.platformId);
 
   // Enhanced tracking state
-  private sessionId: string;
+  private readonly sessionId: string;
   private userId?: string;
-  private eventQueue: Array<{ event: string; parameters: any }> = [];
+  private eventQueue: { event: string; parameters: Record<string, unknown> }[] = [];
   private isInitialized = false;
 
   constructor() {
     this.sessionId = this.generateSessionId();
-    this.initializeService();
+    this.initializeService().catch(error => {
+      this.logError('Failed to initialize service', error);
+    });
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
@@ -107,7 +109,9 @@ export class GoogleAnalyticsService implements OnDestroy {
    * Initialize automatic page view tracking with enhanced metadata
    */
   private initializePageTracking(): void {
-    if (!this.isBrowser) return;
+    if (!this.isBrowser) {
+      return;
+    }
 
     this.router.events
       .pipe(
@@ -160,7 +164,7 @@ export class GoogleAnalyticsService implements OnDestroy {
     }
 
     try {
-      const eventParams: Record<string, any> = {
+      const eventParams: Record<string, unknown> = {
         event_category: event.category,
         session_id: this.sessionId,
         timestamp: Date.now(),
@@ -226,8 +230,10 @@ export class GoogleAnalyticsService implements OnDestroy {
   /**
    * Set current screen for mobile app-like tracking
    */
-  public trackScreenView(screenName: string, screenClass?: string): void {
-    if (!this.isEnabled$.value) return;
+  public trackScreenView(screenName: string): void {
+    if (!this.isEnabled$.value) {
+      return;
+    }
 
     try {
       setCurrentScreen(this.analytics, screenName);
@@ -272,7 +278,7 @@ export class GoogleAnalyticsService implements OnDestroy {
   /**
    * Track errors and exceptions
    */
-  public trackError(description: string, fatal: boolean = false): void {
+  public trackError(description: string, fatal = false): void {
     this.trackEvent({
       action: 'exception',
       category: 'errors',
@@ -424,7 +430,9 @@ export class GoogleAnalyticsService implements OnDestroy {
   public setAnalyticsEnabled(enabled: boolean): void {
     this.isEnabled$.next(enabled);
 
-    if (!this.isBrowser || !this.isSupported$.value) return;
+    if (!this.isBrowser || !this.isSupported$.value) {
+      return;
+    }
 
     try {
       setAnalyticsCollectionEnabled(this.analytics, enabled);
@@ -454,8 +462,9 @@ export class GoogleAnalyticsService implements OnDestroy {
   /**
    * Utility method for consistent logging
    */
-  private log(message: string, data?: any): void {
+  private log(message: string, data?: unknown): void {
     if (this.debugMode) {
+      // eslint-disable-next-line no-console
       console.log(`[GoogleAnalytics] ${message}`, data || '');
     }
   }
@@ -463,7 +472,7 @@ export class GoogleAnalyticsService implements OnDestroy {
   /**
    * Utility method for error logging
    */
-  private logError(message: string, error: any): void {
+  private logError(message: string, error: unknown): void {
     if (this.debugMode) {
       console.error(`[GoogleAnalytics] ${message}`, error);
     }
@@ -506,8 +515,8 @@ export class GoogleAnalyticsService implements OnDestroy {
     return true;
   }
 
-  private sanitizeParameters(params: Record<string, any>): Record<string, any> {
-    const sanitized: Record<string, any> = {};
+  private sanitizeParameters(params: Record<string, unknown>): Record<string, unknown> {
+    const sanitized: Record<string, unknown> = {};
 
     for (const [key, value] of Object.entries(params)) {
       // Skip undefined values
@@ -529,7 +538,7 @@ export class GoogleAnalyticsService implements OnDestroy {
     return sanitized;
   }
 
-  private queueEvent(eventName: string, parameters: Record<string, any>): void {
+  private queueEvent(eventName: string, parameters: Record<string, unknown>): void {
     this.eventQueue.push({ event: eventName, parameters });
 
     // Limit queue size
@@ -538,21 +547,24 @@ export class GoogleAnalyticsService implements OnDestroy {
     }
   }
 
-  private async processEventQueue(): Promise<void> {
-    if (!this.isInitialized || this.eventQueue.length === 0) return;
+  private processEventQueue(): void {
+    if (!this.isInitialized || this.eventQueue.length === 0) {
+      return;
+    }
 
     const events = [...this.eventQueue];
     this.eventQueue = [];
 
     for (const { event, parameters } of events) {
       try {
-        await logEvent(this.analytics, event, parameters);
+        logEvent(this.analytics, event, parameters);
         this.log('Queued event processed:', { event, parameters });
       } catch (error) {
         this.logError('Error processing queued event:', error);
         // Re-queue failed events (up to 3 retries)
-        if (!parameters._retryCount || parameters._retryCount < 3) {
-          parameters._retryCount = (parameters._retryCount || 0) + 1;
+        const currentRetryCount = Number(parameters._retryCount || 0);
+        if (currentRetryCount < 3) {
+          parameters._retryCount = currentRetryCount + 1;
           this.queueEvent(event, parameters);
         }
       }
@@ -583,8 +595,8 @@ export class GoogleAnalyticsService implements OnDestroy {
   /**
    * Flush queued events manually
    */
-  public async flushEvents(): Promise<void> {
-    await this.processEventQueue();
+  public flushEvents(): void {
+    this.processEventQueue();
   }
 
   /**
@@ -598,7 +610,7 @@ export class GoogleAnalyticsService implements OnDestroy {
   /**
    * Track custom conversion event
    */
-  public trackConversion(conversionName: string, value?: number, currency: string = 'USD'): void {
+  public trackConversion(conversionName: string, value?: number, currency = 'USD'): void {
     this.trackEvent({
       action: 'conversion',
       category: 'conversions',
@@ -632,7 +644,7 @@ export class GoogleAnalyticsService implements OnDestroy {
   /**
    * Track performance metrics
    */
-  public trackPerformance(metric: string, value: number, category: string = 'performance'): void {
+  public trackPerformance(metric: string, value: number, category = 'performance'): void {
     this.trackEvent({
       action: 'performance_metric',
       category,

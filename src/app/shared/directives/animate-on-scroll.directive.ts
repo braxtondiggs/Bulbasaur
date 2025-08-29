@@ -1,31 +1,30 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { takeUntil } from 'rxjs/operators';
-import { Directive, Renderer2, ElementRef, OnInit, OnDestroy, AfterViewInit, input, inject } from '@angular/core';
-import { ScrollService } from '../services/scroll.service';
+import { AfterViewInit, Directive, ElementRef, inject, input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { ScrollService } from '../services/scroll.service';
 
 @Directive({
   selector: '[animateOnScroll]',
   standalone: true
 })
 export class AnimateOnScrollDirective implements OnInit, OnDestroy, AfterViewInit {
-
   private offsetTop: number;
   private isVisible: boolean;
   private winHeight: number;
-  private ngUnsubscribe: Subject<void> = new Subject<void>();
+  private readonly ngUnsubscribe: Subject<void> = new Subject<void>();
 
   private get id(): string {
     return this.elementRef.nativeElement.id;
   }
 
-  animationName = input.required<string>(); // use fadeIn as default if not specified
+  public readonly animationName = input.required<string>(); // use fadeIn as default if not specified
   // Pixel offset from screen bottom to the animated element to determine the start of the animation
-  offset = input<number>(80);
+  public readonly offset = input<number>(80);
 
-  private scroll = inject(ScrollService);
-
-  constructor(private elementRef: ElementRef, private renderer: Renderer2) { }
+  private readonly scroll = inject(ScrollService);
+  private readonly elementRef = inject(ElementRef);
+  private readonly renderer = inject(Renderer2);
 
   public ngOnInit(): void {
     if (!this.animationName()) {
@@ -35,12 +34,10 @@ export class AnimateOnScrollDirective implements OnInit, OnDestroy, AfterViewIni
     this.isVisible = false;
 
     // subscribe to scroll event using service
-    this.scroll.scrollObs.pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(() => this.manageVisibility());
+    this.scroll.scrollObs.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => this.manageVisibility());
 
     // subscribe to resize event using service so scrolling position is always accurate
-    this.scroll.resizeObs.pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(() => this.manageVisibility());
+    this.scroll.resizeObs.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => this.manageVisibility());
   }
 
   public ngAfterViewInit(): void {
@@ -59,7 +56,6 @@ export class AnimateOnScrollDirective implements OnInit, OnDestroy, AfterViewIni
    * @returns void
    */
   private manageVisibility(): void {
-
     if (this.isVisible) {
       // Optimisation; nothing to do if class has already been applied
       return;
@@ -78,7 +74,6 @@ export class AnimateOnScrollDirective implements OnInit, OnDestroy, AfterViewIni
     if (this.scroll.pos >= scrollTrigger) {
       this.addAnimationClass();
     }
-
   }
 
   /**
@@ -87,13 +82,11 @@ export class AnimateOnScrollDirective implements OnInit, OnDestroy, AfterViewIni
    * @returns void
    */
   private addAnimationClass(): void {
-
     // mark this element visible, we won't remove the class after this
     this.isVisible = true;
 
     // use default for animate.css if no value provided
     this.setClass(this.animationName());
-
   }
 
   /**
@@ -103,11 +96,9 @@ export class AnimateOnScrollDirective implements OnInit, OnDestroy, AfterViewIni
    * @returns void
    */
   private setClass(classes: string): void {
-
     for (const c of classes.split(' ')) {
       this.renderer.addClass(this.elementRef.nativeElement, c);
     }
-
   }
 
   /**
@@ -116,9 +107,7 @@ export class AnimateOnScrollDirective implements OnInit, OnDestroy, AfterViewIni
    * @returns void
    */
   private getWinHeight(): void {
-
     this.winHeight = window.innerHeight;
-
   }
 
   /**
@@ -127,9 +116,8 @@ export class AnimateOnScrollDirective implements OnInit, OnDestroy, AfterViewIni
    * @returns void
    */
   private getOffsetTop(): void {
-
     const viewportTop = this.elementRef.nativeElement.getBoundingClientRect().top;
-    const clientTop = this.elementRef.nativeElement.clientTop;
+    const { clientTop } = this.elementRef.nativeElement;
 
     // get vertical position for selected element
     this.offsetTop = viewportTop + this.scroll.pos - clientTop;

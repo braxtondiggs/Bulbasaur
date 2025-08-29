@@ -27,6 +27,12 @@ Thumbs.db
 # Generated files
 *.d.ts
 
+# Index HTML (has special email syntax that Prettier can't parse)
+src/index.html
+
+# Functions directory
+functions/lib/
+
 # Firebase
 .firebase/
 firebase-debug.log

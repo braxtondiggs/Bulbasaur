@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { TitleCasePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, inject } from '@angular/core';
@@ -37,20 +38,20 @@ import { SkillsComponent } from './skills/skills.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContentComponent implements OnInit, OnDestroy {
-  loadingSkills = true;
-  interests: Interests[] = [];
-  employment: Employment[] = [];
-  projects: Project[] = [];
-  skills: SkillLanguage[][] = [];
-  selectedProject: Project | null = null;
-  showProjectModal = false;
+  public loadingSkills = true;
+  public interests: Interests[] = [];
+  public employment: Employment[] = [];
+  public projects: Project[] = [];
+  public skills: SkillLanguage[][] = [];
+  public selectedProject: Project | null = null;
+  public showProjectModal = false;
 
   private readonly destroy$ = new Subject<void>();
-  private http = inject(HttpClient);
-  private cdr = inject(ChangeDetectorRef);
-  private modalService = inject(ModalService);
+  private readonly http = inject(HttpClient);
+  private readonly cdr = inject(ChangeDetectorRef);
+  private readonly modalService = inject(ModalService);
   public ga = inject(GoogleAnalyticsService);
-  private analyticsHelper = inject(AnalyticsHelperService);
+  private readonly analyticsHelper = inject(AnalyticsHelperService);
 
   public ngOnInit(): void {
     this.loadAppData();
