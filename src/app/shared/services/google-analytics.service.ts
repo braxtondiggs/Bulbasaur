@@ -5,7 +5,6 @@ import {
   isSupported,
   logEvent,
   setAnalyticsCollectionEnabled,
-  setCurrentScreen,
   setUserId,
   setUserProperties
 } from '@angular/fire/analytics';
@@ -59,7 +58,7 @@ export class GoogleAnalyticsService implements OnDestroy {
 
   private readonly isEnabled$ = new BehaviorSubject<boolean>(true);
   private readonly isSupported$ = new BehaviorSubject<boolean>(false);
-  private debugMode = isDevMode();
+  private readonly debugMode = isDevMode();
   private readonly isBrowser = isPlatformBrowser(this.platformId);
 
   // Enhanced tracking state
@@ -228,22 +227,6 @@ export class GoogleAnalyticsService implements OnDestroy {
   }
 
   /**
-   * Set current screen for mobile app-like tracking
-   */
-  public trackScreenView(screenName: string): void {
-    if (!this.isEnabled$.value) {
-      return;
-    }
-
-    try {
-      setCurrentScreen(this.analytics, screenName);
-      this.log('Screen view tracked:', screenName);
-    } catch (error) {
-      this.logError('Error tracking screen view:', error);
-    }
-  }
-
-  /**
    * Track user interactions
    */
   public trackUserInteraction(action: string, element: string, value?: number): void {
@@ -337,21 +320,6 @@ export class GoogleAnalyticsService implements OnDestroy {
   }
 
   /**
-   * Track form interactions
-   */
-  public trackFormInteraction(formName: string, action: 'start' | 'submit' | 'abandon', fieldName?: string): void {
-    this.trackEvent({
-      action: `form_${action}`,
-      category: 'forms',
-      label: formName,
-      custom_parameters: {
-        form_name: formName,
-        field_name: fieldName
-      }
-    });
-  }
-
-  /**
    * Track search queries
    */
   public trackSearch(searchTerm: string, results?: number): void {
@@ -363,22 +331,6 @@ export class GoogleAnalyticsService implements OnDestroy {
       custom_parameters: {
         search_term: searchTerm,
         search_results: results
-      }
-    });
-  }
-
-  /**
-   * Track video interactions
-   */
-  public trackVideo(action: 'play' | 'pause' | 'complete' | 'progress', videoTitle: string, progress?: number): void {
-    this.trackEvent({
-      action: `video_${action}`,
-      category: 'video',
-      label: videoTitle,
-      value: progress,
-      custom_parameters: {
-        video_title: videoTitle,
-        video_progress: progress
       }
     });
   }
@@ -460,6 +412,46 @@ export class GoogleAnalyticsService implements OnDestroy {
   }
 
   /**
+   * Get analytics status
+   */
+  public isAnalyticsEnabled(): boolean {
+    return this.isEnabled$.value;
+  }
+
+  /**
+   * Track engagement event
+   */
+  public trackEngagement(action: string, target: string, duration?: number): void {
+    this.trackEvent({
+      action: 'engagement',
+      category: 'user_engagement',
+      label: `${action}_${target}`,
+      value: duration,
+      custom_parameters: {
+        engagement_action: action,
+        engagement_target: target,
+        engagement_duration: duration
+      }
+    });
+  }
+
+  /**
+   * Track performance metrics
+   */
+  public trackPerformance(metric: string, value: number, category = 'performance'): void {
+    this.trackEvent({
+      action: 'performance_metric',
+      category,
+      label: metric,
+      value,
+      custom_parameters: {
+        metric_name: metric,
+        metric_value: value
+      }
+    });
+  }
+
+  /**
    * Utility method for consistent logging
    */
   private log(message: string, data?: unknown): void {
@@ -476,20 +468,6 @@ export class GoogleAnalyticsService implements OnDestroy {
     if (this.debugMode) {
       console.error(`[GoogleAnalytics] ${message}`, error);
     }
-  }
-
-  /**
-   * Get analytics status
-   */
-  public isAnalyticsEnabled(): boolean {
-    return this.isEnabled$.value;
-  }
-
-  /**
-   * Enable debug mode
-   */
-  public setDebugMode(enabled: boolean): void {
-    this.debugMode = enabled;
   }
 
   // Helper methods for enhanced functionality
@@ -569,103 +547,5 @@ export class GoogleAnalyticsService implements OnDestroy {
         }
       }
     }
-  }
-
-  /**
-   * Get current analytics state
-   */
-  public getAnalyticsState(): {
-    enabled: boolean;
-    supported: boolean;
-    initialized: boolean;
-    queueSize: number;
-    sessionId: string;
-    userId?: string;
-  } {
-    return {
-      enabled: this.isEnabled$.value,
-      supported: this.isSupported$.value,
-      initialized: this.isInitialized,
-      queueSize: this.eventQueue.length,
-      sessionId: this.sessionId,
-      userId: this.userId
-    };
-  }
-
-  /**
-   * Flush queued events manually
-   */
-  public flushEvents(): void {
-    this.processEventQueue();
-  }
-
-  /**
-   * Clear queued events
-   */
-  public clearQueue(): void {
-    this.eventQueue = [];
-    this.log('Event queue cleared');
-  }
-
-  /**
-   * Track custom conversion event
-   */
-  public trackConversion(conversionName: string, value?: number, currency = 'USD'): void {
-    this.trackEvent({
-      action: 'conversion',
-      category: 'conversions',
-      label: conversionName,
-      value,
-      custom_parameters: {
-        conversion_name: conversionName,
-        currency,
-        conversion_value: value
-      }
-    });
-  }
-
-  /**
-   * Track engagement event
-   */
-  public trackEngagement(action: string, target: string, duration?: number): void {
-    this.trackEvent({
-      action: 'engagement',
-      category: 'user_engagement',
-      label: `${action}_${target}`,
-      value: duration,
-      custom_parameters: {
-        engagement_action: action,
-        engagement_target: target,
-        engagement_duration: duration
-      }
-    });
-  }
-
-  /**
-   * Track performance metrics
-   */
-  public trackPerformance(metric: string, value: number, category = 'performance'): void {
-    this.trackEvent({
-      action: 'performance_metric',
-      category,
-      label: metric,
-      value,
-      custom_parameters: {
-        metric_name: metric,
-        metric_value: value
-      }
-    });
-  }
-
-  /**
-   * Batch track multiple events
-   */
-  public batchTrackEvents(events: AnalyticsEvent[]): void {
-    if (!Array.isArray(events) || events.length === 0) return;
-
-    // Process events with small delays to avoid rate limits
-    events.forEach((event, index) => {
-      setTimeout(() => this.trackEvent(event), index * 50);
-    });
   }
 }

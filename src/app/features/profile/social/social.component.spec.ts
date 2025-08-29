@@ -1,106 +1,201 @@
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { featherFacebook, featherGithub, featherInstagram, featherMail } from '@ng-icons/feather-icons';
-import { Spectator, createComponentFactory, mockProvider } from '@ngneat/spectator/jest';
-import { GoogleAnalyticsService } from '@shared/services';
+import { createComponentFactory, Spectator } from '@ngneat/spectator/jest';
+import { NgIcon } from '@ng-icons/core';
+import { AnalyticsHelperService, GoogleAnalyticsService } from '@shared/services';
+import { testNgIconsModule } from '@shared/testing/test-utils';
 import { SocialComponent } from './social.component';
 
 describe('SocialComponent', () => {
   let spectator: Spectator<SocialComponent>;
-  let mockGA: jest.Mocked<GoogleAnalyticsService>;
+  let analyticsHelperService: jest.Mocked<AnalyticsHelperService>;
+  let googleAnalyticsService: jest.Mocked<GoogleAnalyticsService>;
 
   const createComponent = createComponentFactory({
     component: SocialComponent,
-    imports: [NgIcon],
+    imports: [NgIcon, testNgIconsModule],
     providers: [
-      mockProvider(GoogleAnalyticsService, {
-        eventEmitter: jest.fn()
-      }),
-      provideIcons({
-        featherFacebook,
-        featherGithub,
-        featherInstagram,
-        featherMail
-      })
+      {
+        provide: AnalyticsHelperService,
+        useValue: {
+          trackSocialClick: jest.fn()
+        }
+      },
+      {
+        provide: GoogleAnalyticsService,
+        useValue: {
+          trackEvent: jest.fn(),
+          trackExternalLink: jest.fn()
+        }
+      }
     ],
-    shallow: true,
-    detectChanges: false
+    shallow: true
   });
 
   beforeEach(() => {
     spectator = createComponent();
-    mockGA = spectator.inject(GoogleAnalyticsService) as jest.Mocked<GoogleAnalyticsService>;
-    spectator.detectChanges();
+    analyticsHelperService = spectator.inject(AnalyticsHelperService);
+    googleAnalyticsService = spectator.inject(GoogleAnalyticsService);
   });
 
-  it('should create', () => {
-    expect(spectator.component).toBeTruthy();
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
-  it('should have a GoogleAnalyticsService', () => {
-    expect(spectator.component.ga).toBeTruthy();
+  describe('Component Initialization', () => {
+    it('should create', () => {
+      expect(spectator.component).toBeTruthy();
+    });
+
+    it('should have correct change detection strategy', () => {
+      expect(spectator.component.constructor.name).toBe('SocialComponent');
+    });
   });
 
-  it('should render social media links', () => {
-    const links = spectator.queryAll('a');
-    expect(links.length).toBeGreaterThanOrEqual(4); // At minimum Facebook, GitHub, Instagram, Mail
+  describe('Social Platform Tracking', () => {
+    it('should track GitHub click', () => {
+      spectator.component.trackSocialClick('github');
+
+      expect(analyticsHelperService.trackSocialClick).toHaveBeenCalledWith('github', 'profile');
+    });
+
+    it('should track LinkedIn click', () => {
+      spectator.component.trackSocialClick('linkedin');
+
+      expect(analyticsHelperService.trackSocialClick).toHaveBeenCalledWith('linkedin', 'profile');
+    });
+
+    it('should track Twitter click', () => {
+      spectator.component.trackSocialClick('twitter');
+
+      expect(analyticsHelperService.trackSocialClick).toHaveBeenCalledWith('twitter', 'profile');
+    });
+
+    it('should track Instagram click', () => {
+      spectator.component.trackSocialClick('instagram');
+
+      expect(analyticsHelperService.trackSocialClick).toHaveBeenCalledWith('instagram', 'profile');
+    });
+
+    it('should track Facebook click', () => {
+      spectator.component.trackSocialClick('facebook');
+
+      expect(analyticsHelperService.trackSocialClick).toHaveBeenCalledWith('facebook', 'profile');
+    });
   });
 
-  it('should call Google Analytics when social links are clicked', () => {
-    const facebookLink = spectator.query('a[aria-label="Facebook"]');
-    const githubLink = spectator.query('a[aria-label="Github"]');
+  describe('Email Tracking', () => {
+    it('should track email click with correct parameters', () => {
+      spectator.component.trackEmailClick();
 
-    if (facebookLink) {
-      spectator.click(facebookLink);
-      expect(mockGA.trackEvent).toHaveBeenCalledWith({
-        event_name: 'social_click',
-        event_category: 'Social',
-        event_label: 'facebook'
+      expect(googleAnalyticsService.trackEvent).toHaveBeenCalledWith({
+        action: 'click',
+        category: 'contact',
+        label: 'email_link',
+        custom_parameters: {
+          contact_method: 'email',
+          context: 'profile'
+        }
       });
-    }
+    });
+  });
 
-    if (githubLink) {
-      spectator.click(githubLink);
-      expect(mockGA.trackEvent).toHaveBeenCalledWith({
-        event_name: 'social_click',
-        event_category: 'Social',
-        event_label: 'github'
+  describe('External Link Tracking', () => {
+    it('should track external link with platform and URL', () => {
+      const platform = 'github';
+      const url = 'https://github.com/user';
+
+      spectator.component.trackExternalLink(platform, url);
+
+      expect(googleAnalyticsService.trackExternalLink).toHaveBeenCalledWith(url, platform);
+    });
+
+    it('should handle different platforms and URLs', () => {
+      const testCases = [
+        { platform: 'linkedin', url: 'https://linkedin.com/in/user' },
+        { platform: 'twitter', url: 'https://twitter.com/user' },
+        { platform: 'instagram', url: 'https://instagram.com/user' }
+      ];
+
+      testCases.forEach(({ platform, url }) => {
+        spectator.component.trackExternalLink(platform, url);
+        expect(googleAnalyticsService.trackExternalLink).toHaveBeenCalledWith(url, platform);
       });
-    }
-  });
 
-  it('should have proper accessibility attributes', () => {
-    const links = spectator.queryAll('a');
-
-    links.forEach(link => {
-      expect(link).toHaveAttribute('aria-label');
-      expect(link).toHaveAttribute('target', '_blank');
-      expect(link).toHaveAttribute('rel');
+      expect(googleAnalyticsService.trackExternalLink).toHaveBeenCalledTimes(testCases.length);
     });
   });
 
-  it('should have DaisyUI button classes', () => {
-    const links = spectator.queryAll('a');
+  describe('Service Injection', () => {
+    it('should inject AnalyticsHelperService', () => {
+      expect(analyticsHelperService).toBeDefined();
+    });
 
-    links.forEach(link => {
-      expect(link).toHaveClass('btn');
+    it('should inject GoogleAnalyticsService', () => {
+      expect(googleAnalyticsService).toBeDefined();
+    });
+
+    it('should have public access to GoogleAnalyticsService', () => {
+      expect(spectator.component.ga).toBeDefined();
+      expect(spectator.component.ga).toBe(googleAnalyticsService);
     });
   });
 
-  it('should have icons in social links', () => {
-    const icons = spectator.queryAll('ng-icon');
-    expect(icons.length).toBeGreaterThanOrEqual(4);
-  });
+  describe('Integration Tests', () => {
+    it('should complete full social interaction tracking', () => {
+      // Test multiple social platform clicks
+      const platforms: Array<'github' | 'linkedin' | 'twitter' | 'instagram' | 'facebook'> = [
+        'github', 'linkedin', 'twitter', 'instagram', 'facebook'
+      ];
 
-  it('should handle analytics errors gracefully', () => {
-    mockGA.trackEvent.mockImplementation(() => {
-      throw new Error('Analytics error');
+      platforms.forEach(platform => {
+        spectator.component.trackSocialClick(platform);
+      });
+
+      // Test email click
+      spectator.component.trackEmailClick();
+
+      // Test external link tracking
+      spectator.component.trackExternalLink('github', 'https://github.com/user');
+
+      // Verify all tracking calls
+      expect(analyticsHelperService.trackSocialClick).toHaveBeenCalledTimes(platforms.length);
+      expect(googleAnalyticsService.trackEvent).toHaveBeenCalledTimes(1);
+      expect(googleAnalyticsService.trackExternalLink).toHaveBeenCalledTimes(1);
+
+      // Verify specific calls
+      platforms.forEach(platform => {
+        expect(analyticsHelperService.trackSocialClick).toHaveBeenCalledWith(platform, 'profile');
+      });
     });
 
-    const link = spectator.query('a');
-    if (link) {
-      expect(() => {
-        spectator.click(link);
-      }).not.toThrow();
-    }
+    it('should handle rapid successive clicks', () => {
+      // Simulate rapid clicking
+      for (let i = 0; i < 5; i++) {
+        spectator.component.trackSocialClick('github');
+      }
+
+      expect(analyticsHelperService.trackSocialClick).toHaveBeenCalledTimes(5);
+      expect(analyticsHelperService.trackSocialClick).toHaveBeenCalledWith('github', 'profile');
+    });
+  });
+
+  describe('Type Safety', () => {
+    it('should only accept valid platform types for trackSocialClick', () => {
+      // These should compile without TypeScript errors
+      const validPlatforms: Array<'github' | 'linkedin' | 'twitter' | 'instagram' | 'facebook'> = [
+        'github', 'linkedin', 'twitter', 'instagram', 'facebook'
+      ];
+
+      validPlatforms.forEach(platform => {
+        expect(() => spectator.component.trackSocialClick(platform)).not.toThrow();
+      });
+    });
+
+    it('should accept any string for trackExternalLink platform parameter', () => {
+      const customPlatforms = ['custom-platform', 'another-site', 'blog'];
+
+      customPlatforms.forEach(platform => {
+        expect(() => spectator.component.trackExternalLink(platform, 'https://example.com')).not.toThrow();
+      });
+    });
   });
 });

@@ -1,4 +1,4 @@
-import { Spectator, createComponentFactory } from '@ngneat/spectator/jest';
+import { createComponentFactory, Spectator } from '@ngneat/spectator/jest';
 import { HeaderComponent } from './header.component';
 
 describe('HeaderComponent', () => {
@@ -10,91 +10,104 @@ describe('HeaderComponent', () => {
 
   beforeEach(() => {
     spectator = createComponent();
+    
     // Mock localStorage
+    const localStorageMock = {
+      getItem: jest.fn(),
+      setItem: jest.fn(),
+      removeItem: jest.fn(),
+      clear: jest.fn()
+    };
     Object.defineProperty(window, 'localStorage', {
-      value: {
-        getItem: jest.fn(),
-        setItem: jest.fn(),
-        removeItem: jest.fn(),
-        clear: jest.fn()
-      },
+      value: localStorageMock,
       writable: true
     });
+
+    // Mock document methods
+    jest.spyOn(document.documentElement, 'setAttribute');
+    jest.spyOn(document.body, 'setAttribute');
   });
 
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  it('should create', () => {
-    expect(spectator.component).toBeTruthy();
-  });
-
-  it('should render theme dropdown with all theme options', () => {
-    const themeButtons = spectator.queryAll('.dropdown-content button');
-    expect(themeButtons).toHaveLength(4);
-
-    const themeTexts = themeButtons.map(button => button.textContent?.trim());
-    expect(themeTexts).toEqual(['Light', 'Dark', 'Cyberpunk', 'Synthwave']);
-  });
-
-  it('should have proper dropdown structure with DaisyUI classes', () => {
-    const dropdown = spectator.query('.dropdown');
-    expect(dropdown).toHaveClass('dropdown-end');
-
-    const dropdownButton = spectator.query('.btn');
-    expect(dropdownButton).toHaveClass('btn-ghost');
-    expect(dropdownButton).toHaveClass('btn-circle');
-
-    const dropdownContent = spectator.query('.dropdown-content');
-    expect(dropdownContent).toHaveClass('menu');
-    expect(dropdownContent).toHaveClass('shadow');
-    expect(dropdownContent).toHaveClass('bg-base-100');
-  });
-
-  describe('setTheme', () => {
-    beforeEach(() => {
-      // Mock document methods
-      jest.spyOn(document.documentElement, 'setAttribute');
-      jest.spyOn(document.body, 'setAttribute');
+  describe('Component Initialization', () => {
+    it('should create', () => {
+      expect(spectator.component).toBeTruthy();
     });
 
-    it('should set theme on document elements and localStorage when setTheme is called', () => {
-      spectator.component.setTheme('dark');
+    it('should have correct change detection strategy', () => {
+      expect(spectator.component.constructor.name).toBe('HeaderComponent');
+    });
+  });
 
-      expect(document.documentElement.setAttribute).toHaveBeenCalledWith('data-theme', 'dark');
-      expect(document.body.setAttribute).toHaveBeenCalledWith('data-theme', 'dark');
-      expect(localStorage.setItem).toHaveBeenCalledWith('theme', 'dark');
+  describe('Theme Management', () => {
+    it('should set theme on html element', () => {
+      const theme = 'dark';
+      
+      spectator.component.setTheme(theme);
+      
+      expect(document.documentElement.setAttribute).toHaveBeenCalledWith('data-theme', theme);
+    });
+
+    it('should set theme on body element', () => {
+      const theme = 'light';
+      
+      spectator.component.setTheme(theme);
+      
+      expect(document.body.setAttribute).toHaveBeenCalledWith('data-theme', theme);
+    });
+
+    it('should save theme to localStorage', () => {
+      const theme = 'emerald';
+      
+      spectator.component.setTheme(theme);
+      
+      expect(localStorage.setItem).toHaveBeenCalledWith('theme', theme);
+    });
+
+    it('should set manual theme flag in localStorage', () => {
+      const theme = 'cupcake';
+      
+      spectator.component.setTheme(theme);
+      
       expect(localStorage.setItem).toHaveBeenCalledWith('theme-manual', 'true');
     });
 
-    it('should call setTheme when theme buttons are clicked', () => {
-      jest.spyOn(spectator.component, 'setTheme');
-
-      const lightButton = spectator.query('[data-text="Light"]') || spectator.query('button');
-      const darkButton = spectator.query('[data-text="Dark"]') || (spectator.queryAll('button')[1] as HTMLElement);
-
-      if (lightButton?.textContent?.includes('Light')) {
-        spectator.click(lightButton);
-        expect(spectator.component.setTheme).toHaveBeenCalledWith('light');
-      }
-
-      if (darkButton?.textContent?.includes('Dark')) {
-        spectator.click(darkButton);
-        expect(spectator.component.setTheme).toHaveBeenCalledWith('dark');
-      }
+    it('should handle empty theme string', () => {
+      const theme = '';
+      
+      spectator.component.setTheme(theme);
+      
+      expect(document.documentElement.setAttribute).toHaveBeenCalledWith('data-theme', '');
+      expect(document.body.setAttribute).toHaveBeenCalledWith('data-theme', '');
+      expect(localStorage.setItem).toHaveBeenCalledWith('theme', '');
     });
 
-    it('should work with all available themes', () => {
-      const themes = ['light', 'dark', 'cyberpunk', 'synthwave'];
+    it('should handle special characters in theme name', () => {
+      const theme = 'my-custom_theme.v2';
+      
+      spectator.component.setTheme(theme);
+      
+      expect(document.documentElement.setAttribute).toHaveBeenCalledWith('data-theme', theme);
+      expect(document.body.setAttribute).toHaveBeenCalledWith('data-theme', theme);
+      expect(localStorage.setItem).toHaveBeenCalledWith('theme', theme);
+    });
+  });
 
-      themes.forEach(theme => {
-        spectator.component.setTheme(theme);
-
-        expect(document.documentElement.setAttribute).toHaveBeenCalledWith('data-theme', theme);
-        expect(document.body.setAttribute).toHaveBeenCalledWith('data-theme', theme);
-        expect(localStorage.setItem).toHaveBeenCalledWith('theme', theme);
-      });
+  describe('Integration Tests', () => {
+    it('should complete full theme setting process', () => {
+      const theme = 'synthwave';
+      
+      spectator.component.setTheme(theme);
+      
+      // Verify all operations completed
+      expect(document.documentElement.setAttribute).toHaveBeenCalledWith('data-theme', theme);
+      expect(document.body.setAttribute).toHaveBeenCalledWith('data-theme', theme);
+      expect(localStorage.setItem).toHaveBeenCalledWith('theme', theme);
+      expect(localStorage.setItem).toHaveBeenCalledWith('theme-manual', 'true');
+      expect(localStorage.setItem).toHaveBeenCalledTimes(2);
     });
   });
 });

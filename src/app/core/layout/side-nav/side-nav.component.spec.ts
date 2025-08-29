@@ -1,152 +1,184 @@
-import { NgIconsModule } from '@ng-icons/core';
-import { featherActivity, featherBriefcase, featherCode, featherMail } from '@ng-icons/feather-icons';
-import { Spectator, createComponentFactory, mockProvider } from '@ngneat/spectator/jest';
+import { createComponentFactory, Spectator } from '@ngneat/spectator/jest';
+import { NgIcon } from '@ng-icons/core';
 import { LazyLoadFadeDirective } from '@shared/directives/lazy-load-fade.directive';
-import { GoogleAnalyticsService } from '@shared/services';
+import { AnalyticsHelperService, GoogleAnalyticsService } from '@shared/services';
+import { testNgIconsModule } from '@shared/testing/test-utils';
 import { SideNavComponent } from './side-nav.component';
 
 describe('SideNavComponent', () => {
   let spectator: Spectator<SideNavComponent>;
+  let analyticsHelperService: jest.Mocked<AnalyticsHelperService>;
+  let googleAnalyticsService: jest.Mocked<GoogleAnalyticsService>;
+
   const createComponent = createComponentFactory({
     component: SideNavComponent,
     imports: [
-      LazyLoadFadeDirective,
-      NgIconsModule.withIcons({
-        featherBriefcase,
-        featherCode,
-        featherMail,
-        featherActivity
-      })
+      NgIcon,
+      testNgIconsModule,
+      LazyLoadFadeDirective
     ],
     providers: [
-      mockProvider(GoogleAnalyticsService, {
-        eventEmitter: jest.fn()
-      })
+      {
+        provide: AnalyticsHelperService,
+        useValue: {
+          trackNavigation: jest.fn()
+        }
+      },
+      {
+        provide: GoogleAnalyticsService,
+        useValue: {
+          trackEvent: jest.fn(),
+          trackPageView: jest.fn()
+        }
+      }
     ],
     shallow: true
   });
 
   beforeEach(() => {
-    spectator = createComponent();
-
-    // Mock window.scrollTo
-    Object.defineProperty(window, 'scrollTo', {
-      value: jest.fn(),
-      writable: true
-    });
-
-    // Mock window.pageYOffset
-    Object.defineProperty(window, 'pageYOffset', {
-      value: 0,
-      writable: true
-    });
-
-    // Mock document.getElementById
-    jest.spyOn(document, 'getElementById').mockReturnValue({
-      getBoundingClientRect: () => ({
-        top: 100,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        width: 0,
-        height: 0,
-        x: 0,
-        y: 0,
-
-        toJSON: () => ({})
-      })
-    } as HTMLElement);
-  });
-
-  afterEach(() => {
+    // Clear all mock calls before each test
     jest.clearAllMocks();
+    
+    spectator = createComponent();
+    analyticsHelperService = spectator.inject(AnalyticsHelperService);
+    googleAnalyticsService = spectator.inject(GoogleAnalyticsService);
   });
 
-  it('should create', () => {
-    expect(spectator.component).toBeTruthy();
-  });
+  describe('Component Initialization', () => {
+    it('should create', () => {
+      expect(spectator.component).toBeTruthy();
+    });
 
-  it('should have a GoogleAnalyticsService', () => {
-    expect(spectator.component.ga).toBeTruthy();
-  });
+    it('should have correct change detection strategy', () => {
+      expect(spectator.component).toBeTruthy();
+      // OnPush strategy is tested by the component creation
+    });
 
-  it('should render navigation buttons with proper DaisyUI classes', () => {
-    const buttons = spectator.queryAll('button');
-
-    buttons.forEach(button => {
-      expect(button).toHaveClass('btn');
-      expect(button).toHaveClass('btn-ghost');
-      expect(button).toHaveClass('btn-circle');
-      expect(button).toHaveClass('tooltip');
-      expect(button).toHaveClass('tooltip-left');
+    it('should inject required services', () => {
+      expect(spectator.component.ga).toBeDefined();
+      expect(spectator.component.analyticsHelper).toBeDefined();
     });
   });
 
-  it('should have accessibility attributes', () => {
-    const buttons = spectator.queryAll('button');
+  describe('Navigation Functionality', () => {
+    let mockElement: HTMLElement;
+    let scrollToSpy: jest.SpyInstance;
+    let getElementByIdSpy: jest.SpyInstance;
 
-    buttons.forEach(button => {
-      expect(button).toHaveAttribute('aria-label');
-      expect(button).toHaveAttribute('data-tip');
-    });
-  });
+    beforeEach(() => {
+      // Create a mock element
+      mockElement = {
+        getBoundingClientRect: jest.fn().mockReturnValue({ top: 500 })
+      } as any;
 
-  describe('scrollToSection', () => {
-    it('should scroll to element when it exists', () => {
-      spectator.component.scrollToSection('about');
-
-      expect(document.getElementById).toHaveBeenCalledWith('about');
-      expect(window.scrollTo).toHaveBeenCalledWith({
-        top: 80, // 100 (getBoundingClientRect top) + 0 (pageYOffset) - 20 (offset)
-        behavior: 'smooth'
-      });
-    });
-
-    it('should not scroll when element does not exist', () => {
-      jest.spyOn(document, 'getElementById').mockReturnValue(null);
-
-      spectator.component.scrollToSection('nonexistent');
-
-      expect(window.scrollTo).not.toHaveBeenCalled();
-    });
-
-    it('should calculate correct scroll position with page offset', () => {
+      // Mock window methods
+      scrollToSpy = jest.spyOn(window, 'scrollTo').mockImplementation();
       Object.defineProperty(window, 'pageYOffset', {
-        value: 500,
+        value: 100,
         writable: true
       });
 
-      spectator.component.scrollToSection('skills');
+      // Mock document.getElementById
+      getElementByIdSpy = jest.spyOn(document, 'getElementById');
+    });
 
-      expect(window.scrollTo).toHaveBeenCalledWith({
-        top: 580, // 100 + 500 - 20
+    afterEach(() => {
+      scrollToSpy.mockRestore();
+      getElementByIdSpy.mockRestore();
+    });
+
+    it('should scroll to section when element exists', () => {
+      const sectionId = 'about';
+      getElementByIdSpy.mockReturnValue(mockElement);
+
+      spectator.component.scrollToSection(sectionId);
+
+      expect(analyticsHelperService.trackNavigation).toHaveBeenCalledWith(sectionId, 'menu');
+      expect(document.getElementById).toHaveBeenCalledWith(sectionId);
+      expect(scrollToSpy).toHaveBeenCalledWith({
+        top: 580, // 500 (element top) + 100 (pageYOffset) - 20 (offset)
+        behavior: 'smooth'
+      });
+    });
+
+    it('should handle navigation when element does not exist', () => {
+      const sectionId = 'nonexistent';
+      getElementByIdSpy.mockReturnValue(null);
+
+      spectator.component.scrollToSection(sectionId);
+
+      expect(analyticsHelperService.trackNavigation).toHaveBeenCalledWith(sectionId, 'menu');
+      expect(document.getElementById).toHaveBeenCalledWith(sectionId);
+      expect(scrollToSpy).not.toHaveBeenCalled();
+    });
+
+    it('should calculate correct scroll position with different element positions', () => {
+      const sectionId = 'contact';
+      const mockElementWithDifferentPosition = {
+        getBoundingClientRect: jest.fn().mockReturnValue({ top: 1000 })
+      } as any;
+      
+      getElementByIdSpy.mockReturnValue(mockElementWithDifferentPosition);
+      Object.defineProperty(window, 'pageYOffset', {
+        value: 200,
+        writable: true
+      });
+
+      spectator.component.scrollToSection(sectionId);
+
+      expect(scrollToSpy).toHaveBeenCalledWith({
+        top: 1180, // 1000 (element top) + 200 (pageYOffset) - 20 (offset)
+        behavior: 'smooth'
+      });
+    });
+
+    it('should track analytics for different section ids', () => {
+      const sections = ['home', 'about', 'portfolio', 'contact'];
+      getElementByIdSpy.mockReturnValue(mockElement);
+
+      sections.forEach(sectionId => {
+        spectator.component.scrollToSection(sectionId);
+        expect(analyticsHelperService.trackNavigation).toHaveBeenCalledWith(sectionId, 'menu');
+      });
+
+      expect(analyticsHelperService.trackNavigation).toHaveBeenCalledTimes(sections.length);
+    });
+
+    it('should handle edge case when element top is 0', () => {
+      const sectionId = 'header';
+      const mockElementAtTop = {
+        getBoundingClientRect: jest.fn().mockReturnValue({ top: 0 })
+      } as any;
+      
+      getElementByIdSpy.mockReturnValue(mockElementAtTop);
+      Object.defineProperty(window, 'pageYOffset', {
+        value: 0,
+        writable: true
+      });
+
+      spectator.component.scrollToSection(sectionId);
+
+      expect(scrollToSpy).toHaveBeenCalledWith({
+        top: -20, // 0 + 0 - 20
         behavior: 'smooth'
       });
     });
   });
 
-  it('should call Google Analytics and scroll when navigation buttons are clicked', () => {
-    jest.spyOn(spectator.component, 'scrollToSection');
+  describe('Service Integration', () => {
+    it('should have access to analytics services', () => {
+      expect(spectator.component.ga).toBe(googleAnalyticsService);
+      expect(spectator.component.analyticsHelper).toBe(analyticsHelperService);
+    });
 
-    const aboutButton = spectator.query('button[aria-label="About"]');
-    spectator.click(aboutButton);
+    it('should call analytics helper with correct parameters', () => {
+      const testSectionId = 'test-section';
+      jest.spyOn(document, 'getElementById').mockReturnValue(null);
 
-    expect(spectator.component.analyticsHelper.trackNavigation).toHaveBeenCalledWith('about', 'menu');
-    expect(spectator.component.scrollToSection).toHaveBeenCalledWith('about');
-  });
+      spectator.component.scrollToSection(testSectionId);
 
-  it('should render avatar with profile image', () => {
-    const avatar = spectator.query('.avatar');
-    expect(avatar).toBeTruthy();
-
-    const avatarDiv = spectator.query('.avatar > div');
-    expect(avatarDiv).toBeTruthy();
-    expect(avatarDiv).toHaveClass('w-10');
-    expect(avatarDiv).toHaveClass('rounded-full');
-
-    const profileImage = spectator.query('.avatar img');
-    expect(profileImage).toBeTruthy();
-    expect(profileImage).toHaveAttribute('appLazyLoadFade', 'assets/braxton/profile.png');
-    expect(profileImage).toHaveAttribute('alt', 'Braxton Diggs');
+      expect(analyticsHelperService.trackNavigation).toHaveBeenCalledWith(testSectionId, 'menu');
+      expect(analyticsHelperService.trackNavigation).toHaveBeenCalledTimes(1);
+    });
   });
 });

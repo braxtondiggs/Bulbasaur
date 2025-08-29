@@ -2,8 +2,8 @@
   "name": "functions",
   "scripts": {
     "postinstall": "npm list -g firebase-tools || npm install -g firebase-tools",
-    "lint": "eslint \"src/**/*\" --fix",
-    "lint:check": "eslint \"src/**/*\"",
+    "lint": "npx eslint \"src/**/*\" --fix",
+    "lint:check": "npx eslint \"src/**/*\"",
     "build": "tsc",
     "build:watch": "tsc --watch",
     "clean": "rm -rf lib",

@@ -173,16 +173,15 @@
 
 <!-- Custom Date Range Modal -->
 @if (showCustomRangeModal()) {
-  <div class="z-50 modal modal-open" 
-       (click)="closeCustomRange()" 
-       (keydown.escape)="closeCustomRange()" 
-       tabindex="0" 
-       role="dialog" 
-       aria-label="Custom date range modal">
-    <div class="w-11/12 max-w-md modal-box" 
-         (click)="$event.stopPropagation()" 
-         (keydown)="$event.stopPropagation()" 
-         tabindex="-1">
+  <div
+    class="z-50 modal modal-open"
+    (click)="closeCustomRange()"
+    (keydown.escape)="closeCustomRange()"
+    tabindex="0"
+    role="dialog"
+    aria-label="Custom date range modal"
+  >
+    <div class="w-11/12 max-w-md modal-box" (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()" tabindex="-1">
       <h3 class="text-lg font-bold">Select Custom Date Range</h3>
       <p class="py-2 text-sm text-base-content/70">Choose a start and end date to view your coding activity for a specific period.</p>
 

@@ -3,7 +3,7 @@ import { Directive, ElementRef, HostListener, inject, Input } from '@angular/cor
 import { GoogleAnalyticsService } from '@shared/services';
 
 @Directive({
-  selector: '[AnalyticsTrack]',
+  selector: '[analyticsTrack]',
   standalone: true
 })
 export class AnalyticsTrackDirective {

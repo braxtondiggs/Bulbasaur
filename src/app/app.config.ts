@@ -4,10 +4,8 @@ import { provideServiceWorker } from '@angular/service-worker';
 
 import { getAnalytics, provideAnalytics } from '@angular/fire/analytics';
 import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
 import { enableIndexedDbPersistence, getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { connectFunctionsEmulator, getFunctions, provideFunctions } from '@angular/fire/functions';
-import { connectStorageEmulator, getStorage, provideStorage } from '@angular/fire/storage';
 import { provideHighcharts } from 'highcharts-angular';
 
 // Loading bar
@@ -60,19 +58,6 @@ export const appConfig: ApplicationConfig = {
       return analytics;
     }),
 
-    provideAuth(() => {
-      const app = getApp();
-      const auth = getAuth(app);
-      if (!environment.production) {
-        try {
-          connectAuthEmulator(auth, 'http://localhost:9099', { disableWarnings: true });
-        } catch (error) {
-          console.warn('Auth emulator connection failed:', error);
-        }
-      }
-      return auth;
-    }),
-
     provideFirestore(() => {
       const app = getApp();
       const firestore = getFirestore(app);
@@ -90,19 +75,6 @@ export const appConfig: ApplicationConfig = {
         });
       }
       return firestore;
-    }),
-
-    provideStorage(() => {
-      const app = getApp();
-      const storage = getStorage(app);
-      if (!environment.production) {
-        try {
-          connectStorageEmulator(storage, 'localhost', 9199);
-        } catch (error) {
-          console.warn('Storage emulator connection failed:', error);
-        }
-      }
-      return storage;
     }),
 
     provideFunctions(() => {

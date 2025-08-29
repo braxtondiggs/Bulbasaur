@@ -36,7 +36,3 @@ functions/lib/
 # Firebase
 .firebase/
 firebase-debug.log
-
-# Cypress
-cypress/screenshots/
-cypress/videos/

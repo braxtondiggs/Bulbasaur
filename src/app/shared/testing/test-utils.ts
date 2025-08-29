@@ -8,6 +8,8 @@ import {
   featherChevronsUp,
   featherCode,
   featherDownload,
+  featherEdit,
+  featherExternalLink,
   featherFacebook,
   featherGithub,
   featherHeart,
@@ -15,7 +17,8 @@ import {
   featherLinkedin,
   featherMail,
   featherMapPin,
-  featherSend
+  featherSend,
+  featherX
 } from '@ng-icons/feather-icons';
 
 /**
@@ -34,7 +37,10 @@ export const testNgIconsModule = NgIconsModule.withIcons({
   featherFacebook,
   featherHeart,
   featherChevronsUp,
-  featherSend
+  featherSend,
+  featherEdit,
+  featherExternalLink,
+  featherX
 });
 /**
  * Mock Google Analytics service for tests
