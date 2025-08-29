@@ -3,15 +3,21 @@
   "scripts": {
     "postinstall": "npm list -g firebase-tools || npm install -g firebase-tools",
     "lint": "eslint \"src/**/*\" --fix",
+    "lint:check": "eslint \"src/**/*\"",
     "build": "tsc",
     "build:watch": "tsc --watch",
+    "clean": "rm -rf lib",
+    "prebuild": "npm run clean",
     "serve": "npm run build && firebase emulators:start --only functions",
     "serve:watch": "concurrently \"npm run build:watch\" \"firebase emulators:start --only functions\"",
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "test": "jest"
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watchAll",
+    "check": "npm run lint:check && npm run test && npm run build"
   },
   "engines": {
     "node": "20"

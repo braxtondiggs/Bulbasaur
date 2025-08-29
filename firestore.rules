@@ -1,0 +1,15 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Instagram posts - read-only for all, write only for functions
+    match /instagram/{document} {
+      allow read: if true;
+      allow write: if false; // Only functions can write
+    }
+
+    // Default rule - deny all other access
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

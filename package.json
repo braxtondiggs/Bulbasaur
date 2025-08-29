@@ -17,9 +17,18 @@
     "analyze": "npm run build:stats && npx esbuild-visualizer --metadata dist/stats.json --open",
     "clean": "rm -rf dist coverage .angular",
     "pretest:ci": "npm run clean",
-    "deploy": "firebase deploy --only hosting",
+    "deploy": "firebase deploy",
+    "deploy:hosting": "firebase deploy --only hosting",
+    "deploy:functions": "firebase deploy --only functions",
+    "deploy:preview": "firebase hosting:channel:deploy preview --expires 7d",
+    "emulators": "firebase emulators:start",
+    "emulators:hosting": "firebase emulators:start --only hosting",
+    "emulators:functions": "firebase emulators:start --only functions",
     "serve:dist": "npx http-server dist -p 4200 -c-1",
-    "check": "npm run lint && npm run test:ci && npm run build"
+    "check": "npm run lint && npm run test:ci && npm run build",
+    "predeploy": "npm run check",
+    "predeploy:hosting": "npm run build",
+    "predeploy:functions": "cd functions && npm run check"
   },
   "private": true,
   "dependencies": {

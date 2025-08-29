@@ -1,0 +1,21 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Instagram images - read-only for all
+    match /instagram/{imageId} {
+      allow read: if true;
+      allow write: if false; // Only functions can write
+    }
+    
+    // Profile images or other assets
+    match /assets/{imageId} {
+      allow read: if true;
+      allow write: if false; // Only functions can write
+    }
+    
+    // Default rule - deny all other access
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
