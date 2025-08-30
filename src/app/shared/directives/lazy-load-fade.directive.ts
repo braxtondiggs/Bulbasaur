@@ -1,4 +1,5 @@
-import { Directive, ElementRef, OnDestroy, OnInit, inject, input } from '@angular/core';
+import { Directive, ElementRef, OnDestroy, OnInit, inject, input, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Directive({
   selector: '[appLazyLoadFade]',
@@ -12,16 +13,34 @@ export class LazyLoadFadeDirective implements OnInit, OnDestroy {
   private observer!: IntersectionObserver;
   private readonly img!: HTMLImageElement;
   private readonly el = inject(ElementRef<HTMLImageElement>);
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly isBrowser = isPlatformBrowser(this.platformId);
 
   constructor() {
     this.img = this.el.nativeElement;
   }
 
   public ngOnInit(): void {
+    // Set alt attribute
+    this.img.alt = this.alt();
+
+    if (!this.isBrowser) {
+      // On server, just set the src immediately
+      this.img.src = this.src();
+      this.img.style.opacity = '1';
+      return;
+    }
+
     // Set initial state
     this.img.style.opacity = '0';
     this.img.style.transition = 'opacity 0.6s ease-in-out';
-    this.img.alt = this.alt();
+
+    // Check if IntersectionObserver is available
+    if (typeof IntersectionObserver === 'undefined') {
+      // Fallback for browsers without IntersectionObserver support
+      this.loadImage();
+      return;
+    }
 
     // Create intersection observer
     this.observer = new IntersectionObserver(
@@ -45,8 +64,16 @@ export class LazyLoadFadeDirective implements OnInit, OnDestroy {
   }
 
   private loadImage(): void {
+    if (!this.isBrowser) {
+      // Server-side: just set the src immediately
+      this.img.src = this.src();
+      this.img.style.opacity = '1';
+      return;
+    }
+
     // Create a new image to preload
-    const imageLoader = new window.Image();
+    // eslint-disable-next-line no-undef
+    const imageLoader = new Image();
 
     imageLoader.onload = () => {
       // Set the src and fade in
@@ -66,7 +93,7 @@ export class LazyLoadFadeDirective implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    if (this.observer) {
+    if (this.isBrowser && this.observer) {
       this.observer.disconnect();
     }
   }

@@ -24,6 +24,9 @@
   },
   "main": "lib/index.js",
   "dependencies": {
+    "@angular/core": "^20.2.2",
+    "@angular/common": "^20.2.2",
+    "@angular/platform-server": "^20.2.2",
     "@sendgrid/mail": "^8.1.4",
     "axios": "^1.7.7",
     "cors": "^2.8.5",

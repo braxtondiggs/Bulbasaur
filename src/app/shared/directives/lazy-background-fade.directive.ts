@@ -1,4 +1,5 @@
-import { Directive, ElementRef, OnDestroy, OnInit, inject, input } from '@angular/core';
+import { Directive, ElementRef, OnDestroy, OnInit, inject, input, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Directive({
   selector: '[appLazyBackgroundFade]',
@@ -11,15 +12,31 @@ export class LazyBackgroundFadeDirective implements OnInit, OnDestroy {
   private observer!: IntersectionObserver;
   private readonly element!: HTMLElement;
   private readonly el = inject(ElementRef<HTMLElement>);
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly isBrowser = isPlatformBrowser(this.platformId);
 
   constructor() {
     this.element = this.el.nativeElement;
   }
 
   public ngOnInit(): void {
+    if (!this.isBrowser) {
+      // On server, just set the background image immediately
+      this.element.style.backgroundImage = `url(${this.backgroundUrl()})`;
+      this.element.style.opacity = '1';
+      return;
+    }
+
     // Set initial state
     this.element.style.opacity = '0';
     this.element.style.transition = 'opacity 0.6s ease-in-out';
+
+    // Check if IntersectionObserver is available
+    if (typeof IntersectionObserver === 'undefined') {
+      // Fallback for browsers without IntersectionObserver support
+      this.loadBackgroundImage();
+      return;
+    }
 
     // Create intersection observer
     this.observer = new IntersectionObserver(
@@ -43,8 +60,16 @@ export class LazyBackgroundFadeDirective implements OnInit, OnDestroy {
   }
 
   private loadBackgroundImage(): void {
+    if (!this.isBrowser) {
+      // Server-side: just set the background immediately
+      this.element.style.backgroundImage = `url(${this.backgroundUrl()})`;
+      this.element.style.opacity = '1';
+      return;
+    }
+
     // Create a new image to preload the background
-    const imageLoader = new window.Image();
+    // eslint-disable-next-line no-undef
+    const imageLoader = new Image();
 
     imageLoader.onload = () => {
       // Set the background image and fade in
@@ -64,7 +89,7 @@ export class LazyBackgroundFadeDirective implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    if (this.observer) {
+    if (this.isBrowser && this.observer) {
       this.observer.disconnect();
     }
   }

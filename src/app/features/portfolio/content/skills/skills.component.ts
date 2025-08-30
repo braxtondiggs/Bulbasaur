@@ -1,10 +1,12 @@
 /* eslint-disable max-lines */
 import { HttpClient } from '@angular/common/http';
+import { isPlatformBrowser } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   OnDestroy,
   OnInit,
+  PLATFORM_ID,
   ViewChild,
   computed,
   effect,
@@ -33,6 +35,10 @@ import { catchError, debounceTime, takeUntil } from 'rxjs/operators';
 export class SkillsComponent implements OnInit, OnDestroy {
   // Highcharts reference for the template
   public readonly Highcharts: typeof Highcharts = Highcharts;
+
+  // Platform detection
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly isBrowser = isPlatformBrowser(this.platformId);
 
   // Signals for reactive state management
   public updateFlag = signal(false);
@@ -118,12 +124,14 @@ export class SkillsComponent implements OnInit, OnDestroy {
       );
 
       // Observe the component element if available
-      setTimeout(() => {
-        const element = document.querySelector('#skills');
-        if (element) {
-          this.resizeObserver?.observe(element);
-        }
-      });
+      if (this.isBrowser) {
+        setTimeout(() => {
+          const element = document.querySelector('#skills');
+          if (element) {
+            this.resizeObserver?.observe(element);
+          }
+        });
+      }
     }
   }
 
@@ -143,6 +151,8 @@ export class SkillsComponent implements OnInit, OnDestroy {
   }
 
   private setupThemeDetection(): void {
+    if (!this.isBrowser) return;
+    
     const htmlElement = document.documentElement;
     const theme = htmlElement.getAttribute('data-theme') || 'light';
     this.currentTheme.set(theme);
@@ -631,8 +641,30 @@ export class SkillsComponent implements OnInit, OnDestroy {
       this.isRefreshing.set(true);
     }
 
+    // Use different URLs based on environment
+    let apiUrl: string;
+    if (this.isBrowser) {
+      const hostname = typeof window !== 'undefined' ? window.location.hostname : '';
+      const isLocalDev = hostname === 'localhost' || hostname === '127.0.0.1';
+      const isFirebasePreview = hostname.includes('.web.app') || hostname.includes('.firebaseapp.com');
+      
+      if (isLocalDev) {
+        // Local development with proxy
+        apiUrl = `/api?range=${range}${this.getCustomDate(range)}`;
+      } else if (isFirebasePreview) {
+        // Firebase hosting - use the deployed function
+        apiUrl = `/api?range=${range}${this.getCustomDate(range)}`;
+      } else {
+        // Production domain
+        apiUrl = `https://code.braxtondiggs.com/api?range=${range}${this.getCustomDate(range)}`;
+      }
+    } else {
+      // Server-side rendering - use external API
+      apiUrl = `https://code.braxtondiggs.com/api?range=${range}${this.getCustomDate(range)}`;
+    }
+
     this.http
-      .get<SkillsData>(`https://code.braxtondiggs.com/api?range=${range}${this.getCustomDate(range)}`)
+      .get<SkillsData>(apiUrl)
       .pipe(
         takeUntil(this.destroy$),
         debounceTime(300),
@@ -719,7 +751,7 @@ export class SkillsComponent implements OnInit, OnDestroy {
     let timeout: number | undefined;
     return (...args: Parameters<T>) => {
       clearTimeout(timeout);
-      timeout = window.setTimeout(() => func(...args), wait);
+      timeout = this.isBrowser ? window.setTimeout(() => func(...args), wait) : setTimeout(() => func(...args), wait) as unknown as number;
     };
   }
 }

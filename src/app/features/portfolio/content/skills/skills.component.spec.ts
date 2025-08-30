@@ -192,7 +192,7 @@ describe('SkillsComponent', () => {
       spectator.component.ngOnInit();
 
       const reqs = httpTestingController?.match((request) => 
-        request.url.includes('https://code.braxtondiggs.com/api?range=last30days') && request.method === 'GET'
+        (request.url.includes('/api?range=last30days') || request.url.includes('https://code.braxtondiggs.com/api?range=last30days')) && request.method === 'GET'
       );
       expect(reqs?.length).toBeGreaterThan(0);
       
@@ -208,7 +208,7 @@ describe('SkillsComponent', () => {
 
       const reqs = httpTestingController?.match(
         request =>
-          request.url.includes('https://code.braxtondiggs.com/api?range=last30days') && request.method === 'GET'
+          (request.url.includes('/api?range=last30days') || request.url.includes('https://code.braxtondiggs.com/api?range=last30days')) && request.method === 'GET'
       );
       expect(reqs?.length).toBeGreaterThan(0);
 
@@ -353,7 +353,7 @@ describe('SkillsComponent', () => {
       spectator.component.ngOnInit();
 
       const reqs = httpTestingController?.match(
-        request => request.url.includes('https://code.braxtondiggs.com/api?range=last30days') && request.method === 'GET'
+        request => (request.url.includes('/api?range=last30days') || request.url.includes('https://code.braxtondiggs.com/api?range=last30days')) && request.method === 'GET'
       );
       expect(reqs?.length).toBeGreaterThan(0);
       reqs?.[0]?.flush(mockSkillsData);
