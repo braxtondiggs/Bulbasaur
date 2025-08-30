@@ -1,5 +1,6 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { AfterViewInit, Directive, ElementRef, inject, input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, inject, input, OnDestroy, OnInit, Renderer2, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ScrollService } from '../services/scroll.service';
@@ -25,6 +26,8 @@ export class AnimateOnScrollDirective implements OnInit, OnDestroy, AfterViewIni
   private readonly scroll = inject(ScrollService);
   private readonly elementRef = inject(ElementRef);
   private readonly renderer = inject(Renderer2);
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly isBrowser = isPlatformBrowser(this.platformId);
 
   public ngOnInit(): void {
     if (!this.animationName()) {
@@ -32,6 +35,12 @@ export class AnimateOnScrollDirective implements OnInit, OnDestroy, AfterViewIni
     }
     // default visibility to false
     this.isVisible = false;
+
+    if (!this.isBrowser) {
+      // On server, just add the animation class immediately
+      this.addAnimationClass();
+      return;
+    }
 
     // subscribe to scroll event using service
     this.scroll.scrollObs.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => this.manageVisibility());
@@ -41,6 +50,9 @@ export class AnimateOnScrollDirective implements OnInit, OnDestroy, AfterViewIni
   }
 
   public ngAfterViewInit(): void {
+    if (!this.isBrowser) {
+      return; // Skip visibility check on server
+    }
     // run visibility check initially in case the element is already visible in viewport
     setTimeout(() => this.manageVisibility(), 1);
   }
@@ -59,6 +71,10 @@ export class AnimateOnScrollDirective implements OnInit, OnDestroy, AfterViewIni
     if (this.isVisible) {
       // Optimisation; nothing to do if class has already been applied
       return;
+    }
+
+    if (!this.isBrowser) {
+      return; // Skip visibility management on server
     }
 
     // check for window height, may change with a window resize
@@ -107,7 +123,11 @@ export class AnimateOnScrollDirective implements OnInit, OnDestroy, AfterViewIni
    * @returns void
    */
   private getWinHeight(): void {
-    this.winHeight = window.innerHeight;
+    if (this.isBrowser && typeof window !== 'undefined') {
+      this.winHeight = window.innerHeight;
+    } else {
+      this.winHeight = 800; // Default height for SSR
+    }
   }
 
   /**

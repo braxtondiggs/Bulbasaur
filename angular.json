@@ -22,10 +22,11 @@
           "options": {
             "outputPath": {
               "base": "dist",
-              "browser": "",
+              "browser": "browser",
               "server": "server"
             },
             "server": "src/main.server.ts",
+            "ssr": true,
             "index": "src/index.html",
             "polyfills": ["src/polyfills.ts"],
             "tsConfig": "tsconfig.app.json",
@@ -94,6 +95,18 @@
         "deploy": {
           "builder": "@angular/fire:deploy",
           "options": {}
+        },
+        "serve-ssr": {
+          "builder": "@angular/build:dev-server",
+          "options": {
+            "buildTarget": "Bulbasaur:build"
+          }
+        },
+        "prerender": {
+          "builder": "@angular/ssr:prerender",
+          "options": {
+            "buildTarget": "Bulbasaur:build"
+          }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
