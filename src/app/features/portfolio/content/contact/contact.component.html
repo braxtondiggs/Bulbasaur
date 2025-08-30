@@ -17,13 +17,13 @@
       <app-social />
     </div>
     <p class="mb-4 text-base-content/80">
-      I would love to hear what you think. Drop me a line, whether it is praise or criticism, a question, a suggestion,
-      or just a hello. I am currently available for new projects, so if you have a request go ahead and send it!
+      I would love to hear what you think. Drop me a line, whether it is praise or criticism, a question, a suggestion, or just a hello. I
+      am currently available for new projects, so if you have a request go ahead and send it!
     </p>
     <p class="mb-6 text-base-content/80">
       If you'd like to contact me directly, please email me at
-      <a href="mailto:hello@braxtondiggs.com" class="link link-accent">hello&#64;braxtondiggs.com</a>. I can provide
-      phone number and more information if the situation warrants.
+      <a href="mailto:hello@braxtondiggs.com" class="link link-accent">hello&#64;braxtondiggs.com</a>
+      . I can provide phone number and more information if the situation warrants.
     </p>
     <form class="space-y-4 contact-form" [formGroup]="contactForm" (ngSubmit)="onSubmit()" novalidate>
       <div class="form-control">
@@ -37,9 +37,9 @@
           required
         />
         @if (name.invalid && name.touched) {
-        <label class="label">
-          <span class="label-text-alt text-error">{{ getErrorMessage(name, 'Your name') }}</span>
-        </label>
+          <label class="label">
+            <span class="label-text-alt text-error">{{ getErrorMessage(name, 'Your name') }}</span>
+          </label>
         }
       </div>
       <div class="form-control">
@@ -53,9 +53,9 @@
           required
         />
         @if (email.invalid && email.touched) {
-        <label class="label">
-          <span class="label-text-alt text-error">{{ getErrorMessage(email, 'Your email') }}</span>
-        </label>
+          <label class="label">
+            <span class="label-text-alt text-error">{{ getErrorMessage(email, 'Your email') }}</span>
+          </label>
         }
       </div>
       <div class="form-control">
@@ -77,20 +77,21 @@
           required
         ></textarea>
         @if (message.invalid && message.touched) {
-        <label class="label">
-          <span class="label-text-alt text-error">{{ getErrorMessage(message, 'Your message') }}</span>
-        </label>
+          <label class="label">
+            <span class="label-text-alt text-error">{{ getErrorMessage(message, 'Your message') }}</span>
+          </label>
         }
       </div>
       <div class="mt-6 text-right form-control">
-        <button type="submit" [disabled]="submit" class="btn btn-primary" [class.loading]="submit">
-          @if (!submit) {
-          <span class="flex items-center">
-            Send Message
-            <ng-icon name="featherSend" class="ml-2" size="1.5rem" />
-          </span>
-          } @if (submit) {
-          <span>Sending...</span>
+        <button type="submit" class="btn btn-primary" [class.loading]="submit()">
+          @if (!submit()) {
+            <span class="flex items-center">
+              Send Message
+              <ng-icon name="featherSend" class="ml-2" size="1.5rem" />
+            </span>
+          }
+          @if (submit()) {
+            <span>Sending...</span>
           }
         </button>
       </div>

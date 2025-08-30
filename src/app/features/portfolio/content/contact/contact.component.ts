@@ -124,6 +124,12 @@ export class ContactComponent {
             this.submit.set(false);
           }
         });
+    } else {
+      // Mark all fields as touched to show validation errors
+      Object.keys(this.contactForm.controls).forEach(key => {
+        const control = this.contactForm.get(key);
+        control?.markAsTouched();
+      });
     }
   }
 
