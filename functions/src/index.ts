@@ -155,9 +155,38 @@ export const ssr = onRequest(
     timeoutSeconds: 60,
     maxInstances: 100
   },
-  (req, res) => {
-    // This would be implemented after uploading the server bundle
-    // For now, just serve the static files
-    res.status(501).send('SSR not implemented yet');
+  async (req, res) => {
+    try {
+      const { renderApplication } = await import('@angular/platform-server');
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const serverModule = await import('./server/main.server.mjs' as any);
+      const bootstrap = serverModule.default;
+      
+      // Render the Angular application
+      const html = await renderApplication(bootstrap, {
+        document: `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Braxton Diggs - Full Stack Developer</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body>
+  <app-root></app-root>
+</body>
+</html>`,
+        url: req.url || '/'
+      });
+      
+      // Send the rendered HTML
+      res.set('Content-Type', 'text/html');
+      res.send(html);
+    } catch (error) {
+      console.error('SSR Error:', error);
+      // Fallback to serving the static index.html
+      res.redirect('/');
+    }
   }
 );

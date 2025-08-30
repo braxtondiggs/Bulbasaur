@@ -178,7 +178,9 @@ describe('ContentComponent', () => {
       httpTestingController.verify();
     } catch (e) {
       // Handle any remaining requests by flushing them with empty responses
-      const skillsRequests = httpTestingController.match('https://code.braxtondiggs.com/api?range=last30days');
+      const skillsRequests = httpTestingController.match(req => 
+        req.url.includes('/api?range=last30days') || req.url.includes('https://code.braxtondiggs.com/api?range=last30days')
+      );
       skillsRequests.forEach(req => req.flush({}));
       
       const appRequests = httpTestingController.match('assets/data.json');

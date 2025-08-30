@@ -41,6 +41,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public scroll = 0;
   public modalOpen = false;
   private readonly destroy$ = new Subject<void>();
+  private engagementInterval?: number;
   public ga = inject(GoogleAnalyticsService);
   private readonly analyticsHelper = inject(AnalyticsHelperService);
   private readonly modalService = inject(ModalService);
@@ -77,12 +78,17 @@ export class AppComponent implements OnInit, OnDestroy {
     });
 
     // Track engagement periodically for long sessions
-    setInterval(() => {
+    this.engagementInterval = setInterval(() => {
       this.analyticsHelper.trackEngagement(startTime);
-    }, 300000); // Every 5 minutes
+    }, 300000) as unknown as number; // Every 5 minutes
   }
 
   public ngOnDestroy(): void {
+    // Clear the engagement tracking interval to prevent memory leaks
+    if (this.engagementInterval) {
+      clearInterval(this.engagementInterval);
+    }
+    
     this.destroy$.next();
     this.destroy$.complete();
   }

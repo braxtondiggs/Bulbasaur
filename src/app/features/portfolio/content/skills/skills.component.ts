@@ -641,8 +641,30 @@ export class SkillsComponent implements OnInit, OnDestroy {
       this.isRefreshing.set(true);
     }
 
+    // Use different URLs based on environment
+    let apiUrl: string;
+    if (this.isBrowser) {
+      const hostname = typeof window !== 'undefined' ? window.location.hostname : '';
+      const isLocalDev = hostname === 'localhost' || hostname === '127.0.0.1';
+      const isFirebasePreview = hostname.includes('.web.app') || hostname.includes('.firebaseapp.com');
+      
+      if (isLocalDev) {
+        // Local development with proxy
+        apiUrl = `/api?range=${range}${this.getCustomDate(range)}`;
+      } else if (isFirebasePreview) {
+        // Firebase hosting - use the deployed function
+        apiUrl = `/api?range=${range}${this.getCustomDate(range)}`;
+      } else {
+        // Production domain
+        apiUrl = `https://code.braxtondiggs.com/api?range=${range}${this.getCustomDate(range)}`;
+      }
+    } else {
+      // Server-side rendering - use external API
+      apiUrl = `https://code.braxtondiggs.com/api?range=${range}${this.getCustomDate(range)}`;
+    }
+
     this.http
-      .get<SkillsData>(`https://code.braxtondiggs.com/api?range=${range}${this.getCustomDate(range)}`)
+      .get<SkillsData>(apiUrl)
       .pipe(
         takeUntil(this.destroy$),
         debounceTime(300),
