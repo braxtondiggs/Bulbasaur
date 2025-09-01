@@ -5,7 +5,7 @@ Backend API for BraxtonDiggs.com portfolio site.
 ## What's here
 
 This directory contains Firebase Cloud Functions that handle:
-- Contact form submissions (sends emails via SendGrid)
+- Contact form submissions (sends emails via MailerSend)
 - Instagram media processing and storage
 - Recipe search functionality
 
@@ -55,7 +55,7 @@ The Angular app automatically connects to the local emulator when running in dev
 ## Configuration
 
 Set these up in Firebase Remote Config:
-- `SENDGRID_API_KEY` - for sending contact emails
+- `MAILERSEND_API_KEY` - for sending contact emails
 - `SERPAPI` - for recipe search functionality
 
 CORS is configured for braxtondiggs.com and localhost development.
