@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -7,6 +7,7 @@ import {
   inject,
   OnDestroy,
   OnInit,
+  PLATFORM_ID,
   ViewEncapsulation
 } from '@angular/core';
 import { HeaderComponent } from '@core/layout/header/header.component';
@@ -40,10 +41,13 @@ export class AppComponent implements OnInit, OnDestroy {
   public scroll = 0;
   public modalOpen = false;
   private readonly destroy$ = new Subject<void>();
+  private engagementInterval?: number;
   public ga = inject(GoogleAnalyticsService);
   private readonly analyticsHelper = inject(AnalyticsHelperService);
   private readonly modalService = inject(ModalService);
   private readonly cdr = inject(ChangeDetectorRef);
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly isBrowser = isPlatformBrowser(this.platformId);
 
   public ngOnInit(): void {
     this.initializeTheme();
@@ -64,6 +68,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private startEngagementTracking(): void {
+    if (!this.isBrowser) return;
+    
     const startTime = Date.now();
 
     // Track engagement when user leaves the page
@@ -72,18 +78,24 @@ export class AppComponent implements OnInit, OnDestroy {
     });
 
     // Track engagement periodically for long sessions
-    setInterval(() => {
+    this.engagementInterval = setInterval(() => {
       this.analyticsHelper.trackEngagement(startTime);
-    }, 300000); // Every 5 minutes
+    }, 300000) as unknown as number; // Every 5 minutes
   }
 
   public ngOnDestroy(): void {
+    // Clear the engagement tracking interval to prevent memory leaks
+    if (this.engagementInterval) {
+      clearInterval(this.engagementInterval);
+    }
+    
     this.destroy$.next();
     this.destroy$.complete();
   }
 
   @HostListener('window:scroll', [])
   public onScroll(): void {
+    if (!this.isBrowser) return;
     this.scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
 
     // Track scroll depth
@@ -102,10 +114,13 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   public scrollToTop(): void {
+    if (!this.isBrowser) return;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   private initializeTheme(): void {
+    if (!this.isBrowser) return;
+    
     // Initialize theme-change
     themeChange(false);
 

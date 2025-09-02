@@ -1,4 +1,5 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { GoogleAnalyticsService } from './google-analytics.service';
 
 @Injectable({
@@ -6,6 +7,8 @@ import { GoogleAnalyticsService } from './google-analytics.service';
 })
 export class AnalyticsHelperService {
   private readonly ga = inject(GoogleAnalyticsService);
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly isBrowser = isPlatformBrowser(this.platformId);
 
   /**
    * Track portfolio project interactions
@@ -109,13 +112,17 @@ export class AnalyticsHelperService {
    * Track theme changes
    */
   public trackThemeChange(theme: 'light' | 'dark' | 'auto'): void {
+    if (!this.isBrowser) {
+      return; // Skip theme tracking on server
+    }
+
     this.ga.trackEvent({
       action: 'theme_change',
       category: 'preferences',
       label: theme,
       custom_parameters: {
         theme_preference: theme,
-        previous_theme: localStorage.getItem('theme') || 'auto'
+        previous_theme: (typeof localStorage !== 'undefined' ? localStorage.getItem('theme') : null) || 'auto'
       }
     });
 
@@ -129,7 +136,11 @@ export class AnalyticsHelperService {
    * Track performance metrics
    */
   public trackPerformance(): void {
-    if ('performance' in window && 'getEntriesByType' in performance) {
+    if (!this.isBrowser) {
+      return; // Skip performance tracking on server
+    }
+    
+    if (typeof window !== 'undefined' && 'performance' in window && 'getEntriesByType' in performance) {
       const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
 
       if (navigation) {
@@ -165,6 +176,10 @@ export class AnalyticsHelperService {
    * Track user engagement duration
    */
   public trackEngagement(startTime: number): void {
+    if (!this.isBrowser) {
+      return; // Skip engagement tracking on server
+    }
+
     const engagementTime = Date.now() - startTime;
 
     this.ga.trackEvent({
@@ -173,7 +188,7 @@ export class AnalyticsHelperService {
       value: Math.round(engagementTime / 1000), // Convert to seconds
       custom_parameters: {
         engagement_duration: engagementTime,
-        page_url: window.location.pathname
+        page_url: typeof window !== 'undefined' ? window.location.pathname : '/'
       }
     });
   }
@@ -182,6 +197,10 @@ export class AnalyticsHelperService {
    * Track scroll depth
    */
   public trackScrollDepth(percentage: number): void {
+    if (!this.isBrowser) {
+      return; // Skip scroll tracking on server
+    }
+
     // Only track meaningful milestones
     const milestones = [25, 50, 75, 90, 100];
     const milestone = milestones.find(m => percentage >= m && percentage < m + 5);
@@ -194,7 +213,7 @@ export class AnalyticsHelperService {
         value: milestone,
         custom_parameters: {
           scroll_percentage: percentage,
-          page_url: window.location.pathname
+          page_url: typeof window !== 'undefined' ? window.location.pathname : '/'
         }
       });
     }
@@ -221,6 +240,10 @@ export class AnalyticsHelperService {
    * Track error boundaries and exceptions
    */
   public trackApplicationError(error: Error, errorInfo?: any, component?: string): void {
+    if (!this.isBrowser) {
+      return; // Skip error tracking on server
+    }
+
     this.ga.trackError(`${error.name}: ${error.message}`, true);
 
     this.ga.trackEvent({
@@ -232,7 +255,7 @@ export class AnalyticsHelperService {
         error_message: error.message,
         error_stack: error.stack?.substring(0, 500), // Limit stack trace length
         component_name: component,
-        user_agent: navigator.userAgent
+        user_agent: typeof navigator !== 'undefined' ? navigator.userAgent : 'server-side'
       }
     });
   }

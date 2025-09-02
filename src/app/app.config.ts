@@ -1,5 +1,6 @@
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ApplicationConfig } from '@angular/core';
+import { provideClientHydration } from '@angular/platform-browser';
 import { provideServiceWorker } from '@angular/service-worker';
 
 import { getAnalytics, provideAnalytics } from '@angular/fire/analytics';
@@ -44,6 +45,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     // Core providers
     provideHttpClient(withInterceptorsFromDi()),
+    provideClientHydration(),
     provideLoadingBarInterceptor(),
 
     // Firebase providers with enhanced configuration
