@@ -1,4 +1,4 @@
-import sgMail from '@sendgrid/mail';
+import { MailerSend, EmailParams, Sender, Recipient } from 'mailersend';
 import axios from 'axios';
 import cors from 'cors';
 import express, { Request, Response } from 'express';
@@ -112,27 +112,43 @@ app.post('/mail', mailValidation, async (request: Request, response: Response) =
   }
 
   const template = await remoteConfig.getTemplate();
-  const SENDGRID_API_KEY = (template.parameters.SENDGRID_API_KEY.defaultValue as any).value;
+  const MAILERSEND_API_KEY = (template.parameters.MAILERSEND_API_KEY.defaultValue as any)?.value;
+  
+  // Validate API key configuration
+  if (!MAILERSEND_API_KEY || typeof MAILERSEND_API_KEY !== 'string' || MAILERSEND_API_KEY.trim() === '') {
+    return response.status(500).json({ error: 'Email service configuration missing' });
+  }
+
   const data = matchedData(request);
   const sender = `Name: ${data.name}\nEmail: ${data.email}`;
 
   try {
-    sgMail.setApiKey(SENDGRID_API_KEY);
-    await sgMail.send({
-      from: {
-        email: 'no-reply@braxtondiggs.com',
-        name: 'No-Reply'
-      },
-      subject: data.subject ? data.subject : 'Message from BraxtonDiggs.com',
-      text: `${data.message}\n\n\n${sender}`,
-      to: {
-        email: 'hello@braxtondiggs.com',
-        name: 'Braxton Diggs'
-      }
+    const mailerSend = new MailerSend({
+      apiKey: MAILERSEND_API_KEY.trim(),
     });
+
+    const sentFrom = new Sender('no-reply@braxtondiggs.com', 'No-Reply');
+    const recipients = [new Recipient('hello@braxtondiggs.com', 'Braxton Diggs')];
+
+    const emailParams = new EmailParams()
+      .setFrom(sentFrom)
+      .setTo(recipients)
+      .setSubject(data.subject ? data.subject : 'Message from BraxtonDiggs.com')
+      .setText(`${data.message}\n\n\n${sender}`);
+
+    await mailerSend.email.send(emailParams);
     return response.json({ status: true, msg: 'Message sent successfully' });
   } catch (error: any) {
-    return response.status(500).json({ error: error.toString() });
+    // Log the full error for debugging but return sanitized message to client
+    console.error('Email sending error:', error);
+    
+    // Return generic error message to avoid exposing internal details
+    if (error?.response?.body?.message) {
+      // MailerSend specific error handling
+      return response.status(500).json({ error: 'Failed to send email. Please try again later.' });
+    }
+    
+    return response.status(500).json({ error: 'Failed to send email. Please try again later.' });
   }
 });
 
