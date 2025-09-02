@@ -112,13 +112,19 @@ app.post('/mail', mailValidation, async (request: Request, response: Response) =
   }
 
   const template = await remoteConfig.getTemplate();
-  const MAILERSEND_API_KEY = (template.parameters.MAILERSEND_API_KEY.defaultValue as any).value;
+  const MAILERSEND_API_KEY = (template.parameters.MAILERSEND_API_KEY.defaultValue as any)?.value;
+  
+  // Validate API key configuration
+  if (!MAILERSEND_API_KEY || typeof MAILERSEND_API_KEY !== 'string' || MAILERSEND_API_KEY.trim() === '') {
+    return response.status(500).json({ error: 'Email service configuration missing' });
+  }
+
   const data = matchedData(request);
   const sender = `Name: ${data.name}\nEmail: ${data.email}`;
 
   try {
     const mailerSend = new MailerSend({
-      apiKey: MAILERSEND_API_KEY,
+      apiKey: MAILERSEND_API_KEY.trim(),
     });
 
     const sentFrom = new Sender('no-reply@braxtondiggs.com', 'No-Reply');
@@ -133,7 +139,16 @@ app.post('/mail', mailValidation, async (request: Request, response: Response) =
     await mailerSend.email.send(emailParams);
     return response.json({ status: true, msg: 'Message sent successfully' });
   } catch (error: any) {
-    return response.status(500).json({ error: error.toString() });
+    // Log the full error for debugging but return sanitized message to client
+    console.error('Email sending error:', error);
+    
+    // Return generic error message to avoid exposing internal details
+    if (error?.response?.body?.message) {
+      // MailerSend specific error handling
+      return response.status(500).json({ error: 'Failed to send email. Please try again later.' });
+    }
+    
+    return response.status(500).json({ error: 'Failed to send email. Please try again later.' });
   }
 });
 
